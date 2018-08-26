@@ -6,43 +6,43 @@
       <config projectName="ros_robot" targetName="joystick_generate_messages_lisp" />
       <config projectName="ros_robot" targetName="joystick_generate_messages_py" />
       <config projectName="ros_robot" targetName="run_tests" />
+      <config projectName="ros_robot" targetName="roscpp_generate_messages_py" />
+      <config projectName="ros_robot" targetName="nxt_msgs_generate_messages_eus" />
       <config projectName="ros_robot" targetName="rosgraph_msgs_generate_messages_nodejs" />
       <config projectName="ros_robot" targetName="sensor_msgs_generate_messages_lisp" />
+      <config projectName="ros_robot" targetName="geometry_msgs_generate_messages_eus" />
+      <config projectName="ros_robot" targetName="rosRobot" />
+      <config projectName="ros_robot" targetName="rosgraph_msgs_generate_messages_lisp" />
       <config projectName="ros_robot" targetName="rosgraph_msgs_generate_messages_eus" />
+      <config projectName="ros_robot" targetName="std_msgs_generate_messages_nodejs" />
       <config projectName="ros_robot" targetName="doxygen" />
       <config projectName="ros_robot" targetName="std_msgs_generate_messages_lisp" />
       <config projectName="ros_robot" targetName="geometry_msgs_generate_messages_py" />
       <config projectName="ros_robot" targetName="geometry_msgs_generate_messages_nodejs" />
+      <config projectName="ros_robot" targetName="roscpp_generate_messages_eus" />
       <config projectName="ros_robot" targetName="sensor_msgs_generate_messages_eus" />
       <config projectName="ros_robot" targetName="joystick_generate_messages_eus" />
-      <config projectName="ros_robot" targetName="nxt_msgs_generate_messages_py" />
-      <config projectName="ros_robot" targetName="joystick_generate_messages_nodejs" />
-      <config projectName="ros_robot" targetName="nxt_msgs_generate_messages_cpp" />
-      <config projectName="ros_robot" targetName="nxt_msgs_generate_messages_nodejs" />
-      <config projectName="ros_robot" targetName="sensor_msgs_generate_messages_py" />
-      <config projectName="ros_robot" targetName="rosgraph_msgs_generate_messages_cpp" />
-      <config projectName="ros_robot" targetName="nxt_msgs_generate_messages_lisp" />
-      <config projectName="ros_robot" targetName="roscpp_generate_messages_lisp" />
-      <config projectName="ros_robot" targetName="roscpp_generate_messages_cpp" />
-      <config projectName="ros_robot" targetName="joystick_generate_messages_cpp" />
-      <config projectName="ros_robot" targetName="sensor_msgs_generate_messages_cpp" />
-      <config projectName="ros_robot" targetName="sensor_msgs_generate_messages_nodejs" />
-      <config projectName="ros_robot" targetName="roscpp_generate_messages_py" />
-      <config projectName="ros_robot" targetName="nxt_msgs_generate_messages_eus" />
-      <config projectName="ros_robot" targetName="geometry_msgs_generate_messages_eus" />
-      <config projectName="ros_robot" targetName="rosRobot" />
-      <config projectName="ros_robot" targetName="rosgraph_msgs_generate_messages_lisp" />
-      <config projectName="ros_robot" targetName="std_msgs_generate_messages_nodejs" />
-      <config projectName="ros_robot" targetName="roscpp_generate_messages_eus" />
       <config projectName="ros_robot" targetName="tests" />
       <config projectName="ros_robot" targetName="std_msgs_generate_messages_cpp" />
       <config projectName="ros_robot" targetName="geometry_msgs_generate_messages_lisp" />
       <config projectName="ros_robot" targetName="roscpp_generate_messages_nodejs" />
       <config projectName="ros_robot" targetName="std_msgs_generate_messages_py" />
+      <config projectName="ros_robot" targetName="nxt_msgs_generate_messages_py" />
       <config projectName="ros_robot" targetName="rosgraph_msgs_generate_messages_py" />
+      <config projectName="ros_robot" targetName="joystick_generate_messages_nodejs" />
+      <config projectName="ros_robot" targetName="nxt_msgs_generate_messages_cpp" />
+      <config projectName="ros_robot" targetName="nxt_msgs_generate_messages_nodejs" />
       <config projectName="ros_robot" targetName="geometry_msgs_generate_messages_cpp" />
+      <config projectName="ros_robot" targetName="sensor_msgs_generate_messages_py" />
+      <config projectName="ros_robot" targetName="rosgraph_msgs_generate_messages_cpp" />
+      <config projectName="ros_robot" targetName="nxt_msgs_generate_messages_lisp" />
+      <config projectName="ros_robot" targetName="roscpp_generate_messages_lisp" />
       <config projectName="ros_robot" targetName="clean_test_results" />
+      <config projectName="ros_robot" targetName="roscpp_generate_messages_cpp" />
+      <config projectName="ros_robot" targetName="joystick_generate_messages_cpp" />
+      <config projectName="ros_robot" targetName="sensor_msgs_generate_messages_cpp" />
       <config projectName="ros_robot" targetName="std_msgs_generate_messages_eus" />
+      <config projectName="ros_robot" targetName="sensor_msgs_generate_messages_nodejs" />
     </generated>
   </component>
   <component name="CMakeSettings">
@@ -51,12 +51,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c71a3ced-3596-4a71-a86b-e80baf5f29e4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ros_robot/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/ros_robot/cmake-build-debug/CMakeCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ros_robot/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/ros_robot/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ros_robot/cmake-build-debug/catkin_generated/stamps/ros_robot/package.xml.stamp" beforeDir="false" afterPath="$PROJECT_DIR$/src/ros_robot/cmake-build-debug/catkin_generated/stamps/ros_robot/package.xml.stamp" afterDir="false" />
-    </list>
+    <list default="true" id="c71a3ced-3596-4a71-a86b-e80baf5f29e4" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/src/ros_robot/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/src/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -131,7 +126,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="355" />
     <option name="y" value="57" />
     <option name="width" value="1390" />
@@ -457,17 +452,17 @@
       <option name="presentableId" value="Default" />
       <updated>1535248512166</updated>
       <workItem from="1535248515076" duration="1203000" />
-      <workItem from="1535249945582" duration="608000" />
+      <workItem from="1535249945582" duration="1148000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1811000" />
+    <option name="totallyTimeSpent" value="2351000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="27" width="2493" height="1413" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16550879" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16550879" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -481,7 +476,7 @@
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="10" />
-      <window_info active="true" anchor="bottom" id="CMake" order="11" visible="true" weight="0.3299611" />
+      <window_info anchor="bottom" id="CMake" order="11" visible="true" weight="0.3299611" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
