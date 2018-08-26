@@ -1,0 +1,9 @@
+<launch>
+    <node pkg="joystick" name="JoystickPublisher" type="joystickPublisher" output="screen" respawn="true"/>
+
+    <node pkg="ros_robot" name="RosRobot" type="rosRobot" output="screen" respawn="true"/>
+
+    <node pkg="nxt_ros" type="nxt_ros.py" name="nxt_ros" output="screen" respawn="true">
+        <rosparam command="load" file="$(find ros_robot)/ros_robot.yaml" />
+    </node>
+</launch>

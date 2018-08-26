@@ -1,0 +1,8 @@
+prefix=/home/hl/Src/CLionProjects/rxROS/install
+
+Name: joystick
+Description: Description of joystick
+Version: 0.0.0
+Cflags: -I/home/hl/Src/CLionProjects/rxROS/install/include
+Libs: -L/home/hl/Src/CLionProjects/rxROS/install/lib 
+Requires: roscpp rospy std_msgs message_runtime

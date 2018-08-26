@@ -1,0 +1,2 @@
+joystick:ros_robot
+-DCATKIN_DEVEL_PREFIX=/home/hl/Src/CLionProjects/rxROS/devel -DCMAKE_INSTALL_PREFIX=/home/hl/Src/CLionProjects/rxROS/install -G Unix Makefiles
