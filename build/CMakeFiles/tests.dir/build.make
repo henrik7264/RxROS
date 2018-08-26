@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/hl/Src/CLionProjects/rxROS/src
+CMAKE_SOURCE_DIR = /home/hl/Src/CLionProjects/RxROS/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/hl/Src/CLionProjects/rxROS/build
+CMAKE_BINARY_DIR = /home/hl/Src/CLionProjects/RxROS/build
 
 # Utility rule file for tests.
 
@@ -67,6 +67,6 @@ CMakeFiles/tests.dir/clean:
 .PHONY : CMakeFiles/tests.dir/clean
 
 CMakeFiles/tests.dir/depend:
-	cd /home/hl/Src/CLionProjects/rxROS/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/hl/Src/CLionProjects/rxROS/src /home/hl/Src/CLionProjects/rxROS/src /home/hl/Src/CLionProjects/rxROS/build /home/hl/Src/CLionProjects/rxROS/build /home/hl/Src/CLionProjects/rxROS/build/CMakeFiles/tests.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/hl/Src/CLionProjects/RxROS/src /home/hl/Src/CLionProjects/RxROS/src /home/hl/Src/CLionProjects/RxROS/build /home/hl/Src/CLionProjects/RxROS/build /home/hl/Src/CLionProjects/RxROS/build/CMakeFiles/tests.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/tests.dir/depend
 

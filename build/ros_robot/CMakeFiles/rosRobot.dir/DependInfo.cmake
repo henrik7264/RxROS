@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/hl/Src/CLionProjects/rxROS/src/ros_robot/src/rosRobot.cpp" "/home/hl/Src/CLionProjects/rxROS/build/ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o"
+  "/home/hl/Src/CLionProjects/RxROS/src/ros_robot/src/rosRobot.cpp" "/home/hl/Src/CLionProjects/RxROS/build/ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -17,7 +17,7 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "/home/hl/Src/CLionProjects/rxROS/devel/include"
+  "/home/hl/Src/CLionProjects/RxROS/devel/include"
   "/home/hl/Src/CLionProjects/nxt/devel/include"
   "/opt/ros/melodic/include"
   "/opt/ros/melodic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"

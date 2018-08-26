@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/joystickPublisher.dir/src/JoystickPublisher.cpp.o"
-  "/home/hl/Src/CLionProjects/rxROS/devel/lib/joystick/joystickPublisher.pdb"
-  "/home/hl/Src/CLionProjects/rxROS/devel/lib/joystick/joystickPublisher"
+  "/home/hl/Src/CLionProjects/RxROS/devel/lib/joystick/joystickPublisher.pdb"
+  "/home/hl/Src/CLionProjects/RxROS/devel/lib/joystick/joystickPublisher"
 )
 
 # Per-language clean rules from dependency scanning.

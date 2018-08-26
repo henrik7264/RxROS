@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/hl/Src/CLionProjects/rxROS/src/joystick/src/JoystickPublisher.cpp
+/home/hl/Src/CLionProjects/RxROS/src/joystick/src/JoystickPublisher.cpp
 fcntl.h
 -
 ros/ros.h

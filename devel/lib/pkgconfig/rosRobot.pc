@@ -1,8 +1,8 @@
-prefix=/home/hl/Src/CLionProjects/rxROS/devel
+prefix=/home/hl/Src/CLionProjects/RxROS/devel
 
 Name: rosRobot
 Description: Description of rosRobot
 Version: 0.0.0
 Cflags: 
-Libs: -L/home/hl/Src/CLionProjects/rxROS/devel/lib 
+Libs: -L/home/hl/Src/CLionProjects/RxROS/devel/lib 
 Requires: 

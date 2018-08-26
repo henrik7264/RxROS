@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/hl/Src/CLionProjects/rxROS/src
+CMAKE_SOURCE_DIR = /home/hl/Src/CLionProjects/RxROS/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/hl/Src/CLionProjects/rxROS/build
+CMAKE_BINARY_DIR = /home/hl/Src/CLionProjects/RxROS/build
 
 # Utility rule file for joystick_genpy.
 
@@ -63,10 +63,10 @@ joystick/CMakeFiles/joystick_genpy.dir/build: joystick_genpy
 .PHONY : joystick/CMakeFiles/joystick_genpy.dir/build
 
 joystick/CMakeFiles/joystick_genpy.dir/clean:
-	cd /home/hl/Src/CLionProjects/rxROS/build/joystick && $(CMAKE_COMMAND) -P CMakeFiles/joystick_genpy.dir/cmake_clean.cmake
+	cd /home/hl/Src/CLionProjects/RxROS/build/joystick && $(CMAKE_COMMAND) -P CMakeFiles/joystick_genpy.dir/cmake_clean.cmake
 .PHONY : joystick/CMakeFiles/joystick_genpy.dir/clean
 
 joystick/CMakeFiles/joystick_genpy.dir/depend:
-	cd /home/hl/Src/CLionProjects/rxROS/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/hl/Src/CLionProjects/rxROS/src /home/hl/Src/CLionProjects/rxROS/src/joystick /home/hl/Src/CLionProjects/rxROS/build /home/hl/Src/CLionProjects/rxROS/build/joystick /home/hl/Src/CLionProjects/rxROS/build/joystick/CMakeFiles/joystick_genpy.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/hl/Src/CLionProjects/RxROS/src /home/hl/Src/CLionProjects/RxROS/src/joystick /home/hl/Src/CLionProjects/RxROS/build /home/hl/Src/CLionProjects/RxROS/build/joystick /home/hl/Src/CLionProjects/RxROS/build/joystick/CMakeFiles/joystick_genpy.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : joystick/CMakeFiles/joystick_genpy.dir/depend
 

@@ -1,8 +1,8 @@
-# Install script for directory: /home/hl/Src/CLionProjects/rxROS/src/rosRobot
+# Install script for directory: /home/hl/Src/CLionProjects/RxROS/src/rosRobot
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/hl/Src/CLionProjects/rxROS/install")
+  set(CMAKE_INSTALL_PREFIX "/home/hl/Src/CLionProjects/RxROS/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,17 +38,17 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/hl/Src/CLionProjects/rxROS/build/rosRobot/catkin_generated/installspace/rosRobot.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/hl/Src/CLionProjects/RxROS/build/rosRobot/catkin_generated/installspace/rosRobot.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/rosRobot/cmake" TYPE FILE FILES
-    "/home/hl/Src/CLionProjects/rxROS/build/rosRobot/catkin_generated/installspace/rosRobotConfig.cmake"
-    "/home/hl/Src/CLionProjects/rxROS/build/rosRobot/catkin_generated/installspace/rosRobotConfig-version.cmake"
+    "/home/hl/Src/CLionProjects/RxROS/build/rosRobot/catkin_generated/installspace/rosRobotConfig.cmake"
+    "/home/hl/Src/CLionProjects/RxROS/build/rosRobot/catkin_generated/installspace/rosRobotConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/rosRobot" TYPE FILE FILES "/home/hl/Src/CLionProjects/rxROS/src/rosRobot/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/rosRobot" TYPE FILE FILES "/home/hl/Src/CLionProjects/RxROS/src/rosRobot/package.xml")
 endif()
 

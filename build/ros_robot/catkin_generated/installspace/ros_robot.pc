@@ -1,8 +1,8 @@
-prefix=/home/hl/Src/CLionProjects/rxROS/install
+prefix=/home/hl/Src/CLionProjects/RxROS/install
 
 Name: ros_robot
 Description: Description of ros_robot
 Version: 0.0.0
 Cflags: 
-Libs: -L/home/hl/Src/CLionProjects/rxROS/install/lib 
+Libs: -L/home/hl/Src/CLionProjects/RxROS/install/lib 
 Requires: 

@@ -1,8 +1,8 @@
-# Install script for directory: /home/hl/Src/CLionProjects/rxROS/src/joystick
+# Install script for directory: /home/hl/Src/CLionProjects/RxROS/src/joystick
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/hl/Src/CLionProjects/rxROS/install")
+  set(CMAKE_INSTALL_PREFIX "/home/hl/Src/CLionProjects/RxROS/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,53 +38,53 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/joystick/msg" TYPE FILE FILES "/home/hl/Src/CLionProjects/rxROS/src/joystick/msg/Joystick.msg")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/joystick/msg" TYPE FILE FILES "/home/hl/Src/CLionProjects/RxROS/src/joystick/msg/Joystick.msg")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/joystick/cmake" TYPE FILE FILES "/home/hl/Src/CLionProjects/rxROS/build/joystick/catkin_generated/installspace/joystick-msg-paths.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/joystick/cmake" TYPE FILE FILES "/home/hl/Src/CLionProjects/RxROS/build/joystick/catkin_generated/installspace/joystick-msg-paths.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/hl/Src/CLionProjects/rxROS/devel/include/joystick")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/hl/Src/CLionProjects/RxROS/devel/include/joystick")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roseus/ros" TYPE DIRECTORY FILES "/home/hl/Src/CLionProjects/rxROS/devel/share/roseus/ros/joystick")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roseus/ros" TYPE DIRECTORY FILES "/home/hl/Src/CLionProjects/RxROS/devel/share/roseus/ros/joystick")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/common-lisp/ros" TYPE DIRECTORY FILES "/home/hl/Src/CLionProjects/rxROS/devel/share/common-lisp/ros/joystick")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/common-lisp/ros" TYPE DIRECTORY FILES "/home/hl/Src/CLionProjects/RxROS/devel/share/common-lisp/ros/joystick")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gennodejs/ros" TYPE DIRECTORY FILES "/home/hl/Src/CLionProjects/rxROS/devel/share/gennodejs/ros/joystick")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gennodejs/ros" TYPE DIRECTORY FILES "/home/hl/Src/CLionProjects/RxROS/devel/share/gennodejs/ros/joystick")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  execute_process(COMMAND "/usr/bin/python2" -m compileall "/home/hl/Src/CLionProjects/rxROS/devel/lib/python2.7/dist-packages/joystick")
+  execute_process(COMMAND "/usr/bin/python2" -m compileall "/home/hl/Src/CLionProjects/RxROS/devel/lib/python2.7/dist-packages/joystick")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python2.7/dist-packages" TYPE DIRECTORY FILES "/home/hl/Src/CLionProjects/rxROS/devel/lib/python2.7/dist-packages/joystick")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python2.7/dist-packages" TYPE DIRECTORY FILES "/home/hl/Src/CLionProjects/RxROS/devel/lib/python2.7/dist-packages/joystick")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/hl/Src/CLionProjects/rxROS/build/joystick/catkin_generated/installspace/joystick.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/hl/Src/CLionProjects/RxROS/build/joystick/catkin_generated/installspace/joystick.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/joystick/cmake" TYPE FILE FILES "/home/hl/Src/CLionProjects/rxROS/build/joystick/catkin_generated/installspace/joystick-msg-extras.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/joystick/cmake" TYPE FILE FILES "/home/hl/Src/CLionProjects/RxROS/build/joystick/catkin_generated/installspace/joystick-msg-extras.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/joystick/cmake" TYPE FILE FILES
-    "/home/hl/Src/CLionProjects/rxROS/build/joystick/catkin_generated/installspace/joystickConfig.cmake"
-    "/home/hl/Src/CLionProjects/rxROS/build/joystick/catkin_generated/installspace/joystickConfig-version.cmake"
+    "/home/hl/Src/CLionProjects/RxROS/build/joystick/catkin_generated/installspace/joystickConfig.cmake"
+    "/home/hl/Src/CLionProjects/RxROS/build/joystick/catkin_generated/installspace/joystickConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/joystick" TYPE FILE FILES "/home/hl/Src/CLionProjects/rxROS/src/joystick/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/joystick" TYPE FILE FILES "/home/hl/Src/CLionProjects/RxROS/src/joystick/package.xml")
 endif()
 

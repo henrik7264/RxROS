@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/hl/Src/CLionProjects/rxROS/src
+CMAKE_SOURCE_DIR = /home/hl/Src/CLionProjects/RxROS/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/hl/Src/CLionProjects/rxROS/build
+CMAKE_BINARY_DIR = /home/hl/Src/CLionProjects/RxROS/build
 
 # Utility rule file for nxt_msgs_generate_messages_lisp.
 
@@ -63,10 +63,10 @@ ros_robot/CMakeFiles/nxt_msgs_generate_messages_lisp.dir/build: nxt_msgs_generat
 .PHONY : ros_robot/CMakeFiles/nxt_msgs_generate_messages_lisp.dir/build
 
 ros_robot/CMakeFiles/nxt_msgs_generate_messages_lisp.dir/clean:
-	cd /home/hl/Src/CLionProjects/rxROS/build/ros_robot && $(CMAKE_COMMAND) -P CMakeFiles/nxt_msgs_generate_messages_lisp.dir/cmake_clean.cmake
+	cd /home/hl/Src/CLionProjects/RxROS/build/ros_robot && $(CMAKE_COMMAND) -P CMakeFiles/nxt_msgs_generate_messages_lisp.dir/cmake_clean.cmake
 .PHONY : ros_robot/CMakeFiles/nxt_msgs_generate_messages_lisp.dir/clean
 
 ros_robot/CMakeFiles/nxt_msgs_generate_messages_lisp.dir/depend:
-	cd /home/hl/Src/CLionProjects/rxROS/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/hl/Src/CLionProjects/rxROS/src /home/hl/Src/CLionProjects/rxROS/src/ros_robot /home/hl/Src/CLionProjects/rxROS/build /home/hl/Src/CLionProjects/rxROS/build/ros_robot /home/hl/Src/CLionProjects/rxROS/build/ros_robot/CMakeFiles/nxt_msgs_generate_messages_lisp.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/hl/Src/CLionProjects/RxROS/src /home/hl/Src/CLionProjects/RxROS/src/ros_robot /home/hl/Src/CLionProjects/RxROS/build /home/hl/Src/CLionProjects/RxROS/build/ros_robot /home/hl/Src/CLionProjects/RxROS/build/ros_robot/CMakeFiles/nxt_msgs_generate_messages_lisp.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : ros_robot/CMakeFiles/nxt_msgs_generate_messages_lisp.dir/depend
 

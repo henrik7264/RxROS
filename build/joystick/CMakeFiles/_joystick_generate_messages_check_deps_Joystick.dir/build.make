@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/hl/Src/CLionProjects/rxROS/src
+CMAKE_SOURCE_DIR = /home/hl/Src/CLionProjects/RxROS/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/hl/Src/CLionProjects/rxROS/build
+CMAKE_BINARY_DIR = /home/hl/Src/CLionProjects/RxROS/build
 
 # Utility rule file for _joystick_generate_messages_check_deps_Joystick.
 
@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/hl/Src/CLionProjects/rxROS/build
 include joystick/CMakeFiles/_joystick_generate_messages_check_deps_Joystick.dir/progress.make
 
 joystick/CMakeFiles/_joystick_generate_messages_check_deps_Joystick:
-	cd /home/hl/Src/CLionProjects/rxROS/build/joystick && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py joystick /home/hl/Src/CLionProjects/rxROS/src/joystick/msg/Joystick.msg 
+	cd /home/hl/Src/CLionProjects/RxROS/build/joystick && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py joystick /home/hl/Src/CLionProjects/RxROS/src/joystick/msg/Joystick.msg 
 
 _joystick_generate_messages_check_deps_Joystick: joystick/CMakeFiles/_joystick_generate_messages_check_deps_Joystick
 _joystick_generate_messages_check_deps_Joystick: joystick/CMakeFiles/_joystick_generate_messages_check_deps_Joystick.dir/build.make
@@ -67,10 +67,10 @@ joystick/CMakeFiles/_joystick_generate_messages_check_deps_Joystick.dir/build: _
 .PHONY : joystick/CMakeFiles/_joystick_generate_messages_check_deps_Joystick.dir/build
 
 joystick/CMakeFiles/_joystick_generate_messages_check_deps_Joystick.dir/clean:
-	cd /home/hl/Src/CLionProjects/rxROS/build/joystick && $(CMAKE_COMMAND) -P CMakeFiles/_joystick_generate_messages_check_deps_Joystick.dir/cmake_clean.cmake
+	cd /home/hl/Src/CLionProjects/RxROS/build/joystick && $(CMAKE_COMMAND) -P CMakeFiles/_joystick_generate_messages_check_deps_Joystick.dir/cmake_clean.cmake
 .PHONY : joystick/CMakeFiles/_joystick_generate_messages_check_deps_Joystick.dir/clean
 
 joystick/CMakeFiles/_joystick_generate_messages_check_deps_Joystick.dir/depend:
-	cd /home/hl/Src/CLionProjects/rxROS/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/hl/Src/CLionProjects/rxROS/src /home/hl/Src/CLionProjects/rxROS/src/joystick /home/hl/Src/CLionProjects/rxROS/build /home/hl/Src/CLionProjects/rxROS/build/joystick /home/hl/Src/CLionProjects/rxROS/build/joystick/CMakeFiles/_joystick_generate_messages_check_deps_Joystick.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/hl/Src/CLionProjects/RxROS/src /home/hl/Src/CLionProjects/RxROS/src/joystick /home/hl/Src/CLionProjects/RxROS/build /home/hl/Src/CLionProjects/RxROS/build/joystick /home/hl/Src/CLionProjects/RxROS/build/joystick/CMakeFiles/_joystick_generate_messages_check_deps_Joystick.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : joystick/CMakeFiles/_joystick_generate_messages_check_deps_Joystick.dir/depend
 

@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/hl/Src/CLionProjects/RxROS/src/ros_robot/cmake-build-debug/devel/setup.sh
