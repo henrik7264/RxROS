@@ -95,7 +95,7 @@
           <entry key="cpp" value="4" />
           <entry key="h" value="2" />
           <entry key="launch" value="1" />
-          <entry key="md" value="1" />
+          <entry key="md" value="2" />
           <entry key="msg" value="2" />
           <entry key="txt" value="5" />
           <entry key="xml" value="3" />
@@ -105,7 +105,7 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CMakeLists.txt" value="5" />
-          <entry key="Markdown" value="1" />
+          <entry key="Markdown" value="2" />
           <entry key="ObjectiveC" value="6" />
           <entry key="PLAIN_TEXT" value="3" />
           <entry key="XML" value="1" />
@@ -117,7 +117,7 @@
         <counts>
           <entry key="cpp" value="474" />
           <entry key="h" value="204" />
-          <entry key="md" value="1234" />
+          <entry key="md" value="1235" />
           <entry key="msg" value="6" />
           <entry key="txt" value="70" />
           <entry key="xml" value="12" />
@@ -127,7 +127,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CMakeLists.txt" value="70" />
-          <entry key="Markdown" value="1234" />
+          <entry key="Markdown" value="1235" />
           <entry key="ObjectiveC" value="678" />
           <entry key="PLAIN_TEXT" value="6" />
           <entry key="YAML" value="12" />
@@ -154,8 +154,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="435">
-                <caret line="38" column="3" selection-start-line="38" selection-start-column="3" selection-end-line="38" selection-end-column="3" />
+              <first_editor relative-caret-position="283">
+                <caret line="30" selection-start-line="30" selection-end-line="30" />
               </first_editor>
               <second_editor />
             </state>
@@ -561,12 +561,12 @@
       <workItem from="1535398074230" duration="19000" />
       <workItem from="1535398105118" duration="7144000" />
       <workItem from="1535405908530" duration="9000" />
-      <workItem from="1535405947246" duration="2977000" />
+      <workItem from="1535405947246" duration="3230000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14407000" />
+    <option name="totallyTimeSpent" value="14660000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -581,7 +581,7 @@
     <frame x="67" y="27" width="1853" height="1053" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17985612" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17985612" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -596,7 +596,7 @@
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" weight="0.32972974" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.32972974" />
       <window_info anchor="bottom" id="CMake" order="11" weight="0.32901832" />
-      <window_info active="true" anchor="bottom" id="Messages" order="12" visible="true" weight="0.32972974" />
+      <window_info anchor="bottom" id="Messages" order="12" visible="true" weight="0.32972974" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -681,8 +681,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="435">
-            <caret line="38" column="3" selection-start-line="38" selection-start-column="3" selection-end-line="38" selection-end-column="3" />
+          <first_editor relative-caret-position="283">
+            <caret line="30" selection-start-line="30" selection-end-line="30" />
           </first_editor>
           <second_editor />
         </state>
