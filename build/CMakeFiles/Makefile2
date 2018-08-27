@@ -631,10 +631,10 @@ clean: joystick/CMakeFiles/joystick_generate_messages_eus.dir/clean
 
 # All Build rule for target.
 joystick/CMakeFiles/joystick_generate_messages.dir/all: joystick/CMakeFiles/joystick_generate_messages_eus.dir/all
-joystick/CMakeFiles/joystick_generate_messages.dir/all: joystick/CMakeFiles/joystick_generate_messages_cpp.dir/all
 joystick/CMakeFiles/joystick_generate_messages.dir/all: joystick/CMakeFiles/joystick_generate_messages_py.dir/all
 joystick/CMakeFiles/joystick_generate_messages.dir/all: joystick/CMakeFiles/joystick_generate_messages_nodejs.dir/all
 joystick/CMakeFiles/joystick_generate_messages.dir/all: joystick/CMakeFiles/joystick_generate_messages_lisp.dir/all
+joystick/CMakeFiles/joystick_generate_messages.dir/all: joystick/CMakeFiles/joystick_generate_messages_cpp.dir/all
 	$(MAKE) -f joystick/CMakeFiles/joystick_generate_messages.dir/build.make joystick/CMakeFiles/joystick_generate_messages.dir/depend
 	$(MAKE) -f joystick/CMakeFiles/joystick_generate_messages.dir/build.make joystick/CMakeFiles/joystick_generate_messages.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/hl/Src/CLionProjects/RxROS/build/CMakeFiles --progress-num= "Built target joystick_generate_messages"

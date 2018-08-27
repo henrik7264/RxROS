@@ -120,6 +120,7 @@ catkin_package(
 include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
+  src/joystick/inc
 )
 
 ## Declare a C++ library

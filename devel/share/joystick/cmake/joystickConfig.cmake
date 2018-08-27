@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(joystick_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT "/home/hl/Src/CLionProjects/RxROS/devel/include " STREQUAL " ")
+if(NOT "/home/hl/Src/CLionProjects/RxROS/devel/include;/home/hl/Src/CLionProjects/RxROS/src/joystick/include " STREQUAL " ")
   set(joystick_INCLUDE_DIRS "")
-  set(_include_dirs "/home/hl/Src/CLionProjects/RxROS/devel/include")
+  set(_include_dirs "/home/hl/Src/CLionProjects/RxROS/devel/include;/home/hl/Src/CLionProjects/RxROS/src/joystick/include")
   if(NOT " " STREQUAL " ")
     set(_report "Check the issue tracker '' and consider creating a ticket if the problem has not been reported yet.")
   elseif(NOT " " STREQUAL " ")

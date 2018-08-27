@@ -3,15 +3,12 @@
 #include <ros/ros.h>
 #include <ros/console.h>
 #include <nxt_msgs/JointCommand.h>
+#include <JoystickPublisher.h>
 #include <joystick/Joystick.h>
 #include <nxt_msgs/Contact.h>
 #include <nxt_msgs/Color.h>
 #include <nxt_msgs/Range.h>
 #include <sensor_msgs/JointState.h>
-
-
-#define JS_EVENT_BUTTON 0x01    /* button pressed/released */
-#define JS_EVENT_AXIS   0x02    /* joystick moved */
 
 #define MAX_EFFORT 12
 #define ZERO_EFFORT 6
@@ -21,13 +18,6 @@ static float Efforts[] = {-1.0F, -0.9F, -0.8F, -0.7F, -0.6F, -0.5F, 0.0F, 0.5F, 
 class RosRobot {
 private:
     ros::Publisher motorPublisher;
-    ros::Subscriber joystickSubscriber;
-    ros::Subscriber colorSubscriber;
-    ros::Subscriber rangeSubscriber;
-    ros::Subscriber touchSubscriber1;
-    ros::Subscriber touchSubscriber2;
-    ros::Subscriber motorSubscriber;
-
     int effortMotor1 = ZERO_EFFORT;
     int effortMotor2 = ZERO_EFFORT;
     void joystickCB(const joystick::Joystick& joy);
@@ -46,13 +36,13 @@ public:
 RosRobot::RosRobot(int argc, char** argv) {
     ros::init(argc, argv, "RosRobot"); // Name of this node.
     ros::NodeHandle nodeHandle;
-    motorPublisher = nodeHandle.advertise<nxt_msgs::JointCommand>("/joint_command", 10);
-    joystickSubscriber = nodeHandle.subscribe("/joystick", 10, &RosRobot::joystickCB, this);
-    colorSubscriber = nodeHandle.subscribe("/color_sensor", 10, &RosRobot::colorCB, this);
-    rangeSubscriber = nodeHandle.subscribe("/range_sensor", 10, &RosRobot::rangeCB, this);
-    touchSubscriber1 = nodeHandle.subscribe("/touch_sensor", 10, &RosRobot::touchCB1, this);
-    touchSubscriber2 = nodeHandle.subscribe("/touch_sensor2", 10, &RosRobot::touchCB2, this);
-    motorSubscriber = nodeHandle.subscribe("/joint_state", 10, &RosRobot::motorCB, this);
+    nodeHandle.advertise<nxt_msgs::JointCommand>("/joint_command", 10);
+    nodeHandle.subscribe("/joystick", 10, &RosRobot::joystickCB, this);
+    nodeHandle.subscribe("/color_sensor", 10, &RosRobot::colorCB, this);
+    nodeHandle.subscribe("/range_sensor", 10, &RosRobot::rangeCB, this);
+    nodeHandle.subscribe("/touch_sensor", 10, &RosRobot::touchCB1, this);
+    nodeHandle.subscribe("/touch_sensor2", 10, &RosRobot::touchCB2, this);
+    nodeHandle.subscribe("/joint_state", 10, &RosRobot::motorCB, this);
 }
 
 void RosRobot::colorCB(const nxt_msgs::Color& col)
@@ -120,48 +110,41 @@ void RosRobot::motorCB(const sensor_msgs::JointState& mot)
 
 void RosRobot::joystickCB(const joystick::Joystick& joy)
 {
-    short type = joy.type;
-    short number = joy.number;
-    short value = joy.value;
-
-    if (type == JS_EVENT_BUTTON) {
-        if (number == 0) { // full stop
+    JoystickEvents event = static_cast<JoystickEvents>(joy.event);
+    switch (event) {
+        case JOYSTICK_BUTTON0_DOWN:
+        case JOYSTICK_BUTTON2_DOWN:
+        case JOYSTICK_BUTTON3_DOWN:
             effortMotor1 = ZERO_EFFORT;
             effortMotor2 = ZERO_EFFORT;
-        }
-        else if (number == 1) { // drive straight ahead
+            break;
+        case JOYSTICK_BUTTON1_DOWN:
             effortMotor1 = (effortMotor1 < effortMotor2) ? effortMotor1 : effortMotor2;
             effortMotor2 = effortMotor1;
-        }
-        else {
-            effortMotor1 = ZERO_EFFORT;
-            effortMotor2 = ZERO_EFFORT;
-        }
-    } else if (type == JS_EVENT_AXIS) {
-        if (number == 0) { // left - right
-            if (value == 32767) { // right
-                if (effortMotor2 >= ZERO_EFFORT)
-                    effortMotor2 += (effortMotor2 == MAX_EFFORT) ? 0 : 1;
-                else
-                    effortMotor2 -= (effortMotor2 == MIN_EFFORT) ? 0 : 1;
-            }
-            else if (value == -32767) { // left
-                if (effortMotor2 >= ZERO_EFFORT)
-                    effortMotor2 -= (effortMotor2 == MIN_EFFORT) ? 0 : 1;
-                else
-                    effortMotor2 += (effortMotor2 == MAX_EFFORT) ? 0 : 1;
-            }
-        }
-        else { // up-down, no = 1;
-            if (value == 32767) { // down
-                effortMotor1 -= (effortMotor1 == MIN_EFFORT) ? 0 : 1;
+            break;
+        case JOYSTICK_AXIS_DOWN:
+            effortMotor1 -= (effortMotor1 == MIN_EFFORT) ? 0 : 1;
+            effortMotor2 -= (effortMotor2 == MIN_EFFORT) ? 0 : 1;
+            break;
+        case JOYSTICK_AXIS_UP:
+            // Increase
+            effortMotor1 += (effortMotor1 == MAX_EFFORT) ? 0 : 1;
+            effortMotor2 += (effortMotor2 == MAX_EFFORT) ? 0 : 1;
+            break;
+        case JOYSTICK_AXIS_LEFT:
+            if (effortMotor2 >= ZERO_EFFORT)
                 effortMotor2 -= (effortMotor2 == MIN_EFFORT) ? 0 : 1;
-            }
-            else if (value == -32767) { // up
-                effortMotor1 += (effortMotor1 == MAX_EFFORT) ? 0 : 1;
+            else
                 effortMotor2 += (effortMotor2 == MAX_EFFORT) ? 0 : 1;
-            }
-        }
+            break;
+        case JOYSTICK_AXIS_RIGHT:
+            if (effortMotor2 >= ZERO_EFFORT)
+                effortMotor2 += (effortMotor2 == MAX_EFFORT) ? 0 : 1;
+            else
+                effortMotor2 -= (effortMotor2 == MIN_EFFORT) ? 0 : 1;
+            break;
+        default:
+            break;
     }
 
     ROS_INFO("effortMotor1 = %f, effortMotor2 = %f\n", Efforts[effortMotor1], Efforts[effortMotor2]);

@@ -6,6 +6,24 @@
 
 #IncludeRegexTransform: 
 
+/home/hl/Src/CLionProjects/RxROS/devel/include/joystick/Joystick.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+
+/home/hl/Src/CLionProjects/RxROS/src/joystick/include/JoystickPublisher.h
+
 /home/hl/Src/CLionProjects/RxROS/src/joystick/src/JoystickPublisher.cpp
 fcntl.h
 -
@@ -15,6 +33,8 @@ ros/console.h
 -
 joystick/Joystick.h
 -
+JoystickPublisher.h
+/home/hl/Src/CLionProjects/RxROS/src/joystick/src/JoystickPublisher.h
 
 /opt/ros/melodic/include/ros/advertise_options.h
 ros/forwards.h
@@ -222,6 +242,10 @@ boost/make_shared.hpp
 cstddef
 -
 memory
+-
+
+/opt/ros/melodic/include/ros/message_operations.h
+ostream
 -
 
 /opt/ros/melodic/include/ros/message_traits.h

@@ -6,5 +6,5 @@ CXX_FLAGS =
 
 CXX_DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"ros_robot\"
 
-CXX_INCLUDES = -I/home/hl/Src/CLionProjects/RxROS/devel/include -I/home/hl/Src/CLionProjects/nxt/devel/include -I/opt/ros/melodic/include -I/opt/ros/melodic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp 
+CXX_INCLUDES = -I/home/hl/Src/CLionProjects/RxROS/devel/include -I/home/hl/Src/CLionProjects/RxROS/src/joystick/include -I/home/hl/Src/CLionProjects/nxt/devel/include -I/opt/ros/melodic/include -I/opt/ros/melodic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/home/hl/Src/CLionProjects/RxROS/src/ros_robot/src/joystick/inc 
 

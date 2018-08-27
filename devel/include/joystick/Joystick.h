@@ -25,15 +25,11 @@ struct Joystick_
 
   Joystick_()
     : time()
-    , value(0)
-    , type(0)
-    , number(0)  {
+    , event(0)  {
     }
   Joystick_(const ContainerAllocator& _alloc)
     : time()
-    , value(0)
-    , type(0)
-    , number(0)  {
+    , event(0)  {
   (void)_alloc;
     }
 
@@ -42,14 +38,8 @@ struct Joystick_
    typedef ros::Time _time_type;
   _time_type time;
 
-   typedef int16_t _value_type;
-  _value_type value;
-
-   typedef int8_t _type_type;
-  _type_type type;
-
-   typedef int8_t _number_type;
-  _number_type number;
+   typedef int8_t _event_type;
+  _event_type event;
 
 
 
@@ -129,12 +119,12 @@ struct MD5Sum< ::joystick::Joystick_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "053a7b1f7f659589125a990814760aa6";
+    return "e5fbe2cc6f38678d510728a2dcb2ff75";
   }
 
   static const char* value(const ::joystick::Joystick_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x053a7b1f7f659589ULL;
-  static const uint64_t static_value2 = 0x125a990814760aa6ULL;
+  static const uint64_t static_value1 = 0xe5fbe2cc6f38678dULL;
+  static const uint64_t static_value2 = 0x510728a2dcb2ff75ULL;
 };
 
 template<class ContainerAllocator>
@@ -154,9 +144,7 @@ struct Definition< ::joystick::Joystick_<ContainerAllocator> >
   static const char* value()
   {
     return "time time\n\
-int16 value\n\
-int8 type\n\
-int8 number\n\
+int8 event\n\
 ";
   }
 
@@ -176,9 +164,7 @@ namespace serialization
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
       stream.next(m.time);
-      stream.next(m.value);
-      stream.next(m.type);
-      stream.next(m.number);
+      stream.next(m.event);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -199,12 +185,8 @@ struct Printer< ::joystick::Joystick_<ContainerAllocator> >
   {
     s << indent << "time: ";
     Printer<ros::Time>::stream(s, indent + "  ", v.time);
-    s << indent << "value: ";
-    Printer<int16_t>::stream(s, indent + "  ", v.value);
-    s << indent << "type: ";
-    Printer<int8_t>::stream(s, indent + "  ", v.type);
-    s << indent << "number: ";
-    Printer<int8_t>::stream(s, indent + "  ", v.number);
+    s << indent << "event: ";
+    Printer<int8_t>::stream(s, indent + "  ", v.event);
   }
 };
 

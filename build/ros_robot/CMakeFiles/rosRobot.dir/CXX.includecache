@@ -6,6 +6,24 @@
 
 #IncludeRegexTransform: 
 
+/home/hl/Src/CLionProjects/RxROS/devel/include/joystick/Joystick.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+
+/home/hl/Src/CLionProjects/RxROS/src/joystick/include/JoystickPublisher.h
+
 /home/hl/Src/CLionProjects/RxROS/src/ros_robot/src/rosRobot.cpp
 stdio.h
 -
@@ -16,6 +34,8 @@ ros/ros.h
 ros/console.h
 -
 nxt_msgs/JointCommand.h
+-
+JoystickPublisher.h
 -
 joystick/Joystick.h
 -

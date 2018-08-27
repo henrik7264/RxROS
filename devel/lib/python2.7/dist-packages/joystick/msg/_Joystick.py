@@ -8,16 +8,14 @@ import struct
 import genpy
 
 class Joystick(genpy.Message):
-  _md5sum = "053a7b1f7f659589125a990814760aa6"
+  _md5sum = "e5fbe2cc6f38678d510728a2dcb2ff75"
   _type = "joystick/Joystick"
   _has_header = False #flag to mark the presence of a Header object
   _full_text = """time time
-int16 value
-int8 type
-int8 number
+int8 event
 """
-  __slots__ = ['time','value','type','number']
-  _slot_types = ['time','int16','int8','int8']
+  __slots__ = ['time','event']
+  _slot_types = ['time','int8']
 
   def __init__(self, *args, **kwds):
     """
@@ -27,7 +25,7 @@ int8 number
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       time,value,type,number
+       time,event
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -38,17 +36,11 @@ int8 number
       #message fields cannot be None, assign default values for those that are
       if self.time is None:
         self.time = genpy.Time()
-      if self.value is None:
-        self.value = 0
-      if self.type is None:
-        self.type = 0
-      if self.number is None:
-        self.number = 0
+      if self.event is None:
+        self.event = 0
     else:
       self.time = genpy.Time()
-      self.value = 0
-      self.type = 0
-      self.number = 0
+      self.event = 0
 
   def _get_types(self):
     """
@@ -63,7 +55,7 @@ int8 number
     """
     try:
       _x = self
-      buff.write(_get_struct_2Ih2b().pack(_x.time.secs, _x.time.nsecs, _x.value, _x.type, _x.number))
+      buff.write(_get_struct_2Ib().pack(_x.time.secs, _x.time.nsecs, _x.event))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -78,8 +70,8 @@ int8 number
       end = 0
       _x = self
       start = end
-      end += 12
-      (_x.time.secs, _x.time.nsecs, _x.value, _x.type, _x.number,) = _get_struct_2Ih2b().unpack(str[start:end])
+      end += 9
+      (_x.time.secs, _x.time.nsecs, _x.event,) = _get_struct_2Ib().unpack(str[start:end])
       self.time.canon()
       return self
     except struct.error as e:
@@ -94,7 +86,7 @@ int8 number
     """
     try:
       _x = self
-      buff.write(_get_struct_2Ih2b().pack(_x.time.secs, _x.time.nsecs, _x.value, _x.type, _x.number))
+      buff.write(_get_struct_2Ib().pack(_x.time.secs, _x.time.nsecs, _x.event))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -110,8 +102,8 @@ int8 number
       end = 0
       _x = self
       start = end
-      end += 12
-      (_x.time.secs, _x.time.nsecs, _x.value, _x.type, _x.number,) = _get_struct_2Ih2b().unpack(str[start:end])
+      end += 9
+      (_x.time.secs, _x.time.nsecs, _x.event,) = _get_struct_2Ib().unpack(str[start:end])
       self.time.canon()
       return self
     except struct.error as e:
@@ -121,9 +113,9 @@ _struct_I = genpy.struct_I
 def _get_struct_I():
     global _struct_I
     return _struct_I
-_struct_2Ih2b = None
-def _get_struct_2Ih2b():
-    global _struct_2Ih2b
-    if _struct_2Ih2b is None:
-        _struct_2Ih2b = struct.Struct("<2Ih2b")
-    return _struct_2Ih2b
+_struct_2Ib = None
+def _get_struct_2Ib():
+    global _struct_2Ib
+    if _struct_2Ib is None:
+        _struct_2Ib = struct.Struct("<2Ib")
+    return _struct_2Ib

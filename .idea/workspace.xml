@@ -4,8 +4,8 @@
     <generated>
       <config projectName="ros_robot" targetName="download_extra_data" />
       <config projectName="ros_robot" targetName="joystick_generate_messages_lisp" />
-      <config projectName="ros_robot" targetName="joystick_generate_messages_py" />
       <config projectName="ros_robot" targetName="run_tests" />
+      <config projectName="ros_robot" targetName="joystick_generate_messages_py" />
       <config projectName="ros_robot" targetName="roscpp_generate_messages_py" />
       <config projectName="ros_robot" targetName="nxt_msgs_generate_messages_eus" />
       <config projectName="ros_robot" targetName="rosgraph_msgs_generate_messages_nodejs" />
@@ -17,18 +17,18 @@
       <config projectName="ros_robot" targetName="std_msgs_generate_messages_nodejs" />
       <config projectName="ros_robot" targetName="doxygen" />
       <config projectName="ros_robot" targetName="std_msgs_generate_messages_lisp" />
-      <config projectName="ros_robot" targetName="geometry_msgs_generate_messages_py" />
       <config projectName="ros_robot" targetName="geometry_msgs_generate_messages_nodejs" />
+      <config projectName="ros_robot" targetName="geometry_msgs_generate_messages_py" />
       <config projectName="ros_robot" targetName="roscpp_generate_messages_eus" />
-      <config projectName="ros_robot" targetName="sensor_msgs_generate_messages_eus" />
       <config projectName="ros_robot" targetName="joystick_generate_messages_eus" />
+      <config projectName="ros_robot" targetName="sensor_msgs_generate_messages_eus" />
       <config projectName="ros_robot" targetName="tests" />
       <config projectName="ros_robot" targetName="std_msgs_generate_messages_cpp" />
-      <config projectName="ros_robot" targetName="geometry_msgs_generate_messages_lisp" />
       <config projectName="ros_robot" targetName="roscpp_generate_messages_nodejs" />
+      <config projectName="ros_robot" targetName="geometry_msgs_generate_messages_lisp" />
       <config projectName="ros_robot" targetName="std_msgs_generate_messages_py" />
-      <config projectName="ros_robot" targetName="nxt_msgs_generate_messages_py" />
       <config projectName="ros_robot" targetName="rosgraph_msgs_generate_messages_py" />
+      <config projectName="ros_robot" targetName="nxt_msgs_generate_messages_py" />
       <config projectName="ros_robot" targetName="joystick_generate_messages_nodejs" />
       <config projectName="ros_robot" targetName="nxt_msgs_generate_messages_cpp" />
       <config projectName="ros_robot" targetName="nxt_msgs_generate_messages_nodejs" />
@@ -39,71 +39,161 @@
       <config projectName="ros_robot" targetName="roscpp_generate_messages_lisp" />
       <config projectName="ros_robot" targetName="clean_test_results" />
       <config projectName="ros_robot" targetName="roscpp_generate_messages_cpp" />
-      <config projectName="ros_robot" targetName="joystick_generate_messages_cpp" />
       <config projectName="ros_robot" targetName="sensor_msgs_generate_messages_cpp" />
+      <config projectName="ros_robot" targetName="joystick_generate_messages_cpp" />
       <config projectName="ros_robot" targetName="std_msgs_generate_messages_eus" />
       <config projectName="ros_robot" targetName="sensor_msgs_generate_messages_nodejs" />
     </generated>
   </component>
-  <component name="CMakeSettings">
+  <component name="CMakeSettings" AUTO_RELOAD="true">
     <configurations>
       <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c71a3ced-3596-4a71-a86b-e80baf5f29e4" name="Default Changelist" comment="" />
+    <list default="true" id="c71a3ced-3596-4a71-a86b-e80baf5f29e4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/joystick/include/JoystickPublisher.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/Makefile2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/catkin_generated/setup_cached.sh" beforeDir="false" afterPath="$PROJECT_DIR$/build/catkin_generated/setup_cached.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/joystick/CMakeFiles/joystickPublisher.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/build/joystick/CMakeFiles/joystickPublisher.dir/CXX.includecache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/joystick/CMakeFiles/joystickPublisher.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/build/joystick/CMakeFiles/joystickPublisher.dir/DependInfo.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/joystick/CMakeFiles/joystickPublisher.dir/depend.internal" beforeDir="false" afterPath="$PROJECT_DIR$/build/joystick/CMakeFiles/joystickPublisher.dir/depend.internal" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/joystick/CMakeFiles/joystickPublisher.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/build/joystick/CMakeFiles/joystickPublisher.dir/depend.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/joystick/CMakeFiles/joystickPublisher.dir/flags.make" beforeDir="false" afterPath="$PROJECT_DIR$/build/joystick/CMakeFiles/joystickPublisher.dir/flags.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/joystick/CMakeFiles/joystickPublisher.dir/src/JoystickPublisher.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/joystick/catkin_generated/pkg.develspace.context.pc.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/joystick/catkin_generated/pkg.develspace.context.pc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/joystick/catkin_generated/stamps/joystick/package.xml.stamp" beforeDir="false" afterPath="$PROJECT_DIR$/build/joystick/catkin_generated/stamps/joystick/package.xml.stamp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ros_robot/CMakeFiles/rosRobot.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/build/ros_robot/CMakeFiles/rosRobot.dir/CXX.includecache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ros_robot/CMakeFiles/rosRobot.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/build/ros_robot/CMakeFiles/rosRobot.dir/DependInfo.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ros_robot/CMakeFiles/rosRobot.dir/depend.internal" beforeDir="false" afterPath="$PROJECT_DIR$/build/ros_robot/CMakeFiles/rosRobot.dir/depend.internal" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ros_robot/CMakeFiles/rosRobot.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/build/ros_robot/CMakeFiles/rosRobot.dir/depend.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ros_robot/CMakeFiles/rosRobot.dir/flags.make" beforeDir="false" afterPath="$PROJECT_DIR$/build/ros_robot/CMakeFiles/rosRobot.dir/flags.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/devel/include/joystick/Joystick.h" beforeDir="false" afterPath="$PROJECT_DIR$/devel/include/joystick/Joystick.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/devel/lib/pkgconfig/joystick.pc" beforeDir="false" afterPath="$PROJECT_DIR$/devel/lib/pkgconfig/joystick.pc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/devel/lib/python2.7/dist-packages/joystick/msg/_Joystick.py" beforeDir="false" afterPath="$PROJECT_DIR$/devel/lib/python2.7/dist-packages/joystick/msg/_Joystick.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/devel/lib/ros_robot/rosRobot" beforeDir="false" afterPath="$PROJECT_DIR$/devel/lib/ros_robot/rosRobot" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/devel/share/common-lisp/ros/joystick/msg/Joystick.lisp" beforeDir="false" afterPath="$PROJECT_DIR$/devel/share/common-lisp/ros/joystick/msg/Joystick.lisp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/devel/share/common-lisp/ros/joystick/msg/_package_Joystick.lisp" beforeDir="false" afterPath="$PROJECT_DIR$/devel/share/common-lisp/ros/joystick/msg/_package_Joystick.lisp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/devel/share/gennodejs/ros/joystick/msg/Joystick.js" beforeDir="false" afterPath="$PROJECT_DIR$/devel/share/gennodejs/ros/joystick/msg/Joystick.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/devel/share/joystick/cmake/joystickConfig.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/devel/share/joystick/cmake/joystickConfig.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/devel/share/roseus/ros/joystick/msg/Joystick.l" beforeDir="false" afterPath="$PROJECT_DIR$/devel/share/roseus/ros/joystick/msg/Joystick.l" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/joystick/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/joystick/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/joystick/msg/Joystick.msg" beforeDir="false" afterPath="$PROJECT_DIR$/src/joystick/msg/Joystick.msg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/joystick/package.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/joystick/package.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/joystick/src/JoystickPublisher.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/joystick/src/JoystickPublisher.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ros_robot/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/ros_robot/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ros_robot/ros_robot.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ros_robot/ros_robot.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ros_robot/src/rosRobot.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/ros_robot/src/rosRobot.cpp" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/src/ros_robot/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/src/cmake-build-debug/" />
+    <ignored path="$PROJECT_DIR$/src/joystick/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="FUSProjectUsageTrigger">
     <session id="1750503640">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="8" />
+          <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.3" value="1" />
-          <entry key="project.open.time.5" value="1" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.open.time.4" value="5" />
+          <entry key="project.open.time.5" value="3" />
+          <entry key="project.opened" value="10" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="cpp" value="1" />
-          <entry key="txt" value="3" />
-          <entry key="xml" value="1" />
+          <entry key="cpp" value="4" />
+          <entry key="h" value="2" />
+          <entry key="launch" value="1" />
+          <entry key="md" value="1" />
+          <entry key="msg" value="2" />
+          <entry key="txt" value="5" />
+          <entry key="xml" value="3" />
+          <entry key="yaml" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CMakeLists.txt" value="3" />
-          <entry key="ObjectiveC" value="1" />
+          <entry key="CMakeLists.txt" value="5" />
+          <entry key="Markdown" value="1" />
+          <entry key="ObjectiveC" value="6" />
+          <entry key="PLAIN_TEXT" value="3" />
           <entry key="XML" value="1" />
+          <entry key="YAML" value="1" />
+          <entry key="rospackage" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="cpp" value="3" />
+          <entry key="cpp" value="474" />
+          <entry key="h" value="204" />
+          <entry key="md" value="913" />
+          <entry key="msg" value="6" />
+          <entry key="txt" value="70" />
+          <entry key="xml" value="12" />
+          <entry key="yaml" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="ObjectiveC" value="3" />
+          <entry key="CMakeLists.txt" value="70" />
+          <entry key="Markdown" value="913" />
+          <entry key="ObjectiveC" value="678" />
+          <entry key="PLAIN_TEXT" value="6" />
+          <entry key="YAML" value="12" />
+          <entry key="rospackage" value="12" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ros_robot/src/rosRobot.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="5" selection-start-line="5" selection-end-line="5" />
+            <state relative-caret-position="2278">
+              <caret line="141" column="69" selection-start-line="141" selection-start-column="69" selection-end-line="141" selection-end-column="69" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="456">
+                <caret line="24" column="3" selection-start-line="24" selection-start-column="3" selection-end-line="24" selection-end-column="3" />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -116,7 +206,16 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/src/ros_robot/ros_robot.yaml" />
+        <option value="$PROJECT_DIR$/src/joystick/msg/Joystick.msg" />
+        <option value="$PROJECT_DIR$/src/joystick/src/JoystickPublisher.h" />
+        <option value="$PROJECT_DIR$/src/joystick/inc/JoystickPublisher.h" />
+        <option value="$PROJECT_DIR$/src/ros_robot/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/src/joystick/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/src/joystick/package.xml" />
         <option value="$PROJECT_DIR$/src/ros_robot/src/rosRobot.cpp" />
+        <option value="$PROJECT_DIR$/src/joystick/src/JoystickPublisher.cpp" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -126,7 +225,8 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="355" />
     <option name="y" value="57" />
     <option name="width" value="1390" />
@@ -137,6 +237,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -153,17 +254,46 @@
               <item name="ros_robot" type="b2602c69:ProjectViewProjectNode" />
               <item name="RxROS" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="joystick" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ros_robot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RxROS" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="joystick" type="462c0819:PsiDirectoryNode" />
+              <item name="include" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ros_robot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RxROS" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="joystick" type="462c0819:PsiDirectoryNode" />
+              <item name="msg" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ros_robot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RxROS" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="joystick" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ros_robot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RxROS" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="ros_robot" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ros_robot" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="RxROS" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="ros_robot" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -171,7 +301,14 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.build" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.C/C++" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/joystick/inc" />
+      <recent name="$PROJECT_DIR$/src/joystick/src" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -401,8 +538,6 @@
       <item itemvalue="Application.clean_test_results" />
       <item itemvalue="Application.download_extra_data" />
       <item itemvalue="Application.doxygen" />
-      <item itemvalue="Application.run_tests" />
-      <item itemvalue="Application.tests" />
       <item itemvalue="Application.joystick_generate_messages_cpp" />
       <item itemvalue="Application.joystick_generate_messages_eus" />
       <item itemvalue="Application.joystick_generate_messages_lisp" />
@@ -418,11 +553,13 @@
       <item itemvalue="Application.rosgraph_msgs_generate_messages_lisp" />
       <item itemvalue="Application.rosgraph_msgs_generate_messages_nodejs" />
       <item itemvalue="Application.rosgraph_msgs_generate_messages_py" />
+      <item itemvalue="Application.run_tests" />
       <item itemvalue="Application.std_msgs_generate_messages_cpp" />
       <item itemvalue="Application.std_msgs_generate_messages_eus" />
       <item itemvalue="Application.std_msgs_generate_messages_lisp" />
       <item itemvalue="Application.std_msgs_generate_messages_nodejs" />
       <item itemvalue="Application.std_msgs_generate_messages_py" />
+      <item itemvalue="Application.tests" />
       <item itemvalue="Application.geometry_msgs_generate_messages_cpp" />
       <item itemvalue="Application.geometry_msgs_generate_messages_eus" />
       <item itemvalue="Application.geometry_msgs_generate_messages_lisp" />
@@ -453,34 +590,53 @@
       <updated>1535248512166</updated>
       <workItem from="1535248515076" duration="1203000" />
       <workItem from="1535249945582" duration="1148000" />
+      <workItem from="1535309348814" duration="46000" />
+      <workItem from="1535309492033" duration="238000" />
+      <workItem from="1535309741626" duration="1465000" />
+      <workItem from="1535397781763" duration="158000" />
+      <workItem from="1535398074230" duration="19000" />
+      <workItem from="1535398105118" duration="7144000" />
+      <workItem from="1535405908530" duration="9000" />
+      <workItem from="1535405947246" duration="1722000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2351000" />
+    <option name="totallyTimeSpent" value="13152000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="27" width="2493" height="1413" extended-state="6" />
+    <frame x="67" y="27" width="1853" height="1053" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16550879" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17985612" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32972974" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32972974" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="10" />
-      <window_info anchor="bottom" id="CMake" order="11" visible="true" weight="0.3299611" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32972974" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" weight="0.32972974" />
+      <window_info anchor="bottom" id="Version Control" order="10" weight="0.32972974" />
+      <window_info anchor="bottom" id="CMake" order="11" weight="0.32901832" />
+      <window_info anchor="bottom" id="Messages" order="12" visible="true" weight="0.32972974" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="right" id="Database" order="3" weight="0.32982844" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -493,18 +649,78 @@
     <entry file="file://$PROJECT_DIR$/src/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ros_robot/package.xml">
+    <entry file="file://$PROJECT_DIR$/src/ros_robot/ros_robot.launch">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ros_robot/ros_robot.yaml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-654" />
+        <state relative-caret-position="36">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ros_robot/package.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/joystick/msg/Joystick.msg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="1" column="10" selection-start-line="1" selection-start-column="10" selection-end-line="1" selection-end-column="10" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ros_robot/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="232">
+          <caret line="122" selection-start-line="122" selection-end-line="122" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/joystick/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="83" column="2" selection-start-line="83" selection-start-column="2" selection-end-line="83" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/joystick/package.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="397">
+          <caret line="65" column="74" selection-start-line="65" selection-start-column="74" selection-end-line="65" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/joystick/src/JoystickPublisher.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1330">
+          <caret line="70" column="41" selection-start-line="70" selection-start-column="41" selection-end-line="70" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/joystick/include/JoystickPublisher.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ros_robot/src/rosRobot.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        <state relative-caret-position="2278">
+          <caret line="141" column="69" selection-start-line="141" selection-start-column="69" selection-end-line="141" selection-end-column="69" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="456">
+            <caret line="24" column="3" selection-start-line="24" selection-start-column="3" selection-end-line="24" selection-end-column="3" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>

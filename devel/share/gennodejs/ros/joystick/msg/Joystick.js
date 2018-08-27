@@ -19,9 +19,7 @@ class Joystick {
     if (initObj === null) {
       // initObj === null is a special case for deserialization where we don't initialize fields
       this.time = null;
-      this.value = null;
-      this.type = null;
-      this.number = null;
+      this.event = null;
     }
     else {
       if (initObj.hasOwnProperty('time')) {
@@ -30,23 +28,11 @@ class Joystick {
       else {
         this.time = {secs: 0, nsecs: 0};
       }
-      if (initObj.hasOwnProperty('value')) {
-        this.value = initObj.value
+      if (initObj.hasOwnProperty('event')) {
+        this.event = initObj.event
       }
       else {
-        this.value = 0;
-      }
-      if (initObj.hasOwnProperty('type')) {
-        this.type = initObj.type
-      }
-      else {
-        this.type = 0;
-      }
-      if (initObj.hasOwnProperty('number')) {
-        this.number = initObj.number
-      }
-      else {
-        this.number = 0;
+        this.event = 0;
       }
     }
   }
@@ -55,12 +41,8 @@ class Joystick {
     // Serializes a message object of type Joystick
     // Serialize message field [time]
     bufferOffset = _serializer.time(obj.time, buffer, bufferOffset);
-    // Serialize message field [value]
-    bufferOffset = _serializer.int16(obj.value, buffer, bufferOffset);
-    // Serialize message field [type]
-    bufferOffset = _serializer.int8(obj.type, buffer, bufferOffset);
-    // Serialize message field [number]
-    bufferOffset = _serializer.int8(obj.number, buffer, bufferOffset);
+    // Serialize message field [event]
+    bufferOffset = _serializer.int8(obj.event, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -70,17 +52,13 @@ class Joystick {
     let data = new Joystick(null);
     // Deserialize message field [time]
     data.time = _deserializer.time(buffer, bufferOffset);
-    // Deserialize message field [value]
-    data.value = _deserializer.int16(buffer, bufferOffset);
-    // Deserialize message field [type]
-    data.type = _deserializer.int8(buffer, bufferOffset);
-    // Deserialize message field [number]
-    data.number = _deserializer.int8(buffer, bufferOffset);
+    // Deserialize message field [event]
+    data.event = _deserializer.int8(buffer, bufferOffset);
     return data;
   }
 
   static getMessageSize(object) {
-    return 12;
+    return 9;
   }
 
   static datatype() {
@@ -90,16 +68,14 @@ class Joystick {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '053a7b1f7f659589125a990814760aa6';
+    return 'e5fbe2cc6f38678d510728a2dcb2ff75';
   }
 
   static messageDefinition() {
     // Returns full string definition for message
     return `
     time time
-    int16 value
-    int8 type
-    int8 number
+    int8 event
     
     `;
   }
@@ -117,25 +93,11 @@ class Joystick {
       resolved.time = {secs: 0, nsecs: 0}
     }
 
-    if (msg.value !== undefined) {
-      resolved.value = msg.value;
+    if (msg.event !== undefined) {
+      resolved.event = msg.event;
     }
     else {
-      resolved.value = 0
-    }
-
-    if (msg.type !== undefined) {
-      resolved.type = msg.type;
-    }
-    else {
-      resolved.type = 0
-    }
-
-    if (msg.number !== undefined) {
-      resolved.number = msg.number;
-    }
-    else {
-      resolved.number = 0
+      resolved.event = 0
     }
 
     return resolved;

@@ -8,4 +8,3 @@
 
 # modified environment variables
 export PWD="/home/hl/Src/CLionProjects/RxROS/build"
-export ROS_PACKAGE_PATH="/home/hl/Src/CLionProjects/RxROS/src:/home/hl/Src/CLionProjects/nxt/src:/opt/ros/melodic/share"

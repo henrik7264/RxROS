@@ -12,19 +12,9 @@
     :initarg :time
     :type cl:real
     :initform 0)
-   (value
-    :reader value
-    :initarg :value
-    :type cl:fixnum
-    :initform 0)
-   (type
-    :reader type
-    :initarg :type
-    :type cl:fixnum
-    :initform 0)
-   (number
-    :reader number
-    :initarg :number
+   (event
+    :reader event
+    :initarg :event
     :type cl:fixnum
     :initform 0))
 )
@@ -42,20 +32,10 @@
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader joystick-msg:time-val is deprecated.  Use joystick-msg:time instead.")
   (time m))
 
-(cl:ensure-generic-function 'value-val :lambda-list '(m))
-(cl:defmethod value-val ((m <Joystick>))
-  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader joystick-msg:value-val is deprecated.  Use joystick-msg:value instead.")
-  (value m))
-
-(cl:ensure-generic-function 'type-val :lambda-list '(m))
-(cl:defmethod type-val ((m <Joystick>))
-  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader joystick-msg:type-val is deprecated.  Use joystick-msg:type instead.")
-  (type m))
-
-(cl:ensure-generic-function 'number-val :lambda-list '(m))
-(cl:defmethod number-val ((m <Joystick>))
-  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader joystick-msg:number-val is deprecated.  Use joystick-msg:number instead.")
-  (number m))
+(cl:ensure-generic-function 'event-val :lambda-list '(m))
+(cl:defmethod event-val ((m <Joystick>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader joystick-msg:event-val is deprecated.  Use joystick-msg:event instead.")
+  (event m))
 (cl:defmethod roslisp-msg-protocol:serialize ((msg <Joystick>) ostream)
   "Serializes a message object of type '<Joystick>"
   (cl:let ((__sec (cl:floor (cl:slot-value msg 'time)))
@@ -68,14 +48,7 @@
     (cl:write-byte (cl:ldb (cl:byte 8 8) __nsec) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 16) __nsec) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 24) __nsec) ostream))
-  (cl:let* ((signed (cl:slot-value msg 'value)) (unsigned (cl:if (cl:< signed 0) (cl:+ signed 65536) signed)))
-    (cl:write-byte (cl:ldb (cl:byte 8 0) unsigned) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 8) unsigned) ostream)
-    )
-  (cl:let* ((signed (cl:slot-value msg 'type)) (unsigned (cl:if (cl:< signed 0) (cl:+ signed 256) signed)))
-    (cl:write-byte (cl:ldb (cl:byte 8 0) unsigned) ostream)
-    )
-  (cl:let* ((signed (cl:slot-value msg 'number)) (unsigned (cl:if (cl:< signed 0) (cl:+ signed 256) signed)))
+  (cl:let* ((signed (cl:slot-value msg 'event)) (unsigned (cl:if (cl:< signed 0) (cl:+ signed 256) signed)))
     (cl:write-byte (cl:ldb (cl:byte 8 0) unsigned) ostream)
     )
 )
@@ -93,14 +66,7 @@
       (cl:setf (cl:slot-value msg 'time) (cl:+ (cl:coerce __sec 'cl:double-float) (cl:/ __nsec 1e9))))
     (cl:let ((unsigned 0))
       (cl:setf (cl:ldb (cl:byte 8 0) unsigned) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 8) unsigned) (cl:read-byte istream))
-      (cl:setf (cl:slot-value msg 'value) (cl:if (cl:< unsigned 32768) unsigned (cl:- unsigned 65536))))
-    (cl:let ((unsigned 0))
-      (cl:setf (cl:ldb (cl:byte 8 0) unsigned) (cl:read-byte istream))
-      (cl:setf (cl:slot-value msg 'type) (cl:if (cl:< unsigned 128) unsigned (cl:- unsigned 256))))
-    (cl:let ((unsigned 0))
-      (cl:setf (cl:ldb (cl:byte 8 0) unsigned) (cl:read-byte istream))
-      (cl:setf (cl:slot-value msg 'number) (cl:if (cl:< unsigned 128) unsigned (cl:- unsigned 256))))
+      (cl:setf (cl:slot-value msg 'event) (cl:if (cl:< unsigned 128) unsigned (cl:- unsigned 256))))
   msg
 )
 (cl:defmethod roslisp-msg-protocol:ros-datatype ((msg (cl:eql '<Joystick>)))
@@ -111,28 +77,24 @@
   "joystick/Joystick")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<Joystick>)))
   "Returns md5sum for a message object of type '<Joystick>"
-  "053a7b1f7f659589125a990814760aa6")
+  "e5fbe2cc6f38678d510728a2dcb2ff75")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'Joystick)))
   "Returns md5sum for a message object of type 'Joystick"
-  "053a7b1f7f659589125a990814760aa6")
+  "e5fbe2cc6f38678d510728a2dcb2ff75")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<Joystick>)))
   "Returns full string definition for message of type '<Joystick>"
-  (cl:format cl:nil "time time~%int16 value~%int8 type~%int8 number~%~%~%"))
+  (cl:format cl:nil "time time~%int8 event~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'Joystick)))
   "Returns full string definition for message of type 'Joystick"
-  (cl:format cl:nil "time time~%int16 value~%int8 type~%int8 number~%~%~%"))
+  (cl:format cl:nil "time time~%int8 event~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <Joystick>))
   (cl:+ 0
      8
-     2
-     1
      1
 ))
 (cl:defmethod roslisp-msg-protocol:ros-message-to-list ((msg <Joystick>))
   "Converts a ROS message object to a list"
   (cl:list 'Joystick
     (cl:cons ':time (time msg))
-    (cl:cons ':value (value msg))
-    (cl:cons ':type (type msg))
-    (cl:cons ':number (number msg))
+    (cl:cons ':event (event msg))
 ))
