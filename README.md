@@ -50,7 +50,6 @@ Start to install the nxt-python package. NXT-ROS will not work without it!<br>
 sudo apt-get install libnxt nxt-python 
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 Create then a lego group and add the udev USB definition for the NXT controller:<br>
 ```
 sudo groupadd lego 
@@ -59,7 +58,6 @@ echo 'SUBSYSTEM=="usb", ATTRS{idVendor}=="0694", GROUP="lego", MODE="0660"' > /t
 reboot
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 Finally, execute the following commands in a directory where you keep your ROS workspaces - any directory will work.<br>
 ```
 mkdir –p nxt 
