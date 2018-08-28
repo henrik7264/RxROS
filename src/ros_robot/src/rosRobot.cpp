@@ -20,6 +20,7 @@ private:
     ros::Publisher motorPublisher;
     int effortMotor1 = ZERO_EFFORT;
     int effortMotor2 = ZERO_EFFORT;
+    // Callback functions for ROS topics.
     void joystickCB(const joystick::Joystick& joy);
     void colorCB(const nxt_msgs::Color& col);
     void rangeCB(const nxt_msgs::Range& rng);
@@ -113,23 +114,20 @@ void RosRobot::joystickCB(const joystick::Joystick& joy)
     JoystickEvents event = static_cast<JoystickEvents>(joy.event);
     switch (event) {
         case JOYSTICK_BUTTON0_DOWN:
-        case JOYSTICK_BUTTON2_DOWN:
-        case JOYSTICK_BUTTON3_DOWN:
-            effortMotor1 = ZERO_EFFORT;
+            effortMotor1 = ZERO_EFFORT; // Stop.
             effortMotor2 = ZERO_EFFORT;
             break;
         case JOYSTICK_BUTTON1_DOWN:
-            effortMotor1 = (effortMotor1 < effortMotor2) ? effortMotor1 : effortMotor2;
+            effortMotor1 = (effortMotor1 < effortMotor2) ? effortMotor1 : effortMotor2; // run with same speed
             effortMotor2 = effortMotor1;
+            break;
+        case JOYSTICK_AXIS_UP:
+            effortMotor1 += (effortMotor1 == MAX_EFFORT) ? 0 : 1;
+            effortMotor2 += (effortMotor2 == MAX_EFFORT) ? 0 : 1;
             break;
         case JOYSTICK_AXIS_DOWN:
             effortMotor1 -= (effortMotor1 == MIN_EFFORT) ? 0 : 1;
             effortMotor2 -= (effortMotor2 == MIN_EFFORT) ? 0 : 1;
-            break;
-        case JOYSTICK_AXIS_UP:
-            // Increase
-            effortMotor1 += (effortMotor1 == MAX_EFFORT) ? 0 : 1;
-            effortMotor2 += (effortMotor2 == MAX_EFFORT) ? 0 : 1;
             break;
         case JOYSTICK_AXIS_LEFT:
             if (effortMotor2 >= ZERO_EFFORT)
@@ -144,6 +142,8 @@ void RosRobot::joystickCB(const joystick::Joystick& joy)
                 effortMotor2 -= (effortMotor2 == MIN_EFFORT) ? 0 : 1;
             break;
         default:
+            effortMotor1 = ZERO_EFFORT; // Stop.
+            effortMotor2 = ZERO_EFFORT;
             break;
     }
 

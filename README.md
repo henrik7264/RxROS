@@ -23,7 +23,7 @@ install the following software on your computer:
 
 You can download an image of the Ubuntu Bionic Linux distribution at<br>
 https://www.ubuntu.com/#download<br>
-I found it useful in addition to add the following tools:
+I found it useful in addition to add the following packages:
 
 ```
 sudo apt-get install git doxygen graphviz-* meld cmake
@@ -35,7 +35,7 @@ sudo apt-get install tree gimp
 
 Installation instruction of how to install ROS Melodic Morenia can be found at<br>
 http://wiki.ros.org/melodic/Installation/Ubuntu<br>
-I executed the following commands from a terminal to install ROS Melodic Morenia:
+Execute the following commands to install ROS Melodic Morenia:
 
 ```
  sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list' 
@@ -52,7 +52,7 @@ I executed the following commands from a terminal to install ROS Melodic Morenia
 
 NXT-ROS is a github project found at<br> 
 https://github.com/NXT-ROS/nxt<br>
-The installation process of NXT-ROS is a bit complicated. Here is the procedure I got working:<br>
+The installation process of NXT-ROS is a bit complicated, but here is the procedure I got working:<br>
 Start to install the nxt-python package. NXT-ROS will not work without it!
 
 ```
