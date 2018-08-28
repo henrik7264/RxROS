@@ -58,7 +58,6 @@ echo 'SUBSYSTEM=="usb", ATTRS{idVendor}=="0694", GROUP="lego", MODE="0660"' > /t
 reboot 
 ```
 Finally execute the following commands in a directory where you keep your ROS workspaces - any directory will work.<br>
-
 ```
 mkdir –p nxt 
 cd  nxt 
@@ -67,7 +66,19 @@ catkin_make
 ```
 
 4. Reactive C++<br>
-
+Reactive C++ is also a github project. It can be found at<br>
+https://github.com/ReactiveX/RxCpp<br>
+To install RxCpp execute the following commands:<br>
+```
+git clone --recursive  https://github.com/ReactiveX/RxCpp.git 
+cd RxCpp 
+mkdir -p projects/build 
+cd projects/build 
+cmake -G"Unix Makefiles" -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_BUILD_TYPE=RelWithDebInfo -B. ../CMake 
+make 
+make install 
+```
+After installation you can remove the RxCpp directory. The nedded C++ files have been installed in /usr/include/rxcpp.
 
 5. RxROS
 Finally we have come to the RxROS project. To install RxROS do the following:
