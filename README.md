@@ -29,7 +29,7 @@ I found it useful in addition to add the following tools:<br>
 2. ROS Melodic Morenia<br>
 Installation instruction of how to install ROS Melodic Morenia can be found at<br>
 http://wiki.ros.org/melodic/Installation/Ubuntu<br>
-I executed the following commands from a terminal:
+I executed the following commands from a terminal to install ROS Melodic Morenia:
 
 ```
  sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list' 
@@ -42,6 +42,33 @@ I executed the following commands from a terminal:
  sudo apt-get install python-rosinstall python-rosinstall-generator python-wstool build-essential 
 ```
 
-3. ROS-NXT<br>
+3. NXT-ROS<br>
+NXT-ROS is a github project found at<br> 
+https://github.com/NXT-ROS/nxt<br>
+The installation process of NXT-ROS is a bit difficult. Here is the procedure I followed:<br>
+Start to install the nxt-python package. Without it NXT-ROS will not work.<br>
+```
+sudo apt-get install libnxt nxt-python 
+```
+Create then a lego group and add the udev USB definition for the NXT controller:<br>
+```
+sudo groupadd lego 
+sudo usermod -a -G lego $(id -un) 
+echo 'SUBSYSTEM=="usb", ATTRS{idVendor}=="0694", GROUP="lego", MODE="0660"' > /tmp/70-lego.rules && sudo mv /tmp/70-lego.rules /etc/udev/rules.d/70-lego.rules 
+reboot 
+```
+Finally execute the following commands in a directory where you keep your ROS workspaces - any directory will work.<br>
+
+```
+mkdir –p nxt 
+cd  nxt 
+git clone --recursive https://github.com/NXT-ROS/nxt.git src 
+catkin_make 
+```
 
 4. Reactive C++<br>
+
+
+5. RxROS
+Finally we have come to the RxROS project. To install RxROS do the following:
+
