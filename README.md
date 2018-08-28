@@ -17,16 +17,19 @@ In order to make use of this software you must
 install the following software on your computer:
 
 1. Ubuntu Bionic (18.04)<br>
-You can download and image of the Ubuntu Bionic Linux distribution at
-<br>
-https://www.ubuntu.com/#download
+You can download an image of the Ubuntu Bionic Linux distribution at<br>
+https://www.ubuntu.com/#download<br>
+I found it useful in addition to add the following tools:<br>
+```
+ sudo apt-get install git doxygen graphviz-* meld cmake
+ sudo apt-get install emacs gtcreator qt5-*
+ sudo apt-get install tree gimp
+```
 
 2. ROS Melodic Morenia<br>
-Installation instruction of how to install ROS Melodic Morenia can be found at
-<br>
-http://wiki.ros.org/melodic/Installation/Ubuntu
-<br>
-I did more specific execute the following commands from a terminal
+Installation instruction of how to install ROS Melodic Morenia can be found at<br>
+http://wiki.ros.org/melodic/Installation/Ubuntu<br>
+I executed the following commands from a terminal:
 
 ```
  sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list' 
@@ -39,4 +42,6 @@ I did more specific execute the following commands from a terminal
  sudo apt-get install python-rosinstall python-rosinstall-generator python-wstool build-essential 
 ```
 
-3. Reactive C++
+3. ROS-NXT<br>
+
+4. Reactive C++<br>
