@@ -19,18 +19,17 @@ install the following software on your computer:
 1. Ubuntu Bionic (18.04)<br>
 You can download an image of the Ubuntu Bionic Linux distribution at<br>
 https://www.ubuntu.com/#download<br>
-I found it useful in addition to add the following tools:<br>
+I found it useful in addition to add the following tools:
 ```
- sudo apt-get install git doxygen graphviz-* meld cmake
- sudo apt-get install emacs gtcreator qt5-*
- sudo apt-get install tree gimp
+sudo apt-get install git doxygen graphviz-* meld cmake
+sudo apt-get install emacs gtcreator qt5-*
+sudo apt-get install tree gimp
 ```
 
 2. ROS Melodic Morenia<br>
 Installation instruction of how to install ROS Melodic Morenia can be found at<br>
 http://wiki.ros.org/melodic/Installation/Ubuntu<br>
 I executed the following commands from a terminal to install ROS Melodic Morenia:
-
 ```
  sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list' 
  sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116 
@@ -45,19 +44,23 @@ I executed the following commands from a terminal to install ROS Melodic Morenia
 3. NXT-ROS<br>
 NXT-ROS is a github project found at<br> 
 https://github.com/NXT-ROS/nxt<br>
-The installation process of NXT-ROS is a bit difficult. Here is the procedure I followed:<br>
-Start to install the nxt-python package. Without it NXT-ROS will not work.<br>
+The installation process of NXT-ROS is a bit complicated. Here is the procedure I got working:<br>
+Start to install the nxt-python package. NXT-ROS will not work without it!<br>
 ```
 sudo apt-get install libnxt nxt-python 
 ```
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 Create then a lego group and add the udev USB definition for the NXT controller:<br>
 ```
 sudo groupadd lego 
 sudo usermod -a -G lego $(id -un) 
 echo 'SUBSYSTEM=="usb", ATTRS{idVendor}=="0694", GROUP="lego", MODE="0660"' > /tmp/70-lego.rules && sudo mv /tmp/70-lego.rules /etc/udev/rules.d/70-lego.rules 
-reboot 
+reboot
 ```
-Finally execute the following commands in a directory where you keep your ROS workspaces - any directory will work.<br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Finally, execute the following commands in a directory where you keep your ROS workspaces - any directory will work.<br>
 ```
 mkdir –p nxt 
 cd  nxt 
@@ -76,10 +79,10 @@ mkdir -p projects/build
 cd projects/build 
 cmake -G"Unix Makefiles" -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_BUILD_TYPE=RelWithDebInfo -B. ../CMake 
 make 
-make install 
+sudo make install 
 ```
-After installation you can remove the RxCpp directory. The nedded C++ files have been installed in /usr/include/rxcpp.
+After the installation has completed you can remove the RxCpp directory.
+The needed C++ header files have been installed in /usr/include/rxcpp.
 
 5. RxROS
 Finally we have come to the RxROS project. To install RxROS do the following:
-
