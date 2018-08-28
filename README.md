@@ -10,7 +10,7 @@ Part of the thesis is to build a Lego Mindstorms NXT robot.
 The robot will be used to gain experiences with programming robots.
 <p>
 Please feel free to comment and use the code as you like.
-My hope is that it will bring inspriation and joy to everyone.
+My hope is that it will bring inspriation and fun to everyone.
 
 ## Setup and installation
 In order to make use of this software you must
