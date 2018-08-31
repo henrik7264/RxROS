@@ -30,8 +30,7 @@ int main(int argc, char** argv) {
     ros::Publisher pub = nh.advertise<joystick::Joystick>("/joystick", 10); // Publish Topic /joystick
 
     struct joystick_event joystickEvent;
-    bool doloop = true;
-    while (doloop) {
+    while (ros::ok()) {
         read(fd, &joystickEvent, sizeof(joystickEvent));
         if (joystickEvent.type == JS_EVENT_BUTTON || joystickEvent.type == JS_EVENT_AXIS) {
             ros::Time rosTime(joystickEvent.time, 0);

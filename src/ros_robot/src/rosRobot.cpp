@@ -18,6 +18,13 @@ static float Efforts[] = {-1.0F, -0.9F, -0.8F, -0.7F, -0.6F, -0.5F, 0.0F, 0.5F, 
 class RosRobot {
 private:
     ros::Publisher motorPublisher;
+    ros::Subscriber joystickSubscriber;
+    ros::Subscriber colorSubscriber;
+    ros::Subscriber rangeSubscriber;
+    ros::Subscriber touchSubscriber1;
+    ros::Subscriber touchSubscriber2;
+    ros::Subscriber motorSubscriber;
+
     int effortMotor1 = ZERO_EFFORT;
     int effortMotor2 = ZERO_EFFORT;
     // Callback functions for ROS topics.
@@ -37,13 +44,13 @@ public:
 RosRobot::RosRobot(int argc, char** argv) {
     ros::init(argc, argv, "RosRobot"); // Name of this node.
     ros::NodeHandle nodeHandle;
-    nodeHandle.advertise<nxt_msgs::JointCommand>("/joint_command", 10);
-    nodeHandle.subscribe("/joystick", 10, &RosRobot::joystickCB, this);
-    nodeHandle.subscribe("/color_sensor", 10, &RosRobot::colorCB, this);
-    nodeHandle.subscribe("/range_sensor", 10, &RosRobot::rangeCB, this);
-    nodeHandle.subscribe("/touch_sensor", 10, &RosRobot::touchCB1, this);
-    nodeHandle.subscribe("/touch_sensor2", 10, &RosRobot::touchCB2, this);
-    nodeHandle.subscribe("/joint_state", 10, &RosRobot::motorCB, this);
+    motorPublisher = nodeHandle.advertise<nxt_msgs::JointCommand>("/joint_command", 10);
+    joystickSubscriber = nodeHandle.subscribe("/joystick", 10, &RosRobot::joystickCB, this);
+    colorSubscriber = nodeHandle.subscribe("/color_sensor", 10, &RosRobot::colorCB, this);
+    rangeSubscriber = nodeHandle.subscribe("/range_sensor", 10, &RosRobot::rangeCB, this);
+    touchSubscriber1 = nodeHandle.subscribe("/touch_sensor", 10, &RosRobot::touchCB1, this);
+    touchSubscriber2 = nodeHandle.subscribe("/touch_sensor2", 10, &RosRobot::touchCB2, this);
+    motorSubscriber = nodeHandle.subscribe("/joint_state", 10, &RosRobot::motorCB, this);
 }
 
 void RosRobot::colorCB(const nxt_msgs::Color& col)
@@ -53,7 +60,7 @@ void RosRobot::colorCB(const nxt_msgs::Color& col)
     double b = col.b;
     double intensity = col.intensity;
 
-    ROS_INFO( "Color r:%lf g:%lf b:%lf, i:%lf\n", r, g, b, intensity);
+//    ROS_INFO( "Color r:%lf g:%lf b:%lf, i:%lf\n", r, g, b, intensity);
 }
 
 void RosRobot::rangeCB(const nxt_msgs::Range& rng)
@@ -63,7 +70,7 @@ void RosRobot::rangeCB(const nxt_msgs::Range& rng)
     double range_max = rng.range_max;
     double spread_angle = rng.spread_angle;
 
-    ROS_INFO( "Range range:%lf min:%lf max:%lf spread:%lf\n", range, range_min, range_max, spread_angle);
+    //ROS_INFO( "Range range:%lf min:%lf max:%lf spread:%lf\n", range, range_min, range_max, spread_angle);
 }
 
 void RosRobot::touchCB1(const nxt_msgs::Contact& cnt)
@@ -106,6 +113,18 @@ void RosRobot::touchCB2(const nxt_msgs::Contact& cnt)
 
 void RosRobot::motorCB(const sensor_msgs::JointState& mot)
 {
+    std::string nam0 = mot.name[0];
+    double eff0 = mot.effort[0];
+    double vel0 = mot.velocity[0];
+    double pos0 = mot.position[0];
+
+//    std::string nam1 = mot.name[1];
+//    double eff1 = mot.effort[1];
+//    double vel1 = mot.velocity[1];
+//    double pos1 = mot.position[1];
+
+    ROS_INFO( "name0:%s effect:%lf velocity:%lf position:%lf\n", nam0.c_str(), eff0, vel0, pos0, mot.name.size());
+//    ROS_INFO( "name1:%s effect:%lf velocity:%lf position:%lf\n", nam1.c_str(), eff1, vel1, pos1);
 }
 
 
@@ -142,8 +161,6 @@ void RosRobot::joystickCB(const joystick::Joystick& joy)
                 effortMotor2 -= (effortMotor2 == MIN_EFFORT) ? 0 : 1;
             break;
         default:
-            effortMotor1 = ZERO_EFFORT; // Stop.
-            effortMotor2 = ZERO_EFFORT;
             break;
     }
 
