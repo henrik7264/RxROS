@@ -8,6 +8,14 @@ ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /home/hl/Src/CLionProjects
 ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /home/hl/Src/CLionProjects/nxt/devel/include/nxt_msgs/Contact.h
 ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /home/hl/Src/CLionProjects/nxt/devel/include/nxt_msgs/JointCommand.h
 ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /home/hl/Src/CLionProjects/nxt/devel/include/nxt_msgs/Range.h
+ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/geometry_msgs/Point.h
+ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/geometry_msgs/Pose.h
+ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/geometry_msgs/PoseWithCovariance.h
+ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/geometry_msgs/Quaternion.h
+ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/geometry_msgs/Twist.h
+ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/geometry_msgs/TwistWithCovariance.h
+ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/geometry_msgs/Vector3.h
+ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/nav_msgs/Odometry.h
 ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/ros/advertise_options.h
 ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/ros/advertise_service_options.h
 ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/ros/assert.h

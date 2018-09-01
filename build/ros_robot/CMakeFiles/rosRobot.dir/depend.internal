@@ -9,6 +9,14 @@ ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o
  /home/hl/Src/CLionProjects/nxt/devel/include/nxt_msgs/Contact.h
  /home/hl/Src/CLionProjects/nxt/devel/include/nxt_msgs/JointCommand.h
  /home/hl/Src/CLionProjects/nxt/devel/include/nxt_msgs/Range.h
+ /opt/ros/melodic/include/geometry_msgs/Point.h
+ /opt/ros/melodic/include/geometry_msgs/Pose.h
+ /opt/ros/melodic/include/geometry_msgs/PoseWithCovariance.h
+ /opt/ros/melodic/include/geometry_msgs/Quaternion.h
+ /opt/ros/melodic/include/geometry_msgs/Twist.h
+ /opt/ros/melodic/include/geometry_msgs/TwistWithCovariance.h
+ /opt/ros/melodic/include/geometry_msgs/Vector3.h
+ /opt/ros/melodic/include/nav_msgs/Odometry.h
  /opt/ros/melodic/include/ros/advertise_options.h
  /opt/ros/melodic/include/ros/advertise_service_options.h
  /opt/ros/melodic/include/ros/assert.h
