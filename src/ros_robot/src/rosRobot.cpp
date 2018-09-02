@@ -53,6 +53,7 @@ RosRobot::RosRobot(int argc, char** argv) {
     ros::NodeHandle nodeHandle;
     motorPublisher = nodeHandle.advertise<nxt_msgs::JointCommand>("/joint_command", 10);
     odometryPublisher = nodeHandle.advertise<nav_msgs::Odometry>("/odom", 10);
+
     joystickSubscriber = nodeHandle.subscribe("/joystick", 10, &RosRobot::joystickCB, this);
     colorSubscriber = nodeHandle.subscribe("/color_sensor", 10, &RosRobot::colorCB, this);
     rangeSubscriber = nodeHandle.subscribe("/range_sensor", 10, &RosRobot::rangeCB, this);
@@ -134,18 +135,30 @@ void RosRobot::motorCB(const sensor_msgs::JointState& mot)
 
 void RosRobot::motorsCB(const sensor_msgs::JointState& mot)
 {
-    std::string nam0 = mot.name[0];
+    std::string nam0 = mot.name[0]; // motor1
     double eff0 = mot.effort[0];
     double vel0 = mot.velocity[0];
     double pos0 = mot.position[0];
 
-    std::string nam1 = mot.name[1];
+    std::string nam1 = mot.name[1]; // motor2
     double eff1 = mot.effort[1];
     double vel1 = mot.velocity[1];
     double pos1 = mot.position[1];
 
-    ROS_INFO("name0:%s effect:%lf velocity:%lf position:%lf %lu\n", nam0.c_str(), eff0, vel0, pos0, mot.name.size());
-    ROS_INFO("name1:%s effect:%lf velocity:%lf position:%lf %lu\n", nam1.c_str(), eff1, vel1, pos1, mot.name.size());
+//    ROS_INFO("name0:%s effect:%lf velocity:%lf position:%lf %lu\n", nam0.c_str(), eff0, vel0, pos0, mot.name.size());
+//    ROS_INFO("name1:%s effect:%lf velocity:%lf position:%lf %lu\n", nam1.c_str(), eff1, vel1, pos1, mot.name.size());
+}
+
+void RosRobot::twistCB(const geometry_msgs::Twist& twist)
+{
+    double angularX = twist.angular.x;
+    double angularY = twist.angular.y;
+    double angularZ = twist.angular.z;
+    double linearX = twist.linear.x;
+    double linearY = twist.linear.y;
+    double linearZ = twist.linear.z;
+
+    ROS_INFO("ax:%lf, ay:%lf, az:%lf, lx:%lf, ly:%lf, lz:%lf\n", angularX, angularY, angularZ, linearX, linearY, linearZ);
 }
 
 
@@ -196,19 +209,6 @@ void RosRobot::joystickCB(const joystick::Joystick& joy)
     jointMotor2.effort = Efforts[effortMotor2];
     motorPublisher.publish(jointMotor2);
 }
-
-void RosRobot::twistCB(const geometry_msgs::Twist& twist)
-{
-    double angularX = twist.angular.x;
-    double angularY = twist.angular.y;
-    double angularZ = twist.angular.z;
-    double linearX = twist.linear.x;
-    double linearY = twist.linear.y;
-    double linearZ = twist.linear.z;
-
-    ROS_INFO("ax:%lf, ay:%lf, az:%lf, lx:%lf, ly:%lf, lz:%lf\n", angularX, angularY, angularZ, linearX, linearY, linearZ);
-}
-
 
 
 int main(int argc, char** argv) {

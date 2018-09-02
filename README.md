@@ -45,7 +45,8 @@ Execute the following commands to install ROS Melodic Morenia:
  sudo rosdep init 
  rosdep update 
  echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc 
- sudo apt-get install python-rosinstall python-rosinstall-generator python-wstool build-essential 
+ sudo apt-get install python-rosinstall python-rosinstall-generator python-wstool build-essential
+ sudo apt-get install ros-melodic-joy ros-melodic-teleop-twist-keyboard
 ```
 
 ### NXT-ROS
@@ -74,7 +75,10 @@ Finally, execute the following commands in a directory where you keep your ROS w
 mkdir –p nxt 
 cd  nxt 
 git clone --recursive https://github.com/NXT-ROS/nxt.git src 
-catkin_make 
+cd src
+git clone --recursive https://github.com/NXT-ROS/nxt_teleop.git
+cd ..
+catkin_make
 ```
 
 ### Reactive C++

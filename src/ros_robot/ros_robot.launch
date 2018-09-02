@@ -1,5 +1,23 @@
 <launch>
-    <node pkg="joystick" name="JoystickPublisher" type="joystickPublisher" output="screen" respawn="true"/>
+
+    <!--node pkg="joystick" name="JoystickPublisher" type="joystickPublisher" output="screen" respawn="true"/-->
+
+    <!-- joy node -->
+    <node pkg="joy" type="joy_node" name="nxt_joy" respawn="true">
+        <param name="dev" type="string" value="/dev/input/js0" />
+        <param name="deadzone" value="0.12" />
+        <param name="autorepeat_rate" value="10.0" />
+    </node>
+
+    <!-- teleop node -->
+    <node pkg="nxt_teleop" type="nxt_teleop_joy" name="nxt_teleop" output="screen">
+        <param name="axis_linear" value="3" type="int"/>
+        <param name="axis_angular" value="0" type="int"/>
+        <param name="axis_deadman" value="4" type="int"/>
+        <param name="scale_linear" value="1" type="double"/>
+        <param name="scale_angular" value="1" type="double"/>
+        <remap from="cmd_vel" to="teleop_cmd_vel"/>
+    </node>
 
     <node pkg="ros_robot" name="RosRobot" type="rosRobot" output="screen" respawn="true"/>
 
@@ -8,4 +26,15 @@
     </node>
 
     <node pkg="nxt_ros" type="joint_states_aggregator.py" name="joint_state_publisher" output="screen" />
+
+    <node pkg="nxt_controllers" type="base_controller.py" name="nxt_base_controller" output="screen">
+        <param name="base_parameters/l_wheel_joint" type="string" value="motor_joint" />
+        <param name="base_parameters/r_wheel_joint" type="string" value="motor_joint2" />
+    </node>
+
+    <node pkg="nxt_controllers" type="base_odometry.py" name="nxt_base_odometry" output="screen">
+        <param name="base_parameters/l_wheel_joint" type="string" value="motor_joint" />
+        <param name="base_parameters/r_wheel_joint" type="string" value="motor_joint2" />
+    </node>
+
 </launch>
