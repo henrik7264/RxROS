@@ -20,7 +20,6 @@ static float Efforts[] = {-1.0F, -0.9F, -0.8F, -0.7F, -0.6F, -0.5F, 0.0F, 0.5F, 
 class RosRobot {
 private:
     ros::Publisher motorPublisher;
-    ros::Publisher odometryPublisher;
     ros::Subscriber joystickSubscriber;
     ros::Subscriber colorSubscriber;
     ros::Subscriber rangeSubscriber;
@@ -29,6 +28,7 @@ private:
     ros::Subscriber motorSubscriber;
     ros::Subscriber motorsSubscriber;
     ros::Subscriber twistSubscriber;
+    ros::Subscriber odomSubscriber;
 
     int effortMotor1 = ZERO_EFFORT;
     int effortMotor2 = ZERO_EFFORT;
@@ -41,6 +41,7 @@ private:
     void motorCB(const sensor_msgs::JointState& mot);
     void motorsCB(const sensor_msgs::JointState& mot);
     void twistCB(const geometry_msgs::Twist& twist);
+    void odomCB(const nav_msgs::Odometry& odom);
 
 public:
     RosRobot(int argc, char** argv);
@@ -52,7 +53,6 @@ RosRobot::RosRobot(int argc, char** argv) {
     ros::init(argc, argv, "RosRobot"); // Name of this node.
     ros::NodeHandle nodeHandle;
     motorPublisher = nodeHandle.advertise<nxt_msgs::JointCommand>("/joint_command", 10);
-    odometryPublisher = nodeHandle.advertise<nav_msgs::Odometry>("/odom", 10);
 
     joystickSubscriber = nodeHandle.subscribe("/joystick", 10, &RosRobot::joystickCB, this);
     colorSubscriber = nodeHandle.subscribe("/color_sensor", 10, &RosRobot::colorCB, this);
@@ -62,6 +62,7 @@ RosRobot::RosRobot(int argc, char** argv) {
     motorSubscriber = nodeHandle.subscribe("/joint_state", 10, &RosRobot::motorCB, this);
     motorsSubscriber = nodeHandle.subscribe("/joint_states", 10, &RosRobot::motorsCB, this);
     twistSubscriber = nodeHandle.subscribe("/cmd_vel", 10, &RosRobot::twistCB, this);
+    odomSubscriber = nodeHandle.subscribe("/odom", 10, &RosRobot::odomCB, this);
 }
 
 void RosRobot::colorCB(const nxt_msgs::Color& col)
@@ -160,6 +161,11 @@ void RosRobot::twistCB(const geometry_msgs::Twist& twist)
 
     ROS_INFO("ax:%lf, ay:%lf, az:%lf, lx:%lf, ly:%lf, lz:%lf\n", angularX, angularY, angularZ, linearX, linearY, linearZ);
 }
+
+void  RosRobot::odomCB(const nav_msgs::Odometry& odom)
+{
+}
+
 
 
 void RosRobot::joystickCB(const joystick::Joystick& joy)
