@@ -1,4 +1,9 @@
 <launch>
+    <param name="/base_parameters/l_wheel_joint" type="string" value="motor_joint" />
+    <param name="/base_parameters/r_wheel_joint" type="string" value="motor_joint2" />
+    <param name="/base_parameters/wheel_radius" type="double" value="0.022" />
+    <param name="/base_parameters/wheel_basis" type="double" value="0.055" />
+    <param name="/base_parameters/vel_to_eff" type="double" value="0.1" />
 
     <!--node pkg="joystick" name="JoystickPublisher" type="joystickPublisher" output="screen" respawn="true"/-->
 
@@ -10,13 +15,13 @@
     </node>
 
     <!-- teleop node -->
-    <node pkg="nxt_teleop" type="nxt_teleop_joy" name="nxt_teleop" output="screen">
-        <param name="axis_linear" value="3" type="int"/>
+    <node pkg="nxt_teleop" name="nxt_teleop" type="nxt_teleop_joy" output="screen">
+        <param name="axis_linear" value="1" type="int"/>
         <param name="axis_angular" value="0" type="int"/>
-        <param name="axis_deadman" value="4" type="int"/>
-        <param name="scale_linear" value="1" type="double"/>
-        <param name="scale_angular" value="1" type="double"/>
-        <remap from="cmd_vel" to="teleop_cmd_vel"/>
+        <param name="axis_deadman" value="0" type="int"/>
+        <param name="scale_linear" value="1.0" type="double"/>
+        <param name="scale_angular" value="1.0" type="double"/>
+        <!--remap from="cmd_vel" to="teleop_cmd_vel"/-->
     </node>
 
     <node pkg="ros_robot" name="RosRobot" type="rosRobot" output="screen" respawn="true"/>
@@ -27,14 +32,7 @@
 
     <node pkg="nxt_ros" type="joint_states_aggregator.py" name="joint_state_publisher" output="screen" />
 
-    <node pkg="nxt_controllers" type="base_controller.py" name="nxt_base_controller" output="screen">
-        <param name="base_parameters/l_wheel_joint" type="string" value="motor_joint" />
-        <param name="base_parameters/r_wheel_joint" type="string" value="motor_joint2" />
-    </node>
+    <node pkg="nxt_controllers" type="base_controller.py" name="nxt_base_controller" output="screen"/>
 
-    <node pkg="nxt_controllers" type="base_odometry.py" name="nxt_base_odometry" output="screen">
-        <param name="base_parameters/l_wheel_joint" type="string" value="motor_joint" />
-        <param name="base_parameters/r_wheel_joint" type="string" value="motor_joint2" />
-    </node>
-
+    <node pkg="nxt_controllers" type="base_odometry.py" name="nxt_base_odometry" output="screen"/>
 </launch>

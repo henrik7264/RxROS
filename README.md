@@ -74,11 +74,15 @@ Finally, execute the following commands in a directory where you keep your ROS w
 ```
 mkdir –p nxt 
 cd  nxt 
-git clone --recursive https://github.com/NXT-ROS/nxt.git src 
-cd src
+git clone --recursive https://github.com/NXT-ROS/nxt.git src
+catkin_make
+cd ..
+mkdir -p nxt_teleop/src
+cd nxt_teleop/src
 git clone --recursive https://github.com/NXT-ROS/nxt_teleop.git
 cd ..
 catkin_make
+cd ..
 ```
 
 ### Reactive C++
