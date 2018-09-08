@@ -73,6 +73,7 @@ ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/r
 ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/ros/wall_timer_options.h
 ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/rosconsole/macros_generated.h
 ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/sensor_msgs/JointState.h
+ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/sensor_msgs/LaserScan.h
 ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/std_msgs/Header.h
 ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/xmlrpcpp/XmlRpcDecl.h
 ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/xmlrpcpp/XmlRpcValue.h

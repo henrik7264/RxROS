@@ -11,6 +11,7 @@
 #include <sensor_msgs/JointState.h>
 #include <geometry_msgs/Twist.h>
 #include <nav_msgs/Odometry.h>
+#include <sensor_msgs/LaserScan.h>
 
 #define MAX_EFFORT 12
 #define ZERO_EFFORT 6
@@ -20,6 +21,7 @@ static float Efforts[] = {-1.0F, -0.9F, -0.8F, -0.7F, -0.6F, -0.5F, 0.0F, 0.5F, 
 class RosRobot {
 private:
     ros::Publisher motorPublisher;
+    ros::Publisher laserScanPublisher;
     ros::Subscriber joystickSubscriber;
     ros::Subscriber colorSubscriber;
     ros::Subscriber rangeSubscriber;
@@ -53,6 +55,7 @@ RosRobot::RosRobot(int argc, char** argv) {
     ros::init(argc, argv, "RosRobot"); // Name of this node.
     ros::NodeHandle nodeHandle;
     motorPublisher = nodeHandle.advertise<nxt_msgs::JointCommand>("/joint_command", 10);
+    laserScanPublisher = nodeHandle.advertise<sensor_msgs::LaserScan>("/scan", 10);
 
     joystickSubscriber = nodeHandle.subscribe("/joystick", 10, &RosRobot::joystickCB, this);
     colorSubscriber = nodeHandle.subscribe("/color_sensor", 10, &RosRobot::colorCB, this);
@@ -83,6 +86,21 @@ void RosRobot::rangeCB(const nxt_msgs::Range& rng)
     double spread_angle = rng.spread_angle;
 
     //ROS_INFO( "Range range:%lf min:%lf max:%lf spread:%lf\n", range, range_min, range_max, spread_angle);
+
+    // Turn the Ultrasonic range into a LaserScan and publish it.
+    sensor_msgs::LaserScan laserScan;
+    laserScan.header.stamp = ros::Time::now();
+    laserScan.header.frame_id = "laser_frame";
+    laserScan.angle_min = static_cast<float>(-spread_angle/2);
+    laserScan.angle_max = static_cast<float>(spread_angle/2);
+    laserScan.angle_increment = static_cast<float>(spread_angle);
+    laserScan.time_increment = 0.0;
+    laserScan.range_min = static_cast<float>(range_min);
+    laserScan.range_max = static_cast<float>(range_max);
+    laserScan.ranges.resize(1);
+    laserScan.intensities.resize(0);
+    laserScan.ranges[0] = static_cast<float>(range);
+    laserScanPublisher.publish(laserScan);
 }
 
 void RosRobot::touchCB1(const nxt_msgs::Contact& cnt)
@@ -159,13 +177,12 @@ void RosRobot::twistCB(const geometry_msgs::Twist& twist)
     double linearY = twist.linear.y;
     double linearZ = twist.linear.z;
 
-    ROS_INFO("ax:%lf, ay:%lf, az:%lf, lx:%lf, ly:%lf, lz:%lf\n", angularX, angularY, angularZ, linearX, linearY, linearZ);
+//    ROS_INFO("ax:%lf, ay:%lf, az:%lf, lx:%lf, ly:%lf, lz:%lf\n", angularX, angularY, angularZ, linearX, linearY, linearZ);
 }
 
 void  RosRobot::odomCB(const nav_msgs::Odometry& odom)
 {
 }
-
 
 
 void RosRobot::joystickCB(const joystick::Joystick& joy)
