@@ -90,7 +90,7 @@ void RosRobot::rangeCB(const nxt_msgs::Range& rng)
     // Turn the Ultrasonic range into a LaserScan and publish it.
     sensor_msgs::LaserScan laserScan;
     laserScan.header.stamp = ros::Time::now();
-    laserScan.header.frame_id = "laser_frame";
+    laserScan.header.frame_id = "laser_link";
     laserScan.angle_min = static_cast<float>(-spread_angle/2);
     laserScan.angle_max = static_cast<float>(spread_angle/2);
     laserScan.angle_increment = static_cast<float>(spread_angle);

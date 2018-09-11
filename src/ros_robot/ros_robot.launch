@@ -1,14 +1,16 @@
 <launch>
-    <param name="/base_parameters/l_wheel_joint" type="string" value="motor_joint" />
-    <param name="/base_parameters/r_wheel_joint" type="string" value="motor_joint2" />
-    <param name="/base_parameters/wheel_radius" type="double" value="0.022" />
-    <param name="/base_parameters/wheel_basis" type="double" value="0.055" />
-    <param name="/base_parameters/vel_to_eff" type="double" value="0.1" />
+    <group ns="base_parameters">
+        <param name="l_wheel_joint" type="string" value="motor_joint" />
+        <param name="r_wheel_joint" type="string" value="motor_joint2" />
+        <param name="wheel_radius" type="double" value="0.022" />
+        <param name="wheel_basis" type="double" value="0.055" />
+        <param name="vel_to_eff" type="double" value="0.1" />
+    </group>
 
     <!--node pkg="joystick" name="JoystickPublisher" type="joystickPublisher" output="screen" respawn="true"/-->
 
     <!-- joy node -->
-    <node pkg="joy" type="joy_node" name="nxt_joy" respawn="true">
+    <node pkg="joy" name="nxt_joy" type="joy_node" respawn="true">
         <param name="dev" type="string" value="/dev/input/js0" />
         <param name="deadzone" value="0.12" />
         <param name="autorepeat_rate" value="10.0" />
@@ -19,20 +21,26 @@
         <param name="axis_linear" value="1" type="int"/>
         <param name="axis_angular" value="0" type="int"/>
         <param name="axis_deadman" value="0" type="int"/>
-        <param name="scale_linear" value="0.1" type="double"/>
-        <param name="scale_angular" value="0.1" type="double"/>
+        <param name="scale_linear" value="0.5" type="double"/>
+        <param name="scale_angular" value="0.5" type="double"/>
         <!--remap from="cmd_vel" to="teleop_cmd_vel"/-->
     </node>
 
     <node pkg="ros_robot" name="RosRobot" type="rosRobot" output="screen" respawn="true"/>
 
-    <node pkg="nxt_ros" type="nxt_ros.py" name="nxt_ros" output="screen" respawn="true">
+    <node pkg="nxt_ros" name="nxt_ros" type="nxt_ros.py" output="screen" respawn="true">
         <rosparam command="load" file="$(find ros_robot)/ros_robot.yaml" />
     </node>
 
-    <node pkg="nxt_ros" type="joint_states_aggregator.py" name="joint_state_publisher" output="screen" />
+    <node pkg="nxt_ros" name="joint_state_publisher"  type="joint_states_aggregator.py" output="screen" />
 
-    <node pkg="nxt_controllers" type="base_controller.py" name="nxt_base_controller" output="screen"/>
+    <node pkg="nxt_controllers" name="nxt_base_controller" type="base_controller.py" output="screen"/>
 
-    <node pkg="nxt_controllers" type="base_odometry.py" name="nxt_base_odometry" output="screen"/>
+    <node pkg="nxt_controllers" name="nxt_base_odometry" type="base_odometry.py" output="screen"/>
+
+    <node pkg="tf" name="base_footprint_fixed_publisher" type="static_transform_publisher" args="0 0 0.07 0 0 0 1 base_link laser_link 100"/>
+
+    <!--node pkg="robot_pose_ekf" name="robot_pose_ekf" type="robot_pose_ekf" respawn="true">
+          <remap from="imu_data" to="gyro_imu" />
+    </node-->
 </launch>
