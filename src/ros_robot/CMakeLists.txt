@@ -9,6 +9,7 @@ project(ros_robot)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   joystick
+  move_base
   nxt_ros
   roscpp
   rospy

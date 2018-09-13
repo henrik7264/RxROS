@@ -21,8 +21,8 @@
         <param name="axis_linear" value="1" type="int"/>
         <param name="axis_angular" value="0" type="int"/>
         <param name="axis_deadman" value="0" type="int"/>
-        <param name="scale_linear" value="0.5" type="double"/>
-        <param name="scale_angular" value="0.5" type="double"/>
+        <param name="scale_linear" value="0.1" type="double"/>
+        <param name="scale_angular" value="0.1" type="double"/>
         <!--remap from="cmd_vel" to="teleop_cmd_vel"/-->
     </node>
 
@@ -43,4 +43,14 @@
     <!--node pkg="robot_pose_ekf" name="robot_pose_ekf" type="robot_pose_ekf" respawn="true">
           <remap from="imu_data" to="gyro_imu" />
     </node-->
+
+    <node name="map_server" pkg="map_server" type="map_server" args="$(find ros_robot)/my_map.pgm my_map_resolution"/>
+
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+        <rosparam command="load" file="$(find ros_robot)/costmap_common_params.yaml" ns="global_costmap" />
+        <rosparam command="load" file="$(find ros_robot)/costmap_common_params.yaml" ns="local_costmap" />
+        <rosparam command="load" file="$(find ros_robot)/local_costmap_params.yaml"/>
+        <rosparam command="load" file="$(find ros_robot)/global_costmap_params.yaml"/>
+        <rosparam command="load" file="$(find ros_robot)/base_local_planner_params.yaml"/>
+    </node>
 </launch>

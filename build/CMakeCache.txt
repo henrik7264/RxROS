@@ -278,6 +278,9 @@ catkin_DIR:PATH=/opt/ros/melodic/share/catkin/cmake
 //The directory containing a CMake configuration file for cpp_common.
 cpp_common_DIR:PATH=/opt/ros/melodic/share/cpp_common/cmake
 
+//The directory containing a CMake configuration file for dynamic_reconfigure.
+dynamic_reconfigure_DIR:PATH=/opt/ros/melodic/share/dynamic_reconfigure/cmake
+
 //The directory containing a CMake configuration file for gencpp.
 gencpp_DIR:PATH=/opt/ros/melodic/share/gencpp/cmake
 
@@ -309,7 +312,10 @@ joystick_DIR:PATH=/home/hl/Src/CLionProjects/RxROS/devel/share/joystick/cmake
 joystick_SOURCE_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/src/joystick
 
 //Path to a library.
-lib:FILEPATH=/opt/ros/melodic/lib/libtf2.so
+lib:FILEPATH=/opt/ros/melodic/lib/libdynamic_reconfigure_config_init_mutex.so
+
+//The directory containing a CMake configuration file for map_server.
+map_server_DIR:PATH=map_server_DIR-NOTFOUND
 
 //The directory containing a CMake configuration file for message_filters.
 message_filters_DIR:PATH=/opt/ros/melodic/share/message_filters/cmake
@@ -319,6 +325,21 @@ message_generation_DIR:PATH=/opt/ros/melodic/share/message_generation/cmake
 
 //The directory containing a CMake configuration file for message_runtime.
 message_runtime_DIR:PATH=/opt/ros/melodic/share/message_runtime/cmake
+
+//The directory containing a CMake configuration file for move_base.
+move_base_DIR:PATH=/opt/ros/melodic/share/move_base/cmake
+
+//The directory containing a CMake configuration file for move_base_msgs.
+move_base_msgs_DIR:PATH=/opt/ros/melodic/share/move_base_msgs/cmake
+
+//Value Computed by CMake
+my_robot_name_2dnav_BINARY_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/build/my_robot_name_2dnav
+
+//Value Computed by CMake
+my_robot_name_2dnav_SOURCE_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/src/my_robot_name_2dnav
+
+//The directory containing a CMake configuration file for nav_msgs.
+nav_msgs_DIR:PATH=/opt/ros/melodic/share/nav_msgs/cmake
 
 //The directory containing a CMake configuration file for nxt_msgs.
 nxt_msgs_DIR:PATH=/home/hl/Src/CLionProjects/nxt/devel/share/nxt_msgs/cmake

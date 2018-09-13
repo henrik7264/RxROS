@@ -47,6 +47,7 @@ Execute the following commands to install ROS Melodic Morenia:
  echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc 
  sudo apt-get install python-rosinstall python-rosinstall-generator python-wstool build-essential
  sudo apt-get install ros-melodic-joy ros-melodic-teleop-twist-keyboard
+ sudo apt-get install ros-melodic-navigation
 ```
 
 ### NXT-ROS
