@@ -85,7 +85,7 @@ void RosRobot::rangeCB(const nxt_msgs::Range& rng)
     double range_max = rng.range_max;
     double spread_angle = rng.spread_angle;
 
-    //ROS_INFO( "Range range:%lf min:%lf max:%lf spread:%lf\n", range, range_min, range_max, spread_angle);
+    ROS_INFO( "Range range:%lf min:%lf max:%lf spread:%lf\n", range, range_min, range_max, spread_angle);
 
     // Turn the Ultrasonic range into a LaserScan and publish it.
     sensor_msgs::LaserScan laserScan;
