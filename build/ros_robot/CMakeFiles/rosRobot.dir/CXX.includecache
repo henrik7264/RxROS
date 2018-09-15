@@ -53,6 +53,8 @@ nav_msgs/Odometry.h
 -
 sensor_msgs/LaserScan.h
 -
+sensor_msgs/PointCloud.h
+-
 
 /home/hl/Src/CLionProjects/nxt/devel/include/nxt_msgs/Color.h
 string
@@ -125,6 +127,22 @@ std_msgs/Header.h
 -
 
 /opt/ros/melodic/include/geometry_msgs/Point.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+
+/opt/ros/melodic/include/geometry_msgs/Point32.h
 string
 -
 vector
@@ -916,6 +934,22 @@ ros/forwards.h
 
 /opt/ros/melodic/include/rosconsole/macros_generated.h
 
+/opt/ros/melodic/include/sensor_msgs/ChannelFloat32.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+
 /opt/ros/melodic/include/sensor_msgs/JointState.h
 string
 -
@@ -950,6 +984,28 @@ ros/builtin_message_traits.h
 ros/message_operations.h
 -
 std_msgs/Header.h
+-
+
+/opt/ros/melodic/include/sensor_msgs/PointCloud.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+std_msgs/Header.h
+-
+geometry_msgs/Point32.h
+-
+sensor_msgs/ChannelFloat32.h
 -
 
 /opt/ros/melodic/include/std_msgs/Header.h

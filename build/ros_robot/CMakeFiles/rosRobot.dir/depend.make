@@ -9,6 +9,7 @@ ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /home/hl/Src/CLionProjects
 ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /home/hl/Src/CLionProjects/nxt/devel/include/nxt_msgs/JointCommand.h
 ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /home/hl/Src/CLionProjects/nxt/devel/include/nxt_msgs/Range.h
 ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/geometry_msgs/Point.h
+ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/geometry_msgs/Point32.h
 ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/geometry_msgs/Pose.h
 ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/geometry_msgs/PoseWithCovariance.h
 ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/geometry_msgs/Quaternion.h
@@ -72,8 +73,10 @@ ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/r
 ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/ros/wall_timer.h
 ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/ros/wall_timer_options.h
 ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/rosconsole/macros_generated.h
+ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/sensor_msgs/ChannelFloat32.h
 ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/sensor_msgs/JointState.h
 ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/sensor_msgs/LaserScan.h
+ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/sensor_msgs/PointCloud.h
 ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/std_msgs/Header.h
 ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/xmlrpcpp/XmlRpcDecl.h
 ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o: /opt/ros/melodic/include/xmlrpcpp/XmlRpcValue.h

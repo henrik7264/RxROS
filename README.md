@@ -29,6 +29,7 @@ I found it useful in addition to add the following packages:
 sudo apt-get install git doxygen graphviz-* meld cmake
 sudo apt-get install emacs gtcreator qt5-*
 sudo apt-get install tree gimp
+sudo apt-get liburdfdom-tools
 ```
 
 ### ROS Melodic Morenia
@@ -81,6 +82,12 @@ cd ..
 mkdir -p nxt_teleop/src
 cd nxt_teleop/src
 git clone --recursive https://github.com/NXT-ROS/nxt_teleop.git
+cd ..
+catkin_make
+cd ..
+mkdir -p nxt_viz/src
+cd nxt_viz/src
+git clone --recursive https://github.com/NXT-ROS/nxt_viz.git
 cd ..
 catkin_make
 cd ..

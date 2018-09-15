@@ -10,6 +10,7 @@ ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o
  /home/hl/Src/CLionProjects/nxt/devel/include/nxt_msgs/JointCommand.h
  /home/hl/Src/CLionProjects/nxt/devel/include/nxt_msgs/Range.h
  /opt/ros/melodic/include/geometry_msgs/Point.h
+ /opt/ros/melodic/include/geometry_msgs/Point32.h
  /opt/ros/melodic/include/geometry_msgs/Pose.h
  /opt/ros/melodic/include/geometry_msgs/PoseWithCovariance.h
  /opt/ros/melodic/include/geometry_msgs/Quaternion.h
@@ -73,8 +74,10 @@ ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o
  /opt/ros/melodic/include/ros/wall_timer.h
  /opt/ros/melodic/include/ros/wall_timer_options.h
  /opt/ros/melodic/include/rosconsole/macros_generated.h
+ /opt/ros/melodic/include/sensor_msgs/ChannelFloat32.h
  /opt/ros/melodic/include/sensor_msgs/JointState.h
  /opt/ros/melodic/include/sensor_msgs/LaserScan.h
+ /opt/ros/melodic/include/sensor_msgs/PointCloud.h
  /opt/ros/melodic/include/std_msgs/Header.h
  /opt/ros/melodic/include/xmlrpcpp/XmlRpcDecl.h
  /opt/ros/melodic/include/xmlrpcpp/XmlRpcValue.h

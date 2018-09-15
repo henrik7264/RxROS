@@ -12,6 +12,8 @@
 #include <geometry_msgs/Twist.h>
 #include <nav_msgs/Odometry.h>
 #include <sensor_msgs/LaserScan.h>
+#include <sensor_msgs/PointCloud.h>
+
 
 #define MAX_EFFORT 12
 #define ZERO_EFFORT 6
@@ -22,6 +24,7 @@ class RosRobot {
 private:
     ros::Publisher motorPublisher;
     ros::Publisher laserScanPublisher;
+    ros::Publisher pointCloudPublisher;
     ros::Subscriber joystickSubscriber;
     ros::Subscriber colorSubscriber;
     ros::Subscriber rangeSubscriber;
@@ -56,6 +59,7 @@ RosRobot::RosRobot(int argc, char** argv) {
     ros::NodeHandle nodeHandle;
     motorPublisher = nodeHandle.advertise<nxt_msgs::JointCommand>("/joint_command", 10);
     laserScanPublisher = nodeHandle.advertise<sensor_msgs::LaserScan>("/scan", 10);
+    pointCloudPublisher = nodeHandle.advertise<sensor_msgs::PointCloud>("/cloud", 10);
 
     joystickSubscriber = nodeHandle.subscribe("/joystick", 10, &RosRobot::joystickCB, this);
     colorSubscriber = nodeHandle.subscribe("/color_sensor", 10, &RosRobot::colorCB, this);
@@ -98,9 +102,24 @@ void RosRobot::rangeCB(const nxt_msgs::Range& rng)
     laserScan.range_min = static_cast<float>(range_min);
     laserScan.range_max = static_cast<float>(range_max);
     laserScan.ranges.resize(1);
-    laserScan.intensities.resize(0);
+    laserScan.intensities.resize(1);
     laserScan.ranges[0] = static_cast<float>(range);
+    laserScan.intensities[0] = 100;
     laserScanPublisher.publish(laserScan);
+
+    // Turn the Ultrasonic range into a PointCloud and publish it.
+    sensor_msgs::PointCloud pointCloud;
+    pointCloud.header.stamp = ros::Time::now();
+    pointCloud.header.frame_id = "sensor_frame";
+    pointCloud.channels.resize(1);
+    pointCloud.channels[0].name = "intensities";
+    pointCloud.channels[0].values.resize(1);
+    pointCloud.points.resize(1);
+    pointCloud.points[0].x = range;
+    pointCloud.points[0].y = 0;
+    pointCloud.points[0].z = 0.07;
+    pointCloud.channels[0].values[0] = 100;
+    pointCloudPublisher.publish(pointCloud);
 }
 
 void RosRobot::touchCB1(const nxt_msgs::Contact& cnt)
