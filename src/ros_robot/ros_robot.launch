@@ -1,9 +1,13 @@
 <launch>
+    <param name="robot_description" textfile="$(find ros_robot)/ros_robot.urdf"/>
+
     <group ns="base_parameters">
         <param name="l_wheel_joint" type="string" value="motor_joint" />
         <param name="r_wheel_joint" type="string" value="motor_joint2" />
-        <param name="wheel_radius" type="double" value="0.022" />
-        <param name="wheel_basis" type="double" value="0.055" />
+        <!--param name="wheel_radius" type="double" value="0.022" /-->
+        <param name="wheel_radius" type="double" value="0.029" />
+        <!--param name="wheel_basis" type="double" value="0.055" /-->
+        <param name="wheel_basis" type="double" value="0.061" />
         <param name="vel_to_eff" type="double" value="0.1" />
     </group>
 
@@ -32,25 +36,29 @@
         <rosparam command="load" file="$(find ros_robot)/ros_robot.yaml" />
     </node>
 
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+        <param name="publish_frequency" value="2.0"/>
+    </node>
+
     <node pkg="nxt_ros" name="joint_state_publisher"  type="joint_states_aggregator.py" output="screen" />
 
     <node pkg="nxt_controllers" name="nxt_base_controller" type="base_controller.py" output="screen"/>
 
     <node pkg="nxt_controllers" name="nxt_base_odometry" type="base_odometry.py" output="screen"/>
 
-    <node pkg="tf" name="base_footprint_fixed_publisher" type="static_transform_publisher" args="0 0 0.07 0 0 0 1 base_link laser_link 100"/>
+    <node pkg="tf" name="base_footprint_fixed_publisher" type="static_transform_publisher" args="0 0 0.07 0 0 0 1 base_footprint base_link 100"/>
 
     <!--node pkg="robot_pose_ekf" name="robot_pose_ekf" type="robot_pose_ekf" respawn="true">
           <remap from="imu_data" to="gyro_imu" />
     </node-->
 
-    <node name="map_server" pkg="map_server" type="map_server" args="$(find ros_robot)/my_map.pgm my_map_resolution"/>
+    <!--node name="map_server" pkg="map_server" type="map_server" args="$(find ros_robot)/my_map.pgm my_map_resolution"/-->
 
-    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <!--node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
         <rosparam command="load" file="$(find ros_robot)/costmap_common_params.yaml" ns="global_costmap" />
         <rosparam command="load" file="$(find ros_robot)/costmap_common_params.yaml" ns="local_costmap" />
         <rosparam command="load" file="$(find ros_robot)/local_costmap_params.yaml"/>
         <rosparam command="load" file="$(find ros_robot)/global_costmap_params.yaml"/>
         <rosparam command="load" file="$(find ros_robot)/base_local_planner_params.yaml"/>
-    </node>
+    </node-->
 </launch>

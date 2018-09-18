@@ -1,36 +1,36 @@
 nxt_robot:
   - type: motor
-    frame_id: motor_frame
+    frame_id: motor_link
     name: motor_joint
     port: PORT_A
     desired_frequency: 2.0
 
   - type: motor
-    frame_id: motor_frame2
+    frame_id: motor_link2
     name: motor_joint2
     port: PORT_C
     desired_frequency: 2.0
 
   - type: touch
-    frame_id: touch_frame
+    frame_id: touch_link
     name: touch_sensor
     port: PORT_1
     desired_frequency: 2.0
 
   - type: touch
-    frame_id: touch_frame2
+    frame_id: touch_link2
     name: touch_sensor2
     port: PORT_4
     desired_frequency: 2.0
 
   - type: color
-    frame_id: color_frame
+    frame_id: color_link
     name: color_sensor
     port: PORT_3
     desired_frequency: 2.0
 
   - type: ultrasonic
-    frame_id: range_frame
+    frame_id: range_link
     name: range_sensor
     spread_angle: 1.0
     min_range: 0.10

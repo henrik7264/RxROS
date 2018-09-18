@@ -333,6 +333,12 @@ move_base_DIR:PATH=/opt/ros/melodic/share/move_base/cmake
 move_base_msgs_DIR:PATH=/opt/ros/melodic/share/move_base_msgs/cmake
 
 //Value Computed by CMake
+mulle_BINARY_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/build/mulle
+
+//Value Computed by CMake
+mulle_SOURCE_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/src/mulle
+
+//Value Computed by CMake
 my_robot_name_2dnav_BINARY_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/build/my_robot_name_2dnav
 
 //Value Computed by CMake
@@ -340,6 +346,12 @@ my_robot_name_2dnav_SOURCE_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/src/my_ro
 
 //The directory containing a CMake configuration file for nav_msgs.
 nav_msgs_DIR:PATH=/opt/ros/melodic/share/nav_msgs/cmake
+
+//Value Computed by CMake
+nxt_lxf2urdf_BINARY_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/build/nxt_lxf2urdf
+
+//Value Computed by CMake
+nxt_lxf2urdf_SOURCE_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/src/nxt_lxf2urdf
 
 //The directory containing a CMake configuration file for nxt_msgs.
 nxt_msgs_DIR:PATH=/home/hl/Src/CLionProjects/nxt/devel/share/nxt_msgs/cmake
