@@ -28,8 +28,6 @@ private:
     ros::Subscriber joystickSubscriber;
     ros::Subscriber colorSubscriber;
     ros::Subscriber rangeSubscriber;
-    ros::Subscriber touchSubscriber1;
-    ros::Subscriber touchSubscriber2;
     ros::Subscriber motorSubscriber;
     ros::Subscriber motorsSubscriber;
     ros::Subscriber twistSubscriber;
@@ -41,8 +39,6 @@ private:
     void joystickCB(const joystick::Joystick& joy);
     void colorCB(const nxt_msgs::Color& col);
     void rangeCB(const nxt_msgs::Range& rng);
-    void touchCB1(const nxt_msgs::Contact& cnt);
-    void touchCB2(const nxt_msgs::Contact& cnt);
     void motorCB(const sensor_msgs::JointState& mot);
     void motorsCB(const sensor_msgs::JointState& mot);
     void twistCB(const geometry_msgs::Twist& twist);
@@ -63,9 +59,7 @@ RosRobot::RosRobot(int argc, char** argv) {
 
     joystickSubscriber = nodeHandle.subscribe("/joystick", 10, &RosRobot::joystickCB, this);
     colorSubscriber = nodeHandle.subscribe("/color_sensor", 10, &RosRobot::colorCB, this);
-    rangeSubscriber = nodeHandle.subscribe("/range_sensor", 10, &RosRobot::rangeCB, this);
-    touchSubscriber1 = nodeHandle.subscribe("/touch_sensor", 10, &RosRobot::touchCB1, this);
-    touchSubscriber2 = nodeHandle.subscribe("/touch_sensor2", 10, &RosRobot::touchCB2, this);
+    rangeSubscriber = nodeHandle.subscribe("/ultrasonic_sensor", 10, &RosRobot::rangeCB, this);
     motorSubscriber = nodeHandle.subscribe("/joint_state", 10, &RosRobot::motorCB, this);
     motorsSubscriber = nodeHandle.subscribe("/joint_states", 10, &RosRobot::motorsCB, this);
     twistSubscriber = nodeHandle.subscribe("/cmd_vel", 10, &RosRobot::twistCB, this);
@@ -120,44 +114,6 @@ void RosRobot::rangeCB(const nxt_msgs::Range& rng)
     pointCloud.points[0].z = 0.07;
     pointCloud.channels[0].values[0] = 100;
     pointCloudPublisher.publish(pointCloud);
-}
-
-void RosRobot::touchCB1(const nxt_msgs::Contact& cnt)
-{
-    short contact = cnt.contact;
-    if (contact == 1) {
-        effortMotor1 = ZERO_EFFORT;
-        effortMotor2 = ZERO_EFFORT;
-
-        nxt_msgs::JointCommand jointMotor1;
-        jointMotor1.name = "motor_joint";
-        jointMotor1.effort = Efforts[effortMotor1];
-        motorPublisher.publish(jointMotor1);
-
-        nxt_msgs::JointCommand jointMotor2;
-        jointMotor2.name = "motor_joint2";
-        jointMotor2.effort = Efforts[effortMotor2];
-        motorPublisher.publish(jointMotor2);
-    }
-}
-
-void RosRobot::touchCB2(const nxt_msgs::Contact& cnt)
-{
-    short contact = cnt.contact;
-    if (contact == 1) {
-        effortMotor1 = ZERO_EFFORT;
-        effortMotor2 = ZERO_EFFORT;
-
-        nxt_msgs::JointCommand jointMotor1;
-        jointMotor1.name = "motor_joint";
-        jointMotor1.effort = Efforts[effortMotor1];
-        motorPublisher.publish(jointMotor1);
-
-        nxt_msgs::JointCommand jointMotor2;
-        jointMotor2.name = "motor_joint2";
-        jointMotor2.effort = Efforts[effortMotor2];
-        motorPublisher.publish(jointMotor2);
-    }
 }
 
 void RosRobot::motorCB(const sensor_msgs::JointState& mot)
@@ -242,12 +198,12 @@ void RosRobot::joystickCB(const joystick::Joystick& joy)
 
 //    ROS_INFO("effortMotor1 = %f, effortMotor2 = %f\n", Efforts[effortMotor1], Efforts[effortMotor2]);
     nxt_msgs::JointCommand jointMotor1;
-    jointMotor1.name = "motor_joint";
+    jointMotor1.name = "l_wheel_joint";
     jointMotor1.effort = Efforts[effortMotor1];
     motorPublisher.publish(jointMotor1);
 
     nxt_msgs::JointCommand jointMotor2;
-    jointMotor2.name = "motor_joint2";
+    jointMotor2.name = "r_wheel_joint";
     jointMotor2.effort = Efforts[effortMotor2];
     motorPublisher.publish(jointMotor2);
 }

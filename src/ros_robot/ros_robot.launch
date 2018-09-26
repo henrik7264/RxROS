@@ -2,13 +2,11 @@
     <param name="robot_description" textfile="$(find ros_robot)/ros_robot.urdf"/>
 
     <group ns="base_parameters">
-        <param name="l_wheel_joint" type="string" value="motor_joint" />
-        <param name="r_wheel_joint" type="string" value="motor_joint2" />
-        <!--param name="wheel_radius" type="double" value="0.022" /-->
-        <param name="wheel_radius" type="double" value="0.029" />
-        <!--param name="wheel_basis" type="double" value="0.055" /-->
-        <param name="wheel_basis" type="double" value="0.061" />
-        <param name="vel_to_eff" type="double" value="0.1" />
+        <param name="r_wheel_joint" type="string" value="r_wheel_joint"/>
+        <param name="l_wheel_joint" type="string" value="l_wheel_joint"/>
+        <param name="wheel_radius" type="double" value="0.0325" /> <!-- diameter of wheel / 2 -->
+        <param name="wheel_basis" type="double" value="0.0437" /> <!-- length between wheels / 2 -->
+        <param name="vel_to_eff" type="double" value="0.5" /> <!-- used by nxt_base_controller to determine the effect of the motors -->
     </group>
 
     <!--node pkg="joystick" name="JoystickPublisher" type="joystickPublisher" output="screen" respawn="true"/-->
@@ -25,8 +23,8 @@
         <param name="axis_linear" value="1" type="int"/>
         <param name="axis_angular" value="0" type="int"/>
         <param name="axis_deadman" value="0" type="int"/>screen
-        <param name="scale_linear" value="0.1" type="double"/>
-        <param name="scale_angular" value="0.1" type="double"/>
+        <param name="scale_linear" value="1.0" type="double"/>
+        <param name="scale_angular" value="1.0" type="double"/>
         <!--remap from="cmd_vel" to="teleop_cmd_vel"/-->
     </node>
 
@@ -36,7 +34,7 @@
         <rosparam command="load" file="$(find ros_robot)/ros_robot.yaml" />
     </node>
 
-    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+    <node pkg="robot_state_publisher" name="robot_state_publisher" type="robot_state_publisher">
         <param name="publish_frequency" value="2.0"/>
     </node>
 
@@ -47,6 +45,7 @@
     <node pkg="nxt_controllers" name="nxt_base_odometry" type="base_odometry.py" output="screen"/>
 
     <node pkg="tf" name="base_footprint_fixed_publisher" type="static_transform_publisher" args="0 0 0.07 0 0 0 1 base_footprint base_link 100"/>
+
 
     <!--node pkg="robot_pose_ekf" name="robot_pose_ekf" type="robot_pose_ekf" respawn="true">
           <remap from="imu_data" to="gyro_imu" />

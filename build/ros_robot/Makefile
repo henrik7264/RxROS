@@ -80,16 +80,6 @@ install/local/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
 
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-
-.PHONY : list_install_components/fast
-
 # Special rule for the target test
 test:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
@@ -101,17 +91,26 @@ test/fast: test
 
 .PHONY : test/fast
 
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
 
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
 
 # Special rule for the target rebuild_cache
 rebuild_cache:
@@ -124,16 +123,17 @@ rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
 
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -182,336 +182,6 @@ rosRobot/fast:
 	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/rosRobot.dir/build.make ros_robot/CMakeFiles/rosRobot.dir/build
 .PHONY : rosRobot/fast
 
-# Convenience name for target.
-ros_robot/CMakeFiles/nxt_msgs_generate_messages_py.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 ros_robot/CMakeFiles/nxt_msgs_generate_messages_py.dir/rule
-.PHONY : ros_robot/CMakeFiles/nxt_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-nxt_msgs_generate_messages_py: ros_robot/CMakeFiles/nxt_msgs_generate_messages_py.dir/rule
-
-.PHONY : nxt_msgs_generate_messages_py
-
-# fast build rule for target.
-nxt_msgs_generate_messages_py/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/nxt_msgs_generate_messages_py.dir/build.make ros_robot/CMakeFiles/nxt_msgs_generate_messages_py.dir/build
-.PHONY : nxt_msgs_generate_messages_py/fast
-
-# Convenience name for target.
-ros_robot/CMakeFiles/nxt_msgs_generate_messages_nodejs.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 ros_robot/CMakeFiles/nxt_msgs_generate_messages_nodejs.dir/rule
-.PHONY : ros_robot/CMakeFiles/nxt_msgs_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-nxt_msgs_generate_messages_nodejs: ros_robot/CMakeFiles/nxt_msgs_generate_messages_nodejs.dir/rule
-
-.PHONY : nxt_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-nxt_msgs_generate_messages_nodejs/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/nxt_msgs_generate_messages_nodejs.dir/build.make ros_robot/CMakeFiles/nxt_msgs_generate_messages_nodejs.dir/build
-.PHONY : nxt_msgs_generate_messages_nodejs/fast
-
-# Convenience name for target.
-ros_robot/CMakeFiles/nxt_msgs_generate_messages_eus.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 ros_robot/CMakeFiles/nxt_msgs_generate_messages_eus.dir/rule
-.PHONY : ros_robot/CMakeFiles/nxt_msgs_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-nxt_msgs_generate_messages_eus: ros_robot/CMakeFiles/nxt_msgs_generate_messages_eus.dir/rule
-
-.PHONY : nxt_msgs_generate_messages_eus
-
-# fast build rule for target.
-nxt_msgs_generate_messages_eus/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/nxt_msgs_generate_messages_eus.dir/build.make ros_robot/CMakeFiles/nxt_msgs_generate_messages_eus.dir/build
-.PHONY : nxt_msgs_generate_messages_eus/fast
-
-# Convenience name for target.
-ros_robot/CMakeFiles/nxt_msgs_generate_messages_cpp.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 ros_robot/CMakeFiles/nxt_msgs_generate_messages_cpp.dir/rule
-.PHONY : ros_robot/CMakeFiles/nxt_msgs_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-nxt_msgs_generate_messages_cpp: ros_robot/CMakeFiles/nxt_msgs_generate_messages_cpp.dir/rule
-
-.PHONY : nxt_msgs_generate_messages_cpp
-
-# fast build rule for target.
-nxt_msgs_generate_messages_cpp/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/nxt_msgs_generate_messages_cpp.dir/build.make ros_robot/CMakeFiles/nxt_msgs_generate_messages_cpp.dir/build
-.PHONY : nxt_msgs_generate_messages_cpp/fast
-
-# Convenience name for target.
-ros_robot/CMakeFiles/nav_msgs_generate_messages_py.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 ros_robot/CMakeFiles/nav_msgs_generate_messages_py.dir/rule
-.PHONY : ros_robot/CMakeFiles/nav_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-nav_msgs_generate_messages_py: ros_robot/CMakeFiles/nav_msgs_generate_messages_py.dir/rule
-
-.PHONY : nav_msgs_generate_messages_py
-
-# fast build rule for target.
-nav_msgs_generate_messages_py/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/nav_msgs_generate_messages_py.dir/build.make ros_robot/CMakeFiles/nav_msgs_generate_messages_py.dir/build
-.PHONY : nav_msgs_generate_messages_py/fast
-
-# Convenience name for target.
-ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/rule
-.PHONY : ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-dynamic_reconfigure_generate_messages_lisp: ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/rule
-
-.PHONY : dynamic_reconfigure_generate_messages_lisp
-
-# fast build rule for target.
-dynamic_reconfigure_generate_messages_lisp/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/build.make ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/build
-.PHONY : dynamic_reconfigure_generate_messages_lisp/fast
-
-# Convenience name for target.
-ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/rule
-.PHONY : ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-dynamic_reconfigure_generate_messages_eus: ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/rule
-
-.PHONY : dynamic_reconfigure_generate_messages_eus
-
-# fast build rule for target.
-dynamic_reconfigure_generate_messages_eus/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/build.make ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/build
-.PHONY : dynamic_reconfigure_generate_messages_eus/fast
-
-# Convenience name for target.
-ros_robot/CMakeFiles/move_base_gencfg.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 ros_robot/CMakeFiles/move_base_gencfg.dir/rule
-.PHONY : ros_robot/CMakeFiles/move_base_gencfg.dir/rule
-
-# Convenience name for target.
-move_base_gencfg: ros_robot/CMakeFiles/move_base_gencfg.dir/rule
-
-.PHONY : move_base_gencfg
-
-# fast build rule for target.
-move_base_gencfg/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/move_base_gencfg.dir/build.make ros_robot/CMakeFiles/move_base_gencfg.dir/build
-.PHONY : move_base_gencfg/fast
-
-# Convenience name for target.
-ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_nodejs.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_nodejs.dir/rule
-.PHONY : ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-dynamic_reconfigure_generate_messages_nodejs: ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_nodejs.dir/rule
-
-.PHONY : dynamic_reconfigure_generate_messages_nodejs
-
-# fast build rule for target.
-dynamic_reconfigure_generate_messages_nodejs/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_nodejs.dir/build.make ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_nodejs.dir/build
-.PHONY : dynamic_reconfigure_generate_messages_nodejs/fast
-
-# Convenience name for target.
-ros_robot/CMakeFiles/dynamic_reconfigure_gencfg.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 ros_robot/CMakeFiles/dynamic_reconfigure_gencfg.dir/rule
-.PHONY : ros_robot/CMakeFiles/dynamic_reconfigure_gencfg.dir/rule
-
-# Convenience name for target.
-dynamic_reconfigure_gencfg: ros_robot/CMakeFiles/dynamic_reconfigure_gencfg.dir/rule
-
-.PHONY : dynamic_reconfigure_gencfg
-
-# fast build rule for target.
-dynamic_reconfigure_gencfg/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/dynamic_reconfigure_gencfg.dir/build.make ros_robot/CMakeFiles/dynamic_reconfigure_gencfg.dir/build
-.PHONY : dynamic_reconfigure_gencfg/fast
-
-# Convenience name for target.
-ros_robot/CMakeFiles/nav_msgs_generate_messages_lisp.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 ros_robot/CMakeFiles/nav_msgs_generate_messages_lisp.dir/rule
-.PHONY : ros_robot/CMakeFiles/nav_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-nav_msgs_generate_messages_lisp: ros_robot/CMakeFiles/nav_msgs_generate_messages_lisp.dir/rule
-
-.PHONY : nav_msgs_generate_messages_lisp
-
-# fast build rule for target.
-nav_msgs_generate_messages_lisp/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/nav_msgs_generate_messages_lisp.dir/build.make ros_robot/CMakeFiles/nav_msgs_generate_messages_lisp.dir/build
-.PHONY : nav_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
-ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/rule
-.PHONY : ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/rule
-
-# Convenience name for target.
-dynamic_reconfigure_generate_messages_py: ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/rule
-
-.PHONY : dynamic_reconfigure_generate_messages_py
-
-# fast build rule for target.
-dynamic_reconfigure_generate_messages_py/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/build.make ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/build
-.PHONY : dynamic_reconfigure_generate_messages_py/fast
-
-# Convenience name for target.
-ros_robot/CMakeFiles/move_base_msgs_generate_messages_eus.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 ros_robot/CMakeFiles/move_base_msgs_generate_messages_eus.dir/rule
-.PHONY : ros_robot/CMakeFiles/move_base_msgs_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-move_base_msgs_generate_messages_eus: ros_robot/CMakeFiles/move_base_msgs_generate_messages_eus.dir/rule
-
-.PHONY : move_base_msgs_generate_messages_eus
-
-# fast build rule for target.
-move_base_msgs_generate_messages_eus/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/move_base_msgs_generate_messages_eus.dir/build.make ros_robot/CMakeFiles/move_base_msgs_generate_messages_eus.dir/build
-.PHONY : move_base_msgs_generate_messages_eus/fast
-
-# Convenience name for target.
-ros_robot/CMakeFiles/nav_msgs_generate_messages_cpp.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 ros_robot/CMakeFiles/nav_msgs_generate_messages_cpp.dir/rule
-.PHONY : ros_robot/CMakeFiles/nav_msgs_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-nav_msgs_generate_messages_cpp: ros_robot/CMakeFiles/nav_msgs_generate_messages_cpp.dir/rule
-
-.PHONY : nav_msgs_generate_messages_cpp
-
-# fast build rule for target.
-nav_msgs_generate_messages_cpp/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/nav_msgs_generate_messages_cpp.dir/build.make ros_robot/CMakeFiles/nav_msgs_generate_messages_cpp.dir/build
-.PHONY : nav_msgs_generate_messages_cpp/fast
-
-# Convenience name for target.
-ros_robot/CMakeFiles/nxt_msgs_generate_messages_lisp.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 ros_robot/CMakeFiles/nxt_msgs_generate_messages_lisp.dir/rule
-.PHONY : ros_robot/CMakeFiles/nxt_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-nxt_msgs_generate_messages_lisp: ros_robot/CMakeFiles/nxt_msgs_generate_messages_lisp.dir/rule
-
-.PHONY : nxt_msgs_generate_messages_lisp
-
-# fast build rule for target.
-nxt_msgs_generate_messages_lisp/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/nxt_msgs_generate_messages_lisp.dir/build.make ros_robot/CMakeFiles/nxt_msgs_generate_messages_lisp.dir/build
-.PHONY : nxt_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
-ros_robot/CMakeFiles/move_base_msgs_generate_messages_lisp.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 ros_robot/CMakeFiles/move_base_msgs_generate_messages_lisp.dir/rule
-.PHONY : ros_robot/CMakeFiles/move_base_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-move_base_msgs_generate_messages_lisp: ros_robot/CMakeFiles/move_base_msgs_generate_messages_lisp.dir/rule
-
-.PHONY : move_base_msgs_generate_messages_lisp
-
-# fast build rule for target.
-move_base_msgs_generate_messages_lisp/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/move_base_msgs_generate_messages_lisp.dir/build.make ros_robot/CMakeFiles/move_base_msgs_generate_messages_lisp.dir/build
-.PHONY : move_base_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
-ros_robot/CMakeFiles/move_base_msgs_generate_messages_cpp.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 ros_robot/CMakeFiles/move_base_msgs_generate_messages_cpp.dir/rule
-.PHONY : ros_robot/CMakeFiles/move_base_msgs_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-move_base_msgs_generate_messages_cpp: ros_robot/CMakeFiles/move_base_msgs_generate_messages_cpp.dir/rule
-
-.PHONY : move_base_msgs_generate_messages_cpp
-
-# fast build rule for target.
-move_base_msgs_generate_messages_cpp/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/move_base_msgs_generate_messages_cpp.dir/build.make ros_robot/CMakeFiles/move_base_msgs_generate_messages_cpp.dir/build
-.PHONY : move_base_msgs_generate_messages_cpp/fast
-
-# Convenience name for target.
-ros_robot/CMakeFiles/move_base_msgs_generate_messages_nodejs.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 ros_robot/CMakeFiles/move_base_msgs_generate_messages_nodejs.dir/rule
-.PHONY : ros_robot/CMakeFiles/move_base_msgs_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-move_base_msgs_generate_messages_nodejs: ros_robot/CMakeFiles/move_base_msgs_generate_messages_nodejs.dir/rule
-
-.PHONY : move_base_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-move_base_msgs_generate_messages_nodejs/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/move_base_msgs_generate_messages_nodejs.dir/build.make ros_robot/CMakeFiles/move_base_msgs_generate_messages_nodejs.dir/build
-.PHONY : move_base_msgs_generate_messages_nodejs/fast
-
-# Convenience name for target.
-ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/rule
-.PHONY : ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-dynamic_reconfigure_generate_messages_cpp: ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/rule
-
-.PHONY : dynamic_reconfigure_generate_messages_cpp
-
-# fast build rule for target.
-dynamic_reconfigure_generate_messages_cpp/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/build.make ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/build
-.PHONY : dynamic_reconfigure_generate_messages_cpp/fast
-
-# Convenience name for target.
-ros_robot/CMakeFiles/move_base_msgs_generate_messages_py.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 ros_robot/CMakeFiles/move_base_msgs_generate_messages_py.dir/rule
-.PHONY : ros_robot/CMakeFiles/move_base_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-move_base_msgs_generate_messages_py: ros_robot/CMakeFiles/move_base_msgs_generate_messages_py.dir/rule
-
-.PHONY : move_base_msgs_generate_messages_py
-
-# fast build rule for target.
-move_base_msgs_generate_messages_py/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/move_base_msgs_generate_messages_py.dir/build.make ros_robot/CMakeFiles/move_base_msgs_generate_messages_py.dir/build
-.PHONY : move_base_msgs_generate_messages_py/fast
-
-# Convenience name for target.
-ros_robot/CMakeFiles/nav_msgs_generate_messages_eus.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 ros_robot/CMakeFiles/nav_msgs_generate_messages_eus.dir/rule
-.PHONY : ros_robot/CMakeFiles/nav_msgs_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-nav_msgs_generate_messages_eus: ros_robot/CMakeFiles/nav_msgs_generate_messages_eus.dir/rule
-
-.PHONY : nav_msgs_generate_messages_eus
-
-# fast build rule for target.
-nav_msgs_generate_messages_eus/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/nav_msgs_generate_messages_eus.dir/build.make ros_robot/CMakeFiles/nav_msgs_generate_messages_eus.dir/build
-.PHONY : nav_msgs_generate_messages_eus/fast
-
-# Convenience name for target.
-ros_robot/CMakeFiles/nav_msgs_generate_messages_nodejs.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 ros_robot/CMakeFiles/nav_msgs_generate_messages_nodejs.dir/rule
-.PHONY : ros_robot/CMakeFiles/nav_msgs_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-nav_msgs_generate_messages_nodejs: ros_robot/CMakeFiles/nav_msgs_generate_messages_nodejs.dir/rule
-
-.PHONY : nav_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-nav_msgs_generate_messages_nodejs/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/nav_msgs_generate_messages_nodejs.dir/build.make ros_robot/CMakeFiles/nav_msgs_generate_messages_nodejs.dir/build
-.PHONY : nav_msgs_generate_messages_nodejs/fast
-
 src/rosRobot.o: src/rosRobot.cpp.o
 
 .PHONY : src/rosRobot.o
@@ -547,34 +217,12 @@ help:
 	@echo "... depend"
 	@echo "... install/strip"
 	@echo "... install/local"
-	@echo "... list_install_components"
 	@echo "... test"
+	@echo "... list_install_components"
 	@echo "... rosRobot"
-	@echo "... install"
-	@echo "... nxt_msgs_generate_messages_py"
-	@echo "... nxt_msgs_generate_messages_nodejs"
-	@echo "... nxt_msgs_generate_messages_eus"
-	@echo "... rebuild_cache"
-	@echo "... nxt_msgs_generate_messages_cpp"
-	@echo "... nav_msgs_generate_messages_py"
-	@echo "... dynamic_reconfigure_generate_messages_lisp"
-	@echo "... dynamic_reconfigure_generate_messages_eus"
-	@echo "... move_base_gencfg"
-	@echo "... dynamic_reconfigure_generate_messages_nodejs"
-	@echo "... dynamic_reconfigure_gencfg"
 	@echo "... edit_cache"
-	@echo "... nav_msgs_generate_messages_lisp"
-	@echo "... dynamic_reconfigure_generate_messages_py"
-	@echo "... move_base_msgs_generate_messages_eus"
-	@echo "... nav_msgs_generate_messages_cpp"
-	@echo "... nxt_msgs_generate_messages_lisp"
-	@echo "... move_base_msgs_generate_messages_lisp"
-	@echo "... move_base_msgs_generate_messages_cpp"
-	@echo "... move_base_msgs_generate_messages_nodejs"
-	@echo "... dynamic_reconfigure_generate_messages_cpp"
-	@echo "... move_base_msgs_generate_messages_py"
-	@echo "... nav_msgs_generate_messages_eus"
-	@echo "... nav_msgs_generate_messages_nodejs"
+	@echo "... rebuild_cache"
+	@echo "... install"
 	@echo "... src/rosRobot.o"
 	@echo "... src/rosRobot.i"
 	@echo "... src/rosRobot.s"
