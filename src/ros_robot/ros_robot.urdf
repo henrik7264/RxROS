@@ -1735,7 +1735,8 @@
     <joint name="ref_30_joint" type="fixed">
       <parent link="ref_30_link"/>
       <child link="ultrasonic_link"/>
-      <origin xyz="-5.06639480591e-09 -0.00799999694824 0.000200000011921" rpy="-0.0 -0.0 -0.0" />
+      <!--origin xyz="-5.06639480591e-09 -0.00799999694824 0.000200000011921" rpy="-0.0 -0.0 -0.0" /-->
+      <origin xyz="-4.06639480591e-09 -0.00799999694824 0.000200000011921" rpy="-0.0 -0.0 -0.0" />
       <axis xyz="0 0 0" />
     </joint>
 
@@ -1743,6 +1744,7 @@
     <joint name="ref_31_joint" type="fixed">
       <parent link="ultrasonic_link"/>
       <child link="ref_32_link"/>
+      <!--origin xyz="-8.94069671631e-10 -6.103515625e-09 -0.000200000011921" rpy="-0.0 -0.0 -0.0" /-->
       <origin xyz="-8.94069671631e-10 -6.103515625e-09 -0.000200000011921" rpy="-0.0 -0.0 -0.0" />
       <axis xyz="0 0 0" />
     </joint>
