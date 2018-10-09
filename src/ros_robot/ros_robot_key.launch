@@ -16,7 +16,7 @@
 
     <!--node pkg="joystick" name="JoystickPublisher" type="joystickPublisher" output="screen" respawn="true"/-->
 
-    <node pkg="nxt_teleop" name="nxt_teleop" type="nxt_teleop_key" output="screen">
+    <node pkg="nxt_teleop" name="nxt_teleop" type="nxt_teleop_node" output="screen">
       <param name="scale_linear" value="1.0" type="double"/>
       <param name="scale_angular" value="1.0" type="double"/>
     </node>
@@ -38,7 +38,7 @@
 
     <node pkg="nxt_controllers" name="nxt_base_odometry" type="base_odometry.py" output="screen"/>
 
-    <node pkg="tf" name="base_footprint_fixed_publisher" type="static_transform_publisher" args="0 0 0.07 0 0 0 1 base_footprint base_link 100"/>
+    <!--node pkg="tf" name="base_footprint_fixed_publisher" type="static_transform_publisher" args="0 0 0.07 0 0 0 1 base_footprint base_link 100"/-->
 
     <!--node pkg="robot_pose_ekf" name="robot_pose_ekf" type="robot_pose_ekf" respawn="true">
           <remap from="imu_data" to="gyro_imu" />
