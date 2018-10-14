@@ -27,9 +27,9 @@ I found it useful in addition to add the following packages:
 
 ```
 sudo apt-get install git doxygen graphviz-* meld cmake
-sudo apt-get install emacs gtcreator qt5-*
+sudo apt-get install emacs qtcreator qt5-*
 sudo apt-get install tree gimp
-sudo apt-get liburdfdom-tools
+sudo apt-get install liburdfdom-tools
 ```
 
 ### ROS Melodic Morenia
@@ -50,6 +50,7 @@ Execute the following commands to install ROS Melodic Morenia:
  sudo apt-get install ros-melodic-joy ros-melodic-teleop-twist-keyboard
  sudo apt-get install ros-melodic-navigation
 ```
+
 
 ### NXT-ROS
 
@@ -91,6 +92,30 @@ git clone --recursive https://github.com/NXT-ROS/nxt_viz.git
 cd ..
 catkin_make
 cd ..
+```
+
+### Slamtec A2 RPLIDAR
+Installation instruction of how to install Slamtec A2 RPLIDAR can be found at<br>
+https://github.com/slamtec/rplidar_ros<br>
+Execute the following commands to install Slamtec A2 RPLIDAR:
+
+```
+mkdir -p slamtec/src
+cd slamtec
+catkin_make
+cd src
+git clone https://github.com/Slamtec/rplidar_ros.git
+cd ..
+catkin_make
+cd ..
+```
+
+After the installation a new package named rplidar_ros is created.<br>
+When you perform a catkin_make the new package will be included in the project.<br>
+Finally, ensure that the udev rules for rplidar is configured correctly:
+
+```
+sudo cp slamtec/src/rplidar_ros/scripts/rplidar.rules /etc/udev/rules.d/70-rplidar.rules
 ```
 
 ### Reactive C++

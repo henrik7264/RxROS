@@ -123,7 +123,6 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/hl/Src/CLionProjects/RxROS/build/joystick/cmake_install.cmake")
   include("/home/hl/Src/CLionProjects/RxROS/build/lxf2urdf/cmake_install.cmake")
-  include("/home/hl/Src/CLionProjects/RxROS/build/rplidar_ros/cmake_install.cmake")
   include("/home/hl/Src/CLionProjects/RxROS/build/ros_robot_tf/cmake_install.cmake")
   include("/home/hl/Src/CLionProjects/RxROS/build/learning_nxt/cmake_install.cmake")
   include("/home/hl/Src/CLionProjects/RxROS/build/ros_robot/cmake_install.cmake")

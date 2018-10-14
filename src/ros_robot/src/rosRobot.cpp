@@ -86,6 +86,7 @@ void RosRobot::rangeCB(const nxt_msgs::Range& rng)
     //ROS_INFO( "Range range:%lf min:%lf max:%lf spread:%lf\n", range, range_min, range_max, spread_angle);
 
     // Turn the Ultrasonic range into a LaserScan and publish it.
+    /*
     sensor_msgs::LaserScan laserScan;
     laserScan.header.stamp = ros::Time::now();
     laserScan.header.frame_id = "laser_link";
@@ -114,6 +115,7 @@ void RosRobot::rangeCB(const nxt_msgs::Range& rng)
     pointCloud.points[0].z = 0.07;
     pointCloud.channels[0].values[0] = 100;
     pointCloudPublisher.publish(pointCloud);
+    */
 }
 
 void RosRobot::motorCB(const sensor_msgs::JointState& mot)
