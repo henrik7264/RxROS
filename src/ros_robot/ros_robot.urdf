@@ -9,35 +9,6 @@
       <axis xyz="0 0 1" />
     </joint>
 
-    <!--
-    <link name="rplidar_head">
-      <visual>
-        <geometry>
-          <sphere radius="0.2"/>
-        </geometry>
-        <material name="white"/>
-      </visual>
-    </link>
-    <joint name="rplidar_head_joint" type="fixed">
-      <parent link="rplidar_body"/>
-      <child link="rplidar_head"/>
-      <origin xyz="0 0 0.3"/>
-    </joint>
-
-    <link name="rplidar_body">
-      <visual>
-        <geometry>
-          <cylinder length="0.6" radius="0.2"/>
-        </geometry>
-        <material name="blue"/>
-      </visual>
-    </link>
-    <joint name="rplidar_body_joint" type="fixed">
-      <parent link="base_link"/>
-      <child link="rplidar_body"/>
-      <origin xyz="0 0 0.3"/>
-    </joint>
-    -->
 
     <link name="ref_0_link">
       <inertial>
@@ -4095,5 +4066,66 @@
       <origin xyz="-0.0 -0.00799999904633 -0.00400000104904" rpy="3.14159265359 1.57079632679 -0.0" />
       <axis xyz="0 0 0" />
     </joint>
+
+
+  <!--
+<link name="rplidar_head">
+  <visual>
+    <geometry>
+      <sphere radius="0.2"/>
+    </geometry>
+    <material name="white"/>
+  </visual>
+</link>
+<joint name="rplidar_head_joint" type="fixed">
+  <parent link="rplidar_body"/>
+  <child link="rplidar_head"/>
+  <origin xyz="0 0 0.3"/>
+</joint>
+
+<link name="rplidar_body">
+  <visual>
+    <geometry>
+      <cylinder length="0.6" radius="0.2"/>
+    </geometry>
+    <material name="blue"/>
+  </visual>
+</link>
+<joint name="rplidar_body_joint" type="fixed">
+  <parent link="base_link"/>
+  <child link="rplidar_body"/>
+  <origin xyz="0 0 0.3"/>
+</joint>
+-->
+
+  <!-- rplidar Laser -->
+  <link name="laser">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 -0.03" rpy="1.5707 0 4.71"/>
+      <geometry>
+        <mesh filename="package://rplidar_ros/meshes/rplidar-a2m4-r1.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
+    </inertial>
+  </link>
+
+  <joint name="laser_joint" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz="0.02 0 0.086" rpy="0 0 3.14"/>
+    <parent link="ref_0_link"/>
+    <child link="laser"/>
+  </joint>
 
 </robot>

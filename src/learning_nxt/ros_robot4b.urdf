@@ -5538,4 +5538,35 @@
       <axis xyz="0 0 0" />
     </joint>
 
+  <!-- rplidar Laser -->
+  <link name="laser">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 -0.03" rpy="1.5707 0 4.71"/>
+      <geometry>
+        <mesh filename="package://rplidar_ros/meshes/rplidar-a2m4-r1.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
+    </inertial>
+  </link>
+
+  <joint name="laser_joint" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz="0 0 0" rpy="0 0 3.14"/>
+    <parent link="ref_125_link"/>
+    <child link="laser"/>
+  </joint>
+
+
 </robot>
