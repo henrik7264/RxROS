@@ -7,9 +7,6 @@ Panels:
         - /Global Options1
         - /Status1
         - /Grid1
-        - /RobotModel1
-        - /NXTUltrasonic1
-        - /NXTColor1
         - /Map1
         - /LaserScan1
       Splitter Ratio: 0.5
@@ -32,7 +29,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: LaserScan
 Preferences:
   PromptSaveOnExit: true
 Visualization Manager:
@@ -71,6 +68,11 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
         color_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        laser_frame:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -195,6 +197,11 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        ref_120_link_hub:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         ref_121_link:
           Alpha: 1
           Show Axes: false
@@ -215,7 +222,82 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        ref_125_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_126_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_127_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_128_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_129_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         ref_12_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_130_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_131_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_132_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_133_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_134_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_135_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_136_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_137_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_138_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_139_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -225,12 +307,152 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        ref_140_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_141_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_142_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_143_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_144_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_145_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_146_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_147_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_148_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_149_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         ref_14_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
+        ref_150_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_151_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_152_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_153_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_154_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_155_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_156_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_157_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_158_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_159_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         ref_15_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_160_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_161_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_162_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_163_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_164_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_165_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_166_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_167_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -490,11 +712,6 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        ref_62_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         ref_63_link:
           Alpha: 1
           Show Axes: false
@@ -506,11 +723,6 @@ Visualization Manager:
           Show Trail: false
           Value: true
         ref_65_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        ref_66_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -545,12 +757,27 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        ref_72_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_72_link_hub:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         ref_73_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
         ref_74_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ref_75_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -581,11 +808,6 @@ Visualization Manager:
           Show Trail: false
           Value: true
         ref_80_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        ref_80_link_hub:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -670,11 +892,6 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        ref_95_link_hub:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         ref_96_link:
           Alpha: 1
           Show Axes: false
@@ -711,20 +928,6 @@ Visualization Manager:
       Update Interval: 0
       Value: true
       Visual Enabled: true
-    - Class: rviz/TF
-      Enabled: false
-      Frame Timeout: 15
-      Frames:
-        All Enabled: true
-      Marker Scale: 0.5
-      Name: TF
-      Show Arrows: true
-      Show Axes: true
-      Show Names: true
-      Tree:
-        {}
-      Update Interval: 0
-      Value: false
     - Alpha: 0.5
       Class: nxt_rviz_plugin/NXTUltrasonic
       Color: 25; 255; 0
@@ -763,16 +966,16 @@ Visualization Manager:
       Channel Name: intensity
       Class: rviz/LaserScan
       Color: 255; 255; 255
-      Color Transformer: ""
+      Color Transformer: Intensity
       Decay Time: 0
       Enabled: true
       Invert Rainbow: false
       Max Color: 255; 255; 255
-      Max Intensity: 4096
+      Max Intensity: 47
       Min Color: 0; 0; 0
-      Min Intensity: 0
+      Min Intensity: 47
       Name: LaserScan
-      Position Transformer: ""
+      Position Transformer: XYZ
       Queue Size: 10
       Selectable: true
       Size (Pixels): 3
@@ -808,7 +1011,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 0.7155306935310364
+      Distance: 11.972746849060059
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -823,10 +1026,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.3003971576690674
+      Pitch: 0.8247963190078735
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 4.986769676208496
+      Yaw: 5.246784687042236
     Saved: ~
 Window Geometry:
   Displays:
@@ -844,5 +1047,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1216
-  X: 67
-  Y: 27
+  X: 1327
+  Y: 72

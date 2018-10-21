@@ -23,8 +23,8 @@ static float Efforts[] = {-1.0F, -0.9F, -0.8F, -0.7F, -0.6F, -0.5F, 0.0F, 0.5F, 
 class RosRobot {
 private:
     ros::Publisher motorPublisher;
-    ros::Publisher laserScanPublisher;
-    ros::Publisher pointCloudPublisher;
+//    ros::Publisher laserScanPublisher;
+//    ros::Publisher pointCloudPublisher;
     ros::Subscriber joystickSubscriber;
     ros::Subscriber colorSubscriber;
     ros::Subscriber rangeSubscriber;
@@ -54,8 +54,8 @@ RosRobot::RosRobot(int argc, char** argv) {
     ros::init(argc, argv, "RosRobot"); // Name of this node.
     ros::NodeHandle nodeHandle;
     motorPublisher = nodeHandle.advertise<nxt_msgs::JointCommand>("/joint_command", 10);
-    laserScanPublisher = nodeHandle.advertise<sensor_msgs::LaserScan>("/scan", 10);
-    pointCloudPublisher = nodeHandle.advertise<sensor_msgs::PointCloud>("/cloud", 10);
+//    laserScanPublisher = nodeHandle.advertise<sensor_msgs::LaserScan>("/scan", 10);
+//    pointCloudPublisher = nodeHandle.advertise<sensor_msgs::PointCloud>("/cloud", 10);
 
     joystickSubscriber = nodeHandle.subscribe("/joystick", 10, &RosRobot::joystickCB, this);
     colorSubscriber = nodeHandle.subscribe("/color_sensor", 10, &RosRobot::colorCB, this);

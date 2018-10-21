@@ -9,11 +9,8 @@ int main(int argc, char** argv){
 
     while(nodeHandle.ok()) {
         transformBroadcaster.sendTransform(
-            tf::StampedTransform(
-                tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0.0, 0.0, 0.07)),
-                ros::Time::now(),
-                "base_link",
-                "laser_link"));
+            tf::StampedTransform(tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0.0, 0.0, 0.0)), ros::Time::now(), "base_link", "map"));
+
         rate.sleep();
     }
 }
