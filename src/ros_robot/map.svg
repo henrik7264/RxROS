@@ -24,13 +24,13 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="189.95959"
-     inkscape:cy="378.29837"
+     inkscape:cx="309.95959"
+     inkscape:cy="295.34366"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="2493"
-     inkscape:window-height="1385"
+     inkscape:window-width="1853"
+     inkscape:window-height="1025"
      inkscape:window-x="67"
      inkscape:window-y="27"
      inkscape:window-maximized="1" />
@@ -67,47 +67,19 @@
        x="10"
        y="10" />
     <rect
-       style="fill:#e6e6e6"
-       id="rect3897"
-       width="94.335938"
-       height="29.882812"
-       x="28.125"
-       y="164.0625" />
-    <rect
-       style="fill:#000000"
+       style="fill:#000000;stroke-width:0.1490712"
        id="rect3893"
-       width="300"
-       height="300"
+       width="200"
+       height="10"
        x="0"
-       y="0" />
+       y="295" />
     <rect
-       style="fill:#ffffff"
-       id="rect3899"
-       width="280"
-       height="280"
-       x="10"
-       y="10" />
-    <rect
-       style="fill:#000000;stroke-width:1.41421354"
-       id="rect3891"
-       width="150"
-       height="300"
-       x="300"
-       y="150" />
-    <rect
-       style="fill:#000000"
+       style="fill:#000000;stroke-width:0.66666669"
        id="rect3893-3"
-       width="300"
-       height="300"
-       x="0"
-       y="300" />
-    <rect
-       style="fill:#ffffff"
-       id="rect3899-6"
-       width="280"
-       height="280"
-       x="10"
-       y="310" />
+       width="200"
+       height="200"
+       x="200"
+       y="200" />
     <rect
        style="fill:#ffffff;stroke-width:0.94868332"
        id="rect3931"
@@ -122,5 +94,38 @@
        height="90"
        x="290"
        y="30" />
+    <rect
+       style="fill:#000000;stroke-width:0.1490712"
+       id="rect3893-36"
+       width="200"
+       height="10"
+       x="400"
+       y="295" />
+    <rect
+       style="fill:#000000;stroke-width:0.1490712"
+       id="rect3893-36-7"
+       width="10"
+       height="200"
+       x="-305"
+       y="0"
+       transform="scale(-1,1)" />
+    <rect
+       style="fill:#ffffff;stroke-width:0.13111892"
+       id="rect110"
+       width="100"
+       height="10"
+       x="450"
+       y="295"
+       ry="0.43668121"
+       rx="19.68504" />
+    <rect
+       style="fill:#ffffff;stroke-width:0.13111894"
+       id="rect110-5"
+       width="10"
+       height="100"
+       x="295"
+       y="50"
+       ry="4.3668122"
+       rx="1.968504" />
   </g>
 </svg>
