@@ -139,7 +139,7 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/ros_robot_node.cpp)
 
-add_executable(rosRobot src/rosRobot.cpp)
+add_executable(ros_robot src/ros_robot.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -155,7 +155,7 @@ add_executable(rosRobot src/rosRobot.cpp)
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
-target_link_libraries(rosRobot ${catkin_LIBRARIES})
+target_link_libraries(ros_robot ${catkin_LIBRARIES})
 
 #############
 ## Install ##

@@ -262,7 +262,7 @@ if __name__ == '__main__':
             sys.exit(1)
 
         # environment at generation time
-        CMAKE_PREFIX_PATH = '/home/hl/Src/CLionProjects/nxt_viz/devel;/home/hl/Src/CLionProjects/RxROS/devel;/home/hl/Src/CLionProjects/nxt_teleop/devel;/home/hl/Src/CLionProjects/nxt/devel;/opt/ros/melodic'.split(';')
+        CMAKE_PREFIX_PATH = '/home/hl/Src/CLionProjects/slamtec/devel;/home/hl/Src/CLionProjects/nxt_viz/devel;/home/hl/Src/CLionProjects/RxROS/devel;/home/hl/Src/CLionProjects/nxt_teleop/devel;/home/hl/Src/CLionProjects/nxt/devel;/opt/ros/melodic'.split(';')
         # prepend current workspace if not already part of CPP
         base_path = os.path.dirname(__file__)
         if base_path not in CMAKE_PREFIX_PATH:

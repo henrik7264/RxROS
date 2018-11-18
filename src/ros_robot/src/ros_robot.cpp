@@ -51,7 +51,7 @@ public:
 };
 
 RosRobot::RosRobot(int argc, char** argv) {
-    ros::init(argc, argv, "RosRobot"); // Name of this node.
+    ros::init(argc, argv, "ros_robot"); // Name of this node.
     ros::NodeHandle nodeHandle;
     motorPublisher = nodeHandle.advertise<nxt_msgs::JointCommand>("/joint_command", 10);
 //    laserScanPublisher = nodeHandle.advertise<sensor_msgs::LaserScan>("/scan", 10);

@@ -31,7 +31,7 @@
     <node pkg="nxt_teleop" name="nxt_teleop" type="nxt_teleop_node" output="screen"/>
 
     <!-- Start my robot. Does actually not do anything at the moment-->
-    <node pkg="ros_robot" name="RosRobot" type="rosRobot" output="screen" respawn="true"/>
+    <node pkg="ros_robot" name="ros_robot" type="ros_robot" output="screen" respawn="true"/>
 
     <!-- Start NXT driver: starts and monitors the wheels, ultrasonic sensor and color sensor-->
     <!-- Publish topic: /ultrasonic_sensor, /color_sensor, /joint_state-->
@@ -45,8 +45,15 @@
     <!-- Publish topic: /joint_states-->
     <node pkg="nxt_ros" name="joint_state_publisher"  type="joint_states_aggregator.py" output="screen" />
 
-    <!-- Start node nxt_base_controller: publish effect to motors-->
+    <!-- Start node nxt_base_controller: publish effect to motors from cmd_vel and joint_states-->
     <!-- Subscribe topic: JointStare:/joint_states, Twist/cmd_vel /-->
     <!-- Publish topic: JointCommand:/joint_command-->
     <node pkg="nxt_controllers" name="nxt_base_controller" type="base_controller.py" output="screen"/>
+
+    <!-- Start -->
+    <node pkg="nxt_controllers" name="nxt_base_odometry" type="base_odometry.py" output="screen"/>
+
+    <!-- Start -->
+    <node pkg="ros_robot_tf" name="ros_robot_tf_broadcaster" type="ros_robot_tf_broadcaster" output="screen" respawn="true"/>
+
 </launch>

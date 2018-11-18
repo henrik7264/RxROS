@@ -168,46 +168,46 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-ros_robot/CMakeFiles/rosRobot.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 ros_robot/CMakeFiles/rosRobot.dir/rule
-.PHONY : ros_robot/CMakeFiles/rosRobot.dir/rule
+ros_robot/CMakeFiles/ros_robot.dir/rule:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 ros_robot/CMakeFiles/ros_robot.dir/rule
+.PHONY : ros_robot/CMakeFiles/ros_robot.dir/rule
 
 # Convenience name for target.
-rosRobot: ros_robot/CMakeFiles/rosRobot.dir/rule
+ros_robot: ros_robot/CMakeFiles/ros_robot.dir/rule
 
-.PHONY : rosRobot
+.PHONY : ros_robot
 
 # fast build rule for target.
-rosRobot/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/rosRobot.dir/build.make ros_robot/CMakeFiles/rosRobot.dir/build
-.PHONY : rosRobot/fast
+ros_robot/fast:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/ros_robot.dir/build.make ros_robot/CMakeFiles/ros_robot.dir/build
+.PHONY : ros_robot/fast
 
-src/rosRobot.o: src/rosRobot.cpp.o
+src/ros_robot.o: src/ros_robot.cpp.o
 
-.PHONY : src/rosRobot.o
+.PHONY : src/ros_robot.o
 
 # target to build an object file
-src/rosRobot.cpp.o:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/rosRobot.dir/build.make ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.o
-.PHONY : src/rosRobot.cpp.o
+src/ros_robot.cpp.o:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/ros_robot.dir/build.make ros_robot/CMakeFiles/ros_robot.dir/src/ros_robot.cpp.o
+.PHONY : src/ros_robot.cpp.o
 
-src/rosRobot.i: src/rosRobot.cpp.i
+src/ros_robot.i: src/ros_robot.cpp.i
 
-.PHONY : src/rosRobot.i
+.PHONY : src/ros_robot.i
 
 # target to preprocess a source file
-src/rosRobot.cpp.i:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/rosRobot.dir/build.make ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.i
-.PHONY : src/rosRobot.cpp.i
+src/ros_robot.cpp.i:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/ros_robot.dir/build.make ros_robot/CMakeFiles/ros_robot.dir/src/ros_robot.cpp.i
+.PHONY : src/ros_robot.cpp.i
 
-src/rosRobot.s: src/rosRobot.cpp.s
+src/ros_robot.s: src/ros_robot.cpp.s
 
-.PHONY : src/rosRobot.s
+.PHONY : src/ros_robot.s
 
 # target to generate assembly for a file
-src/rosRobot.cpp.s:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/rosRobot.dir/build.make ros_robot/CMakeFiles/rosRobot.dir/src/rosRobot.cpp.s
-.PHONY : src/rosRobot.cpp.s
+src/ros_robot.cpp.s:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/ros_robot.dir/build.make ros_robot/CMakeFiles/ros_robot.dir/src/ros_robot.cpp.s
+.PHONY : src/ros_robot.cpp.s
 
 # Help Target
 help:
@@ -218,14 +218,14 @@ help:
 	@echo "... install/strip"
 	@echo "... install/local"
 	@echo "... test"
+	@echo "... ros_robot"
 	@echo "... list_install_components"
-	@echo "... rosRobot"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... install"
-	@echo "... src/rosRobot.o"
-	@echo "... src/rosRobot.i"
-	@echo "... src/rosRobot.s"
+	@echo "... src/ros_robot.o"
+	@echo "... src/ros_robot.i"
+	@echo "... src/ros_robot.s"
 .PHONY : help
 
 

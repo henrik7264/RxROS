@@ -1,8 +1,5 @@
 
     <!-- Start -->
-    <node pkg="nxt_controllers" name="nxt_base_odometry" type="base_odometry.py" output="screen"/>
-
-    <!-- Start -->
     <node pkg="robot_state_publisher" name="robot_state_publisher" type="robot_state_publisher">
         <param name="publish_frequency" value="2.0"/>
     </node>
