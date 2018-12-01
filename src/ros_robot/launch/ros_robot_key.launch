@@ -54,7 +54,7 @@
 
     <!-- Start -->
     <node pkg="robot_state_publisher" name="robot_state_publisher" type="robot_state_publisher">
-        <param name="publish_frequency" value="2.0"/>
+        <param name="publish_frequency" value="20.0"/>
     </node>
 
     <!-- Start Slamtec rplidar a2 -->
