@@ -14,9 +14,12 @@ class RosRobotTfBroadcaster {
 private:
     ros::NodeHandle nodeHandle;
     ros::Subscriber odomSubscriber;
+    ros::Timer timer;
     tf::TransformBroadcaster transformBroadcaster;
+    nav_msgs::Odometry currOdom;
 
     void odomCB(const nav_msgs::Odometry& odom);
+    void timerCB(const ros::TimerEvent& timerEvent);
 
 public:
     RosRobotTfBroadcaster(int argc, char** argv);
@@ -24,13 +27,23 @@ public:
     void run() {ros::spin();}
 };
 
-RosRobotTfBroadcaster::RosRobotTfBroadcaster(int argc, char** argv)
+RosRobotTfBroadcaster::RosRobotTfBroadcaster(int argc, char** argv) :
+    odomSubscriber(nodeHandle.subscribe("/odom", 10, &RosRobotTfBroadcaster::odomCB, this)),
+    timer(nodeHandle.createTimer(ros::Duration(0.1), &RosRobotTfBroadcaster::timerCB, this))
 {
-    odomSubscriber = nodeHandle.subscribe("/odom", 10, &RosRobotTfBroadcaster::odomCB, this);
 }
 
-void  RosRobotTfBroadcaster::odomCB(const nav_msgs::Odometry& odom)
+void RosRobotTfBroadcaster::timerCB(const ros::TimerEvent& timerEvent)
 {
+//    tf::Quaternion orientation = tf::Quaternion(currOdom.pose.pose.orientation.x, currOdom.pose.pose.orientation.y, currOdom.pose.pose.orientation.z, currOdom.pose.pose.orientation.w);
+//    tf::Vector3 position = tf::Vector3(currOdom.pose.pose.position.x, currOdom.pose.pose.position.y, currOdom.pose.pose.position.z);
+//    transformBroadcaster.sendTransform(tf::StampedTransform(tf::Transform(orientation, position), ros::Time::now(), "odom", "base_link"));
+}
+
+
+void RosRobotTfBroadcaster::odomCB(const nav_msgs::Odometry& odom)
+{
+    currOdom = odom;
     tf::Quaternion orientation = tf::Quaternion(odom.pose.pose.orientation.x, odom.pose.pose.orientation.y, odom.pose.pose.orientation.z, odom.pose.pose.orientation.w);
     tf::Vector3 position = tf::Vector3(odom.pose.pose.position.x, odom.pose.pose.position.y, odom.pose.pose.position.z);
     transformBroadcaster.sendTransform(tf::StampedTransform(tf::Transform(orientation, position), ros::Time::now(), "odom", "base_link"));
@@ -41,23 +54,3 @@ int main(int argc, char** argv) {
     RosRobotTfBroadcaster rosRobotTfBroadcaster(argc, argv);
     rosRobotTfBroadcaster.run();
 }
-
-
-
-/*
-int main(int argc, char** argv){
-    ros::init(argc, argv, "ros_robot_tf_publisher");
-    ros::Subscriber odomSubscriber;
-    ros::Rate rate(10);
-    tf::TransformBroadcaster transformBroadcaster;
-
-
-
-    while(nodeHandle.ok()) {
-        transformBroadcaster.sendTransform(
-            tf::StampedTransform(tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0.0, 0.0, 0.0)), ros::Time::now(), "base_link", "map"));
-
-        rate.sleep();
-    }
-}
-*/

@@ -630,8 +630,8 @@ clean: joystick/CMakeFiles/joystick_generate_messages_eus.dir/clean
 # Target rules for target joystick/CMakeFiles/joystick_generate_messages.dir
 
 # All Build rule for target.
-joystick/CMakeFiles/joystick_generate_messages.dir/all: joystick/CMakeFiles/joystick_generate_messages_py.dir/all
 joystick/CMakeFiles/joystick_generate_messages.dir/all: joystick/CMakeFiles/joystick_generate_messages_eus.dir/all
+joystick/CMakeFiles/joystick_generate_messages.dir/all: joystick/CMakeFiles/joystick_generate_messages_py.dir/all
 joystick/CMakeFiles/joystick_generate_messages.dir/all: joystick/CMakeFiles/joystick_generate_messages_nodejs.dir/all
 joystick/CMakeFiles/joystick_generate_messages.dir/all: joystick/CMakeFiles/joystick_generate_messages_lisp.dir/all
 joystick/CMakeFiles/joystick_generate_messages.dir/all: joystick/CMakeFiles/joystick_generate_messages_cpp.dir/all

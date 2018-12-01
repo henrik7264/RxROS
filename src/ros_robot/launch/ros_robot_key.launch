@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <launch>
-    <!-- Start Adaptive Monte Carlo Localisation (ACML). Use the example with differential drive -->
-    <!-- The AMCL will publish topic tr map->odom and listen on topic odom-->
-    <!--include file="$(find amcl)/examples/amcl_diff.launch" /-->
-
     <!-- Configuration file for rviz and robot model -->
     <arg name="rvizconfig" default="$(find ros_robot)/rviz/ros_robot.rviz" />
     <param name="robot_description" textfile="$(find ros_robot)/ros_robot.urdf"/>
@@ -11,7 +7,7 @@
     <!-- Configuration for Slamtec rplidar a2 -->
     <param name="serial_port" type="string" value="/dev/ttyUSB0"/>
     <param name="serial_baudrate" type="int" value="115200"/>
-    <param name="frame_id" type="string" value="laser"/>
+    <param name="frame_id" type="string" value="laser_frame"/>
     <param name="inverted" type="bool" value="false"/>
     <param name="angle_compensate" type="bool" value="true"/>
 
@@ -19,9 +15,9 @@
     <group ns="base_parameters">
         <param name="r_wheel_joint" type="string" value="r_wheel_joint"/>
         <param name="l_wheel_joint" type="string" value="l_wheel_joint"/>
-        <param name="wheel_radius" type="double" value="0.0108" /> <!-- diameter of wheel / 2 / 3 (gearing is 1/3)-->
-        <param name="wheel_basis" type="double" value="0.0587" /> <!-- length between wheels / 2 -->
-        <param name="vel_to_eff" type="double" value="1.0" /> <!-- used by nxt_base_controller to determine the effect of the motors -->
+        <param name="wheel_radius" type="double" value="0.0093" /> <!-- diameter of wheel / 2 / 3 (gearing is 1/3)-->
+        <param name="wheel_basis" type="double" value="0.06" /> <!-- length between wheels / 2 -->
+        <param name="vel_to_eff" type="double" value="0.5" /> <!-- used by nxt_base_controller to determine the effect of the motors -->
     </group>
 
     <!--node pkg="joystick" name="JoystickPublisher" type="joystickPublisher" output="screen" respawn="true"/-->
@@ -56,4 +52,35 @@
     <!-- Start -->
     <node pkg="ros_robot_tf" name="ros_robot_tf_broadcaster" type="ros_robot_tf_broadcaster" output="screen" respawn="true"/>
 
+    <!-- Start -->
+    <node pkg="robot_state_publisher" name="robot_state_publisher" type="robot_state_publisher">
+        <param name="publish_frequency" value="2.0"/>
+    </node>
+
+    <!-- Start Slamtec rplidar a2 -->
+    <node pkg="rplidar_ros" name="rplidarNode" type="rplidarNode" output="screen"/>
+
+    <!-- Start Map Server using the map.yaml definition -->
+    <node name="map_server" pkg="map_server" type="map_server" args="$(find ros_robot)/map.yaml"/>
+
+    <!-- Start Adaptive Monte Carlo Localisation (ACML). Use the example with differential drive -->
+    <!-- The AMCL will publish topic tr map->odom and listen on topic odom-->
+    <node pkg="amcl" type="amcl" name="amcl" output="screen">
+      <!-- Publish scans from best pose at a max of 10 Hz -->
+      <param name="odom_model_type" value="diff"/>
+      <param name="odom_frame_id" value="odom"/>
+      <param name="base_frame_id" value="base_link"/>
+      <param name="global_frame_id" value="map"/>
+      <param name="first_map_only" value="true"/>
+    </node>
+
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+        <rosparam command="load" file="$(find ros_robot)/costmap_common_params.yaml" ns="global_costmap" />
+        <rosparam command="load" file="$(find ros_robot)/costmap_common_params.yaml" ns="local_costmap" />
+        <rosparam command="load" file="$(find ros_robot)/local_costmap_params.yaml"/>
+        <rosparam command="load" file="$(find ros_robot)/global_costmap_params.yaml"/>
+        <rosparam command="load" file="$(find ros_robot)/base_local_planner_params.yaml"/>
+    </node>
+
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
 </launch>

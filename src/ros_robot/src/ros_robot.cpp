@@ -22,6 +22,7 @@ static float Efforts[] = {-1.0F, -0.9F, -0.8F, -0.7F, -0.6F, -0.5F, 0.0F, 0.5F, 
 
 class RosRobot {
 private:
+    ros::NodeHandle nodeHandle;
     ros::Publisher motorPublisher;
 //    ros::Publisher laserScanPublisher;
 //    ros::Publisher pointCloudPublisher;
@@ -50,20 +51,18 @@ public:
     void run() {ros::spin();}
 };
 
-RosRobot::RosRobot(int argc, char** argv) {
-    ros::init(argc, argv, "ros_robot"); // Name of this node.
-    ros::NodeHandle nodeHandle;
-    motorPublisher = nodeHandle.advertise<nxt_msgs::JointCommand>("/joint_command", 10);
-//    laserScanPublisher = nodeHandle.advertise<sensor_msgs::LaserScan>("/scan", 10);
-//    pointCloudPublisher = nodeHandle.advertise<sensor_msgs::PointCloud>("/cloud", 10);
-
-    joystickSubscriber = nodeHandle.subscribe("/joystick", 10, &RosRobot::joystickCB, this);
-    colorSubscriber = nodeHandle.subscribe("/color_sensor", 10, &RosRobot::colorCB, this);
-    rangeSubscriber = nodeHandle.subscribe("/ultrasonic_sensor", 10, &RosRobot::rangeCB, this);
-    motorSubscriber = nodeHandle.subscribe("/joint_state", 10, &RosRobot::motorCB, this);
-    motorsSubscriber = nodeHandle.subscribe("/joint_states", 10, &RosRobot::motorsCB, this);
-    twistSubscriber = nodeHandle.subscribe("/cmd_vel", 10, &RosRobot::twistCB, this);
-    odomSubscriber = nodeHandle.subscribe("/odom", 10, &RosRobot::odomCB, this);
+RosRobot::RosRobot(int argc, char** argv) :
+    motorPublisher(nodeHandle.advertise<nxt_msgs::JointCommand>("/joint_command", 10)),
+//    laserScanPublisher(nodeHandle.advertise<sensor_msgs::LaserScan>("/scan", 10)),
+//    pointCloudPublisher(nodeHandle.advertise<sensor_msgs::PointCloud>("/cloud", 10)),
+    joystickSubscriber(nodeHandle.subscribe("/joystick", 10, &RosRobot::joystickCB, this)),
+    colorSubscriber(nodeHandle.subscribe("/color_sensor", 10, &RosRobot::colorCB, this)),
+    rangeSubscriber(nodeHandle.subscribe("/ultrasonic_sensor", 10, &RosRobot::rangeCB, this)),
+    motorSubscriber(nodeHandle.subscribe("/joint_state", 10, &RosRobot::motorCB, this)),
+    motorsSubscriber(nodeHandle.subscribe("/joint_states", 10, &RosRobot::motorsCB, this)),
+    twistSubscriber(nodeHandle.subscribe("/cmd_vel", 10, &RosRobot::twistCB, this)),
+    odomSubscriber(nodeHandle.subscribe("/odom", 10, &RosRobot::odomCB, this))
+{
 }
 
 void RosRobot::colorCB(const nxt_msgs::Color& col)
@@ -212,6 +211,7 @@ void RosRobot::joystickCB(const joystick::Joystick& joy)
 
 
 int main(int argc, char** argv) {
+    ros::init(argc, argv, "ros_robot"); // Name of this node.
     RosRobot rosRobot(argc, argv);
     rosRobot.run();
 }

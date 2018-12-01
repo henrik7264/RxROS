@@ -1,18 +1,11 @@
-planner:
-    transform_tolerance: 0.2
-    costmap_visualization_rate: 0.0
-    world_model: costmap
-    sim_time: 1.5
-    sim_granularity: 0.025
-    vx_samples: 3
-    vtheta_samples: 20
-    max_vel_x: 0.2
-    min_vel_x: 0.05
-    max_vel_th: 1.0
-    min_vel_th: -1.0
-    min_in_place_vel_th: 0.01
-    xy_goal_tolerance: 0.08
-    yaw_goal_tolerance: 0.02
-    acc_lim_th: 1.2
-    acc_lim_x: 1.5
-    acc_lim_y: 1.5
+TrajectoryPlannerROS:
+  # see http://wiki.ros.org/base_local_planner
+  min_vel_x: 0.01 # The minimum forward velocity allowed for the base in meters/sec. It is useful to specify this to guarantee that velocity commands sent to a mobile base are high enough to allow the base to overcome friction.
+  max_vel_x: 0.03 # The maximum forward velocity allowed for the base in meters/sec
+  min_vel_theta: 0.2 # The minimum rotational velocity allowed for the base in radians/sec
+  max_vel_theta: 0.5 # The maximum rotational velocity allowed for the base in radians/sec
+  min_in_place_vel_theta: 0.35 # The minimum rotational velocity allowed for the base while performing in-place rotations in radians/sec
+  acc_lim_x: 0.01 # The x acceleration limit of the robot in meters/sec^2
+  acc_lim_y: 0.01 # The y acceleration limit of the robot in meters/sec^2
+  acc_lim_theta: 0.2 # The rotational acceleration limit of the robot in radians/sec^2
+  holonomic_robot: true
