@@ -39,7 +39,7 @@
       <material name="darkgray"/>
     </visual>
   </link>
-  
+
   <joint name="laser_joint" type="fixed">
     <parent link="body_frame"/>
     <child link="laser_frame"/>
@@ -54,7 +54,7 @@
       <material name="black"/>
     </visual>
   </link>
-    
+
   <joint name="r_wheel_joint" type="continuous">
     <parent link="body_frame"/>
     <child link="r_wheel_frame"/>
@@ -70,7 +70,7 @@
       <material name="black"/>
     </visual>
   </link>
-    
+
   <joint name="l_wheel_joint" type="continuous">
     <parent link="body_frame"/>
     <child link="l_wheel_frame"/>
