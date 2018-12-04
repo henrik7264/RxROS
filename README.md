@@ -121,7 +121,7 @@ sudo cp slamtec/src/rplidar_ros/scripts/rplidar.rules /etc/udev/rules.d/70-rplid
 ### Reactive C++
 
 Reactive C++ is also a github project. It can be found at<br>
-https://github.com/ReactiveX/RxCpp/dumps/rviz_showing_laser_scan.png<br>
+![GitHub Logo](/dumps/rviz_showing_laser_scan.png)<br>
 To install RxCpp execute the following commands:
 
 ```
@@ -144,8 +144,10 @@ Finally, we have come to the RxROS project. To install RxROS do the following:
 ## Problems and observations
 
 1. Rviz reports tf problems when map is selected
+![GitHub Logo](/dumps/rviz_showing_laser_scan.png)
 
-https://github.com/henrik7264/RxROS/tree/master/dumps/rviz_showing_laser_scan.png
+![GitHub Logo](/dumps/rviz_showing_laser_scan.png)
+
 
 2. roswtf reports errors
 
