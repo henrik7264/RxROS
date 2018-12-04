@@ -59,7 +59,7 @@
     <parent link="body_frame"/>
     <child link="r_wheel_frame"/>
     <origin xyz="0 -0.07 -0.0578" rpy="1.5707963268 0 0" />
-    <axis xyz="1 0 0" />
+    <axis xyz="0 0 1" />
   </joint>
 
   <link name="l_wheel_frame">
@@ -75,7 +75,7 @@
     <parent link="body_frame"/>
     <child link="l_wheel_frame"/>
     <origin xyz="0 0.07 -0.0578" rpy="1.5707963268 0 0" />
-    <axis xyz="1 0 0" />
+    <axis xyz="0 0 1" />
   </joint>
 <!--
   <link name="color_link">

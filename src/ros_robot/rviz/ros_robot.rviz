@@ -5,7 +5,6 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
-        - /TF1
         - /TF1/Frames1
       Splitter Ratio: 0.5
     Tree Height: 579
@@ -49,7 +48,7 @@ Visualization Manager:
         Z: 0
       Plane: XY
       Plane Cell Count: 10
-      Reference Frame: <Fixed Frame>
+      Reference Frame: map
       Value: true
     - Alpha: 1
       Class: rviz/RobotModel
@@ -70,7 +69,17 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        l_wheel_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         laser_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        r_wheel_frame:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -185,14 +194,6 @@ Visualization Manager:
       Topic: /amcl_pose
       Unreliable: false
       Value: true
-    - Alpha: 1
-      Class: rviz/Polygon
-      Color: 25; 255; 0
-      Enabled: true
-      Name: Polygon
-      Topic: /move_base/global_costmap/footprint
-      Unreliable: false
-      Value: true
     - Class: rviz/TF
       Enabled: false
       Frame Timeout: 15
@@ -214,6 +215,14 @@ Visualization Manager:
       Radius: 0.10000000149011612
       Reference Frame: <Fixed Frame>
       Value: false
+    - Alpha: 1
+      Class: rviz/Polygon
+      Color: 25; 255; 0
+      Enabled: true
+      Name: Polygon
+      Topic: /move_base/local_costmap/footprint
+      Unreliable: false
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -254,10 +263,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.5297966599464417
+      Pitch: 0.8497968316078186
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 4.265011787414551
+      Yaw: 2.9150052070617676
     Saved: ~
 Window Geometry:
   Displays:

@@ -140,3 +140,13 @@ The needed C++ header files have been installed in /usr/include/rxcpp.
 ### RxROS
 
 Finally, we have come to the RxROS project. To install RxROS do the following:
+
+## Problems and observations
+
+1. Rviz reports tf problems when map is selected
+
+https://github.com/henrik7264/RxROS/
+
+2. roswtf reports errors
+
+3. 

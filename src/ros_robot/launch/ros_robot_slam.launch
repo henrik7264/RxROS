@@ -3,7 +3,6 @@
     <!-- Configuration file for rviz and robot model -->
     <arg name="rvizconfig" default="$(find ros_robot)/rviz/ros_robot.rviz" />
     <param name="robot_description" textfile="$(find ros_robot)/ros_robot.urdf"/>
-    <param name="use_sim_time" type="bool" value="false"/>
 
     <!-- Configuration for Slamtec rplidar a2 -->
     <param name="serial_port" type="string" value="/dev/ttyUSB0"/>
@@ -55,7 +54,7 @@
 
     <!-- Start -->
     <node pkg="robot_state_publisher" name="robot_state_publisher" type="robot_state_publisher">
-        <param name="publish_frequency" value="10.0"/>
+        <param name="publish_frequency" value="20.0"/>
     </node>
 
     <!-- Start Slamtec rplidar a2 -->
@@ -64,30 +63,11 @@
     <!-- Start Map Server using the map.yaml definition -->
     <node name="map_server" pkg="map_server" type="map_server" args="$(find ros_robot)/map.yaml"/>
 
-    <!-- Start Adaptive Monte Carlo Localisation (ACML). Use the example with differential drive -->
-    <!-- The AMCL will publish topic tr map->odom and listen on topic odom-->
-    <node pkg="amcl" type="amcl" name="amcl" output="screen">
-      <!-- Publish scans from best pose at a max of 10 Hz -->
-      <param name="odom_model_type" value="diff"/>
-      <param name="odom_frame_id" value="odom"/>
-      <param name="base_frame_id" value="base_link"/>
-      <param name="global_frame_id" value="map"/>
-      <param name="use_map_topic" value="true"/>
-      <param name="first_map_only" value="true"/>
-      <param name="kld_err" value="0.10"/>
-      <param name="kld_z" value="0.90"/>
-      <param name="update_min_d" value="0.05"/>
-      <param name="update_min_a" value="0.05"/>
-      <param name="transform_tolerance" value="1.0"/>
-    </node>
+    <param name="ini_filename" value="$(find mrpt_rbpf_slam)/tutorial/grid_slam_demo_2.ini"/>
+    <param name="rawlog_filename" value="$(find ros_robot)/grid_slam.rawlog"/>
+    <env name="ROSCONSOLE_CONFIG_FILE" value="$(find mrpt_rbpf_slam)/config/rosconsole.config"/>
 
-    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
-        <rosparam command="load" file="$(find ros_robot)/costmap_common_params.yaml" ns="global_costmap" />
-        <rosparam command="load" file="$(find ros_robot)/costmap_common_params.yaml" ns="local_costmap" />
-        <rosparam command="load" file="$(find ros_robot)/local_costmap_params.yaml"/>
-        <rosparam command="load" file="$(find ros_robot)/global_costmap_params.yaml"/>
-        <rosparam command="load" file="$(find ros_robot)/base_local_planner_params.yaml"/>
-    </node>
+    <node pkg="rviz" type="rviz" name="rviz_nav" output="screen" args="-d $(find mrpt_rbpf_slam)/rviz/rviz_conf.rviz"/>
 
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
+    <node pkg="mrpt_rbpf_slam" type="mrpt_rbpf_slam" name="mrpt_rbpf_slam" output="screen"/>
 </launch>
