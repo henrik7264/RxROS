@@ -145,7 +145,7 @@ Finally, we have come to the RxROS project. To install RxROS do the following:
 
 1. Rviz reports tf problems when map is selected
 
-https://github.com/henrik7264/RxROS/
+https://github.com/henrik7264/RxROS/dumps/rviz_showing_laser_scan.png
 
 2. roswtf reports errors
 
