@@ -146,17 +146,19 @@ Finally, we have come to the RxROS project. To install RxROS do the following:
 1. Rviz reports tf problems when map is selected<br>
 After having launched ros_robot_key.launch, rviz starts up and all is OK.<br>
 <br>
-![rviz ok](/dumps/rviz_showing_laser_scan.png)<br>
+![rviz ok](/images/rviz_showing_laser_scan.png)<br>
 <br>
 But if map is selected in Global options, a laser scan tf error is show and the laser scan dots disappears from rviz<br>
 <br>
-![rviz fail](/dumps/rviz_showing_laser_scan_tf_error.png)<br>
+![rviz fail](/images/rviz_showing_laser_scan_tf_error.png)<br>
 <br>
+The<br>
+[tf tree](/images/frams_map.pdf)<br>
 
 2. roswtf reports errors<br>
 When roswtf is executed the following errors are shown<br>
 <br>
-![roswtf fail](/dumps/roswtf_error.png)<br>
+![roswtf fail](/images/roswtf_error.png)<br>
 <br>
 The error is currently unknown.
 
