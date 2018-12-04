@@ -152,14 +152,10 @@ But if map is selected in Global options, a laser scan tf error is show and the 
 <br>
 ![rviz fail](/images/rviz_showing_laser_scan_tf_error.png)<br>
 <br>
-The<br>
-[tf tree](/images/frams_map.pdf)<br>
-
 2. roswtf reports errors<br>
 When roswtf is executed the following errors are shown<br>
 <br>
 ![roswtf fail](/images/roswtf_error.png)<br>
 <br>
-The error is currently unknown.
-
+The impact if the error is currently unknown.
 3. 
