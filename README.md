@@ -121,7 +121,7 @@ sudo cp slamtec/src/rplidar_ros/scripts/rplidar.rules /etc/udev/rules.d/70-rplid
 ### Reactive C++
 
 Reactive C++ is also a github project. It can be found at<br>
-https://github.com/ReactiveX/RxCpp<br>
+https://github.com/ReactiveX/RxCpp/dumps/rviz_showing_laser_scan.png<br>
 To install RxCpp execute the following commands:
 
 ```
