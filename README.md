@@ -121,7 +121,7 @@ sudo cp slamtec/src/rplidar_ros/scripts/rplidar.rules /etc/udev/rules.d/70-rplid
 ### Reactive C++
 
 Reactive C++ is also a github project. It can be found at<br>
-![GitHub Logo](/dumps/rviz_showing_laser_scan.png)<br>
+https://github.com/ReactiveX/RxCpp<br>
 To install RxCpp execute the following commands:
 
 ```
@@ -143,12 +143,21 @@ Finally, we have come to the RxROS project. To install RxROS do the following:
 
 ## Problems and observations
 
-1. Rviz reports tf problems when map is selected
-![GitHub Logo](/dumps/rviz_showing_laser_scan.png)
+1. Rviz reports tf problems when map is selected<br>
+After having launched ros_robot_key.launch, rviz starts up and all is OK.<br>
+<br>
+![rviz ok](/dumps/rviz_showing_laser_scan.png)<br>
+<br>
+But if map is selected in Global options, a laser scan tf error is show and the laser scan dots disappears from rviz<br>
+<br>
+![rviz fail](/dumps/rviz_showing_laser_scan_tf_error.png)<br>
+<br>
 
-![GitHub Logo](/dumps/rviz_showing_laser_scan.png)
-
-
-2. roswtf reports errors
+2. roswtf reports errors<br>
+When roswtf is executed the following errors are shown<br>
+<br>
+![roswtf fail](/dumps/roswtf_error.png)<br>
+<br>
+The error is currently unknown.
 
 3. 
