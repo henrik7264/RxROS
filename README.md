@@ -155,6 +155,5 @@ When roswtf is executed the following errors are shown<br>
 The impact if the error is currently unknown.
 3. Strange loopback <br>
 ![rosgraph](/images/ros_robot_rosgraph.svg)<br>
-<br>
 ![rosgraph](/images/ros_robot_rosgraph2.svg)<br>
 <br>
