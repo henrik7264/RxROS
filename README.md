@@ -153,4 +153,8 @@ But if map is selected in Global options, a laser scan tf error is show and the 
 When roswtf is executed the following errors are shown<br>
 ![roswtf fail](/images/roswtf_error.png)<br>
 The impact if the error is currently unknown.
-3. 
+3. Strange loopback <br>
+![rosgraph](/images/ros_robot_rosgraph.svg)<br>
+<br>
+![rosgraph](/images/ros_robot_rosgraph2.svg)<br>
+<br>
