@@ -46,7 +46,7 @@ void RosRobotTfBroadcaster::odomCB(const nav_msgs::Odometry& odom)
     currOdom = odom;
     tf::Quaternion orientation = tf::Quaternion(odom.pose.pose.orientation.x, odom.pose.pose.orientation.y, odom.pose.pose.orientation.z, odom.pose.pose.orientation.w);
     tf::Vector3 position = tf::Vector3(odom.pose.pose.position.x, odom.pose.pose.position.y, odom.pose.pose.position.z);
-    transformBroadcaster.sendTransform(tf::StampedTransform(tf::Transform(orientation, position), ros::Time::now(), "odom", "base_link"));
+    transformBroadcaster.sendTransform(tf::StampedTransform(tf::Transform(orientation, position), ros::Time::now(), "odom", "base_footprint"));
 }
 
 int main(int argc, char** argv) {

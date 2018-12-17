@@ -18,7 +18,7 @@
         <param name="l_wheel_joint" type="string" value="l_wheel_joint"/>
         <param name="wheel_radius" type="double" value="0.0093" /> <!-- diameter of wheel / 2 / 3 (gearing is 1/3)-->
         <param name="wheel_basis" type="double" value="0.06" /> <!-- length between wheels / 2 -->
-        <param name="vel_to_eff" type="double" value="0.5" /> <!-- used by nxt_base_controller to determine the effect of the motors -->
+        <param name="vel_to_eff" type="double" value="1.5" /> <!-- used by nxt_base_controller to determine the effect of the motors -->
     </group>
 
     <!--node pkg="joystick" name="JoystickPublisher" type="joystickPublisher" output="screen" respawn="true"/-->
@@ -70,7 +70,7 @@
       <!-- Publish scans from best pose at a max of 10 Hz -->
       <param name="odom_model_type" value="diff"/>
       <param name="odom_frame_id" value="odom"/>
-      <param name="base_frame_id" value="base_link"/>
+      <param name="base_frame_id" value="base_footprint"/>
       <param name="global_frame_id" value="map"/>
       <param name="use_map_topic" value="true"/>
       <param name="first_map_only" value="true"/>
