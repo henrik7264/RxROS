@@ -144,16 +144,26 @@ Finally, we have come to the RxROS project. To install RxROS do the following:
 
 ## Problems and observations
 
-1. Rviz reports tf problems when map is selected<br>
-After having launched ros_robot_key.launch, rviz starts up and all is OK.<br>
-![rviz ok](/images/rviz_showing_laser_scan.png)<br>
-But if map is selected in Global options, a laser scan tf error is show and the laser scan dots disappears from rviz<br>
-![rviz fail](/images/rviz_showing_laser_scan_tf_error.png)<br>
+1. Drifting odom when rotating the robot<br>
+The following picture shows the robot and laser scan seen from the odom frame.<br>
+acml and map has been disabled/turned off. The robot has not moved and the laserscan<br>
+shows straight lines. Observe that the laserscan decay time has been set to 30 sec as<br>
+I want to demonstrate some problems with the odom of the robot. Please also observe<br>
+the small red dots in the picture. They are usb wires from my PC to the robot.<br>
+![odom_no_movement](/images/robot_odom_no_movement.png)<br>
+The next picture shows the laserscan after the robot has moved straight<br>
+forward and backwards a couple of times. There is very little drift in the odom of robot<br>
+When amcl is activated it is actually able to correct the position of the robot.<br>
+This indicates to me that the drift of the odom is acceptable<br>
+![odom_moving_forward](/images/robot_odom_moving_forward_and_back.png)<br>
+Now we come to the actual problem. When I start to turn the robot the drift of the odom goes crazy<br>
+as shown in the picture below. I cannot determine the actual cause of this drift<br>
+![odom_moving_left](/images/robot_odom_turning_left_and_right.png)<br>
 2. roswtf reports errors<br>
 When roswtf is executed the following errors are shown<br>
 ![roswtf fail](/images/roswtf_error.png)<br>
 The impact if the error is currently unknown.
-3. Strange loopback <br>
+3. The rosgraph of the robot<br>
 ![rosgraph](/images/ros_robot_rosgraph.svg)<br>
 ![rosgraph](/images/ros_robot_rosgraph2.svg)<br>
 <br>
