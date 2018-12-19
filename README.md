@@ -145,19 +145,21 @@ Finally, we have come to the RxROS project. To install RxROS do the following:
 ## Problems and observations
 
 1. Drifting odom when rotating the robot<br>
-The following picture shows the robot and laser scan seen from the odom frame.<br>
-acml and map has been disabled/turned off. The robot has not moved and the laserscan<br>
-shows straight lines. Observe that the laserscan decay time has been set to 30 sec as<br>
-I want to demonstrate some problems with the odom of the robot. Please also observe<br>
-the small red dots in the picture. They are usb wires from my PC to the robot.<br>
+The following picture shows the robot and laser scan seen from the odom frame.
+acml and map has been disabled/turned off. The robot has not moved and the laserscan
+shows straight lines. Observe that the laserscan decay time has been set to 30 sec as
+I want to demonstrate some problems with the odom of the robot. Please also observe
+the small red dots in the picture. They are USB wires that runs from my PC to the robot.<br>
 ![odom_no_movement](/images/robot_odom_no_movement.png)<br>
-The next picture shows the laserscan after the robot has moved straight<br>
-forward and backwards a couple of times. There is very little drift in the odom of robot<br>
-When amcl is activated it is actually able to correct the position of the robot.<br>
-This indicates to me that the drift of the odom is acceptable<br>
+The next picture shows the laserscan after the robot has moved straight forward and backwards
+a couple of times. There is very little drift in the odom of robot. When amcl is activated it
+is actually able to correct the position of the robot. This indicates to me that the drift of
+the odom is acceptable.<br>
 ![odom_moving_forward](/images/robot_odom_moving_forward_and_back.png)<br>
-Now we come to the actual problem. When I start to turn the robot the drift of the odom goes crazy<br>
-as shown in the picture below. I cannot determine the actual cause of this drift<br>
+Now we come to the actual problem. When I start to rotate the robot the drift of the odom goes crazy
+as shown in the picture below. I cannot determine the actual cause of this drift, but it has a bad
+impact on amcl. I actually thinks it disable amcl as I see no corrections of the position after I
+have make a couple of turns with the robot<br>
 ![odom_moving_left](/images/robot_odom_turning_left_and_right.png)<br>
 2. roswtf reports errors<br>
 When roswtf is executed the following errors are shown<br>
