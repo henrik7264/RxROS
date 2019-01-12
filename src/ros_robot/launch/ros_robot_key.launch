@@ -16,16 +16,16 @@
     <group ns="base_parameters">
         <param name="r_wheel_joint" type="string" value="r_wheel_joint"/>
         <param name="l_wheel_joint" type="string" value="l_wheel_joint"/>
-        <param name="wheel_radius" type="double" value="0.0093" /> <!-- diameter of wheel / 2 / 3 (gearing is 1/3)-->
-        <param name="wheel_basis" type="double" value="0.06" /> <!-- length between wheels / 2 -->
-        <param name="vel_to_eff" type="double" value="1.5" /> <!-- used by nxt_base_controller to determine the effect of the motors -->
+        <param name="wheel_radius" type="double" value="0.028" /> <!-- diameter of wheel / 2 -->
+        <param name="wheel_basis" type="double" value="0.0625" /> <!-- length between wheels / 2 -->
+        <param name="vel_to_eff" type="double" value="1.0" /> <!-- used by nxt_base_controller to determine the effect of the motors -->
     </group>
 
     <!--node pkg="joystick" name="JoystickPublisher" type="joystickPublisher" output="screen" respawn="true"/-->
 
     <!-- Start keyboard node. Will provide teleop via the keyboard. -->
     <!-- Publish topic: Twist:/cmd_vel -->
-    <node pkg="nxt_teleop" name="nxt_teleop" type="nxt_teleop_node" output="screen"/>
+    <!--node pkg="nxt_teleop" name="nxt_teleop" type="nxt_teleop_node" output="screen"/-->
 
     <!-- Start my robot. Does actually not do anything at the moment-->
     <node pkg="ros_robot" name="ros_robot" type="ros_robot" output="screen" respawn="true"/>
@@ -49,6 +49,7 @@
 
     <!-- Start -->
     <node pkg="nxt_controllers" name="nxt_base_odometry" type="base_odometry.py" output="screen"/>
+    <!--node pkg="slamtech_laser_odom" name="slamtech_laser_odom" type="slamtech_laser_odom" output="screen" respawn="true"/-->
 
     <!-- Start -->
     <node pkg="ros_robot_tf" name="ros_robot_tf_broadcaster" type="ros_robot_tf_broadcaster" output="screen" respawn="true"/>
@@ -62,23 +63,45 @@
     <node pkg="rplidar_ros" name="rplidarNode" type="rplidarNode" output="screen"/>
 
     <!-- Start Map Server using the map.yaml definition -->
-    <node name="map_server" pkg="map_server" type="map_server" args="$(find ros_robot)/map.yaml"/>
+    <!--node name="map_server" pkg="map_server" type="map_server" args="$(find ros_robot)/mymap.yaml"/-->
 
     <!-- Start Adaptive Monte Carlo Localisation (ACML). Use the example with differential drive -->
     <!-- The AMCL will publish topic tr map->odom and listen on topic odom-->
-    <node pkg="amcl" type="amcl" name="amcl" output="screen">
-      <!-- Publish scans from best pose at a max of 10 Hz -->
+    <!-- Publish scans from best pose at a max of 10 Hz -->
+    <!--node pkg="amcl" type="amcl" name="amcl" output="screen">
       <param name="odom_model_type" value="diff"/>
       <param name="odom_frame_id" value="odom"/>
       <param name="base_frame_id" value="base_footprint"/>
       <param name="global_frame_id" value="map"/>
-      <param name="use_map_topic" value="true"/>
-      <param name="first_map_only" value="true"/>
-      <param name="kld_err" value="0.10"/>
-      <param name="kld_z" value="0.90"/>
-      <param name="update_min_d" value="0.05"/>
-      <param name="update_min_a" value="0.05"/>
+      <param name="use_map_topic" value="false"/>
+      <param name="odom_alpha1" value="0.2"/>
+      <param name="odom_alpha2" value="0.2"/>
+      <param name="odom_alpha3" value="0.2"/>
+      <param name="odom_alpha4" value="0.2"/>
+      <param name="gui_publish_rate" value="10.0"/>
+      <param name="min_particles" value="500"/>
+      <param name="max_particles" value="2000"/>
+      <param name="kld_err" value="0.05"/>
+      <param name="kld_z" value="0.99"/>
+      <param name="update_min_d" value="0.25"/>
+      <param name="update_min_a" value="0.2"/>
+      <param name="resample_interval" value="1"/>
       <param name="transform_tolerance" value="1.0"/>
+      <param name="recovery_alpha_slow" value="0.001"/>
+      <param name="recovery_alpha_fast" value="0.1"/>
+      <param name="initial_pose_x" value="0.0"/>
+      <param name="initial_pose_y" value="0.0"/>
+      <param name="initial_pose_a" value="0.0"/>
+      <param name="laser_max_range" value="8.0"/>
+      <param name="laser_max_beams" value="60"/>
+      <param name="laser_z_hit" value="0.5"/>
+      <param name="laser_z_short" value="0.05"/>
+      <param name="laser_z_max" value="0.05"/>
+      <param name="laser_z_rand" value="0.5"/>
+      <param name="laser_sigma_hit" value="0.2"/>
+      <param name="laser_lambda_short" value="0.1"/>
+      <param name="laser_likelihood_max_dist" value="2.0"/>
+      <param name="laser_model_type" value="likelihood_field"/>
     </node>
 
     <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
@@ -87,7 +110,7 @@
         <rosparam command="load" file="$(find ros_robot)/local_costmap_params.yaml"/>
         <rosparam command="load" file="$(find ros_robot)/global_costmap_params.yaml"/>
         <rosparam command="load" file="$(find ros_robot)/base_local_planner_params.yaml"/>
-    </node>
+    </node-->
 
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
 </launch>
