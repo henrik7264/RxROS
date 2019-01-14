@@ -14,7 +14,6 @@
 #include <sensor_msgs/LaserScan.h>
 #include <sensor_msgs/PointCloud.h>
 
-
 #define MAX_EFFORT 12
 #define ZERO_EFFORT 6
 #define MIN_EFFORT 0
@@ -24,6 +23,7 @@ class RosRobot {
 private:
     ros::NodeHandle nodeHandle;
     ros::Publisher motorPublisher;
+    ros::Publisher cmdVelPublisher;
 //    ros::Publisher laserScanPublisher;
 //    ros::Publisher pointCloudPublisher;
     ros::Subscriber joystickSubscriber;
@@ -53,6 +53,7 @@ public:
 
 RosRobot::RosRobot(int argc, char** argv) :
     motorPublisher(nodeHandle.advertise<nxt_msgs::JointCommand>("/joint_command", 10)),
+    cmdVelPublisher(nodeHandle.advertise<geometry_msgs::Twist>("/cmd_vel", 10)),
 //    laserScanPublisher(nodeHandle.advertise<sensor_msgs::LaserScan>("/scan", 10)),
 //    pointCloudPublisher(nodeHandle.advertise<sensor_msgs::PointCloud>("/cloud", 10)),
     joystickSubscriber(nodeHandle.subscribe("/joystick", 10, &RosRobot::joystickCB, this)),
@@ -67,12 +68,39 @@ RosRobot::RosRobot(int argc, char** argv) :
 
 void RosRobot::colorCB(const nxt_msgs::Color& col)
 {
+    static bool firstTime = true;
+    static bool goLeft = true;
     double r = col.r;
     double g = col.g;
     double b = col.b;
     double intensity = col.intensity;
+/*
+    if (r==0.0 && g==0.0 && b==0.0) { // black
+        if (goLeft || firstTime) {
+            geometry_msgs::Twist turnLeft;
+            turnLeft.linear.x = 0.035 / 2.0;
+            turnLeft.angular.z = 0.55 / 4.0;
+            cmdVelPublisher.publish(turnLeft);
+            goLeft = false;
+            firstTime = false;
+        }
+    }
+    else if (r == 1.0 && g == 1.0 && b == 1.0) {
+        if (!goLeft || firstTime)
+        {
+            geometry_msgs::Twist turnRight;
+            turnRight.linear.x = 0.035 / 2.0;
+            turnRight.angular.z = -0.55 / 10.0;
+            cmdVelPublisher.publish(turnRight);
+            goLeft = true;
+            firstTime = false;
+        }
+        else {
 
-//    ROS_INFO( "Color r:%lf g:%lf b:%lf, i:%lf\n", r, g, b, intensity);
+        }
+    }
+*/
+    ROS_INFO( "Color r:%lf g:%lf b:%lf, i:%lf\n", r, g, b, intensity);
 }
 
 void RosRobot::rangeCB(const nxt_msgs::Range& rng)

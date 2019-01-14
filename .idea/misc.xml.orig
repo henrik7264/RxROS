@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="CMakeWorkspace" PROJECT_DIR="$PROJECT_DIR$/src/rxros_lang">
+=======
+  <component name="CMakeWorkspace" PROJECT_DIR="$PROJECT_DIR$/src/ros_robot">
+>>>>>>> 36f483071f28ba7aa2910a54679d9d5be962c390
     <contentRoot DIR="$PROJECT_DIR$" />
   </component>
   <component name="JavaScriptSettings">

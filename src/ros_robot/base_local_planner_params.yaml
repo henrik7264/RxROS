@@ -1,20 +1,11 @@
 TrajectoryPlannerROS:
   # see http://wiki.ros.org/base_local_planner
-  min_vel_x: 0.00465 # The minimum forward velocity allowed for the base in meters/sec. It is useful to specify this to guarantee that velocity commands sent to a mobile base are high enough to allow the base to overcome friction.
-  max_vel_x: 0.0093 # The maximum forward velocity allowed for the base in meters/sec
-  min_vel_theta: 0,0775 # The minimum rotational velocity allowed for the base in radians/sec
-  max_vel_theta: 0.155 # The maximum rotational velocity allowed for the base in radians/sec
-  min_in_place_vel_theta: 0,11625 # The minimum rotational velocity allowed for the base while performing in-place rotations in radians/sec
-  acc_lim_x: 0.002325 # The x acceleration limit of the robot in meters/sec^2
-  acc_lim_y: 0.002325 # The y acceleration limit of the robot in meters/sec^2
-  acc_lim_theta: 0,03875 # The rotational acceleration limit of the robot in radians/sec^2
-  holonomic_robot: true
-
-  #max_vel_x = wheel_radius = 0.0093
-  #min_vel_x = max_vel_x / 2 = 0.00465
-  #max_vel_theta = wheel_radius/wheel_basis = 0.0093 / 0.06 = 0.155
-  #min_vel_theta = max_vel_theta / 2 = 0,0775
-  #min_in_place_vel_theta =  (max_vel_theta + min_vel_theta)/2 = 0,11625
-  #acc_lim_x = max_vel_x / 4 = 0.002325 (top speed can be reached in 4 sec)
-  #acc_lim_y = acc_lim_x = 0.002325
-  #acc_lim_theta: max_vel_theta / 4 = 0,03875
+  min_vel_x: 0.017 # The minimum forward velocity allowed for the base in m/s. It is useful to specify this to guarantee that velocity commands sent to a mobile base are high enough to allow the base to overcome friction.
+  max_vel_x: 0.035 # The maximum forward velocity allowed for the base in m/s
+  min_vel_theta: 0.27 # The minimum rotational velocity allowed for the base in rad/s
+  max_vel_theta: 0.55 # The maximum rotational velocity allowed for the base in rad/s
+  min_in_place_vel_theta: 0.41 # The minimum rotational velocity allowed for the base while performing in-place rotations in radians/sec
+  acc_lim_x: 0.007 # The x acceleration limit of the robot in m/s^2
+  acc_lim_y: 0.0 # The y acceleration limit of the robot in m/s^2
+  acc_lim_theta: 0.11 # The rotational acceleration limit of the robot in rad/s^2
+  holonomic_robot: false
