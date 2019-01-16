@@ -6,6 +6,7 @@
 #include <vector>
 #include <algorithm>
 #include <numeric>
+#include <rxcpp/rx.hpp>
 using namespace std;
 
 
@@ -15,15 +16,18 @@ private:
 public:
     Examples() {}
     virtual ~Examples() {}
-    void lambdaFunctionExample1();
-    void lambdaFunctionExample2();
-    void lambdaFunctionExample3();
-    void lambdaFunctionExample4();
+    void lambdaFunction1();
+    void lambdaFunction2();
+    void lambdaFunction3();
+    void lambdaFunction4();
+    void rxRange();
+    void rxMap();
+    void rxMerge();
 };
 
 
 //--------------------------------------------------------------------------------------
-void Examples::lambdaFunctionExample1()
+void Examples::lambdaFunction1()
 {
     auto numbers = vector<int>{ 10, 23, -33, 15, -7, 60, 80};
     // Lambda expression. Returns true if value is positive else false.
@@ -34,7 +38,7 @@ void Examples::lambdaFunctionExample1()
 }
 
 //--------------------------------------------------------------------------------------
-void Examples::lambdaFunctionExample2()
+void Examples::lambdaFunction2()
 {
     auto numbers = vector<int>{ 10, 23, -33, 15, -7, 60, 80};
     // Lambda expression take two arguments of any type and returns the sum.
@@ -50,7 +54,7 @@ struct addition {
     T operator () (const T& a,  const T& b ) { return a + b; }
 };
 
-void Examples::lambdaFunctionExample3()
+void Examples::lambdaFunction3()
 {
     double numbers[3] = {1.0, 2.0, 4.0};
     double sum = 0;
@@ -86,7 +90,7 @@ auto CurriedAdd3(int x) {
     };
 };
 
-void Examples::lambdaFunctionExample4()
+void Examples::lambdaFunction4()
 {
     // Compose two functions together
     auto val = Compose(
@@ -107,12 +111,47 @@ void Examples::lambdaFunctionExample4()
     cout << p << endl;
 }
 
+//--------------------------------------------------------------------------------------
+void Examples::rxRange()
+{
+    auto values = rxcpp::observable<>::range(1, 10);
+    values.subscribe(
+        [](int v) {cout << "OnNext: " << v << endl;},
+        []() {cout << "OnCompleted" << endl;});
+}
 
+//--------------------------------------------------------------------------------------
+void Examples::rxMap()
+{
+    auto ints = rxcpp::observable<>::range(1, 10).map([](int n) { return n * n; });
+    ints.subscribe(
+        [](int v) { cout << "OnNext: " << v << endl; },
+        []() { cout << "OnCompleted" << endl; });
+}
+
+//--------------------------------------------------------------------------------------
+void Examples::rxMerge()
+{
+    auto o1 = rxcpp::observable<>::range(1, 3);
+    auto o2 = rxcpp::observable<>::from(4, 5, 6);
+    auto values = o1.merge(o2);
+    values.subscribe(
+        [](int v) {cout << "OnNext: " <<  v << endl;},
+        []() {cout << "OnCompleted" << endl;});
+}
+
+
+
+//--------------------------------------------------------------------------------------
 int main(int argc, char** argv)
 {
     Examples examples;
-    examples.lambdaFunctionExample1();
-    examples.lambdaFunctionExample2();
-    examples.lambdaFunctionExample3();
-    examples.lambdaFunctionExample4();
+    examples.lambdaFunction1();
+    examples.lambdaFunction2();
+    examples.lambdaFunction3();
+    examples.lambdaFunction4();
+
+    examples.rxRange();
+    examples.rxMap();
+    examples.rxMerge();
 }
