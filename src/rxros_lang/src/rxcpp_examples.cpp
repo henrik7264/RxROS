@@ -6,8 +6,27 @@
 #include <vector>
 #include <algorithm>
 #include <numeric>
-#include <rxcpp/rx.hpp>
 using namespace std;
+
+#include <rxcpp/rx.hpp>
+#include <rxcpp/operators/rx-reduce.hpp>
+#include <rxcpp/operators/rx-filter.hpp>
+#include <rxcpp/operators/rx-map.hpp>
+#include <rxcpp/operators/rx-tap.hpp>
+#include <rxcpp/operators/rx-concat_map.hpp>
+#include <rxcpp/operators/rx-flat_map.hpp>
+#include <rxcpp/operators/rx-concat.hpp>
+#include <rxcpp/operators/rx-merge.hpp>
+#include <rxcpp/operators/rx-repeat.hpp>
+#include <rxcpp/operators/rx-publish.hpp>
+#include <rxcpp/operators/rx-ref_count.hpp>
+namespace Rx {
+    using namespace rxcpp;
+    using namespace rxcpp::sources;
+    using namespace rxcpp::operators;
+    using namespace rxcpp::util;
+}
+using namespace Rx;
 
 
 class Examples
@@ -178,7 +197,7 @@ void Examples::rxConcat()
 void Examples::rxPipe()
 {
 
-    auto ints = rxcpp::observable<>::range(1,10) | map([](int n) {return n * n;});
+    auto ints = rxcpp::observable<>::range(1,10) | Rx::map([](int n) { return n * n; });
     ints.subscribe(
         [](int v){cout << "OnNext: " << v << endl;},
         [](){cout << "OnCompleted" << endl;});
