@@ -45,6 +45,7 @@ public:
     void rxMerge();
     void rxConcat();
     void rxPipe();
+    void rxMerge2();
 };
 
 
@@ -159,6 +160,7 @@ void Examples::rxRange()
         []() {cout << "OnCompleted" << endl;});
 }
 
+
 //--------------------------------------------------------------------------------------
 void Examples::rxMap()
 {
@@ -167,6 +169,7 @@ void Examples::rxMap()
         [](int v) { cout << "OnNext: " << v << endl; },
         []() { cout << "OnCompleted" << endl; });
 }
+
 
 //--------------------------------------------------------------------------------------
 void Examples::rxMerge()
@@ -178,7 +181,6 @@ void Examples::rxMerge()
         [](int v) {cout << "OnNext: " <<  v << endl;},
         []() {cout << "OnCompleted" << endl;});
 }
-
 
 
 //--------------------------------------------------------------------------------------
@@ -204,6 +206,20 @@ void Examples::rxPipe()
 }
 
 
+//--------------------------------------------------------------------------------------
+void Examples::rxMerge2()
+{
+    auto o1 = rxcpp::observable<>::timer(chrono::milliseconds(15)).map([](int) { return 1; });
+    auto o2 = rxcpp::observable<>::error<int>(runtime_error("Error from source"));
+    auto o3 = rxcpp::observable<>::timer(chrono::milliseconds(5)).map([](int) { return 3; });
+    auto base = rxcpp::observable<>::from(o1.as_dynamic(), o2, o3);
+    auto values = base.merge();
+
+    values.subscribe(
+            [](int v) { cout << "OnNext: " << v << endl; },
+            [](exception_ptr e) { cout << "OnError: " << Rx::what(e) << endl; },
+            []() { cout << "OnCompleted" << endl; });
+}
 
 //--------------------------------------------------------------------------------------
 int main(int argc, char** argv)
@@ -220,4 +236,5 @@ int main(int argc, char** argv)
     examples.rxMerge();
     examples.rxConcat();
     examples.rxPipe();
+    examples.rxMerge2();
 }
