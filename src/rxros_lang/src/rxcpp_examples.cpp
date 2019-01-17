@@ -20,9 +20,12 @@ public:
     void lambdaFunction2();
     void lambdaFunction3();
     void lambdaFunction4();
+    void rxCreate();
     void rxRange();
     void rxMap();
     void rxMerge();
+    void rxConcat();
+    void rxPipe();
 };
 
 
@@ -111,6 +114,23 @@ void Examples::lambdaFunction4()
     cout << p << endl;
 }
 
+
+//--------------------------------------------------------------------------------------
+void Examples::rxCreate()
+{
+    auto ints = rxcpp::observable<>::create<int> (
+        [](rxcpp::subscriber<int> s)
+        {
+            s.on_next(1);
+            s.on_next(2);
+            s.on_completed();
+        });
+
+    ints.subscribe(
+        [](int v) {cout << "OnNext: " << v << endl;},
+        []() {cout << "OnCompleted" << endl;});
+}
+
 //--------------------------------------------------------------------------------------
 void Examples::rxRange()
 {
@@ -143,6 +163,30 @@ void Examples::rxMerge()
 
 
 //--------------------------------------------------------------------------------------
+void Examples::rxConcat()
+{
+    auto o1 = rxcpp::observable<>::range(1, 3);
+    auto o2 = rxcpp::observable<>::from(4, 5, 6);
+    auto values = o1.concat(o2);
+    values.subscribe(
+        [](int v) {cout << "OnNext: " <<  v << endl;},
+        []() {cout << "OnCompleted" << endl;});
+}
+
+
+//--------------------------------------------------------------------------------------
+void Examples::rxPipe()
+{
+
+    auto ints = rxcpp::observable<>::range(1,10) | map([](int n) {return n * n;});
+    ints.subscribe(
+        [](int v){cout << "OnNext: " << v << endl;},
+        [](){cout << "OnCompleted" << endl;});
+}
+
+
+
+//--------------------------------------------------------------------------------------
 int main(int argc, char** argv)
 {
     Examples examples;
@@ -151,7 +195,10 @@ int main(int argc, char** argv)
     examples.lambdaFunction3();
     examples.lambdaFunction4();
 
+    examples.rxCreate();
     examples.rxRange();
     examples.rxMap();
     examples.rxMerge();
+    examples.rxConcat();
+    examples.rxPipe();
 }
