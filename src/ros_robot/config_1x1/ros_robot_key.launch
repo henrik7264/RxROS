@@ -62,7 +62,7 @@
     <node pkg="rplidar_ros" name="rplidarNode" type="rplidarNode" output="screen"/>
 
     <!-- Start Map Server using the map.yaml definition -->
-    <node name="map_server" pkg="map_server" type="map_server" args="$(find ros_robot)/mymap.yaml"/>
+    <node name="map_server" pkg="map_server" type="map_server" args="$(find ros_robot)/config_1x1/mymap.yaml"/>
 
     <!-- Start Adaptive Monte Carlo Localisation (ACML). Use the example with differential drive -->
     <!-- The AMCL will publish topic tr map->odom and listen on topic odom-->
@@ -104,11 +104,11 @@
     </node>
 
     <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
-        <rosparam command="load" file="$(find ros_robot)/costmap_common_params.yaml" ns="global_costmap" />
-        <rosparam command="load" file="$(find ros_robot)/costmap_common_params.yaml" ns="local_costmap" />
-        <rosparam command="load" file="$(find ros_robot)/local_costmap_params.yaml"/>
-        <rosparam command="load" file="$(find ros_robot)/global_costmap_params.yaml"/>
-        <rosparam command="load" file="$(find ros_robot)/base_local_planner_params.yaml"/>
+        <rosparam command="load" file="$(find ros_robot)/config_1x1/costmap_common_params.yaml" ns="global_costmap" />
+        <rosparam command="load" file="$(find ros_robot)/config_1x1/costmap_common_params.yaml" ns="local_costmap" />
+        <rosparam command="load" file="$(find ros_robot)/config_1x1/local_costmap_params.yaml"/>
+        <rosparam command="load" file="$(find ros_robot)/config_1x1/global_costmap_params.yaml"/>
+        <rosparam command="load" file="$(find ros_robot)/config_1x1/base_local_planner_params.yaml"/>
     </node>
 
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />

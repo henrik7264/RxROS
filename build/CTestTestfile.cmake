@@ -6,7 +6,7 @@
 # testing this directory and lists subdirectories to be tested as well.
 subdirs("joystick")
 subdirs("lxf2urdf")
-subdirs("slamtech_laser_odom")
+subdirs("rxros_lang")
 subdirs("ros_robot_tf")
 subdirs("learning_nxt")
 subdirs("ros_robot")

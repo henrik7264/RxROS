@@ -182,6 +182,60 @@ ros_robot/fast:
 	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/ros_robot.dir/build.make ros_robot/CMakeFiles/ros_robot.dir/build
 .PHONY : ros_robot/fast
 
+src/CStateInitial.o: src/CStateInitial.cpp.o
+
+.PHONY : src/CStateInitial.o
+
+# target to build an object file
+src/CStateInitial.cpp.o:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/ros_robot.dir/build.make ros_robot/CMakeFiles/ros_robot.dir/src/CStateInitial.cpp.o
+.PHONY : src/CStateInitial.cpp.o
+
+src/CStateInitial.i: src/CStateInitial.cpp.i
+
+.PHONY : src/CStateInitial.i
+
+# target to preprocess a source file
+src/CStateInitial.cpp.i:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/ros_robot.dir/build.make ros_robot/CMakeFiles/ros_robot.dir/src/CStateInitial.cpp.i
+.PHONY : src/CStateInitial.cpp.i
+
+src/CStateInitial.s: src/CStateInitial.cpp.s
+
+.PHONY : src/CStateInitial.s
+
+# target to generate assembly for a file
+src/CStateInitial.cpp.s:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/ros_robot.dir/build.make ros_robot/CMakeFiles/ros_robot.dir/src/CStateInitial.cpp.s
+.PHONY : src/CStateInitial.cpp.s
+
+src/CStateMachine.o: src/CStateMachine.cpp.o
+
+.PHONY : src/CStateMachine.o
+
+# target to build an object file
+src/CStateMachine.cpp.o:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/ros_robot.dir/build.make ros_robot/CMakeFiles/ros_robot.dir/src/CStateMachine.cpp.o
+.PHONY : src/CStateMachine.cpp.o
+
+src/CStateMachine.i: src/CStateMachine.cpp.i
+
+.PHONY : src/CStateMachine.i
+
+# target to preprocess a source file
+src/CStateMachine.cpp.i:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/ros_robot.dir/build.make ros_robot/CMakeFiles/ros_robot.dir/src/CStateMachine.cpp.i
+.PHONY : src/CStateMachine.cpp.i
+
+src/CStateMachine.s: src/CStateMachine.cpp.s
+
+.PHONY : src/CStateMachine.s
+
+# target to generate assembly for a file
+src/CStateMachine.cpp.s:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/ros_robot.dir/build.make ros_robot/CMakeFiles/ros_robot.dir/src/CStateMachine.cpp.s
+.PHONY : src/CStateMachine.cpp.s
+
 src/ros_robot.o: src/ros_robot.cpp.o
 
 .PHONY : src/ros_robot.o
@@ -223,6 +277,12 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... install"
+	@echo "... src/CStateInitial.o"
+	@echo "... src/CStateInitial.i"
+	@echo "... src/CStateInitial.s"
+	@echo "... src/CStateMachine.o"
+	@echo "... src/CStateMachine.i"
+	@echo "... src/CStateMachine.s"
 	@echo "... src/ros_robot.o"
 	@echo "... src/ros_robot.i"
 	@echo "... src/ros_robot.s"

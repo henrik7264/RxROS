@@ -46,6 +46,9 @@ public:
     void rxConcat();
     void rxPipe();
     void rxMerge2();
+    void rxTimer1();
+    void rxTimer2();
+    void rxScheduler1();
 };
 
 
@@ -221,6 +224,52 @@ void Examples::rxMerge2()
             []() { cout << "OnCompleted" << endl; });
 }
 
+
+
+//--------------------------------------------------------------------------------------
+void Examples::rxTimer1()
+{
+    auto start = std::chrono::steady_clock::now() + std::chrono::milliseconds(10);
+    auto values = rxcpp::observable<>::timer(start);
+    values.subscribe(
+        [](int v){printf("OnNext: %d\n", v);},
+        [](){printf("OnCompleted\n");});
+
+    auto period = std::chrono::milliseconds(10);
+    auto values2 = rxcpp::observable<>::timer(period);
+    values2.subscribe(
+        [](int v){printf("OnNext: %d\n", v);},
+        [](){printf("OnCompleted\n");});
+}
+
+
+//--------------------------------------------------------------------------------------
+void Examples::rxTimer2()
+{
+    auto o1 = rxcpp::observable<>::timer(std::chrono::milliseconds(15)).map([](int) { return 1; });
+    auto o2 = rxcpp::observable<>::timer(std::chrono::milliseconds(10)).map([](int) { return 2; });
+    auto o3 = rxcpp::observable<>::timer(std::chrono::milliseconds(5)).map([](int) { return 3; });
+    auto values = rxcpp::observable<>::from(o1.as_dynamic(), o2, o3).merge();
+    values.subscribe(
+        [](int v) { printf("OnNext: %d\n", v); },
+        []() { printf("OnCompleted\n"); });
+}
+
+
+//--------------------------------------------------------------------------------------
+void Examples::rxScheduler1()
+{
+    auto scheduler = rxcpp::observe_on_new_thread();
+    auto period = std::chrono::milliseconds(1);
+    auto values = rxcpp::observable<>::timer(period, scheduler).
+        finally([](){printf("The final action\n");});
+
+    values.as_blocking().subscribe(
+        [](int v){printf("OnNext: %d\n", v);},
+        [](){printf("OnCompleted\n");});
+}
+
+
 //--------------------------------------------------------------------------------------
 int main(int argc, char** argv)
 {
@@ -237,4 +286,8 @@ int main(int argc, char** argv)
     examples.rxConcat();
     examples.rxPipe();
     examples.rxMerge2();
+
+    examples.rxTimer1();
+    examples.rxTimer2();
+    examples.rxScheduler1();
 }
