@@ -5,6 +5,7 @@
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
 subdirs("joystick")
+subdirs("keyboard")
 subdirs("lxf2urdf")
 subdirs("rxros_lang")
 subdirs("ros_robot_tf")

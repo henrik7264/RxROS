@@ -1181,6 +1181,24 @@ clean: joystick/CMakeFiles/std_msgs_generate_messages_py.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Directory level rules for directory keyboard
+
+# Convenience name for "all" pass in the directory.
+keyboard/all:
+
+.PHONY : keyboard/all
+
+# Convenience name for "clean" pass in the directory.
+keyboard/clean:
+
+.PHONY : keyboard/clean
+
+# Convenience name for "preinstall" pass in the directory.
+keyboard/preinstall:
+
+.PHONY : keyboard/preinstall
+
+#=============================================================================
 # Directory level rules for directory lxf2urdf
 
 # Convenience name for "all" pass in the directory.

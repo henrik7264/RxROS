@@ -19,15 +19,15 @@ struct joystick_event {
 };
 
 int main(int argc, char** argv) {
-    ros::init(argc, argv, "JoystickPublisher"); // Name of this Node.
-    ros::NodeHandle nh;
-    ros::Publisher pub = nh.advertise<joystick::Joystick>("/joystick", 10); // Publish Topic /joystick
-
     int fd = open("/dev/input/js0", O_RDONLY);
     if( fd < 0 ) {
         printf("Cannot open joystick device.\n");
         exit(1);
     }
+
+    ros::init(argc, argv, "JoystickPublisher"); // Name of this Node.
+    ros::NodeHandle nh;
+    ros::Publisher pub = nh.advertise<joystick::Joystick>("/joystick", 10); // Publish Topic /joystick
 
     struct joystick_event joystickEvent;
     while (ros::ok()) {

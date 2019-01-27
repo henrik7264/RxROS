@@ -6,6 +6,8 @@
 #include <vector>
 #include <algorithm>
 #include <numeric>
+#include <thread>
+#include <mutex>
 using namespace std;
 
 #include <rxcpp/rx.hpp>
@@ -46,9 +48,11 @@ public:
     void rxConcat();
     void rxPipe();
     void rxMerge2();
+
     void rxTimer1();
     void rxTimer2();
     void rxScheduler1();
+    void rxScheduler2();
 };
 
 
@@ -201,7 +205,6 @@ void Examples::rxConcat()
 //--------------------------------------------------------------------------------------
 void Examples::rxPipe()
 {
-
     auto ints = rxcpp::observable<>::range(1,10) | Rx::map([](int n) { return n * n; });
     ints.subscribe(
         [](int v){cout << "OnNext: " << v << endl;},
@@ -270,6 +273,54 @@ void Examples::rxScheduler1()
 }
 
 
+
+//--------------------------------------------------------------------------------------
+mutex console_mutex;
+
+void CTDetails(int val = 0 )
+{
+    console_mutex.lock();
+    cout << "Current Thread id: " << this_thread::get_id() << ", " << val << endl;
+    console_mutex.unlock();
+}
+
+void Examples::rxScheduler2()
+{
+    // Coordination object
+    auto coordination = rxcpp::serialize_new_thread();
+
+    // Retrieve the worker
+    auto worker = coordination.create_coordinator().get_worker();
+
+    // Create an Observable
+    auto values = rxcpp::observable<>::interval(std::chrono::milliseconds(50)).
+        take(5).
+        replay(coordination);
+
+    // Subscribe from the beginning
+    worker.schedule(
+        [&](const rxcpp::schedulers::schedulable&) {
+            values.subscribe(
+                [](long v){CTDetails(v);},
+                [](){ CTDetails();});});
+
+    // Wait before subscribing
+    worker.schedule(coordination.now() + std::chrono::milliseconds(125),
+                    [&](const rxcpp::schedulers::schedulable&) {
+                        values.subscribe(
+                            [](long v){ CTDetails(v*v);},
+                            [](){ CTDetails(); });});
+
+    // Start emitting
+    worker.schedule(
+        [&](const rxcpp::schedulers::schedulable&) {
+            values.connect();});
+
+    // Add blocking subscription to see results
+    values.as_blocking().subscribe();
+}
+
+
 //--------------------------------------------------------------------------------------
 int main(int argc, char** argv)
 {
@@ -290,4 +341,5 @@ int main(int argc, char** argv)
     examples.rxTimer1();
     examples.rxTimer2();
     examples.rxScheduler1();
+    examples.rxScheduler2();
 }
