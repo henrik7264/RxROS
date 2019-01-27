@@ -7,6 +7,6 @@ local_costmap:
   transform_tolerance: 0.5  
   static_map: false
   rolling_window: true
-  width: 1.0
-  height: 1.0
-  resolution: 0.001667 # map is 600x600 pixels resolution is 1/600
+  width: 2.0
+  height: 2.0
+  resolution: 0.00333 # map is 600x600 pixels resolution is 2/600

@@ -1,0 +1,67 @@
+nxt_robot:
+  - type: motor
+    name: r_wheel_joint
+    port: PORT_A
+    desired_frequency: 20.0
+
+  - type: motor
+    name: l_wheel_joint
+    port: PORT_C
+    desired_frequency: 20.0
+
+  - type: ultrasonic
+    frame_id: ultrasonic_link
+    name: ultrasonic_sensor
+    spread_angle: 10.0
+    min_range: 0.10
+    max_range: 1.00
+    port: PORT_1
+    desired_frequency: 2.0
+
+  - type: color
+    frame_id: color_link
+    name: color_sensor
+    port: PORT_4
+    desired_frequency: 2.0
+
+#  - type: touch
+#    frame_id: touch_link
+#    name: touch_sensor
+#    port: PORT_1
+#    desired_frequency: 2.0
+
+#  - type: touch
+#    frame_id: touch_link2
+#    name: touch_sensor2
+#    port: PORT_4
+#    desired_frequency: 2.0
+
+#  - type: intensity
+#    frame_id: intensity_sensor_frame
+#    name: my_intensity_sensor
+#    color_r: 0.0
+#    color_g: 1.0
+#    color_b: 0.0
+#    port: PORT_1
+#    desired_frequency: 10.0
+
+#  - type: light
+#    frame_id: light_sensor_frame
+#    name: my_light_sensor
+#    illuminated: true
+#    port: PORT_1
+#    desired_frequency: 10.0
+
+#  - type: gyro
+#    frame_id: gyro_sensor_frame
+#    name: my_gyro_sensor
+#    offset: 0.0
+#    port: PORT_1
+#    desired_frequency: 10.0
+
+#  - type: accelerometer
+#    frame_id: accel_sensor_frame
+#    name: my_accel_sensor
+#    port: PORT_1
+#    desired_frequency: 10.0
+

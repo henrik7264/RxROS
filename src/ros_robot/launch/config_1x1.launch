@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <launch>
     <!-- Configuration file for rviz and robot model -->
-    <arg name="rvizconfig" default="$(find ros_robot)/rviz/ros_robot.rviz" />
-    <param name="robot_description" textfile="$(find ros_robot)/ros_robot.urdf"/>
+    <arg name="rvizconfig" default="$(find ros_robot)/config_1x1/ros_robot.rviz" />
+    <param name="robot_description" textfile="$(find ros_robot)/config_1x1/ros_robot.urdf"/>
     <param name="use_sim_time" type="bool" value="false"/>
 
     <!-- Configuration for Slamtec rplidar a2 -->
@@ -33,7 +33,7 @@
     <!-- Start NXT driver: starts and monitors the wheels, ultrasonic sensor and color sensor-->
     <!-- Publish topic: /ultrasonic_sensor, /color_sensor, /joint_state-->
     <node pkg="nxt_ros" name="nxt_ros" type="nxt_ros.py" output="screen" respawn="true">
-        <rosparam command="load" file="$(find ros_robot)/ros_robot.yaml" />
+        <rosparam command="load" file="$(find ros_robot)/config_1x1/ros_robot.yaml" />
         <!--param name="host" value="00:16:53:1A:0B:F5"/-->
     </node>
 
@@ -62,7 +62,7 @@
     <node pkg="rplidar_ros" name="rplidarNode" type="rplidarNode" output="screen"/>
 
     <!-- Start Map Server using the map.yaml definition -->
-    <node name="map_server" pkg="map_server" type="map_server" args="$(find ros_robot)/config_1x1/mymap.yaml"/>
+    <node name="map_server" pkg="map_server" type="map_server" args="$(find ros_robot)/config_1x1/map.yaml"/>
 
     <!-- Start Adaptive Monte Carlo Localisation (ACML). Use the example with differential drive -->
     <!-- The AMCL will publish topic tr map->odom and listen on topic odom-->

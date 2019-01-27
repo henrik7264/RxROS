@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+    <!-- Configuration file for rviz and robot model -->
+    <arg name="rvizconfig" default="$(find ros_robot)/config_2x2/ros_robot.rviz" />
+    <param name="robot_description" textfile="$(find ros_robot)/config_2x2/ros_robot.urdf"/>
+    <param name="use_sim_time" type="bool" value="false"/>
+
+    <!-- Configuration for Slamtec rplidar a2 -->
+    <param name="serial_port" type="string" value="/dev/ttyUSB0"/>
+    <param name="serial_baudrate" type="int" value="115200"/>
+    <param name="frame_id" type="string" value="laser_frame"/>
+    <param name="inverted" type="bool" value="false"/>
+    <param name="angle_compensate" type="bool" value="true"/>
+
+    <!-- Base parameters for the nxt robot, used by nxt_base_controller -->
+    <group ns="base_parameters">
+        <param name="r_wheel_joint" type="string" value="r_wheel_joint"/>
+        <param name="l_wheel_joint" type="string" value="l_wheel_joint"/>
+        <param name="wheel_radius" type="double" value="0.028" /> <!-- diameter of wheel / 2 -->
+        <param name="wheel_basis" type="double" value="0.0625" /> <!-- length between wheels / 2 -->
+        <param name="vel_to_eff" type="double" value="1.0" /> <!-- used by nxt_base_controller to determine the effect of the motors -->
+    </group>
+
+    <!--node pkg="joystick" name="JoystickPublisher" type="joystickPublisher" output="screen" respawn="true"/-->
+
+    <!-- Start keyboard node. Will provide teleop via the keyboard. -->
+    <!-- Publish topic: Twist:/cmd_vel -->
+    <node pkg="nxt_teleop" name="nxt_teleop" type="nxt_teleop_node" output="screen"/>
+
+    <!-- Start my robot. Does actually not do anything at the moment-->
+    <node pkg="ros_robot" name="ros_robot" type="ros_robot" output="screen" respawn="true"/>
+
+    <!-- Start NXT driver: starts and monitors the wheels, ultrasonic sensor and color sensor-->
+    <!-- Publish topic: /ultrasonic_sensor, /color_sensor, /joint_state-->
+    <node pkg="nxt_ros" name="nxt_ros" type="nxt_ros.py" output="screen" respawn="true">
+        <rosparam command="load" file="$(find ros_robot)/config_2x2/ros_robot.yaml" />
+        <!--param name="host" value="00:16:53:1A:0B:F5"/-->
+    </node>
+
+    <!-- Start node joint_state_publisher: read joint_state for each motor and publish an aggregate joint_states for all motors -->
+    <!-- Subscribe topic: /joint_state-->
+    <!-- Publish topic: /joint_states-->
+    <node pkg="nxt_ros" name="joint_state_publisher"  type="joint_states_aggregator.py" output="screen" />
+
+    <!-- Start node nxt_base_controller: publish effect to motors from cmd_vel and joint_states-->
+    <!-- Subscribe topic: JointStare:/joint_states, Twist/cmd_vel /-->
+    <!-- Publish topic: JointCommand:/joint_command-->
+    <node pkg="nxt_controllers" name="nxt_base_controller" type="base_controller.py" output="screen"/>
+
+    <!-- Start -->
+    <node pkg="nxt_controllers" name="nxt_base_odometry" type="base_odometry.py" output="screen"/>
+
+    <!-- Start -->
+    <node pkg="ros_robot_tf" name="ros_robot_tf_broadcaster" type="ros_robot_tf_broadcaster" output="screen" respawn="true"/>
+
+    <!-- Start -->
+    <node pkg="robot_state_publisher" name="robot_state_publisher" type="robot_state_publisher">
+        <param name="publish_frequency" value="10.0"/>
+    </node>
+
+    <!-- Start Slamtec rplidar a2 -->
+    <node pkg="rplidar_ros" name="rplidarNode" type="rplidarNode" output="screen"/>
+
+    <!-- Start Map Server using the map.yaml definition -->
+    <node name="map_server" pkg="map_server" type="map_server" args="$(find ros_robot)/config_2x2/map.yaml"/>
+
+    <!-- Start Adaptive Monte Carlo Localisation (ACML). Use the example with differential drive -->
+    <!-- The AMCL will publish topic tr map->odom and listen on topic odom-->
+    <!-- Publish scans from best pose at a max of 10 Hz -->
+    <node pkg="amcl" type="amcl" name="amcl" output="screen">
+      <param name="odom_model_type" value="diff"/>
+      <param name="odom_frame_id" value="odom"/>
+      <param name="base_frame_id" value="base_footprint"/>
+      <param name="global_frame_id" value="map"/>
+      <param name="use_map_topic" value="false"/>
+      <param name="odom_alpha1" value="0.2"/>
+      <param name="odom_alpha2" value="0.2"/>
+      <param name="odom_alpha3" value="0.2"/>
+      <param name="odom_alpha4" value="0.2"/>
+      <param name="gui_publish_rate" value="10.0"/>
+      <param name="min_particles" value="500"/>
+      <param name="max_particles" value="2000"/>
+      <param name="kld_err" value="0.05"/>
+      <param name="kld_z" value="0.99"/>
+      <param name="update_min_d" value="0.25"/>
+      <param name="update_min_a" value="0.2"/>
+      <param name="resample_interval" value="1"/>
+      <param name="transform_tolerance" value="1.0"/>
+      <param name="recovery_alpha_slow" value="0.001"/>
+      <param name="recovery_alpha_fast" value="0.1"/>
+      <param name="initial_pose_x" value="0.0"/>
+      <param name="initial_pose_y" value="0.0"/>
+      <param name="initial_pose_a" value="0.0"/>
+      <param name="laser_max_range" value="8.0"/>
+      <param name="laser_max_beams" value="60"/>
+      <param name="laser_z_hit" value="0.5"/>
+      <param name="laser_z_short" value="0.05"/>
+      <param name="laser_z_max" value="0.05"/>
+      <param name="laser_z_rand" value="0.5"/>
+      <param name="laser_sigma_hit" value="0.2"/>
+      <param name="laser_lambda_short" value="0.1"/>
+      <param name="laser_likelihood_max_dist" value="2.0"/>
+      <param name="laser_model_type" value="likelihood_field"/>
+    </node>
+
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+        <rosparam command="load" file="$(find ros_robot)/config_2x2/costmap_common_params.yaml" ns="global_costmap" />
+        <rosparam command="load" file="$(find ros_robot)/config_2x2/costmap_common_params.yaml" ns="local_costmap" />
+        <rosparam command="load" file="$(find ros_robot)/config_2x2/local_costmap_params.yaml"/>
+        <rosparam command="load" file="$(find ros_robot)/config_2x2/global_costmap_params.yaml"/>
+        <rosparam command="load" file="$(find ros_robot)/config_2x2/base_local_planner_params.yaml"/>
+    </node>
+
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
+</launch>

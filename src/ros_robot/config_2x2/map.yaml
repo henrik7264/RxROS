@@ -1,5 +1,5 @@
 image: map.png # 600x600 pixels
-resolution: 0.001667 # 600x600 pixels = 1x1m => resolution is 1/600
+resolution: 0.00333 # 600x600 pixels = 2x2m => resolution is 2/600
 origin: [0.0, 0.0, 0.0]
 occupied_thresh: 0.8
 free_thresh: 0.2
