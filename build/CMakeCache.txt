@@ -473,6 +473,9 @@ slamtech_laser_odom_BINARY_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/build/sla
 //Value Computed by CMake
 slamtech_laser_odom_SOURCE_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/src/slamtech_laser_odom
 
+//The directory containing a CMake configuration file for std_msg.
+std_msg_DIR:PATH=std_msg_DIR-NOTFOUND
+
 //The directory containing a CMake configuration file for std_msgs.
 std_msgs_DIR:PATH=/opt/ros/melodic/share/std_msgs/cmake
 

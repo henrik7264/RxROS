@@ -1,2 +1,2 @@
 time time
-int8 event
+uint16 key
