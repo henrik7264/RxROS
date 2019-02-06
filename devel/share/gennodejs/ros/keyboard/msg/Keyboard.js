@@ -19,7 +19,7 @@ class Keyboard {
     if (initObj === null) {
       // initObj === null is a special case for deserialization where we don't initialize fields
       this.time = null;
-      this.key = null;
+      this.event = null;
     }
     else {
       if (initObj.hasOwnProperty('time')) {
@@ -28,11 +28,11 @@ class Keyboard {
       else {
         this.time = {secs: 0, nsecs: 0};
       }
-      if (initObj.hasOwnProperty('key')) {
-        this.key = initObj.key
+      if (initObj.hasOwnProperty('event')) {
+        this.event = initObj.event
       }
       else {
-        this.key = 0;
+        this.event = 0;
       }
     }
   }
@@ -41,8 +41,8 @@ class Keyboard {
     // Serializes a message object of type Keyboard
     // Serialize message field [time]
     bufferOffset = _serializer.time(obj.time, buffer, bufferOffset);
-    // Serialize message field [key]
-    bufferOffset = _serializer.uint16(obj.key, buffer, bufferOffset);
+    // Serialize message field [event]
+    bufferOffset = _serializer.uint8(obj.event, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -52,13 +52,13 @@ class Keyboard {
     let data = new Keyboard(null);
     // Deserialize message field [time]
     data.time = _deserializer.time(buffer, bufferOffset);
-    // Deserialize message field [key]
-    data.key = _deserializer.uint16(buffer, bufferOffset);
+    // Deserialize message field [event]
+    data.event = _deserializer.uint8(buffer, bufferOffset);
     return data;
   }
 
   static getMessageSize(object) {
-    return 10;
+    return 9;
   }
 
   static datatype() {
@@ -68,14 +68,14 @@ class Keyboard {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return 'aa33d4f1ca40c17b9cc7a9d013da833e';
+    return '0cc7a080d169ac52b2bb65f31811058d';
   }
 
   static messageDefinition() {
     // Returns full string definition for message
     return `
     time time
-    uint16 key
+    uint8 event
     
     `;
   }
@@ -93,11 +93,11 @@ class Keyboard {
       resolved.time = {secs: 0, nsecs: 0}
     }
 
-    if (msg.key !== undefined) {
-      resolved.key = msg.key;
+    if (msg.event !== undefined) {
+      resolved.event = msg.event;
     }
     else {
-      resolved.key = 0
+      resolved.event = 0
     }
 
     return resolved;

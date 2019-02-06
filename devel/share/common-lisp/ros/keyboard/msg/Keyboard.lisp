@@ -12,9 +12,9 @@
     :initarg :time
     :type cl:real
     :initform 0)
-   (key
-    :reader key
-    :initarg :key
+   (event
+    :reader event
+    :initarg :event
     :type cl:fixnum
     :initform 0))
 )
@@ -32,10 +32,10 @@
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader keyboard-msg:time-val is deprecated.  Use keyboard-msg:time instead.")
   (time m))
 
-(cl:ensure-generic-function 'key-val :lambda-list '(m))
-(cl:defmethod key-val ((m <Keyboard>))
-  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader keyboard-msg:key-val is deprecated.  Use keyboard-msg:key instead.")
-  (key m))
+(cl:ensure-generic-function 'event-val :lambda-list '(m))
+(cl:defmethod event-val ((m <Keyboard>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader keyboard-msg:event-val is deprecated.  Use keyboard-msg:event instead.")
+  (event m))
 (cl:defmethod roslisp-msg-protocol:serialize ((msg <Keyboard>) ostream)
   "Serializes a message object of type '<Keyboard>"
   (cl:let ((__sec (cl:floor (cl:slot-value msg 'time)))
@@ -48,8 +48,7 @@
     (cl:write-byte (cl:ldb (cl:byte 8 8) __nsec) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 16) __nsec) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 24) __nsec) ostream))
-  (cl:write-byte (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'key)) ostream)
-  (cl:write-byte (cl:ldb (cl:byte 8 8) (cl:slot-value msg 'key)) ostream)
+  (cl:write-byte (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'event)) ostream)
 )
 (cl:defmethod roslisp-msg-protocol:deserialize ((msg <Keyboard>) istream)
   "Deserializes a message object of type '<Keyboard>"
@@ -63,8 +62,7 @@
       (cl:setf (cl:ldb (cl:byte 8 16) __nsec) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 24) __nsec) (cl:read-byte istream))
       (cl:setf (cl:slot-value msg 'time) (cl:+ (cl:coerce __sec 'cl:double-float) (cl:/ __nsec 1e9))))
-    (cl:setf (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'key)) (cl:read-byte istream))
-    (cl:setf (cl:ldb (cl:byte 8 8) (cl:slot-value msg 'key)) (cl:read-byte istream))
+    (cl:setf (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'event)) (cl:read-byte istream))
   msg
 )
 (cl:defmethod roslisp-msg-protocol:ros-datatype ((msg (cl:eql '<Keyboard>)))
@@ -75,24 +73,24 @@
   "keyboard/Keyboard")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<Keyboard>)))
   "Returns md5sum for a message object of type '<Keyboard>"
-  "aa33d4f1ca40c17b9cc7a9d013da833e")
+  "0cc7a080d169ac52b2bb65f31811058d")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'Keyboard)))
   "Returns md5sum for a message object of type 'Keyboard"
-  "aa33d4f1ca40c17b9cc7a9d013da833e")
+  "0cc7a080d169ac52b2bb65f31811058d")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<Keyboard>)))
   "Returns full string definition for message of type '<Keyboard>"
-  (cl:format cl:nil "time time~%uint16 key~%~%~%"))
+  (cl:format cl:nil "time time~%uint8 event~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'Keyboard)))
   "Returns full string definition for message of type 'Keyboard"
-  (cl:format cl:nil "time time~%uint16 key~%~%~%"))
+  (cl:format cl:nil "time time~%uint8 event~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <Keyboard>))
   (cl:+ 0
      8
-     2
+     1
 ))
 (cl:defmethod roslisp-msg-protocol:ros-message-to-list ((msg <Keyboard>))
   "Converts a ROS message object to a list"
   (cl:list 'Keyboard
     (cl:cons ':time (time msg))
-    (cl:cons ':key (key msg))
+    (cl:cons ':event (event msg))
 ))

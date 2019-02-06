@@ -14,31 +14,31 @@
 
 (defclass keyboard::Keyboard
   :super ros::object
-  :slots (_time _key ))
+  :slots (_time _event ))
 
 (defmethod keyboard::Keyboard
   (:init
    (&key
     ((:time __time) (instance ros::time :init))
-    ((:key __key) 0)
+    ((:event __event) 0)
     )
    (send-super :init)
    (setq _time __time)
-   (setq _key (round __key))
+   (setq _event (round __event))
    self)
   (:time
    (&optional __time)
    (if __time (setq _time __time)) _time)
-  (:key
-   (&optional __key)
-   (if __key (setq _key __key)) _key)
+  (:event
+   (&optional __event)
+   (if __event (setq _event __event)) _event)
   (:serialization-length
    ()
    (+
     ;; time _time
     8
-    ;; uint16 _key
-    2
+    ;; uint8 _event
+    1
     ))
   (:serialize
    (&optional strm)
@@ -46,30 +46,30 @@
               (make-string-output-stream (send self :serialization-length)))))
      ;; time _time
        (write-long (send _time :sec) s) (write-long (send _time :nsec) s)
-     ;; uint16 _key
-       (write-word _key s)
+     ;; uint8 _event
+       (write-byte _event s)
      ;;
      (if (null strm) (get-output-stream-string s))))
   (:deserialize
    (buf &optional (ptr- 0))
    ;; time _time
      (send _time :sec (sys::peek buf ptr- :integer)) (incf ptr- 4)  (send _time :nsec (sys::peek buf ptr- :integer)) (incf ptr- 4)
-   ;; uint16 _key
-     (setq _key (sys::peek buf ptr- :short)) (incf ptr- 2)
+   ;; uint8 _event
+     (setq _event (sys::peek buf ptr- :char)) (incf ptr- 1)
    ;;
    self)
   )
 
-(setf (get keyboard::Keyboard :md5sum-) "aa33d4f1ca40c17b9cc7a9d013da833e")
+(setf (get keyboard::Keyboard :md5sum-) "0cc7a080d169ac52b2bb65f31811058d")
 (setf (get keyboard::Keyboard :datatype-) "keyboard/Keyboard")
 (setf (get keyboard::Keyboard :definition-)
       "time time
-uint16 key
+uint8 event
 
 ")
 
 
 
-(provide :keyboard/Keyboard "aa33d4f1ca40c17b9cc7a9d013da833e")
+(provide :keyboard/Keyboard "0cc7a080d169ac52b2bb65f31811058d")
 
 
