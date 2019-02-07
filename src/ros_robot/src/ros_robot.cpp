@@ -193,29 +193,29 @@ void RosRobot::joystickCB(const joystick::Joystick& joy)
 {
     JoystickEvents event = static_cast<JoystickEvents>(joy.event);
     switch (event) {
-        case JOYSTICK_BUTTON0_DOWN:
+        case JS_EVENT_BUTTON0_DOWN:
             effortMotor1 = ZERO_EFFORT; // Stop.
             effortMotor2 = ZERO_EFFORT;
             break;
-        case JOYSTICK_BUTTON1_DOWN:
+        case JS_EVENT_BUTTON1_DOWN:
             effortMotor1 = (effortMotor1 < effortMotor2) ? effortMotor1 : effortMotor2; // run with same speed
             effortMotor2 = effortMotor1;
             break;
-        case JOYSTICK_AXIS_UP:
+        case JS_EVENT_AXIS_UP:
             effortMotor1 += (effortMotor1 == MAX_EFFORT) ? 0 : 1;
             effortMotor2 += (effortMotor2 == MAX_EFFORT) ? 0 : 1;
             break;
-        case JOYSTICK_AXIS_DOWN:
+        case JS_EVENT_AXIS_DOWN:
             effortMotor1 -= (effortMotor1 == MIN_EFFORT) ? 0 : 1;
             effortMotor2 -= (effortMotor2 == MIN_EFFORT) ? 0 : 1;
             break;
-        case JOYSTICK_AXIS_LEFT:
+        case JS_EVENT_AXIS_LEFT:
             if (effortMotor2 >= ZERO_EFFORT)
                 effortMotor2 -= (effortMotor2 == MIN_EFFORT) ? 0 : 1;
             else
                 effortMotor2 += (effortMotor2 == MAX_EFFORT) ? 0 : 1;
             break;
-        case JOYSTICK_AXIS_RIGHT:
+        case JS_EVENT_AXIS_RIGHT:
             if (effortMotor2 >= ZERO_EFFORT)
                 effortMotor2 += (effortMotor2 == MAX_EFFORT) ? 0 : 1;
             else

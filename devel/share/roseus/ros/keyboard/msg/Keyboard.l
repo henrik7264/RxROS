@@ -37,7 +37,7 @@
    (+
     ;; time _time
     8
-    ;; uint8 _event
+    ;; int8 _event
     1
     ))
   (:serialize
@@ -46,7 +46,7 @@
               (make-string-output-stream (send self :serialization-length)))))
      ;; time _time
        (write-long (send _time :sec) s) (write-long (send _time :nsec) s)
-     ;; uint8 _event
+     ;; int8 _event
        (write-byte _event s)
      ;;
      (if (null strm) (get-output-stream-string s))))
@@ -54,22 +54,23 @@
    (buf &optional (ptr- 0))
    ;; time _time
      (send _time :sec (sys::peek buf ptr- :integer)) (incf ptr- 4)  (send _time :nsec (sys::peek buf ptr- :integer)) (incf ptr- 4)
-   ;; uint8 _event
+   ;; int8 _event
      (setq _event (sys::peek buf ptr- :char)) (incf ptr- 1)
+     (if (> _event 127) (setq _event (- _event 256)))
    ;;
    self)
   )
 
-(setf (get keyboard::Keyboard :md5sum-) "0cc7a080d169ac52b2bb65f31811058d")
+(setf (get keyboard::Keyboard :md5sum-) "e5fbe2cc6f38678d510728a2dcb2ff75")
 (setf (get keyboard::Keyboard :datatype-) "keyboard/Keyboard")
 (setf (get keyboard::Keyboard :definition-)
       "time time
-uint8 event
+int8 event
 
 ")
 
 
 
-(provide :keyboard/Keyboard "0cc7a080d169ac52b2bb65f31811058d")
+(provide :keyboard/Keyboard "e5fbe2cc6f38678d510728a2dcb2ff75")
 
 

@@ -1,2 +1,2 @@
 time time
-uint8 event
+int8 event

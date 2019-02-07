@@ -48,7 +48,9 @@
     (cl:write-byte (cl:ldb (cl:byte 8 8) __nsec) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 16) __nsec) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 24) __nsec) ostream))
-  (cl:write-byte (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'event)) ostream)
+  (cl:let* ((signed (cl:slot-value msg 'event)) (unsigned (cl:if (cl:< signed 0) (cl:+ signed 256) signed)))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) unsigned) ostream)
+    )
 )
 (cl:defmethod roslisp-msg-protocol:deserialize ((msg <Keyboard>) istream)
   "Deserializes a message object of type '<Keyboard>"
@@ -62,7 +64,9 @@
       (cl:setf (cl:ldb (cl:byte 8 16) __nsec) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 24) __nsec) (cl:read-byte istream))
       (cl:setf (cl:slot-value msg 'time) (cl:+ (cl:coerce __sec 'cl:double-float) (cl:/ __nsec 1e9))))
-    (cl:setf (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'event)) (cl:read-byte istream))
+    (cl:let ((unsigned 0))
+      (cl:setf (cl:ldb (cl:byte 8 0) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:slot-value msg 'event) (cl:if (cl:< unsigned 128) unsigned (cl:- unsigned 256))))
   msg
 )
 (cl:defmethod roslisp-msg-protocol:ros-datatype ((msg (cl:eql '<Keyboard>)))
@@ -73,16 +77,16 @@
   "keyboard/Keyboard")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<Keyboard>)))
   "Returns md5sum for a message object of type '<Keyboard>"
-  "0cc7a080d169ac52b2bb65f31811058d")
+  "e5fbe2cc6f38678d510728a2dcb2ff75")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'Keyboard)))
   "Returns md5sum for a message object of type 'Keyboard"
-  "0cc7a080d169ac52b2bb65f31811058d")
+  "e5fbe2cc6f38678d510728a2dcb2ff75")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<Keyboard>)))
   "Returns full string definition for message of type '<Keyboard>"
-  (cl:format cl:nil "time time~%uint8 event~%~%~%"))
+  (cl:format cl:nil "time time~%int8 event~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'Keyboard)))
   "Returns full string definition for message of type 'Keyboard"
-  (cl:format cl:nil "time time~%uint8 event~%~%~%"))
+  (cl:format cl:nil "time time~%int8 event~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <Keyboard>))
   (cl:+ 0
      8

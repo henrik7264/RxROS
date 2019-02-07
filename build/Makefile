@@ -779,6 +779,19 @@ rxros_lang_examples/fast:
 .PHONY : rxros_lang_examples/fast
 
 #=============================================================================
+# Target rules for targets named velocityPublisher
+
+# Build rule for target.
+velocityPublisher: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 velocityPublisher
+.PHONY : velocityPublisher
+
+# fast build rule for target.
+velocityPublisher/fast:
+	$(MAKE) -f teleop/CMakeFiles/velocityPublisher.dir/build.make teleop/CMakeFiles/velocityPublisher.dir/build
+.PHONY : velocityPublisher/fast
+
+#=============================================================================
 # Target rules for targets named sensor_msgs_generate_messages_lisp
 
 # Build rule for target.
@@ -1566,6 +1579,7 @@ help:
 	@echo "... keyboard_gennodejs"
 	@echo "... keyboard_generate_messages_py"
 	@echo "... rxros_lang_examples"
+	@echo "... velocityPublisher"
 	@echo "... sensor_msgs_generate_messages_lisp"
 	@echo "... sensor_msgs_generate_messages_eus"
 	@echo "... sensor_msgs_generate_messages_cpp"

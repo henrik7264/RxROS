@@ -341,6 +341,9 @@ joystick_SOURCE_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/src/joystick
 //Value Computed by CMake
 keyboard_BINARY_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/build/keyboard
 
+//The directory containing a CMake configuration file for keyboard.
+keyboard_DIR:PATH=/home/hl/Src/CLionProjects/RxROS/devel/share/keyboard/cmake
+
 //Value Computed by CMake
 keyboard_SOURCE_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/src/keyboard
 
@@ -478,6 +481,12 @@ std_msg_DIR:PATH=std_msg_DIR-NOTFOUND
 
 //The directory containing a CMake configuration file for std_msgs.
 std_msgs_DIR:PATH=/opt/ros/melodic/share/std_msgs/cmake
+
+//Value Computed by CMake
+teleop_BINARY_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/build/teleop
+
+//Value Computed by CMake
+teleop_SOURCE_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/src/teleop
 
 //The directory containing a CMake configuration file for tf2.
 tf2_DIR:PATH=/opt/ros/melodic/share/tf2/cmake
@@ -619,7 +628,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=8
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=9
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

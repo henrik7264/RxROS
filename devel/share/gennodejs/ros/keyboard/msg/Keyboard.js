@@ -42,7 +42,7 @@ class Keyboard {
     // Serialize message field [time]
     bufferOffset = _serializer.time(obj.time, buffer, bufferOffset);
     // Serialize message field [event]
-    bufferOffset = _serializer.uint8(obj.event, buffer, bufferOffset);
+    bufferOffset = _serializer.int8(obj.event, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -53,7 +53,7 @@ class Keyboard {
     // Deserialize message field [time]
     data.time = _deserializer.time(buffer, bufferOffset);
     // Deserialize message field [event]
-    data.event = _deserializer.uint8(buffer, bufferOffset);
+    data.event = _deserializer.int8(buffer, bufferOffset);
     return data;
   }
 
@@ -68,14 +68,14 @@ class Keyboard {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '0cc7a080d169ac52b2bb65f31811058d';
+    return 'e5fbe2cc6f38678d510728a2dcb2ff75';
   }
 
   static messageDefinition() {
     // Returns full string definition for message
     return `
     time time
-    uint8 event
+    int8 event
     
     `;
   }
