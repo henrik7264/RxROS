@@ -1,0 +1,17 @@
+//
+// Created by hl on 2/6/19.
+//
+
+#ifndef KEYBOARD_KEYBOARDPUBLISHER_H
+#define KEYBOARD_KEYBOARDPUBLISHER_H
+
+enum KeyboardEvents
+{
+    KB_EVENT_NONE,
+    KB_EVENT_UP,
+    KB_EVENT_LEFT,
+    KB_EVENT_RIGHT,
+    KB_EVENT_DOWN
+};
+
+#endif //KEYBOARD_KEYBOARDPUBLISHER_H
