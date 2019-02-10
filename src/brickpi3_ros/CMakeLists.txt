@@ -105,8 +105,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-  LIBRARIES brickpi3
-  CATKIN_DEPENDS roscpp rospy std_msgs
+#  LIBRARIES brickpi3_ros
+  CATKIN_DEPENDS roscpp rospy std_msgs brickpi3
 #  DEPENDS system_lib
 )
 

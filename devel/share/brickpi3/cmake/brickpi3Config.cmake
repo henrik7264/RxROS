@@ -116,7 +116,7 @@ if(NOT "/home/hl/Src/CLionProjects/RxROS/src/brickpi3/include " STREQUAL " ")
   endforeach()
 endif()
 
-set(libraries "")
+set(libraries "brickpi3")
 foreach(library ${libraries})
   # keep build configuration keywords, target names and absolute libraries as-is
   if("${library}" MATCHES "^(debug|optimized|general)$")
