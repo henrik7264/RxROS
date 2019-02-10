@@ -21,15 +21,16 @@
         <param name="vel_to_eff" type="double" value="1.0" /> <!-- used by nxt_base_controller to determine the effect of the motors -->
     </group>
 
-    <!--node pkg="joystick" name="JoystickPublisher" type="joystickPublisher" output="screen" respawn="true"/-->
-    <node pkg="keyboard" name="KeyboardPublisher" type="keyboardPublisher" output="screen" respawn="true"/>
+    <node pkg="joystick" name="joystick_publisher" type="joystick_publisher" output="screen" respawn="false"/>
+    <node pkg="keyboard" name="keyboard_publisher" type="keyboard_publisher" output="screen" respawn="false"/>
 
     <!-- Start keyboard node. Will provide teleop via the keyboard. -->
     <!-- Publish topic: Twist:/cmd_vel -->
     <!--node pkg="nxt_teleop" name="nxt_teleop" type="nxt_teleop_node" output="screen"/-->
+    <node pkg="teleop" name="velocity_publisher" type="velocity_publisher" output="screen" respawn="true"/>
 
     <!-- Start my robot. Does actually not do anything at the moment-->
-    <!--node pkg="ros_robot" name="ros_robot" type="ros_robot" output="screen" respawn="true"/-->
+    <node pkg="ros_robot" name="ros_robot" type="ros_robot" output="screen" respawn="true"/>
 
     <!-- Start NXT driver: starts and monitors the wheels, ultrasonic sensor and color sensor-->
     <!-- Publish topic: /ultrasonic_sensor, /color_sensor, /joint_state-->
@@ -37,6 +38,10 @@
     <!--node pkg="nxt_ros" name="nxt_ros" type="nxt_ros.py" output="screen" respawn="true">
         <rosparam command="load" file="$(find ros_robot)/config_2x2/ros_robot.yaml" />
     </node-->
+    <node pkg="brickpi3_ros" name="brickpi3_ros" type="brickpi3_ros" output="screen" respawn="true">
+        <rosparam command="load" file="$(find ros_robot)/config_2x2/ros_robot.yaml" />
+    </node>
+
 
     <!-- Start node joint_state_publisher: read joint_state for each motor and publish an aggregate joint_states for all motors -->
     <!-- Subscribe topic: /joint_state-->

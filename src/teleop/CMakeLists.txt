@@ -120,8 +120,8 @@ catkin_package(
 include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
-  src/joystick/inc
-  src/keyboard/inc
+  src/joystick/include
+  src/keyboard/include
 )
 
 ## Declare a C++ library
@@ -138,7 +138,7 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/teleop_node.cpp)
-add_executable(velocityPublisher src/VelocityPublisher.cpp)
+add_executable(velocity_publisher src/VelocityPublisher.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -154,7 +154,7 @@ add_executable(velocityPublisher src/VelocityPublisher.cpp)
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
-target_link_libraries(velocityPublisher ${catkin_LIBRARIES})
+target_link_libraries(velocity_publisher ${catkin_LIBRARIES})
 
 #############
 ## Install ##

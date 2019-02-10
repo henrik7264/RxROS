@@ -1,8 +1,8 @@
 
 "use strict";
 
-let Joystick = require('./Joystick.js');
+let joystick = require('./joystick.js');
 
 module.exports = {
-  Joystick: Joystick,
+  joystick: joystick,
 };

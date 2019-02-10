@@ -50,7 +50,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate messages in the 'msg' folder
 add_message_files (
     FILES
-    Joystick.msg
+    joystick.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -134,7 +134,7 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/joystick_node.cpp)
-add_executable(joystickPublisher src/JoystickPublisher.cpp)
+add_executable(joystick_publisher src/JoystickPublisher.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -150,7 +150,7 @@ add_executable(joystickPublisher src/JoystickPublisher.cpp)
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
-target_link_libraries(joystickPublisher ${catkin_LIBRARIES})
+target_link_libraries(joystick_publisher ${catkin_LIBRARIES})
 
 #############
 ## Install ##

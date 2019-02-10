@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/joystick_generate_messages_cpp"
-  "/home/hl/Src/CLionProjects/RxROS/devel/include/joystick/Joystick.h"
+  "/home/hl/Src/CLionProjects/RxROS/devel/include/joystick/joystick.h"
 )
 
 # Per-language clean rules from dependency scanning.

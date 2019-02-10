@@ -1,4 +1,4 @@
-nxt_robot:
+brickpi3_robot:
   - type: motor
     name: r_wheel_joint
     port: PORT_A

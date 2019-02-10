@@ -53,22 +53,22 @@ CMAKE_BINARY_DIR = /home/hl/Src/CLionProjects/RxROS/build
 # Include the progress variables for this target.
 include joystick/CMakeFiles/joystick_generate_messages_py.dir/progress.make
 
-joystick/CMakeFiles/joystick_generate_messages_py: /home/hl/Src/CLionProjects/RxROS/devel/lib/python2.7/dist-packages/joystick/msg/_Joystick.py
+joystick/CMakeFiles/joystick_generate_messages_py: /home/hl/Src/CLionProjects/RxROS/devel/lib/python2.7/dist-packages/joystick/msg/_joystick.py
 joystick/CMakeFiles/joystick_generate_messages_py: /home/hl/Src/CLionProjects/RxROS/devel/lib/python2.7/dist-packages/joystick/msg/__init__.py
 
 
-/home/hl/Src/CLionProjects/RxROS/devel/lib/python2.7/dist-packages/joystick/msg/_Joystick.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
-/home/hl/Src/CLionProjects/RxROS/devel/lib/python2.7/dist-packages/joystick/msg/_Joystick.py: /home/hl/Src/CLionProjects/RxROS/src/joystick/msg/Joystick.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/hl/Src/CLionProjects/RxROS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python from MSG joystick/Joystick"
-	cd /home/hl/Src/CLionProjects/RxROS/build/joystick && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/hl/Src/CLionProjects/RxROS/src/joystick/msg/Joystick.msg -Ijoystick:/home/hl/Src/CLionProjects/RxROS/src/joystick/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p joystick -o /home/hl/Src/CLionProjects/RxROS/devel/lib/python2.7/dist-packages/joystick/msg
+/home/hl/Src/CLionProjects/RxROS/devel/lib/python2.7/dist-packages/joystick/msg/_joystick.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
+/home/hl/Src/CLionProjects/RxROS/devel/lib/python2.7/dist-packages/joystick/msg/_joystick.py: /home/hl/Src/CLionProjects/RxROS/src/joystick/msg/joystick.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/hl/Src/CLionProjects/RxROS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python from MSG joystick/joystick"
+	cd /home/hl/Src/CLionProjects/RxROS/build/joystick && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/hl/Src/CLionProjects/RxROS/src/joystick/msg/joystick.msg -Ijoystick:/home/hl/Src/CLionProjects/RxROS/src/joystick/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p joystick -o /home/hl/Src/CLionProjects/RxROS/devel/lib/python2.7/dist-packages/joystick/msg
 
 /home/hl/Src/CLionProjects/RxROS/devel/lib/python2.7/dist-packages/joystick/msg/__init__.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
-/home/hl/Src/CLionProjects/RxROS/devel/lib/python2.7/dist-packages/joystick/msg/__init__.py: /home/hl/Src/CLionProjects/RxROS/devel/lib/python2.7/dist-packages/joystick/msg/_Joystick.py
+/home/hl/Src/CLionProjects/RxROS/devel/lib/python2.7/dist-packages/joystick/msg/__init__.py: /home/hl/Src/CLionProjects/RxROS/devel/lib/python2.7/dist-packages/joystick/msg/_joystick.py
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/hl/Src/CLionProjects/RxROS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python msg __init__.py for joystick"
 	cd /home/hl/Src/CLionProjects/RxROS/build/joystick && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/hl/Src/CLionProjects/RxROS/devel/lib/python2.7/dist-packages/joystick/msg --initpy
 
 joystick_generate_messages_py: joystick/CMakeFiles/joystick_generate_messages_py
-joystick_generate_messages_py: /home/hl/Src/CLionProjects/RxROS/devel/lib/python2.7/dist-packages/joystick/msg/_Joystick.py
+joystick_generate_messages_py: /home/hl/Src/CLionProjects/RxROS/devel/lib/python2.7/dist-packages/joystick/msg/_joystick.py
 joystick_generate_messages_py: /home/hl/Src/CLionProjects/RxROS/devel/lib/python2.7/dist-packages/joystick/msg/__init__.py
 joystick_generate_messages_py: joystick/CMakeFiles/joystick_generate_messages_py.dir/build.make
 

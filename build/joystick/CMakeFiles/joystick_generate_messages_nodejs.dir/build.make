@@ -53,16 +53,16 @@ CMAKE_BINARY_DIR = /home/hl/Src/CLionProjects/RxROS/build
 # Include the progress variables for this target.
 include joystick/CMakeFiles/joystick_generate_messages_nodejs.dir/progress.make
 
-joystick/CMakeFiles/joystick_generate_messages_nodejs: /home/hl/Src/CLionProjects/RxROS/devel/share/gennodejs/ros/joystick/msg/Joystick.js
+joystick/CMakeFiles/joystick_generate_messages_nodejs: /home/hl/Src/CLionProjects/RxROS/devel/share/gennodejs/ros/joystick/msg/joystick.js
 
 
-/home/hl/Src/CLionProjects/RxROS/devel/share/gennodejs/ros/joystick/msg/Joystick.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
-/home/hl/Src/CLionProjects/RxROS/devel/share/gennodejs/ros/joystick/msg/Joystick.js: /home/hl/Src/CLionProjects/RxROS/src/joystick/msg/Joystick.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/hl/Src/CLionProjects/RxROS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Javascript code from joystick/Joystick.msg"
-	cd /home/hl/Src/CLionProjects/RxROS/build/joystick && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/hl/Src/CLionProjects/RxROS/src/joystick/msg/Joystick.msg -Ijoystick:/home/hl/Src/CLionProjects/RxROS/src/joystick/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p joystick -o /home/hl/Src/CLionProjects/RxROS/devel/share/gennodejs/ros/joystick/msg
+/home/hl/Src/CLionProjects/RxROS/devel/share/gennodejs/ros/joystick/msg/joystick.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
+/home/hl/Src/CLionProjects/RxROS/devel/share/gennodejs/ros/joystick/msg/joystick.js: /home/hl/Src/CLionProjects/RxROS/src/joystick/msg/joystick.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/hl/Src/CLionProjects/RxROS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Javascript code from joystick/joystick.msg"
+	cd /home/hl/Src/CLionProjects/RxROS/build/joystick && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/hl/Src/CLionProjects/RxROS/src/joystick/msg/joystick.msg -Ijoystick:/home/hl/Src/CLionProjects/RxROS/src/joystick/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p joystick -o /home/hl/Src/CLionProjects/RxROS/devel/share/gennodejs/ros/joystick/msg
 
 joystick_generate_messages_nodejs: joystick/CMakeFiles/joystick_generate_messages_nodejs
-joystick_generate_messages_nodejs: /home/hl/Src/CLionProjects/RxROS/devel/share/gennodejs/ros/joystick/msg/Joystick.js
+joystick_generate_messages_nodejs: /home/hl/Src/CLionProjects/RxROS/devel/share/gennodejs/ros/joystick/msg/joystick.js
 joystick_generate_messages_nodejs: joystick/CMakeFiles/joystick_generate_messages_nodejs.dir/build.make
 
 .PHONY : joystick_generate_messages_nodejs

@@ -9,25 +9,33 @@
 #include <ros/ros.h>
 #include <ros/console.h>
 #include <keyboard/Keyboard.h>
-#include "KeyboardPublisher.h"
+#include "keyboard/KeyboardPublisher.h"
 
 int main(int argc, char** argv)
 {
     // Initialize ROS
-    ros::init(argc, argv, "KeyboardPublisher"); // Name of this Node.
-    ros::NodeHandle nh;
-    ros::Publisher pub = nh.advertise<keyboard::Keyboard>("/keyboard", 10); // Publish Topic /keyboard
+    ros::init(argc, argv, "keyboard_publisher"); // Name of this Node.
+    ros::NodeHandle nodeHandle;
+    ros::Publisher pub = nodeHandle.advertise<keyboard::Keyboard>("/keyboard", 10); // Publish Topic /keyboard
 
     // Read parameter device
     std::string keyboardDevice;
-    nh.param<std::string>("device", keyboardDevice, "/dev/input/event4");
+    nodeHandle.param<std::string>("/keyboard_publisher/device", keyboardDevice, "/dev/input/event1");
 
     // Open specified device. Needs to be in the group input to get access to the device!
     int fd = open(keyboardDevice.c_str(), O_RDONLY | O_NONBLOCK);
     if( fd < 0 ) {
-        printf("Cannot open keyboard device.\n");
+        printf("Cannot open keyboard device %s!\n", keyboardDevice.c_str());
         exit(1);
     }
+
+//    // Redirect stdin to /dev/null
+//    int devNull = open("/dev/null", O_RDONLY);
+//    if( devNull < 0 ) {
+//        printf("Cannot open /dev/null\n");
+//        exit(1);
+//    }
+//    dup2(devNull, 0);
 
     fd_set readfds; // initialize file descriptor set.
     FD_ZERO(&readfds);
@@ -55,7 +63,7 @@ int main(int argc, char** argv)
                 }
                 else if (sz == sizeof(keyboardEvent)) {
                     if ((keyboardEvent.type == EV_KEY) && (keyboardEvent.value != REP_DELAY)) {
-                        printf("Key: T:%d, C:%d, V:%d\n", keyboardEvent.type, keyboardEvent.code, keyboardEvent.value);
+                        //printf("Key: T:%d, C:%d, V:%d\n", keyboardEvent.type, keyboardEvent.code, keyboardEvent.value);
 
                         keyboard::Keyboard keyboard;
                         ros::Time rosTime(keyboardEvent.time.tv_sec, keyboardEvent.time.tv_usec);
@@ -72,6 +80,9 @@ int main(int argc, char** argv)
                                 break;
                             case KEY_DOWN:
                                 keyboard.event = KB_EVENT_DOWN;
+                                break;
+                            case KEY_SPACE:
+                                keyboard.event = KB_EVENT_SPACE;
                                 break;
                             default:
                                 keyboard.event = KB_EVENT_NONE;

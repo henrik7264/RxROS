@@ -2,7 +2,7 @@
 #include <string>
 #include <ros/ros.h>
 #include <ros/console.h>
-#include <JoystickPublisher.h>
+#include <joystick/JoystickPublisher.h>
 #include <joystick/Joystick.h>
 #include <nxt_msgs/JointCommand.h>
 #include <nxt_msgs/Contact.h>

@@ -233,82 +233,225 @@ doxygen/fast:
 .PHONY : doxygen/fast
 
 #=============================================================================
-# Target rules for targets named joystickPublisher
+# Target rules for targets named roscpp_generate_messages_py
 
 # Build rule for target.
-joystickPublisher: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 joystickPublisher
-.PHONY : joystickPublisher
+roscpp_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 roscpp_generate_messages_py
+.PHONY : roscpp_generate_messages_py
 
 # fast build rule for target.
-joystickPublisher/fast:
-	$(MAKE) -f joystick/CMakeFiles/joystickPublisher.dir/build.make joystick/CMakeFiles/joystickPublisher.dir/build
-.PHONY : joystickPublisher/fast
+roscpp_generate_messages_py/fast:
+	$(MAKE) -f brickpi3/CMakeFiles/roscpp_generate_messages_py.dir/build.make brickpi3/CMakeFiles/roscpp_generate_messages_py.dir/build
+.PHONY : roscpp_generate_messages_py/fast
 
 #=============================================================================
-# Target rules for targets named joystick_generate_messages_py
+# Target rules for targets named roscpp_generate_messages_eus
 
 # Build rule for target.
-joystick_generate_messages_py: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 joystick_generate_messages_py
-.PHONY : joystick_generate_messages_py
+roscpp_generate_messages_eus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 roscpp_generate_messages_eus
+.PHONY : roscpp_generate_messages_eus
 
 # fast build rule for target.
-joystick_generate_messages_py/fast:
-	$(MAKE) -f joystick/CMakeFiles/joystick_generate_messages_py.dir/build.make joystick/CMakeFiles/joystick_generate_messages_py.dir/build
-.PHONY : joystick_generate_messages_py/fast
+roscpp_generate_messages_eus/fast:
+	$(MAKE) -f brickpi3/CMakeFiles/roscpp_generate_messages_eus.dir/build.make brickpi3/CMakeFiles/roscpp_generate_messages_eus.dir/build
+.PHONY : roscpp_generate_messages_eus/fast
 
 #=============================================================================
-# Target rules for targets named joystick_gennodejs
+# Target rules for targets named roscpp_generate_messages_lisp
 
 # Build rule for target.
-joystick_gennodejs: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 joystick_gennodejs
-.PHONY : joystick_gennodejs
+roscpp_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 roscpp_generate_messages_lisp
+.PHONY : roscpp_generate_messages_lisp
 
 # fast build rule for target.
-joystick_gennodejs/fast:
-	$(MAKE) -f joystick/CMakeFiles/joystick_gennodejs.dir/build.make joystick/CMakeFiles/joystick_gennodejs.dir/build
-.PHONY : joystick_gennodejs/fast
+roscpp_generate_messages_lisp/fast:
+	$(MAKE) -f brickpi3/CMakeFiles/roscpp_generate_messages_lisp.dir/build.make brickpi3/CMakeFiles/roscpp_generate_messages_lisp.dir/build
+.PHONY : roscpp_generate_messages_lisp/fast
 
 #=============================================================================
-# Target rules for targets named joystick_generate_messages_nodejs
+# Target rules for targets named rosgraph_msgs_generate_messages_cpp
 
 # Build rule for target.
-joystick_generate_messages_nodejs: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 joystick_generate_messages_nodejs
-.PHONY : joystick_generate_messages_nodejs
+rosgraph_msgs_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 rosgraph_msgs_generate_messages_cpp
+.PHONY : rosgraph_msgs_generate_messages_cpp
 
 # fast build rule for target.
-joystick_generate_messages_nodejs/fast:
-	$(MAKE) -f joystick/CMakeFiles/joystick_generate_messages_nodejs.dir/build.make joystick/CMakeFiles/joystick_generate_messages_nodejs.dir/build
-.PHONY : joystick_generate_messages_nodejs/fast
+rosgraph_msgs_generate_messages_cpp/fast:
+	$(MAKE) -f brickpi3/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make brickpi3/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build
+.PHONY : rosgraph_msgs_generate_messages_cpp/fast
 
 #=============================================================================
-# Target rules for targets named joystick_genlisp
+# Target rules for targets named std_msgs_generate_messages_lisp
 
 # Build rule for target.
-joystick_genlisp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 joystick_genlisp
-.PHONY : joystick_genlisp
+std_msgs_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_lisp
+.PHONY : std_msgs_generate_messages_lisp
 
 # fast build rule for target.
-joystick_genlisp/fast:
-	$(MAKE) -f joystick/CMakeFiles/joystick_genlisp.dir/build.make joystick/CMakeFiles/joystick_genlisp.dir/build
-.PHONY : joystick_genlisp/fast
+std_msgs_generate_messages_lisp/fast:
+	$(MAKE) -f brickpi3/CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make brickpi3/CMakeFiles/std_msgs_generate_messages_lisp.dir/build
+.PHONY : std_msgs_generate_messages_lisp/fast
 
 #=============================================================================
-# Target rules for targets named joystick_generate_messages_lisp
+# Target rules for targets named roscpp_generate_messages_cpp
 
 # Build rule for target.
-joystick_generate_messages_lisp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 joystick_generate_messages_lisp
-.PHONY : joystick_generate_messages_lisp
+roscpp_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 roscpp_generate_messages_cpp
+.PHONY : roscpp_generate_messages_cpp
 
 # fast build rule for target.
-joystick_generate_messages_lisp/fast:
-	$(MAKE) -f joystick/CMakeFiles/joystick_generate_messages_lisp.dir/build.make joystick/CMakeFiles/joystick_generate_messages_lisp.dir/build
-.PHONY : joystick_generate_messages_lisp/fast
+roscpp_generate_messages_cpp/fast:
+	$(MAKE) -f brickpi3/CMakeFiles/roscpp_generate_messages_cpp.dir/build.make brickpi3/CMakeFiles/roscpp_generate_messages_cpp.dir/build
+.PHONY : roscpp_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named rosgraph_msgs_generate_messages_eus
+
+# Build rule for target.
+rosgraph_msgs_generate_messages_eus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 rosgraph_msgs_generate_messages_eus
+.PHONY : rosgraph_msgs_generate_messages_eus
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_eus/fast:
+	$(MAKE) -f brickpi3/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make brickpi3/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build
+.PHONY : rosgraph_msgs_generate_messages_eus/fast
+
+#=============================================================================
+# Target rules for targets named rosgraph_msgs_generate_messages_lisp
+
+# Build rule for target.
+rosgraph_msgs_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 rosgraph_msgs_generate_messages_lisp
+.PHONY : rosgraph_msgs_generate_messages_lisp
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_lisp/fast:
+	$(MAKE) -f brickpi3/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make brickpi3/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build
+.PHONY : rosgraph_msgs_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named brickpi3
+
+# Build rule for target.
+brickpi3: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 brickpi3
+.PHONY : brickpi3
+
+# fast build rule for target.
+brickpi3/fast:
+	$(MAKE) -f brickpi3/CMakeFiles/brickpi3.dir/build.make brickpi3/CMakeFiles/brickpi3.dir/build
+.PHONY : brickpi3/fast
+
+#=============================================================================
+# Target rules for targets named std_msgs_generate_messages_cpp
+
+# Build rule for target.
+std_msgs_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_cpp
+.PHONY : std_msgs_generate_messages_cpp
+
+# fast build rule for target.
+std_msgs_generate_messages_cpp/fast:
+	$(MAKE) -f brickpi3/CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make brickpi3/CMakeFiles/std_msgs_generate_messages_cpp.dir/build
+.PHONY : std_msgs_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named rosgraph_msgs_generate_messages_nodejs
+
+# Build rule for target.
+rosgraph_msgs_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 rosgraph_msgs_generate_messages_nodejs
+.PHONY : rosgraph_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_nodejs/fast:
+	$(MAKE) -f brickpi3/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build.make brickpi3/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build
+.PHONY : rosgraph_msgs_generate_messages_nodejs/fast
+
+#=============================================================================
+# Target rules for targets named rosgraph_msgs_generate_messages_py
+
+# Build rule for target.
+rosgraph_msgs_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 rosgraph_msgs_generate_messages_py
+.PHONY : rosgraph_msgs_generate_messages_py
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_py/fast:
+	$(MAKE) -f brickpi3/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make brickpi3/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build
+.PHONY : rosgraph_msgs_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named std_msgs_generate_messages_eus
+
+# Build rule for target.
+std_msgs_generate_messages_eus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_eus
+.PHONY : std_msgs_generate_messages_eus
+
+# fast build rule for target.
+std_msgs_generate_messages_eus/fast:
+	$(MAKE) -f brickpi3/CMakeFiles/std_msgs_generate_messages_eus.dir/build.make brickpi3/CMakeFiles/std_msgs_generate_messages_eus.dir/build
+.PHONY : std_msgs_generate_messages_eus/fast
+
+#=============================================================================
+# Target rules for targets named std_msgs_generate_messages_nodejs
+
+# Build rule for target.
+std_msgs_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_nodejs
+.PHONY : std_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+std_msgs_generate_messages_nodejs/fast:
+	$(MAKE) -f brickpi3/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build.make brickpi3/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build
+.PHONY : std_msgs_generate_messages_nodejs/fast
+
+#=============================================================================
+# Target rules for targets named roscpp_generate_messages_nodejs
+
+# Build rule for target.
+roscpp_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 roscpp_generate_messages_nodejs
+.PHONY : roscpp_generate_messages_nodejs
+
+# fast build rule for target.
+roscpp_generate_messages_nodejs/fast:
+	$(MAKE) -f brickpi3/CMakeFiles/roscpp_generate_messages_nodejs.dir/build.make brickpi3/CMakeFiles/roscpp_generate_messages_nodejs.dir/build
+.PHONY : roscpp_generate_messages_nodejs/fast
+
+#=============================================================================
+# Target rules for targets named std_msgs_generate_messages_py
+
+# Build rule for target.
+std_msgs_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_py
+.PHONY : std_msgs_generate_messages_py
+
+# fast build rule for target.
+std_msgs_generate_messages_py/fast:
+	$(MAKE) -f brickpi3/CMakeFiles/std_msgs_generate_messages_py.dir/build.make brickpi3/CMakeFiles/std_msgs_generate_messages_py.dir/build
+.PHONY : std_msgs_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named brickpi3_ros
+
+# Build rule for target.
+brickpi3_ros: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 brickpi3_ros
+.PHONY : brickpi3_ros
+
+# fast build rule for target.
+brickpi3_ros/fast:
+	$(MAKE) -f brickpi3_ros/CMakeFiles/brickpi3_ros.dir/build.make brickpi3_ros/CMakeFiles/brickpi3_ros.dir/build
+.PHONY : brickpi3_ros/fast
 
 #=============================================================================
 # Target rules for targets named joystick_geneus
@@ -324,43 +467,56 @@ joystick_geneus/fast:
 .PHONY : joystick_geneus/fast
 
 #=============================================================================
-# Target rules for targets named _joystick_generate_messages_check_deps_Joystick
+# Target rules for targets named joystick_gencpp
 
 # Build rule for target.
-_joystick_generate_messages_check_deps_Joystick: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 _joystick_generate_messages_check_deps_Joystick
-.PHONY : _joystick_generate_messages_check_deps_Joystick
+joystick_gencpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 joystick_gencpp
+.PHONY : joystick_gencpp
 
 # fast build rule for target.
-_joystick_generate_messages_check_deps_Joystick/fast:
-	$(MAKE) -f joystick/CMakeFiles/_joystick_generate_messages_check_deps_Joystick.dir/build.make joystick/CMakeFiles/_joystick_generate_messages_check_deps_Joystick.dir/build
-.PHONY : _joystick_generate_messages_check_deps_Joystick/fast
+joystick_gencpp/fast:
+	$(MAKE) -f joystick/CMakeFiles/joystick_gencpp.dir/build.make joystick/CMakeFiles/joystick_gencpp.dir/build
+.PHONY : joystick_gencpp/fast
 
 #=============================================================================
-# Target rules for targets named roscpp_generate_messages_py
+# Target rules for targets named joystick_genlisp
 
 # Build rule for target.
-roscpp_generate_messages_py: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 roscpp_generate_messages_py
-.PHONY : roscpp_generate_messages_py
+joystick_genlisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 joystick_genlisp
+.PHONY : joystick_genlisp
 
 # fast build rule for target.
-roscpp_generate_messages_py/fast:
-	$(MAKE) -f joystick/CMakeFiles/roscpp_generate_messages_py.dir/build.make joystick/CMakeFiles/roscpp_generate_messages_py.dir/build
-.PHONY : roscpp_generate_messages_py/fast
+joystick_genlisp/fast:
+	$(MAKE) -f joystick/CMakeFiles/joystick_genlisp.dir/build.make joystick/CMakeFiles/joystick_genlisp.dir/build
+.PHONY : joystick_genlisp/fast
 
 #=============================================================================
-# Target rules for targets named roscpp_generate_messages_eus
+# Target rules for targets named joystick_generate_messages_cpp
 
 # Build rule for target.
-roscpp_generate_messages_eus: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 roscpp_generate_messages_eus
-.PHONY : roscpp_generate_messages_eus
+joystick_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 joystick_generate_messages_cpp
+.PHONY : joystick_generate_messages_cpp
 
 # fast build rule for target.
-roscpp_generate_messages_eus/fast:
-	$(MAKE) -f joystick/CMakeFiles/roscpp_generate_messages_eus.dir/build.make joystick/CMakeFiles/roscpp_generate_messages_eus.dir/build
-.PHONY : roscpp_generate_messages_eus/fast
+joystick_generate_messages_cpp/fast:
+	$(MAKE) -f joystick/CMakeFiles/joystick_generate_messages_cpp.dir/build.make joystick/CMakeFiles/joystick_generate_messages_cpp.dir/build
+.PHONY : joystick_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named joystick_genpy
+
+# Build rule for target.
+joystick_genpy: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 joystick_genpy
+.PHONY : joystick_genpy
+
+# fast build rule for target.
+joystick_genpy/fast:
+	$(MAKE) -f joystick/CMakeFiles/joystick_genpy.dir/build.make joystick/CMakeFiles/joystick_genpy.dir/build
+.PHONY : joystick_genpy/fast
 
 #=============================================================================
 # Target rules for targets named joystick_generate_messages_eus
@@ -389,212 +545,82 @@ joystick_generate_messages/fast:
 .PHONY : joystick_generate_messages/fast
 
 #=============================================================================
-# Target rules for targets named roscpp_generate_messages_lisp
+# Target rules for targets named _joystick_generate_messages_check_deps_joystick
 
 # Build rule for target.
-roscpp_generate_messages_lisp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 roscpp_generate_messages_lisp
-.PHONY : roscpp_generate_messages_lisp
+_joystick_generate_messages_check_deps_joystick: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _joystick_generate_messages_check_deps_joystick
+.PHONY : _joystick_generate_messages_check_deps_joystick
 
 # fast build rule for target.
-roscpp_generate_messages_lisp/fast:
-	$(MAKE) -f joystick/CMakeFiles/roscpp_generate_messages_lisp.dir/build.make joystick/CMakeFiles/roscpp_generate_messages_lisp.dir/build
-.PHONY : roscpp_generate_messages_lisp/fast
+_joystick_generate_messages_check_deps_joystick/fast:
+	$(MAKE) -f joystick/CMakeFiles/_joystick_generate_messages_check_deps_joystick.dir/build.make joystick/CMakeFiles/_joystick_generate_messages_check_deps_joystick.dir/build
+.PHONY : _joystick_generate_messages_check_deps_joystick/fast
 
 #=============================================================================
-# Target rules for targets named rosgraph_msgs_generate_messages_cpp
+# Target rules for targets named joystick_generate_messages_lisp
 
 # Build rule for target.
-rosgraph_msgs_generate_messages_cpp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 rosgraph_msgs_generate_messages_cpp
-.PHONY : rosgraph_msgs_generate_messages_cpp
+joystick_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 joystick_generate_messages_lisp
+.PHONY : joystick_generate_messages_lisp
 
 # fast build rule for target.
-rosgraph_msgs_generate_messages_cpp/fast:
-	$(MAKE) -f joystick/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make joystick/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build
-.PHONY : rosgraph_msgs_generate_messages_cpp/fast
+joystick_generate_messages_lisp/fast:
+	$(MAKE) -f joystick/CMakeFiles/joystick_generate_messages_lisp.dir/build.make joystick/CMakeFiles/joystick_generate_messages_lisp.dir/build
+.PHONY : joystick_generate_messages_lisp/fast
 
 #=============================================================================
-# Target rules for targets named joystick_gencpp
+# Target rules for targets named joystick_publisher
 
 # Build rule for target.
-joystick_gencpp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 joystick_gencpp
-.PHONY : joystick_gencpp
+joystick_publisher: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 joystick_publisher
+.PHONY : joystick_publisher
 
 # fast build rule for target.
-joystick_gencpp/fast:
-	$(MAKE) -f joystick/CMakeFiles/joystick_gencpp.dir/build.make joystick/CMakeFiles/joystick_gencpp.dir/build
-.PHONY : joystick_gencpp/fast
+joystick_publisher/fast:
+	$(MAKE) -f joystick/CMakeFiles/joystick_publisher.dir/build.make joystick/CMakeFiles/joystick_publisher.dir/build
+.PHONY : joystick_publisher/fast
 
 #=============================================================================
-# Target rules for targets named std_msgs_generate_messages_lisp
+# Target rules for targets named joystick_generate_messages_nodejs
 
 # Build rule for target.
-std_msgs_generate_messages_lisp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_lisp
-.PHONY : std_msgs_generate_messages_lisp
+joystick_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 joystick_generate_messages_nodejs
+.PHONY : joystick_generate_messages_nodejs
 
 # fast build rule for target.
-std_msgs_generate_messages_lisp/fast:
-	$(MAKE) -f joystick/CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make joystick/CMakeFiles/std_msgs_generate_messages_lisp.dir/build
-.PHONY : std_msgs_generate_messages_lisp/fast
+joystick_generate_messages_nodejs/fast:
+	$(MAKE) -f joystick/CMakeFiles/joystick_generate_messages_nodejs.dir/build.make joystick/CMakeFiles/joystick_generate_messages_nodejs.dir/build
+.PHONY : joystick_generate_messages_nodejs/fast
 
 #=============================================================================
-# Target rules for targets named roscpp_generate_messages_cpp
+# Target rules for targets named joystick_gennodejs
 
 # Build rule for target.
-roscpp_generate_messages_cpp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 roscpp_generate_messages_cpp
-.PHONY : roscpp_generate_messages_cpp
+joystick_gennodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 joystick_gennodejs
+.PHONY : joystick_gennodejs
 
 # fast build rule for target.
-roscpp_generate_messages_cpp/fast:
-	$(MAKE) -f joystick/CMakeFiles/roscpp_generate_messages_cpp.dir/build.make joystick/CMakeFiles/roscpp_generate_messages_cpp.dir/build
-.PHONY : roscpp_generate_messages_cpp/fast
+joystick_gennodejs/fast:
+	$(MAKE) -f joystick/CMakeFiles/joystick_gennodejs.dir/build.make joystick/CMakeFiles/joystick_gennodejs.dir/build
+.PHONY : joystick_gennodejs/fast
 
 #=============================================================================
-# Target rules for targets named rosgraph_msgs_generate_messages_eus
+# Target rules for targets named joystick_generate_messages_py
 
 # Build rule for target.
-rosgraph_msgs_generate_messages_eus: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 rosgraph_msgs_generate_messages_eus
-.PHONY : rosgraph_msgs_generate_messages_eus
+joystick_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 joystick_generate_messages_py
+.PHONY : joystick_generate_messages_py
 
 # fast build rule for target.
-rosgraph_msgs_generate_messages_eus/fast:
-	$(MAKE) -f joystick/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make joystick/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build
-.PHONY : rosgraph_msgs_generate_messages_eus/fast
-
-#=============================================================================
-# Target rules for targets named rosgraph_msgs_generate_messages_lisp
-
-# Build rule for target.
-rosgraph_msgs_generate_messages_lisp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 rosgraph_msgs_generate_messages_lisp
-.PHONY : rosgraph_msgs_generate_messages_lisp
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_lisp/fast:
-	$(MAKE) -f joystick/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make joystick/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build
-.PHONY : rosgraph_msgs_generate_messages_lisp/fast
-
-#=============================================================================
-# Target rules for targets named joystick_generate_messages_cpp
-
-# Build rule for target.
-joystick_generate_messages_cpp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 joystick_generate_messages_cpp
-.PHONY : joystick_generate_messages_cpp
-
-# fast build rule for target.
-joystick_generate_messages_cpp/fast:
-	$(MAKE) -f joystick/CMakeFiles/joystick_generate_messages_cpp.dir/build.make joystick/CMakeFiles/joystick_generate_messages_cpp.dir/build
-.PHONY : joystick_generate_messages_cpp/fast
-
-#=============================================================================
-# Target rules for targets named std_msgs_generate_messages_cpp
-
-# Build rule for target.
-std_msgs_generate_messages_cpp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_cpp
-.PHONY : std_msgs_generate_messages_cpp
-
-# fast build rule for target.
-std_msgs_generate_messages_cpp/fast:
-	$(MAKE) -f joystick/CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make joystick/CMakeFiles/std_msgs_generate_messages_cpp.dir/build
-.PHONY : std_msgs_generate_messages_cpp/fast
-
-#=============================================================================
-# Target rules for targets named joystick_genpy
-
-# Build rule for target.
-joystick_genpy: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 joystick_genpy
-.PHONY : joystick_genpy
-
-# fast build rule for target.
-joystick_genpy/fast:
-	$(MAKE) -f joystick/CMakeFiles/joystick_genpy.dir/build.make joystick/CMakeFiles/joystick_genpy.dir/build
-.PHONY : joystick_genpy/fast
-
-#=============================================================================
-# Target rules for targets named rosgraph_msgs_generate_messages_nodejs
-
-# Build rule for target.
-rosgraph_msgs_generate_messages_nodejs: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 rosgraph_msgs_generate_messages_nodejs
-.PHONY : rosgraph_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_nodejs/fast:
-	$(MAKE) -f joystick/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build.make joystick/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build
-.PHONY : rosgraph_msgs_generate_messages_nodejs/fast
-
-#=============================================================================
-# Target rules for targets named rosgraph_msgs_generate_messages_py
-
-# Build rule for target.
-rosgraph_msgs_generate_messages_py: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 rosgraph_msgs_generate_messages_py
-.PHONY : rosgraph_msgs_generate_messages_py
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_py/fast:
-	$(MAKE) -f joystick/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make joystick/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build
-.PHONY : rosgraph_msgs_generate_messages_py/fast
-
-#=============================================================================
-# Target rules for targets named std_msgs_generate_messages_eus
-
-# Build rule for target.
-std_msgs_generate_messages_eus: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_eus
-.PHONY : std_msgs_generate_messages_eus
-
-# fast build rule for target.
-std_msgs_generate_messages_eus/fast:
-	$(MAKE) -f joystick/CMakeFiles/std_msgs_generate_messages_eus.dir/build.make joystick/CMakeFiles/std_msgs_generate_messages_eus.dir/build
-.PHONY : std_msgs_generate_messages_eus/fast
-
-#=============================================================================
-# Target rules for targets named std_msgs_generate_messages_nodejs
-
-# Build rule for target.
-std_msgs_generate_messages_nodejs: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_nodejs
-.PHONY : std_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-std_msgs_generate_messages_nodejs/fast:
-	$(MAKE) -f joystick/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build.make joystick/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build
-.PHONY : std_msgs_generate_messages_nodejs/fast
-
-#=============================================================================
-# Target rules for targets named roscpp_generate_messages_nodejs
-
-# Build rule for target.
-roscpp_generate_messages_nodejs: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 roscpp_generate_messages_nodejs
-.PHONY : roscpp_generate_messages_nodejs
-
-# fast build rule for target.
-roscpp_generate_messages_nodejs/fast:
-	$(MAKE) -f joystick/CMakeFiles/roscpp_generate_messages_nodejs.dir/build.make joystick/CMakeFiles/roscpp_generate_messages_nodejs.dir/build
-.PHONY : roscpp_generate_messages_nodejs/fast
-
-#=============================================================================
-# Target rules for targets named std_msgs_generate_messages_py
-
-# Build rule for target.
-std_msgs_generate_messages_py: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_py
-.PHONY : std_msgs_generate_messages_py
-
-# fast build rule for target.
-std_msgs_generate_messages_py/fast:
-	$(MAKE) -f joystick/CMakeFiles/std_msgs_generate_messages_py.dir/build.make joystick/CMakeFiles/std_msgs_generate_messages_py.dir/build
-.PHONY : std_msgs_generate_messages_py/fast
+joystick_generate_messages_py/fast:
+	$(MAKE) -f joystick/CMakeFiles/joystick_generate_messages_py.dir/build.make joystick/CMakeFiles/joystick_generate_messages_py.dir/build
+.PHONY : joystick_generate_messages_py/fast
 
 #=============================================================================
 # Target rules for targets named keyboard_geneus
@@ -662,19 +688,6 @@ keyboard_genpy/fast:
 .PHONY : keyboard_genpy/fast
 
 #=============================================================================
-# Target rules for targets named keyboardPublisher
-
-# Build rule for target.
-keyboardPublisher: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 keyboardPublisher
-.PHONY : keyboardPublisher
-
-# fast build rule for target.
-keyboardPublisher/fast:
-	$(MAKE) -f keyboard/CMakeFiles/keyboardPublisher.dir/build.make keyboard/CMakeFiles/keyboardPublisher.dir/build
-.PHONY : keyboardPublisher/fast
-
-#=============================================================================
 # Target rules for targets named keyboard_generate_messages
 
 # Build rule for target.
@@ -688,17 +701,30 @@ keyboard_generate_messages/fast:
 .PHONY : keyboard_generate_messages/fast
 
 #=============================================================================
-# Target rules for targets named _keyboard_generate_messages_check_deps_Keyboard
+# Target rules for targets named _keyboard_generate_messages_check_deps_keyboard
 
 # Build rule for target.
-_keyboard_generate_messages_check_deps_Keyboard: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 _keyboard_generate_messages_check_deps_Keyboard
-.PHONY : _keyboard_generate_messages_check_deps_Keyboard
+_keyboard_generate_messages_check_deps_keyboard: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _keyboard_generate_messages_check_deps_keyboard
+.PHONY : _keyboard_generate_messages_check_deps_keyboard
 
 # fast build rule for target.
-_keyboard_generate_messages_check_deps_Keyboard/fast:
-	$(MAKE) -f keyboard/CMakeFiles/_keyboard_generate_messages_check_deps_Keyboard.dir/build.make keyboard/CMakeFiles/_keyboard_generate_messages_check_deps_Keyboard.dir/build
-.PHONY : _keyboard_generate_messages_check_deps_Keyboard/fast
+_keyboard_generate_messages_check_deps_keyboard/fast:
+	$(MAKE) -f keyboard/CMakeFiles/_keyboard_generate_messages_check_deps_keyboard.dir/build.make keyboard/CMakeFiles/_keyboard_generate_messages_check_deps_keyboard.dir/build
+.PHONY : _keyboard_generate_messages_check_deps_keyboard/fast
+
+#=============================================================================
+# Target rules for targets named keyboard_generate_messages_nodejs
+
+# Build rule for target.
+keyboard_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 keyboard_generate_messages_nodejs
+.PHONY : keyboard_generate_messages_nodejs
+
+# fast build rule for target.
+keyboard_generate_messages_nodejs/fast:
+	$(MAKE) -f keyboard/CMakeFiles/keyboard_generate_messages_nodejs.dir/build.make keyboard/CMakeFiles/keyboard_generate_messages_nodejs.dir/build
+.PHONY : keyboard_generate_messages_nodejs/fast
 
 #=============================================================================
 # Target rules for targets named keyboard_generate_messages_lisp
@@ -727,19 +753,6 @@ keyboard_genlisp/fast:
 .PHONY : keyboard_genlisp/fast
 
 #=============================================================================
-# Target rules for targets named keyboard_generate_messages_nodejs
-
-# Build rule for target.
-keyboard_generate_messages_nodejs: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 keyboard_generate_messages_nodejs
-.PHONY : keyboard_generate_messages_nodejs
-
-# fast build rule for target.
-keyboard_generate_messages_nodejs/fast:
-	$(MAKE) -f keyboard/CMakeFiles/keyboard_generate_messages_nodejs.dir/build.make keyboard/CMakeFiles/keyboard_generate_messages_nodejs.dir/build
-.PHONY : keyboard_generate_messages_nodejs/fast
-
-#=============================================================================
 # Target rules for targets named keyboard_gennodejs
 
 # Build rule for target.
@@ -766,6 +779,19 @@ keyboard_generate_messages_py/fast:
 .PHONY : keyboard_generate_messages_py/fast
 
 #=============================================================================
+# Target rules for targets named keyboard_publisher
+
+# Build rule for target.
+keyboard_publisher: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 keyboard_publisher
+.PHONY : keyboard_publisher
+
+# fast build rule for target.
+keyboard_publisher/fast:
+	$(MAKE) -f keyboard/CMakeFiles/keyboard_publisher.dir/build.make keyboard/CMakeFiles/keyboard_publisher.dir/build
+.PHONY : keyboard_publisher/fast
+
+#=============================================================================
 # Target rules for targets named rxros_lang_examples
 
 # Build rule for target.
@@ -779,17 +805,17 @@ rxros_lang_examples/fast:
 .PHONY : rxros_lang_examples/fast
 
 #=============================================================================
-# Target rules for targets named velocityPublisher
+# Target rules for targets named velocity_publisher
 
 # Build rule for target.
-velocityPublisher: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 velocityPublisher
-.PHONY : velocityPublisher
+velocity_publisher: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 velocity_publisher
+.PHONY : velocity_publisher
 
 # fast build rule for target.
-velocityPublisher/fast:
-	$(MAKE) -f teleop/CMakeFiles/velocityPublisher.dir/build.make teleop/CMakeFiles/velocityPublisher.dir/build
-.PHONY : velocityPublisher/fast
+velocity_publisher/fast:
+	$(MAKE) -f teleop/CMakeFiles/velocity_publisher.dir/build.make teleop/CMakeFiles/velocity_publisher.dir/build
+.PHONY : velocity_publisher/fast
 
 #=============================================================================
 # Target rules for targets named sensor_msgs_generate_messages_lisp
@@ -1537,49 +1563,51 @@ help:
 	@echo "... doxygen"
 	@echo "... install/local"
 	@echo "... test"
-	@echo "... joystickPublisher"
-	@echo "... joystick_generate_messages_py"
-	@echo "... joystick_gennodejs"
-	@echo "... joystick_generate_messages_nodejs"
-	@echo "... joystick_genlisp"
-	@echo "... joystick_generate_messages_lisp"
-	@echo "... joystick_geneus"
-	@echo "... _joystick_generate_messages_check_deps_Joystick"
 	@echo "... roscpp_generate_messages_py"
 	@echo "... roscpp_generate_messages_eus"
-	@echo "... joystick_generate_messages_eus"
-	@echo "... joystick_generate_messages"
 	@echo "... roscpp_generate_messages_lisp"
 	@echo "... rosgraph_msgs_generate_messages_cpp"
-	@echo "... joystick_gencpp"
 	@echo "... std_msgs_generate_messages_lisp"
 	@echo "... roscpp_generate_messages_cpp"
 	@echo "... rosgraph_msgs_generate_messages_eus"
 	@echo "... rosgraph_msgs_generate_messages_lisp"
-	@echo "... joystick_generate_messages_cpp"
+	@echo "... brickpi3"
 	@echo "... std_msgs_generate_messages_cpp"
-	@echo "... joystick_genpy"
 	@echo "... rosgraph_msgs_generate_messages_nodejs"
 	@echo "... rosgraph_msgs_generate_messages_py"
 	@echo "... std_msgs_generate_messages_eus"
 	@echo "... std_msgs_generate_messages_nodejs"
 	@echo "... roscpp_generate_messages_nodejs"
 	@echo "... std_msgs_generate_messages_py"
+	@echo "... brickpi3_ros"
+	@echo "... joystick_geneus"
+	@echo "... joystick_gencpp"
+	@echo "... joystick_genlisp"
+	@echo "... joystick_generate_messages_cpp"
+	@echo "... joystick_genpy"
+	@echo "... joystick_generate_messages_eus"
+	@echo "... joystick_generate_messages"
+	@echo "... _joystick_generate_messages_check_deps_joystick"
+	@echo "... joystick_generate_messages_lisp"
+	@echo "... joystick_publisher"
+	@echo "... joystick_generate_messages_nodejs"
+	@echo "... joystick_gennodejs"
+	@echo "... joystick_generate_messages_py"
 	@echo "... keyboard_geneus"
 	@echo "... keyboard_generate_messages_eus"
 	@echo "... keyboard_generate_messages_cpp"
 	@echo "... keyboard_gencpp"
 	@echo "... keyboard_genpy"
-	@echo "... keyboardPublisher"
 	@echo "... keyboard_generate_messages"
-	@echo "... _keyboard_generate_messages_check_deps_Keyboard"
+	@echo "... _keyboard_generate_messages_check_deps_keyboard"
+	@echo "... keyboard_generate_messages_nodejs"
 	@echo "... keyboard_generate_messages_lisp"
 	@echo "... keyboard_genlisp"
-	@echo "... keyboard_generate_messages_nodejs"
 	@echo "... keyboard_gennodejs"
 	@echo "... keyboard_generate_messages_py"
+	@echo "... keyboard_publisher"
 	@echo "... rxros_lang_examples"
-	@echo "... velocityPublisher"
+	@echo "... velocity_publisher"
 	@echo "... sensor_msgs_generate_messages_lisp"
 	@echo "... sensor_msgs_generate_messages_eus"
 	@echo "... sensor_msgs_generate_messages_cpp"

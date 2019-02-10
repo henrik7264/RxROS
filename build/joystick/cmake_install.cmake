@@ -38,7 +38,7 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/joystick/msg" TYPE FILE FILES "/home/hl/Src/CLionProjects/RxROS/src/joystick/msg/Joystick.msg")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/joystick/msg" TYPE FILE FILES "/home/hl/Src/CLionProjects/RxROS/src/joystick/msg/joystick.msg")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)

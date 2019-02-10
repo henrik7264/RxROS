@@ -53,17 +53,17 @@ CMAKE_BINARY_DIR = /home/hl/Src/CLionProjects/RxROS/build
 # Include the progress variables for this target.
 include joystick/CMakeFiles/joystick_generate_messages_cpp.dir/progress.make
 
-joystick/CMakeFiles/joystick_generate_messages_cpp: /home/hl/Src/CLionProjects/RxROS/devel/include/joystick/Joystick.h
+joystick/CMakeFiles/joystick_generate_messages_cpp: /home/hl/Src/CLionProjects/RxROS/devel/include/joystick/joystick.h
 
 
-/home/hl/Src/CLionProjects/RxROS/devel/include/joystick/Joystick.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
-/home/hl/Src/CLionProjects/RxROS/devel/include/joystick/Joystick.h: /home/hl/Src/CLionProjects/RxROS/src/joystick/msg/Joystick.msg
-/home/hl/Src/CLionProjects/RxROS/devel/include/joystick/Joystick.h: /opt/ros/melodic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/hl/Src/CLionProjects/RxROS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ code from joystick/Joystick.msg"
-	cd /home/hl/Src/CLionProjects/RxROS/src/joystick && /home/hl/Src/CLionProjects/RxROS/build/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/hl/Src/CLionProjects/RxROS/src/joystick/msg/Joystick.msg -Ijoystick:/home/hl/Src/CLionProjects/RxROS/src/joystick/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p joystick -o /home/hl/Src/CLionProjects/RxROS/devel/include/joystick -e /opt/ros/melodic/share/gencpp/cmake/..
+/home/hl/Src/CLionProjects/RxROS/devel/include/joystick/joystick.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
+/home/hl/Src/CLionProjects/RxROS/devel/include/joystick/joystick.h: /home/hl/Src/CLionProjects/RxROS/src/joystick/msg/joystick.msg
+/home/hl/Src/CLionProjects/RxROS/devel/include/joystick/joystick.h: /opt/ros/melodic/share/gencpp/msg.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/hl/Src/CLionProjects/RxROS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ code from joystick/joystick.msg"
+	cd /home/hl/Src/CLionProjects/RxROS/src/joystick && /home/hl/Src/CLionProjects/RxROS/build/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/hl/Src/CLionProjects/RxROS/src/joystick/msg/joystick.msg -Ijoystick:/home/hl/Src/CLionProjects/RxROS/src/joystick/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p joystick -o /home/hl/Src/CLionProjects/RxROS/devel/include/joystick -e /opt/ros/melodic/share/gencpp/cmake/..
 
 joystick_generate_messages_cpp: joystick/CMakeFiles/joystick_generate_messages_cpp
-joystick_generate_messages_cpp: /home/hl/Src/CLionProjects/RxROS/devel/include/joystick/Joystick.h
+joystick_generate_messages_cpp: /home/hl/Src/CLionProjects/RxROS/devel/include/joystick/joystick.h
 joystick_generate_messages_cpp: joystick/CMakeFiles/joystick_generate_messages_cpp.dir/build.make
 
 .PHONY : joystick_generate_messages_cpp

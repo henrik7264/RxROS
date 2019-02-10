@@ -4,6 +4,8 @@
 # 
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
+subdirs("brickpi3")
+subdirs("brickpi3_ros")
 subdirs("joystick")
 subdirs("keyboard")
 subdirs("lxf2urdf")

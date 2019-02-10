@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.context.in
 
-messages_str = "/home/hl/Src/CLionProjects/RxROS/src/joystick/msg/Joystick.msg"
+messages_str = "/home/hl/Src/CLionProjects/RxROS/src/joystick/msg/joystick.msg"
 services_str = ""
 pkg_name = "joystick"
 dependencies_str = "std_msgs"

@@ -17,9 +17,9 @@ add_custom_target(joystick_generate_messages ALL)
 
 
 
-get_filename_component(_filename "/home/hl/Src/CLionProjects/RxROS/src/joystick/msg/Joystick.msg" NAME_WE)
+get_filename_component(_filename "/home/hl/Src/CLionProjects/RxROS/src/joystick/msg/joystick.msg" NAME_WE)
 add_custom_target(_joystick_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "joystick" "/home/hl/Src/CLionProjects/RxROS/src/joystick/msg/Joystick.msg" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "joystick" "/home/hl/Src/CLionProjects/RxROS/src/joystick/msg/joystick.msg" ""
 )
 
 #
@@ -29,7 +29,7 @@ add_custom_target(_joystick_generate_messages_check_deps_${_filename}
 ### Section generating for lang: gencpp
 ### Generating Messages
 _generate_msg_cpp(joystick
-  "/home/hl/Src/CLionProjects/RxROS/src/joystick/msg/Joystick.msg"
+  "/home/hl/Src/CLionProjects/RxROS/src/joystick/msg/joystick.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/joystick
@@ -49,7 +49,7 @@ add_custom_target(joystick_generate_messages_cpp
 add_dependencies(joystick_generate_messages joystick_generate_messages_cpp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/hl/Src/CLionProjects/RxROS/src/joystick/msg/Joystick.msg" NAME_WE)
+get_filename_component(_filename "/home/hl/Src/CLionProjects/RxROS/src/joystick/msg/joystick.msg" NAME_WE)
 add_dependencies(joystick_generate_messages_cpp _joystick_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -62,7 +62,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS joystick_generate_messages_cpp)
 ### Section generating for lang: geneus
 ### Generating Messages
 _generate_msg_eus(joystick
-  "/home/hl/Src/CLionProjects/RxROS/src/joystick/msg/Joystick.msg"
+  "/home/hl/Src/CLionProjects/RxROS/src/joystick/msg/joystick.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/joystick
@@ -82,7 +82,7 @@ add_custom_target(joystick_generate_messages_eus
 add_dependencies(joystick_generate_messages joystick_generate_messages_eus)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/hl/Src/CLionProjects/RxROS/src/joystick/msg/Joystick.msg" NAME_WE)
+get_filename_component(_filename "/home/hl/Src/CLionProjects/RxROS/src/joystick/msg/joystick.msg" NAME_WE)
 add_dependencies(joystick_generate_messages_eus _joystick_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -95,7 +95,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS joystick_generate_messages_eus)
 ### Section generating for lang: genlisp
 ### Generating Messages
 _generate_msg_lisp(joystick
-  "/home/hl/Src/CLionProjects/RxROS/src/joystick/msg/Joystick.msg"
+  "/home/hl/Src/CLionProjects/RxROS/src/joystick/msg/joystick.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/joystick
@@ -115,7 +115,7 @@ add_custom_target(joystick_generate_messages_lisp
 add_dependencies(joystick_generate_messages joystick_generate_messages_lisp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/hl/Src/CLionProjects/RxROS/src/joystick/msg/Joystick.msg" NAME_WE)
+get_filename_component(_filename "/home/hl/Src/CLionProjects/RxROS/src/joystick/msg/joystick.msg" NAME_WE)
 add_dependencies(joystick_generate_messages_lisp _joystick_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -128,7 +128,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS joystick_generate_messages_lisp)
 ### Section generating for lang: gennodejs
 ### Generating Messages
 _generate_msg_nodejs(joystick
-  "/home/hl/Src/CLionProjects/RxROS/src/joystick/msg/Joystick.msg"
+  "/home/hl/Src/CLionProjects/RxROS/src/joystick/msg/joystick.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/joystick
@@ -148,7 +148,7 @@ add_custom_target(joystick_generate_messages_nodejs
 add_dependencies(joystick_generate_messages joystick_generate_messages_nodejs)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/hl/Src/CLionProjects/RxROS/src/joystick/msg/Joystick.msg" NAME_WE)
+get_filename_component(_filename "/home/hl/Src/CLionProjects/RxROS/src/joystick/msg/joystick.msg" NAME_WE)
 add_dependencies(joystick_generate_messages_nodejs _joystick_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -161,7 +161,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS joystick_generate_messages_nodejs)
 ### Section generating for lang: genpy
 ### Generating Messages
 _generate_msg_py(joystick
-  "/home/hl/Src/CLionProjects/RxROS/src/joystick/msg/Joystick.msg"
+  "/home/hl/Src/CLionProjects/RxROS/src/joystick/msg/joystick.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/joystick
@@ -181,7 +181,7 @@ add_custom_target(joystick_generate_messages_py
 add_dependencies(joystick_generate_messages joystick_generate_messages_py)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/hl/Src/CLionProjects/RxROS/src/joystick/msg/Joystick.msg" NAME_WE)
+get_filename_component(_filename "/home/hl/Src/CLionProjects/RxROS/src/joystick/msg/joystick.msg" NAME_WE)
 add_dependencies(joystick_generate_messages_py _joystick_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility

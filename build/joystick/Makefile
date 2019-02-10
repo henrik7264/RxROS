@@ -80,6 +80,28 @@ install/local/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
 
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
+
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -102,16 +124,6 @@ test/fast: test
 
 .PHONY : test/fast
 
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-
-.PHONY : list_install_components/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -122,18 +134,6 @@ edit_cache:
 edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
-
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install
-
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -168,64 +168,34 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-joystick/CMakeFiles/joystickPublisher.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/joystickPublisher.dir/rule
-.PHONY : joystick/CMakeFiles/joystickPublisher.dir/rule
+joystick/CMakeFiles/joystick_geneus.dir/rule:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/joystick_geneus.dir/rule
+.PHONY : joystick/CMakeFiles/joystick_geneus.dir/rule
 
 # Convenience name for target.
-joystickPublisher: joystick/CMakeFiles/joystickPublisher.dir/rule
+joystick_geneus: joystick/CMakeFiles/joystick_geneus.dir/rule
 
-.PHONY : joystickPublisher
+.PHONY : joystick_geneus
 
 # fast build rule for target.
-joystickPublisher/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/joystickPublisher.dir/build.make joystick/CMakeFiles/joystickPublisher.dir/build
-.PHONY : joystickPublisher/fast
+joystick_geneus/fast:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/joystick_geneus.dir/build.make joystick/CMakeFiles/joystick_geneus.dir/build
+.PHONY : joystick_geneus/fast
 
 # Convenience name for target.
-joystick/CMakeFiles/joystick_generate_messages_py.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/joystick_generate_messages_py.dir/rule
-.PHONY : joystick/CMakeFiles/joystick_generate_messages_py.dir/rule
+joystick/CMakeFiles/joystick_gencpp.dir/rule:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/joystick_gencpp.dir/rule
+.PHONY : joystick/CMakeFiles/joystick_gencpp.dir/rule
 
 # Convenience name for target.
-joystick_generate_messages_py: joystick/CMakeFiles/joystick_generate_messages_py.dir/rule
+joystick_gencpp: joystick/CMakeFiles/joystick_gencpp.dir/rule
 
-.PHONY : joystick_generate_messages_py
+.PHONY : joystick_gencpp
 
 # fast build rule for target.
-joystick_generate_messages_py/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/joystick_generate_messages_py.dir/build.make joystick/CMakeFiles/joystick_generate_messages_py.dir/build
-.PHONY : joystick_generate_messages_py/fast
-
-# Convenience name for target.
-joystick/CMakeFiles/joystick_gennodejs.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/joystick_gennodejs.dir/rule
-.PHONY : joystick/CMakeFiles/joystick_gennodejs.dir/rule
-
-# Convenience name for target.
-joystick_gennodejs: joystick/CMakeFiles/joystick_gennodejs.dir/rule
-
-.PHONY : joystick_gennodejs
-
-# fast build rule for target.
-joystick_gennodejs/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/joystick_gennodejs.dir/build.make joystick/CMakeFiles/joystick_gennodejs.dir/build
-.PHONY : joystick_gennodejs/fast
-
-# Convenience name for target.
-joystick/CMakeFiles/joystick_generate_messages_nodejs.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/joystick_generate_messages_nodejs.dir/rule
-.PHONY : joystick/CMakeFiles/joystick_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-joystick_generate_messages_nodejs: joystick/CMakeFiles/joystick_generate_messages_nodejs.dir/rule
-
-.PHONY : joystick_generate_messages_nodejs
-
-# fast build rule for target.
-joystick_generate_messages_nodejs/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/joystick_generate_messages_nodejs.dir/build.make joystick/CMakeFiles/joystick_generate_messages_nodejs.dir/build
-.PHONY : joystick_generate_messages_nodejs/fast
+joystick_gencpp/fast:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/joystick_gencpp.dir/build.make joystick/CMakeFiles/joystick_gencpp.dir/build
+.PHONY : joystick_gencpp/fast
 
 # Convenience name for target.
 joystick/CMakeFiles/joystick_genlisp.dir/rule:
@@ -243,79 +213,34 @@ joystick_genlisp/fast:
 .PHONY : joystick_genlisp/fast
 
 # Convenience name for target.
-joystick/CMakeFiles/joystick_generate_messages_lisp.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/joystick_generate_messages_lisp.dir/rule
-.PHONY : joystick/CMakeFiles/joystick_generate_messages_lisp.dir/rule
+joystick/CMakeFiles/joystick_generate_messages_cpp.dir/rule:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/joystick_generate_messages_cpp.dir/rule
+.PHONY : joystick/CMakeFiles/joystick_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
-joystick_generate_messages_lisp: joystick/CMakeFiles/joystick_generate_messages_lisp.dir/rule
+joystick_generate_messages_cpp: joystick/CMakeFiles/joystick_generate_messages_cpp.dir/rule
 
-.PHONY : joystick_generate_messages_lisp
+.PHONY : joystick_generate_messages_cpp
 
 # fast build rule for target.
-joystick_generate_messages_lisp/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/joystick_generate_messages_lisp.dir/build.make joystick/CMakeFiles/joystick_generate_messages_lisp.dir/build
-.PHONY : joystick_generate_messages_lisp/fast
+joystick_generate_messages_cpp/fast:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/joystick_generate_messages_cpp.dir/build.make joystick/CMakeFiles/joystick_generate_messages_cpp.dir/build
+.PHONY : joystick_generate_messages_cpp/fast
 
 # Convenience name for target.
-joystick/CMakeFiles/joystick_geneus.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/joystick_geneus.dir/rule
-.PHONY : joystick/CMakeFiles/joystick_geneus.dir/rule
+joystick/CMakeFiles/joystick_genpy.dir/rule:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/joystick_genpy.dir/rule
+.PHONY : joystick/CMakeFiles/joystick_genpy.dir/rule
 
 # Convenience name for target.
-joystick_geneus: joystick/CMakeFiles/joystick_geneus.dir/rule
+joystick_genpy: joystick/CMakeFiles/joystick_genpy.dir/rule
 
-.PHONY : joystick_geneus
+.PHONY : joystick_genpy
 
 # fast build rule for target.
-joystick_geneus/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/joystick_geneus.dir/build.make joystick/CMakeFiles/joystick_geneus.dir/build
-.PHONY : joystick_geneus/fast
-
-# Convenience name for target.
-joystick/CMakeFiles/_joystick_generate_messages_check_deps_Joystick.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/_joystick_generate_messages_check_deps_Joystick.dir/rule
-.PHONY : joystick/CMakeFiles/_joystick_generate_messages_check_deps_Joystick.dir/rule
-
-# Convenience name for target.
-_joystick_generate_messages_check_deps_Joystick: joystick/CMakeFiles/_joystick_generate_messages_check_deps_Joystick.dir/rule
-
-.PHONY : _joystick_generate_messages_check_deps_Joystick
-
-# fast build rule for target.
-_joystick_generate_messages_check_deps_Joystick/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/_joystick_generate_messages_check_deps_Joystick.dir/build.make joystick/CMakeFiles/_joystick_generate_messages_check_deps_Joystick.dir/build
-.PHONY : _joystick_generate_messages_check_deps_Joystick/fast
-
-# Convenience name for target.
-joystick/CMakeFiles/roscpp_generate_messages_py.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/roscpp_generate_messages_py.dir/rule
-.PHONY : joystick/CMakeFiles/roscpp_generate_messages_py.dir/rule
-
-# Convenience name for target.
-roscpp_generate_messages_py: joystick/CMakeFiles/roscpp_generate_messages_py.dir/rule
-
-.PHONY : roscpp_generate_messages_py
-
-# fast build rule for target.
-roscpp_generate_messages_py/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/roscpp_generate_messages_py.dir/build.make joystick/CMakeFiles/roscpp_generate_messages_py.dir/build
-.PHONY : roscpp_generate_messages_py/fast
-
-# Convenience name for target.
-joystick/CMakeFiles/roscpp_generate_messages_eus.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/roscpp_generate_messages_eus.dir/rule
-.PHONY : joystick/CMakeFiles/roscpp_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-roscpp_generate_messages_eus: joystick/CMakeFiles/roscpp_generate_messages_eus.dir/rule
-
-.PHONY : roscpp_generate_messages_eus
-
-# fast build rule for target.
-roscpp_generate_messages_eus/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/roscpp_generate_messages_eus.dir/build.make joystick/CMakeFiles/roscpp_generate_messages_eus.dir/build
-.PHONY : roscpp_generate_messages_eus/fast
+joystick_genpy/fast:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/joystick_genpy.dir/build.make joystick/CMakeFiles/joystick_genpy.dir/build
+.PHONY : joystick_genpy/fast
 
 # Convenience name for target.
 joystick/CMakeFiles/joystick_generate_messages_eus.dir/rule:
@@ -348,244 +273,94 @@ joystick_generate_messages/fast:
 .PHONY : joystick_generate_messages/fast
 
 # Convenience name for target.
-joystick/CMakeFiles/roscpp_generate_messages_lisp.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
-.PHONY : joystick/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
+joystick/CMakeFiles/_joystick_generate_messages_check_deps_joystick.dir/rule:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/_joystick_generate_messages_check_deps_joystick.dir/rule
+.PHONY : joystick/CMakeFiles/_joystick_generate_messages_check_deps_joystick.dir/rule
 
 # Convenience name for target.
-roscpp_generate_messages_lisp: joystick/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
+_joystick_generate_messages_check_deps_joystick: joystick/CMakeFiles/_joystick_generate_messages_check_deps_joystick.dir/rule
 
-.PHONY : roscpp_generate_messages_lisp
+.PHONY : _joystick_generate_messages_check_deps_joystick
 
 # fast build rule for target.
-roscpp_generate_messages_lisp/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/roscpp_generate_messages_lisp.dir/build.make joystick/CMakeFiles/roscpp_generate_messages_lisp.dir/build
-.PHONY : roscpp_generate_messages_lisp/fast
+_joystick_generate_messages_check_deps_joystick/fast:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/_joystick_generate_messages_check_deps_joystick.dir/build.make joystick/CMakeFiles/_joystick_generate_messages_check_deps_joystick.dir/build
+.PHONY : _joystick_generate_messages_check_deps_joystick/fast
 
 # Convenience name for target.
-joystick/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
-.PHONY : joystick/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
+joystick/CMakeFiles/joystick_generate_messages_lisp.dir/rule:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/joystick_generate_messages_lisp.dir/rule
+.PHONY : joystick/CMakeFiles/joystick_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
-rosgraph_msgs_generate_messages_cpp: joystick/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
+joystick_generate_messages_lisp: joystick/CMakeFiles/joystick_generate_messages_lisp.dir/rule
 
-.PHONY : rosgraph_msgs_generate_messages_cpp
+.PHONY : joystick_generate_messages_lisp
 
 # fast build rule for target.
-rosgraph_msgs_generate_messages_cpp/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make joystick/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build
-.PHONY : rosgraph_msgs_generate_messages_cpp/fast
+joystick_generate_messages_lisp/fast:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/joystick_generate_messages_lisp.dir/build.make joystick/CMakeFiles/joystick_generate_messages_lisp.dir/build
+.PHONY : joystick_generate_messages_lisp/fast
 
 # Convenience name for target.
-joystick/CMakeFiles/joystick_gencpp.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/joystick_gencpp.dir/rule
-.PHONY : joystick/CMakeFiles/joystick_gencpp.dir/rule
+joystick/CMakeFiles/joystick_publisher.dir/rule:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/joystick_publisher.dir/rule
+.PHONY : joystick/CMakeFiles/joystick_publisher.dir/rule
 
 # Convenience name for target.
-joystick_gencpp: joystick/CMakeFiles/joystick_gencpp.dir/rule
+joystick_publisher: joystick/CMakeFiles/joystick_publisher.dir/rule
 
-.PHONY : joystick_gencpp
+.PHONY : joystick_publisher
 
 # fast build rule for target.
-joystick_gencpp/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/joystick_gencpp.dir/build.make joystick/CMakeFiles/joystick_gencpp.dir/build
-.PHONY : joystick_gencpp/fast
+joystick_publisher/fast:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/joystick_publisher.dir/build.make joystick/CMakeFiles/joystick_publisher.dir/build
+.PHONY : joystick_publisher/fast
 
 # Convenience name for target.
-joystick/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
-.PHONY : joystick/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
+joystick/CMakeFiles/joystick_generate_messages_nodejs.dir/rule:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/joystick_generate_messages_nodejs.dir/rule
+.PHONY : joystick/CMakeFiles/joystick_generate_messages_nodejs.dir/rule
 
 # Convenience name for target.
-std_msgs_generate_messages_lisp: joystick/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
+joystick_generate_messages_nodejs: joystick/CMakeFiles/joystick_generate_messages_nodejs.dir/rule
 
-.PHONY : std_msgs_generate_messages_lisp
+.PHONY : joystick_generate_messages_nodejs
 
 # fast build rule for target.
-std_msgs_generate_messages_lisp/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make joystick/CMakeFiles/std_msgs_generate_messages_lisp.dir/build
-.PHONY : std_msgs_generate_messages_lisp/fast
+joystick_generate_messages_nodejs/fast:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/joystick_generate_messages_nodejs.dir/build.make joystick/CMakeFiles/joystick_generate_messages_nodejs.dir/build
+.PHONY : joystick_generate_messages_nodejs/fast
 
 # Convenience name for target.
-joystick/CMakeFiles/roscpp_generate_messages_cpp.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
-.PHONY : joystick/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
+joystick/CMakeFiles/joystick_gennodejs.dir/rule:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/joystick_gennodejs.dir/rule
+.PHONY : joystick/CMakeFiles/joystick_gennodejs.dir/rule
 
 # Convenience name for target.
-roscpp_generate_messages_cpp: joystick/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
+joystick_gennodejs: joystick/CMakeFiles/joystick_gennodejs.dir/rule
 
-.PHONY : roscpp_generate_messages_cpp
+.PHONY : joystick_gennodejs
 
 # fast build rule for target.
-roscpp_generate_messages_cpp/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/roscpp_generate_messages_cpp.dir/build.make joystick/CMakeFiles/roscpp_generate_messages_cpp.dir/build
-.PHONY : roscpp_generate_messages_cpp/fast
+joystick_gennodejs/fast:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/joystick_gennodejs.dir/build.make joystick/CMakeFiles/joystick_gennodejs.dir/build
+.PHONY : joystick_gennodejs/fast
 
 # Convenience name for target.
-joystick/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
-.PHONY : joystick/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
+joystick/CMakeFiles/joystick_generate_messages_py.dir/rule:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/joystick_generate_messages_py.dir/rule
+.PHONY : joystick/CMakeFiles/joystick_generate_messages_py.dir/rule
 
 # Convenience name for target.
-rosgraph_msgs_generate_messages_eus: joystick/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
+joystick_generate_messages_py: joystick/CMakeFiles/joystick_generate_messages_py.dir/rule
 
-.PHONY : rosgraph_msgs_generate_messages_eus
+.PHONY : joystick_generate_messages_py
 
 # fast build rule for target.
-rosgraph_msgs_generate_messages_eus/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make joystick/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build
-.PHONY : rosgraph_msgs_generate_messages_eus/fast
-
-# Convenience name for target.
-joystick/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
-.PHONY : joystick/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-rosgraph_msgs_generate_messages_lisp: joystick/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
-
-.PHONY : rosgraph_msgs_generate_messages_lisp
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_lisp/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make joystick/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build
-.PHONY : rosgraph_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
-joystick/CMakeFiles/joystick_generate_messages_cpp.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/joystick_generate_messages_cpp.dir/rule
-.PHONY : joystick/CMakeFiles/joystick_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-joystick_generate_messages_cpp: joystick/CMakeFiles/joystick_generate_messages_cpp.dir/rule
-
-.PHONY : joystick_generate_messages_cpp
-
-# fast build rule for target.
-joystick_generate_messages_cpp/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/joystick_generate_messages_cpp.dir/build.make joystick/CMakeFiles/joystick_generate_messages_cpp.dir/build
-.PHONY : joystick_generate_messages_cpp/fast
-
-# Convenience name for target.
-joystick/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
-.PHONY : joystick/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-std_msgs_generate_messages_cpp: joystick/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
-
-.PHONY : std_msgs_generate_messages_cpp
-
-# fast build rule for target.
-std_msgs_generate_messages_cpp/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make joystick/CMakeFiles/std_msgs_generate_messages_cpp.dir/build
-.PHONY : std_msgs_generate_messages_cpp/fast
-
-# Convenience name for target.
-joystick/CMakeFiles/joystick_genpy.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/joystick_genpy.dir/rule
-.PHONY : joystick/CMakeFiles/joystick_genpy.dir/rule
-
-# Convenience name for target.
-joystick_genpy: joystick/CMakeFiles/joystick_genpy.dir/rule
-
-.PHONY : joystick_genpy
-
-# fast build rule for target.
-joystick_genpy/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/joystick_genpy.dir/build.make joystick/CMakeFiles/joystick_genpy.dir/build
-.PHONY : joystick_genpy/fast
-
-# Convenience name for target.
-joystick/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
-.PHONY : joystick/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-rosgraph_msgs_generate_messages_nodejs: joystick/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
-
-.PHONY : rosgraph_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_nodejs/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build.make joystick/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build
-.PHONY : rosgraph_msgs_generate_messages_nodejs/fast
-
-# Convenience name for target.
-joystick/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
-.PHONY : joystick/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-rosgraph_msgs_generate_messages_py: joystick/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
-
-.PHONY : rosgraph_msgs_generate_messages_py
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_py/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make joystick/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build
-.PHONY : rosgraph_msgs_generate_messages_py/fast
-
-# Convenience name for target.
-joystick/CMakeFiles/std_msgs_generate_messages_eus.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
-.PHONY : joystick/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-std_msgs_generate_messages_eus: joystick/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
-
-.PHONY : std_msgs_generate_messages_eus
-
-# fast build rule for target.
-std_msgs_generate_messages_eus/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/std_msgs_generate_messages_eus.dir/build.make joystick/CMakeFiles/std_msgs_generate_messages_eus.dir/build
-.PHONY : std_msgs_generate_messages_eus/fast
-
-# Convenience name for target.
-joystick/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
-.PHONY : joystick/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-std_msgs_generate_messages_nodejs: joystick/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
-
-.PHONY : std_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-std_msgs_generate_messages_nodejs/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build.make joystick/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build
-.PHONY : std_msgs_generate_messages_nodejs/fast
-
-# Convenience name for target.
-joystick/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
-.PHONY : joystick/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-roscpp_generate_messages_nodejs: joystick/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
-
-.PHONY : roscpp_generate_messages_nodejs
-
-# fast build rule for target.
-roscpp_generate_messages_nodejs/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/roscpp_generate_messages_nodejs.dir/build.make joystick/CMakeFiles/roscpp_generate_messages_nodejs.dir/build
-.PHONY : roscpp_generate_messages_nodejs/fast
-
-# Convenience name for target.
-joystick/CMakeFiles/std_msgs_generate_messages_py.dir/rule:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f CMakeFiles/Makefile2 joystick/CMakeFiles/std_msgs_generate_messages_py.dir/rule
-.PHONY : joystick/CMakeFiles/std_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-std_msgs_generate_messages_py: joystick/CMakeFiles/std_msgs_generate_messages_py.dir/rule
-
-.PHONY : std_msgs_generate_messages_py
-
-# fast build rule for target.
-std_msgs_generate_messages_py/fast:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/std_msgs_generate_messages_py.dir/build.make joystick/CMakeFiles/std_msgs_generate_messages_py.dir/build
-.PHONY : std_msgs_generate_messages_py/fast
+joystick_generate_messages_py/fast:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/joystick_generate_messages_py.dir/build.make joystick/CMakeFiles/joystick_generate_messages_py.dir/build
+.PHONY : joystick_generate_messages_py/fast
 
 src/JoystickPublisher.o: src/JoystickPublisher.cpp.o
 
@@ -593,7 +368,7 @@ src/JoystickPublisher.o: src/JoystickPublisher.cpp.o
 
 # target to build an object file
 src/JoystickPublisher.cpp.o:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/joystickPublisher.dir/build.make joystick/CMakeFiles/joystickPublisher.dir/src/JoystickPublisher.cpp.o
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/joystick_publisher.dir/build.make joystick/CMakeFiles/joystick_publisher.dir/src/JoystickPublisher.cpp.o
 .PHONY : src/JoystickPublisher.cpp.o
 
 src/JoystickPublisher.i: src/JoystickPublisher.cpp.i
@@ -602,7 +377,7 @@ src/JoystickPublisher.i: src/JoystickPublisher.cpp.i
 
 # target to preprocess a source file
 src/JoystickPublisher.cpp.i:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/joystickPublisher.dir/build.make joystick/CMakeFiles/joystickPublisher.dir/src/JoystickPublisher.cpp.i
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/joystick_publisher.dir/build.make joystick/CMakeFiles/joystick_publisher.dir/src/JoystickPublisher.cpp.i
 .PHONY : src/JoystickPublisher.cpp.i
 
 src/JoystickPublisher.s: src/JoystickPublisher.cpp.s
@@ -611,7 +386,7 @@ src/JoystickPublisher.s: src/JoystickPublisher.cpp.s
 
 # target to generate assembly for a file
 src/JoystickPublisher.cpp.s:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/joystickPublisher.dir/build.make joystick/CMakeFiles/joystickPublisher.dir/src/JoystickPublisher.cpp.s
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f joystick/CMakeFiles/joystick_publisher.dir/build.make joystick/CMakeFiles/joystick_publisher.dir/src/JoystickPublisher.cpp.s
 .PHONY : src/JoystickPublisher.cpp.s
 
 # Help Target
@@ -622,39 +397,24 @@ help:
 	@echo "... depend"
 	@echo "... install/strip"
 	@echo "... install/local"
-	@echo "... rebuild_cache"
-	@echo "... test"
-	@echo "... joystickPublisher"
-	@echo "... joystick_generate_messages_py"
-	@echo "... joystick_gennodejs"
-	@echo "... joystick_generate_messages_nodejs"
-	@echo "... joystick_genlisp"
-	@echo "... joystick_generate_messages_lisp"
-	@echo "... joystick_geneus"
-	@echo "... _joystick_generate_messages_check_deps_Joystick"
+	@echo "... install"
 	@echo "... list_install_components"
-	@echo "... roscpp_generate_messages_py"
-	@echo "... roscpp_generate_messages_eus"
+	@echo "... joystick_geneus"
+	@echo "... joystick_gencpp"
+	@echo "... rebuild_cache"
+	@echo "... joystick_genlisp"
+	@echo "... joystick_generate_messages_cpp"
+	@echo "... joystick_genpy"
 	@echo "... joystick_generate_messages_eus"
 	@echo "... joystick_generate_messages"
+	@echo "... _joystick_generate_messages_check_deps_joystick"
+	@echo "... joystick_generate_messages_lisp"
+	@echo "... joystick_publisher"
+	@echo "... joystick_generate_messages_nodejs"
+	@echo "... joystick_gennodejs"
+	@echo "... joystick_generate_messages_py"
+	@echo "... test"
 	@echo "... edit_cache"
-	@echo "... roscpp_generate_messages_lisp"
-	@echo "... rosgraph_msgs_generate_messages_cpp"
-	@echo "... joystick_gencpp"
-	@echo "... std_msgs_generate_messages_lisp"
-	@echo "... roscpp_generate_messages_cpp"
-	@echo "... install"
-	@echo "... rosgraph_msgs_generate_messages_eus"
-	@echo "... rosgraph_msgs_generate_messages_lisp"
-	@echo "... joystick_generate_messages_cpp"
-	@echo "... std_msgs_generate_messages_cpp"
-	@echo "... joystick_genpy"
-	@echo "... rosgraph_msgs_generate_messages_nodejs"
-	@echo "... rosgraph_msgs_generate_messages_py"
-	@echo "... std_msgs_generate_messages_eus"
-	@echo "... std_msgs_generate_messages_nodejs"
-	@echo "... roscpp_generate_messages_nodejs"
-	@echo "... std_msgs_generate_messages_py"
 	@echo "... src/JoystickPublisher.o"
 	@echo "... src/JoystickPublisher.i"
 	@echo "... src/JoystickPublisher.s"

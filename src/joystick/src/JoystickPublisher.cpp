@@ -7,7 +7,7 @@
 #include <ros/ros.h>
 #include <ros/console.h>
 #include <joystick/Joystick.h>
-#include "JoystickPublisher.h"
+#include "joystick/JoystickPublisher.h"
 
 #define JS_EVENT_BUTTON 0x01    /* button pressed/released */
 #define JS_EVENT_AXIS   0x02    /* joystick moved */
@@ -21,13 +21,13 @@ struct joystick_event {
 
 int main(int argc, char** argv)
 {
-    ros::init(argc, argv, "JoystickPublisher"); // Name of this Node.
-    ros::NodeHandle nh;
-    ros::Publisher pub = nh.advertise<joystick::Joystick>("/joystick", 10); // Publish Topic /joystick
+    ros::init(argc, argv, "joystick_publisher"); // Name of this Node.
+    ros::NodeHandle nodeHandle;
+    ros::Publisher publisher = nodeHandle.advertise<joystick::Joystick>("/joystick", 10); // Publish Topic /joystick
 
     // Read parameter device
     std::string joystickDevice;
-    nh.param<std::string>("device", joystickDevice, "/dev/input/js0");
+    nodeHandle.param<std::string>("/joystick_publisher/device", joystickDevice, "/dev/input/js0");
 
     int fd = open(joystickDevice.c_str(), O_RDONLY);
     if( fd < 0 ) {
@@ -92,7 +92,7 @@ int main(int argc, char** argv)
             }
 
             if (joystick.event != JS_EVENT_NEUTRAL) {
-                pub.publish(joystick);
+                publisher.publish(joystick);
             }
         }
     }

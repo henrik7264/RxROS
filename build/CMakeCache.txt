@@ -296,6 +296,30 @@ actionlib_DIR:PATH=/opt/ros/melodic/share/actionlib/cmake
 //The directory containing a CMake configuration file for actionlib_msgs.
 actionlib_msgs_DIR:PATH=/opt/ros/melodic/share/actionlib_msgs/cmake
 
+//Value Computed by CMake
+brickpi3_BINARY_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/build/brickpi3
+
+//The directory containing a CMake configuration file for brickpi3.
+brickpi3_DIR:PATH=/home/hl/Src/CLionProjects/RxROS/devel/share/brickpi3/cmake
+
+//Dependencies for the target
+brickpi3_LIB_DEPENDS:STATIC=general;/opt/ros/melodic/lib/libroscpp.so;general;/usr/lib/x86_64-linux-gnu/libboost_filesystem.so;general;/usr/lib/x86_64-linux-gnu/libboost_signals.so;general;/opt/ros/melodic/lib/librosconsole.so;general;/opt/ros/melodic/lib/librosconsole_log4cxx.so;general;/opt/ros/melodic/lib/librosconsole_backend_interface.so;general;/usr/lib/x86_64-linux-gnu/liblog4cxx.so;general;/usr/lib/x86_64-linux-gnu/libboost_regex.so;general;/opt/ros/melodic/lib/libxmlrpcpp.so;general;/opt/ros/melodic/lib/libroscpp_serialization.so;general;/opt/ros/melodic/lib/librostime.so;general;/opt/ros/melodic/lib/libcpp_common.so;general;/usr/lib/x86_64-linux-gnu/libboost_system.so;general;/usr/lib/x86_64-linux-gnu/libboost_thread.so;general;/usr/lib/x86_64-linux-gnu/libboost_chrono.so;general;/usr/lib/x86_64-linux-gnu/libboost_date_time.so;general;/usr/lib/x86_64-linux-gnu/libboost_atomic.so;general;/usr/lib/x86_64-linux-gnu/libpthread.so;general;/usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4;
+
+//Value Computed by CMake
+brickpi3_SOURCE_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/src/brickpi3
+
+//Value Computed by CMake
+brickpi3_ros_BINARY_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/build/brickpi3_ros
+
+//Value Computed by CMake
+brickpi3_ros_SOURCE_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/src/brickpi3_ros
+
+//Value Computed by CMake
+brikpi3_BINARY_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/build/brickpi3
+
+//Value Computed by CMake
+brikpi3_SOURCE_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/src/brickpi3
+
 //The directory containing a CMake configuration file for catkin.
 catkin_DIR:PATH=/opt/ros/melodic/share/catkin/cmake
 
@@ -628,7 +652,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=9
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=11
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

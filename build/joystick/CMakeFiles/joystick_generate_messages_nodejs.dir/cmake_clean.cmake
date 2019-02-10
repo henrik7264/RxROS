@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/joystick_generate_messages_nodejs"
-  "/home/hl/Src/CLionProjects/RxROS/devel/share/gennodejs/ros/joystick/msg/Joystick.js"
+  "/home/hl/Src/CLionProjects/RxROS/devel/share/gennodejs/ros/joystick/msg/joystick.js"
 )
 
 # Per-language clean rules from dependency scanning.
