@@ -1,6 +1,6 @@
 // Auto-generated. Do not edit!
 
-// (in-package keyboard.msg)
+// (in-package Keyboard.msg)
 
 
 "use strict";

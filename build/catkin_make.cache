@@ -1,2 +1,2 @@
-brickpi3:brickpi3_ros:joystick:keyboard:learning_nxt:lxf2urdf:ros_robot:ros_robot_tf:rxros_lang:teleop
+brickpi3:brickpi3_ros:learning_nxt:lxf2urdf:ros_robot:ros_robot_tf:rxros_lang:teleop
 -DCATKIN_DEVEL_PREFIX=/home/hl/Src/CLionProjects/RxROS/devel -DCMAKE_INSTALL_PREFIX=/home/hl/Src/CLionProjects/RxROS/install -G Unix Makefiles

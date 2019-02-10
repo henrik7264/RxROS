@@ -1,8 +1,8 @@
 
 "use strict";
 
-let keyboard = require('./keyboard.js');
+let Keyboard = require('./Keyboard.js');
 
 module.exports = {
-  keyboard: keyboard,
+  Keyboard: Keyboard,
 };

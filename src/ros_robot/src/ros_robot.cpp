@@ -2,8 +2,8 @@
 #include <string>
 #include <ros/ros.h>
 #include <ros/console.h>
-#include <joystick/JoystickPublisher.h>
-#include <joystick/Joystick.h>
+#include <teleop/JoystickPublisher.h>
+#include <teleop/Joystick.h>
 #include <nxt_msgs/JointCommand.h>
 #include <nxt_msgs/Contact.h>
 #include <nxt_msgs/Color.h>
@@ -37,7 +37,7 @@ private:
     int effortMotor1 = ZERO_EFFORT;
     int effortMotor2 = ZERO_EFFORT;
     // Callback functions for ROS topics.
-    void joystickCB(const joystick::Joystick& joy);
+    void joystickCB(const teleop::Joystick& joy);
     void colorCB(const nxt_msgs::Color& col);
     void rangeCB(const nxt_msgs::Range& rng);
     void motorCB(const sensor_msgs::JointState& mot);
@@ -189,7 +189,7 @@ void  RosRobot::odomCB(const nav_msgs::Odometry& odom)
 }
 
 
-void RosRobot::joystickCB(const joystick::Joystick& joy)
+void RosRobot::joystickCB(const teleop::Joystick& joy)
 {
     JoystickEvents event = static_cast<JoystickEvents>(joy.event);
     switch (event) {

@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(brickpi3_ros_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT " " STREQUAL " ")
+if(NOT "/home/hl/Src/CLionProjects/RxROS/devel/include " STREQUAL " ")
   set(brickpi3_ros_INCLUDE_DIRS "")
-  set(_include_dirs "")
+  set(_include_dirs "/home/hl/Src/CLionProjects/RxROS/devel/include")
   if(NOT " " STREQUAL " ")
     set(_report "Check the issue tracker '' and consider creating a ticket if the problem has not been reported yet.")
   elseif(NOT " " STREQUAL " ")
@@ -152,7 +152,7 @@ foreach(library ${libraries})
   endif()
 endforeach()
 
-set(brickpi3_ros_EXPORTED_TARGETS "")
+set(brickpi3_ros_EXPORTED_TARGETS "brickpi3_ros_generate_messages_cpp;brickpi3_ros_generate_messages_eus;brickpi3_ros_generate_messages_lisp;brickpi3_ros_generate_messages_nodejs;brickpi3_ros_generate_messages_py")
 # create dummy targets for exported code generation targets to make life of users easier
 foreach(t ${brickpi3_ros_EXPORTED_TARGETS})
   if(NOT TARGET ${t})
@@ -160,7 +160,7 @@ foreach(t ${brickpi3_ros_EXPORTED_TARGETS})
   endif()
 endforeach()
 
-set(depends "roscpp;rospy;std_msgs;brickpi3")
+set(depends "roscpp;rospy;std_msgs;message_runtime")
 foreach(depend ${depends})
   string(REPLACE " " ";" depend_list ${depend})
   # the package name of the dependency must be kept in a unique variable so that it is not overwritten in recursive calls
@@ -189,7 +189,7 @@ foreach(depend ${depends})
   list(APPEND brickpi3_ros_EXPORTED_TARGETS ${${brickpi3_ros_dep}_EXPORTED_TARGETS})
 endforeach()
 
-set(pkg_cfg_extras "")
+set(pkg_cfg_extras "brickpi3_ros-msg-extras.cmake")
 foreach(extra ${pkg_cfg_extras})
   if(NOT IS_ABSOLUTE ${extra})
     set(extra ${brickpi3_ros_DIR}/${extra})

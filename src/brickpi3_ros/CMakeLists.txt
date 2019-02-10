@@ -10,8 +10,9 @@ project(brickpi3_ros)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
-  brickpi3
   std_msgs
+  message_generation
+  brickpi3
 )
 
 ## System dependencies are found with CMake's conventions
@@ -53,6 +54,9 @@ find_package(catkin REQUIRED COMPONENTS
 #   Message1.msg
 #   Message2.msg
 # )
+add_message_files(FILES
+  JointCommand.msg
+)
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -69,10 +73,9 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs
-# )
+generate_messages(DEPENDENCIES
+  std_msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -106,7 +109,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES brickpi3_ros
-  CATKIN_DEPENDS roscpp rospy std_msgs brickpi3
+  CATKIN_DEPENDS roscpp rospy std_msgs message_runtime
 #  DEPENDS system_lib
 )
 
@@ -119,7 +122,6 @@ catkin_package(
 include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
-  src/brickpi3/include
 )
 
 ## Declare a C++ library
@@ -137,8 +139,8 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/brikpi3_ros_node.cpp)
 add_executable(brickpi3_ros
-  src/BrickPi3Ros.cpp
   src/BrickPi3Motor.cpp
+  src/BrickPi3Ros.cpp
 )
 
 ## Rename C++ executable without prefix
@@ -157,7 +159,6 @@ add_executable(brickpi3_ros
 # )
 target_link_libraries(brickpi3_ros
   ${catkin_LIBRARIES}
-  brickpi3
 )
 
 #############

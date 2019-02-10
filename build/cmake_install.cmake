@@ -123,8 +123,6 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/hl/Src/CLionProjects/RxROS/build/brickpi3/cmake_install.cmake")
   include("/home/hl/Src/CLionProjects/RxROS/build/brickpi3_ros/cmake_install.cmake")
-  include("/home/hl/Src/CLionProjects/RxROS/build/joystick/cmake_install.cmake")
-  include("/home/hl/Src/CLionProjects/RxROS/build/keyboard/cmake_install.cmake")
   include("/home/hl/Src/CLionProjects/RxROS/build/lxf2urdf/cmake_install.cmake")
   include("/home/hl/Src/CLionProjects/RxROS/build/rxros_lang/cmake_install.cmake")
   include("/home/hl/Src/CLionProjects/RxROS/build/teleop/cmake_install.cmake")

@@ -21,8 +21,8 @@
         <param name="vel_to_eff" type="double" value="1.0" /> <!-- used by nxt_base_controller to determine the effect of the motors -->
     </group>
 
-    <node pkg="joystick" name="joystick_publisher" type="joystick_publisher" output="screen" respawn="false"/>
-    <node pkg="keyboard" name="keyboard_publisher" type="keyboard_publisher" output="screen" respawn="false"/>
+    <node pkg="teleop" name="joystick_publisher" type="joystick_publisher" output="screen" respawn="false"/>
+    <node pkg="teleop" name="keyboard_publisher" type="keyboard_publisher" output="screen" respawn="false"/>
 
     <!-- Start keyboard node. Will provide teleop via the keyboard. -->
     <!-- Publish topic: Twist:/cmd_vel -->

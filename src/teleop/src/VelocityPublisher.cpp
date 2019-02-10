@@ -8,10 +8,10 @@
 #include <boost/bind.hpp>
 #include <ros/ros.h>
 #include <ros/console.h>
-#include <joystick/JoystickPublisher.h>
-#include <joystick/Joystick.h>
-#include <keyboard/KeyboardPublisher.h>
-#include <keyboard/Keyboard.h>
+#include <teleop/JoystickPublisher.h>
+#include <teleop/Joystick.h>
+#include <teleop/KeyboardPublisher.h>
+#include <teleop/Keyboard.h>
 #include <geometry_msgs/Twist.h>
 
 
@@ -34,8 +34,8 @@ private:
 
     // Callback functions for ROS topics.
     void schedulerCB();
-    void joystickCB(const joystick::Joystick& joy);
-    void keyboardCB(const keyboard::Keyboard& key);
+    void joystickCB(const teleop::Joystick& joy);
+    void keyboardCB(const teleop::Keyboard& key);
 
 public:
     VelocityPublisher(int argc, char** argv);
@@ -77,7 +77,7 @@ void VelocityPublisher::schedulerCB()
 }
 
 
-void VelocityPublisher::joystickCB(const joystick::Joystick& joy)
+void VelocityPublisher::joystickCB(const teleop::Joystick& joy)
 {
     JoystickEvents event = static_cast<JoystickEvents>(joy.event);
     switch (event) {
@@ -131,7 +131,7 @@ void VelocityPublisher::joystickCB(const joystick::Joystick& joy)
 }
 
 
-void VelocityPublisher::keyboardCB(const keyboard::Keyboard& key)
+void VelocityPublisher::keyboardCB(const teleop::Keyboard& key)
 {
     KeyboardEvents event = static_cast<KeyboardEvents>(key.event);
     switch (event) {

@@ -1,6 +1,6 @@
 // Auto-generated. Do not edit!
 
-// (in-package joystick.msg)
+// (in-package Joystick.msg)
 
 
 "use strict";
