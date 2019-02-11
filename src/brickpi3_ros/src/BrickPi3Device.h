@@ -5,8 +5,9 @@
 #ifndef BRICKPI3_ROS_BRICKPI3DEVICE_H
 #define BRICKPI3_ROS_BRICKPI3DEVICE_H
 
-#include <brickpi3/BrickPi3.h>
 #include <mutex>
+#include "BrickPi3.h"
+
 
 class BrickPi3Device
 {

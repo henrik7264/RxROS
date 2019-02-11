@@ -7,7 +7,6 @@
 #include <ros/ros.h>
 #include <sensor_msgs/JointState.h>
 #include <brickpi3_ros/JointCommand.h>
-#include <brickpi3/BrickPi3.h>
 #include "BrickPi3Device.h"
 #include "BrickPi3Motor.h"
 using namespace std;

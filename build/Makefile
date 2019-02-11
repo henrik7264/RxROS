@@ -233,277 +233,30 @@ doxygen/fast:
 .PHONY : doxygen/fast
 
 #=============================================================================
-# Target rules for targets named roscpp_generate_messages_py
+# Target rules for targets named brickpi3_ros_genpy
 
 # Build rule for target.
-roscpp_generate_messages_py: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 roscpp_generate_messages_py
-.PHONY : roscpp_generate_messages_py
+brickpi3_ros_genpy: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 brickpi3_ros_genpy
+.PHONY : brickpi3_ros_genpy
 
 # fast build rule for target.
-roscpp_generate_messages_py/fast:
-	$(MAKE) -f brickpi3/CMakeFiles/roscpp_generate_messages_py.dir/build.make brickpi3/CMakeFiles/roscpp_generate_messages_py.dir/build
-.PHONY : roscpp_generate_messages_py/fast
+brickpi3_ros_genpy/fast:
+	$(MAKE) -f brickpi3_ros/CMakeFiles/brickpi3_ros_genpy.dir/build.make brickpi3_ros/CMakeFiles/brickpi3_ros_genpy.dir/build
+.PHONY : brickpi3_ros_genpy/fast
 
 #=============================================================================
-# Target rules for targets named roscpp_generate_messages_eus
+# Target rules for targets named brickpi3_ros_gennodejs
 
 # Build rule for target.
-roscpp_generate_messages_eus: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 roscpp_generate_messages_eus
-.PHONY : roscpp_generate_messages_eus
+brickpi3_ros_gennodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 brickpi3_ros_gennodejs
+.PHONY : brickpi3_ros_gennodejs
 
 # fast build rule for target.
-roscpp_generate_messages_eus/fast:
-	$(MAKE) -f brickpi3/CMakeFiles/roscpp_generate_messages_eus.dir/build.make brickpi3/CMakeFiles/roscpp_generate_messages_eus.dir/build
-.PHONY : roscpp_generate_messages_eus/fast
-
-#=============================================================================
-# Target rules for targets named roscpp_generate_messages_lisp
-
-# Build rule for target.
-roscpp_generate_messages_lisp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 roscpp_generate_messages_lisp
-.PHONY : roscpp_generate_messages_lisp
-
-# fast build rule for target.
-roscpp_generate_messages_lisp/fast:
-	$(MAKE) -f brickpi3/CMakeFiles/roscpp_generate_messages_lisp.dir/build.make brickpi3/CMakeFiles/roscpp_generate_messages_lisp.dir/build
-.PHONY : roscpp_generate_messages_lisp/fast
-
-#=============================================================================
-# Target rules for targets named rosgraph_msgs_generate_messages_cpp
-
-# Build rule for target.
-rosgraph_msgs_generate_messages_cpp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 rosgraph_msgs_generate_messages_cpp
-.PHONY : rosgraph_msgs_generate_messages_cpp
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_cpp/fast:
-	$(MAKE) -f brickpi3/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make brickpi3/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build
-.PHONY : rosgraph_msgs_generate_messages_cpp/fast
-
-#=============================================================================
-# Target rules for targets named std_msgs_generate_messages_lisp
-
-# Build rule for target.
-std_msgs_generate_messages_lisp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_lisp
-.PHONY : std_msgs_generate_messages_lisp
-
-# fast build rule for target.
-std_msgs_generate_messages_lisp/fast:
-	$(MAKE) -f brickpi3/CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make brickpi3/CMakeFiles/std_msgs_generate_messages_lisp.dir/build
-.PHONY : std_msgs_generate_messages_lisp/fast
-
-#=============================================================================
-# Target rules for targets named roscpp_generate_messages_cpp
-
-# Build rule for target.
-roscpp_generate_messages_cpp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 roscpp_generate_messages_cpp
-.PHONY : roscpp_generate_messages_cpp
-
-# fast build rule for target.
-roscpp_generate_messages_cpp/fast:
-	$(MAKE) -f brickpi3/CMakeFiles/roscpp_generate_messages_cpp.dir/build.make brickpi3/CMakeFiles/roscpp_generate_messages_cpp.dir/build
-.PHONY : roscpp_generate_messages_cpp/fast
-
-#=============================================================================
-# Target rules for targets named rosgraph_msgs_generate_messages_eus
-
-# Build rule for target.
-rosgraph_msgs_generate_messages_eus: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 rosgraph_msgs_generate_messages_eus
-.PHONY : rosgraph_msgs_generate_messages_eus
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_eus/fast:
-	$(MAKE) -f brickpi3/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make brickpi3/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build
-.PHONY : rosgraph_msgs_generate_messages_eus/fast
-
-#=============================================================================
-# Target rules for targets named rosgraph_msgs_generate_messages_lisp
-
-# Build rule for target.
-rosgraph_msgs_generate_messages_lisp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 rosgraph_msgs_generate_messages_lisp
-.PHONY : rosgraph_msgs_generate_messages_lisp
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_lisp/fast:
-	$(MAKE) -f brickpi3/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make brickpi3/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build
-.PHONY : rosgraph_msgs_generate_messages_lisp/fast
-
-#=============================================================================
-# Target rules for targets named brickpi3
-
-# Build rule for target.
-brickpi3: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 brickpi3
-.PHONY : brickpi3
-
-# fast build rule for target.
-brickpi3/fast:
-	$(MAKE) -f brickpi3/CMakeFiles/brickpi3.dir/build.make brickpi3/CMakeFiles/brickpi3.dir/build
-.PHONY : brickpi3/fast
-
-#=============================================================================
-# Target rules for targets named std_msgs_generate_messages_cpp
-
-# Build rule for target.
-std_msgs_generate_messages_cpp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_cpp
-.PHONY : std_msgs_generate_messages_cpp
-
-# fast build rule for target.
-std_msgs_generate_messages_cpp/fast:
-	$(MAKE) -f brickpi3/CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make brickpi3/CMakeFiles/std_msgs_generate_messages_cpp.dir/build
-.PHONY : std_msgs_generate_messages_cpp/fast
-
-#=============================================================================
-# Target rules for targets named rosgraph_msgs_generate_messages_nodejs
-
-# Build rule for target.
-rosgraph_msgs_generate_messages_nodejs: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 rosgraph_msgs_generate_messages_nodejs
-.PHONY : rosgraph_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_nodejs/fast:
-	$(MAKE) -f brickpi3/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build.make brickpi3/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build
-.PHONY : rosgraph_msgs_generate_messages_nodejs/fast
-
-#=============================================================================
-# Target rules for targets named rosgraph_msgs_generate_messages_py
-
-# Build rule for target.
-rosgraph_msgs_generate_messages_py: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 rosgraph_msgs_generate_messages_py
-.PHONY : rosgraph_msgs_generate_messages_py
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_py/fast:
-	$(MAKE) -f brickpi3/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make brickpi3/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build
-.PHONY : rosgraph_msgs_generate_messages_py/fast
-
-#=============================================================================
-# Target rules for targets named std_msgs_generate_messages_eus
-
-# Build rule for target.
-std_msgs_generate_messages_eus: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_eus
-.PHONY : std_msgs_generate_messages_eus
-
-# fast build rule for target.
-std_msgs_generate_messages_eus/fast:
-	$(MAKE) -f brickpi3/CMakeFiles/std_msgs_generate_messages_eus.dir/build.make brickpi3/CMakeFiles/std_msgs_generate_messages_eus.dir/build
-.PHONY : std_msgs_generate_messages_eus/fast
-
-#=============================================================================
-# Target rules for targets named std_msgs_generate_messages_nodejs
-
-# Build rule for target.
-std_msgs_generate_messages_nodejs: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_nodejs
-.PHONY : std_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-std_msgs_generate_messages_nodejs/fast:
-	$(MAKE) -f brickpi3/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build.make brickpi3/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build
-.PHONY : std_msgs_generate_messages_nodejs/fast
-
-#=============================================================================
-# Target rules for targets named roscpp_generate_messages_nodejs
-
-# Build rule for target.
-roscpp_generate_messages_nodejs: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 roscpp_generate_messages_nodejs
-.PHONY : roscpp_generate_messages_nodejs
-
-# fast build rule for target.
-roscpp_generate_messages_nodejs/fast:
-	$(MAKE) -f brickpi3/CMakeFiles/roscpp_generate_messages_nodejs.dir/build.make brickpi3/CMakeFiles/roscpp_generate_messages_nodejs.dir/build
-.PHONY : roscpp_generate_messages_nodejs/fast
-
-#=============================================================================
-# Target rules for targets named std_msgs_generate_messages_py
-
-# Build rule for target.
-std_msgs_generate_messages_py: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_py
-.PHONY : std_msgs_generate_messages_py
-
-# fast build rule for target.
-std_msgs_generate_messages_py/fast:
-	$(MAKE) -f brickpi3/CMakeFiles/std_msgs_generate_messages_py.dir/build.make brickpi3/CMakeFiles/std_msgs_generate_messages_py.dir/build
-.PHONY : std_msgs_generate_messages_py/fast
-
-#=============================================================================
-# Target rules for targets named brickpi3_ros_geneus
-
-# Build rule for target.
-brickpi3_ros_geneus: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 brickpi3_ros_geneus
-.PHONY : brickpi3_ros_geneus
-
-# fast build rule for target.
-brickpi3_ros_geneus/fast:
-	$(MAKE) -f brickpi3_ros/CMakeFiles/brickpi3_ros_geneus.dir/build.make brickpi3_ros/CMakeFiles/brickpi3_ros_geneus.dir/build
-.PHONY : brickpi3_ros_geneus/fast
-
-#=============================================================================
-# Target rules for targets named brickpi3_ros_generate_messages
-
-# Build rule for target.
-brickpi3_ros_generate_messages: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 brickpi3_ros_generate_messages
-.PHONY : brickpi3_ros_generate_messages
-
-# fast build rule for target.
-brickpi3_ros_generate_messages/fast:
-	$(MAKE) -f brickpi3_ros/CMakeFiles/brickpi3_ros_generate_messages.dir/build.make brickpi3_ros/CMakeFiles/brickpi3_ros_generate_messages.dir/build
-.PHONY : brickpi3_ros_generate_messages/fast
-
-#=============================================================================
-# Target rules for targets named brickpi3_ros_generate_messages_eus
-
-# Build rule for target.
-brickpi3_ros_generate_messages_eus: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 brickpi3_ros_generate_messages_eus
-.PHONY : brickpi3_ros_generate_messages_eus
-
-# fast build rule for target.
-brickpi3_ros_generate_messages_eus/fast:
-	$(MAKE) -f brickpi3_ros/CMakeFiles/brickpi3_ros_generate_messages_eus.dir/build.make brickpi3_ros/CMakeFiles/brickpi3_ros_generate_messages_eus.dir/build
-.PHONY : brickpi3_ros_generate_messages_eus/fast
-
-#=============================================================================
-# Target rules for targets named brickpi3_ros_generate_messages_cpp
-
-# Build rule for target.
-brickpi3_ros_generate_messages_cpp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 brickpi3_ros_generate_messages_cpp
-.PHONY : brickpi3_ros_generate_messages_cpp
-
-# fast build rule for target.
-brickpi3_ros_generate_messages_cpp/fast:
-	$(MAKE) -f brickpi3_ros/CMakeFiles/brickpi3_ros_generate_messages_cpp.dir/build.make brickpi3_ros/CMakeFiles/brickpi3_ros_generate_messages_cpp.dir/build
-.PHONY : brickpi3_ros_generate_messages_cpp/fast
-
-#=============================================================================
-# Target rules for targets named brickpi3_ros_genlisp
-
-# Build rule for target.
-brickpi3_ros_genlisp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 brickpi3_ros_genlisp
-.PHONY : brickpi3_ros_genlisp
-
-# fast build rule for target.
-brickpi3_ros_genlisp/fast:
-	$(MAKE) -f brickpi3_ros/CMakeFiles/brickpi3_ros_genlisp.dir/build.make brickpi3_ros/CMakeFiles/brickpi3_ros_genlisp.dir/build
-.PHONY : brickpi3_ros_genlisp/fast
+brickpi3_ros_gennodejs/fast:
+	$(MAKE) -f brickpi3_ros/CMakeFiles/brickpi3_ros_gennodejs.dir/build.make brickpi3_ros/CMakeFiles/brickpi3_ros_gennodejs.dir/build
+.PHONY : brickpi3_ros_gennodejs/fast
 
 #=============================================================================
 # Target rules for targets named brickpi3_ros_generate_messages_nodejs
@@ -519,6 +272,45 @@ brickpi3_ros_generate_messages_nodejs/fast:
 .PHONY : brickpi3_ros_generate_messages_nodejs/fast
 
 #=============================================================================
+# Target rules for targets named brickpi3_ros_genlisp
+
+# Build rule for target.
+brickpi3_ros_genlisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 brickpi3_ros_genlisp
+.PHONY : brickpi3_ros_genlisp
+
+# fast build rule for target.
+brickpi3_ros_genlisp/fast:
+	$(MAKE) -f brickpi3_ros/CMakeFiles/brickpi3_ros_genlisp.dir/build.make brickpi3_ros/CMakeFiles/brickpi3_ros_genlisp.dir/build
+.PHONY : brickpi3_ros_genlisp/fast
+
+#=============================================================================
+# Target rules for targets named brickpi3_ros_geneus
+
+# Build rule for target.
+brickpi3_ros_geneus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 brickpi3_ros_geneus
+.PHONY : brickpi3_ros_geneus
+
+# fast build rule for target.
+brickpi3_ros_geneus/fast:
+	$(MAKE) -f brickpi3_ros/CMakeFiles/brickpi3_ros_geneus.dir/build.make brickpi3_ros/CMakeFiles/brickpi3_ros_geneus.dir/build
+.PHONY : brickpi3_ros_geneus/fast
+
+#=============================================================================
+# Target rules for targets named brickpi3_ros_generate_messages_eus
+
+# Build rule for target.
+brickpi3_ros_generate_messages_eus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 brickpi3_ros_generate_messages_eus
+.PHONY : brickpi3_ros_generate_messages_eus
+
+# fast build rule for target.
+brickpi3_ros_generate_messages_eus/fast:
+	$(MAKE) -f brickpi3_ros/CMakeFiles/brickpi3_ros_generate_messages_eus.dir/build.make brickpi3_ros/CMakeFiles/brickpi3_ros_generate_messages_eus.dir/build
+.PHONY : brickpi3_ros_generate_messages_eus/fast
+
+#=============================================================================
 # Target rules for targets named _brickpi3_ros_generate_messages_check_deps_JointCommand
 
 # Build rule for target.
@@ -532,17 +324,108 @@ _brickpi3_ros_generate_messages_check_deps_JointCommand/fast:
 .PHONY : _brickpi3_ros_generate_messages_check_deps_JointCommand/fast
 
 #=============================================================================
-# Target rules for targets named brickpi3_ros_gencpp
+# Target rules for targets named roscpp_generate_messages_py
 
 # Build rule for target.
-brickpi3_ros_gencpp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 brickpi3_ros_gencpp
-.PHONY : brickpi3_ros_gencpp
+roscpp_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 roscpp_generate_messages_py
+.PHONY : roscpp_generate_messages_py
 
 # fast build rule for target.
-brickpi3_ros_gencpp/fast:
-	$(MAKE) -f brickpi3_ros/CMakeFiles/brickpi3_ros_gencpp.dir/build.make brickpi3_ros/CMakeFiles/brickpi3_ros_gencpp.dir/build
-.PHONY : brickpi3_ros_gencpp/fast
+roscpp_generate_messages_py/fast:
+	$(MAKE) -f brickpi3_ros/CMakeFiles/roscpp_generate_messages_py.dir/build.make brickpi3_ros/CMakeFiles/roscpp_generate_messages_py.dir/build
+.PHONY : roscpp_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named roscpp_generate_messages_eus
+
+# Build rule for target.
+roscpp_generate_messages_eus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 roscpp_generate_messages_eus
+.PHONY : roscpp_generate_messages_eus
+
+# fast build rule for target.
+roscpp_generate_messages_eus/fast:
+	$(MAKE) -f brickpi3_ros/CMakeFiles/roscpp_generate_messages_eus.dir/build.make brickpi3_ros/CMakeFiles/roscpp_generate_messages_eus.dir/build
+.PHONY : roscpp_generate_messages_eus/fast
+
+#=============================================================================
+# Target rules for targets named brickpi3_ros_generate_messages_cpp
+
+# Build rule for target.
+brickpi3_ros_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 brickpi3_ros_generate_messages_cpp
+.PHONY : brickpi3_ros_generate_messages_cpp
+
+# fast build rule for target.
+brickpi3_ros_generate_messages_cpp/fast:
+	$(MAKE) -f brickpi3_ros/CMakeFiles/brickpi3_ros_generate_messages_cpp.dir/build.make brickpi3_ros/CMakeFiles/brickpi3_ros_generate_messages_cpp.dir/build
+.PHONY : brickpi3_ros_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named roscpp_generate_messages_lisp
+
+# Build rule for target.
+roscpp_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 roscpp_generate_messages_lisp
+.PHONY : roscpp_generate_messages_lisp
+
+# fast build rule for target.
+roscpp_generate_messages_lisp/fast:
+	$(MAKE) -f brickpi3_ros/CMakeFiles/roscpp_generate_messages_lisp.dir/build.make brickpi3_ros/CMakeFiles/roscpp_generate_messages_lisp.dir/build
+.PHONY : roscpp_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named rosgraph_msgs_generate_messages_cpp
+
+# Build rule for target.
+rosgraph_msgs_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 rosgraph_msgs_generate_messages_cpp
+.PHONY : rosgraph_msgs_generate_messages_cpp
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_cpp/fast:
+	$(MAKE) -f brickpi3_ros/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make brickpi3_ros/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build
+.PHONY : rosgraph_msgs_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named std_msgs_generate_messages_lisp
+
+# Build rule for target.
+std_msgs_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_lisp
+.PHONY : std_msgs_generate_messages_lisp
+
+# fast build rule for target.
+std_msgs_generate_messages_lisp/fast:
+	$(MAKE) -f brickpi3_ros/CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make brickpi3_ros/CMakeFiles/std_msgs_generate_messages_lisp.dir/build
+.PHONY : std_msgs_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named roscpp_generate_messages_cpp
+
+# Build rule for target.
+roscpp_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 roscpp_generate_messages_cpp
+.PHONY : roscpp_generate_messages_cpp
+
+# fast build rule for target.
+roscpp_generate_messages_cpp/fast:
+	$(MAKE) -f brickpi3_ros/CMakeFiles/roscpp_generate_messages_cpp.dir/build.make brickpi3_ros/CMakeFiles/roscpp_generate_messages_cpp.dir/build
+.PHONY : roscpp_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named rosgraph_msgs_generate_messages_eus
+
+# Build rule for target.
+rosgraph_msgs_generate_messages_eus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 rosgraph_msgs_generate_messages_eus
+.PHONY : rosgraph_msgs_generate_messages_eus
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_eus/fast:
+	$(MAKE) -f brickpi3_ros/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make brickpi3_ros/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build
+.PHONY : rosgraph_msgs_generate_messages_eus/fast
 
 #=============================================================================
 # Target rules for targets named brickpi3_ros_generate_messages_py
@@ -571,30 +454,43 @@ brickpi3_ros_generate_messages_lisp/fast:
 .PHONY : brickpi3_ros_generate_messages_lisp/fast
 
 #=============================================================================
-# Target rules for targets named brickpi3_ros_gennodejs
+# Target rules for targets named brickpi3_ros_gencpp
 
 # Build rule for target.
-brickpi3_ros_gennodejs: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 brickpi3_ros_gennodejs
-.PHONY : brickpi3_ros_gennodejs
+brickpi3_ros_gencpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 brickpi3_ros_gencpp
+.PHONY : brickpi3_ros_gencpp
 
 # fast build rule for target.
-brickpi3_ros_gennodejs/fast:
-	$(MAKE) -f brickpi3_ros/CMakeFiles/brickpi3_ros_gennodejs.dir/build.make brickpi3_ros/CMakeFiles/brickpi3_ros_gennodejs.dir/build
-.PHONY : brickpi3_ros_gennodejs/fast
+brickpi3_ros_gencpp/fast:
+	$(MAKE) -f brickpi3_ros/CMakeFiles/brickpi3_ros_gencpp.dir/build.make brickpi3_ros/CMakeFiles/brickpi3_ros_gencpp.dir/build
+.PHONY : brickpi3_ros_gencpp/fast
 
 #=============================================================================
-# Target rules for targets named brickpi3_ros_genpy
+# Target rules for targets named rosgraph_msgs_generate_messages_lisp
 
 # Build rule for target.
-brickpi3_ros_genpy: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 brickpi3_ros_genpy
-.PHONY : brickpi3_ros_genpy
+rosgraph_msgs_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 rosgraph_msgs_generate_messages_lisp
+.PHONY : rosgraph_msgs_generate_messages_lisp
 
 # fast build rule for target.
-brickpi3_ros_genpy/fast:
-	$(MAKE) -f brickpi3_ros/CMakeFiles/brickpi3_ros_genpy.dir/build.make brickpi3_ros/CMakeFiles/brickpi3_ros_genpy.dir/build
-.PHONY : brickpi3_ros_genpy/fast
+rosgraph_msgs_generate_messages_lisp/fast:
+	$(MAKE) -f brickpi3_ros/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make brickpi3_ros/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build
+.PHONY : rosgraph_msgs_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named brickpi3_ros_generate_messages
+
+# Build rule for target.
+brickpi3_ros_generate_messages: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 brickpi3_ros_generate_messages
+.PHONY : brickpi3_ros_generate_messages
+
+# fast build rule for target.
+brickpi3_ros_generate_messages/fast:
+	$(MAKE) -f brickpi3_ros/CMakeFiles/brickpi3_ros_generate_messages.dir/build.make brickpi3_ros/CMakeFiles/brickpi3_ros_generate_messages.dir/build
+.PHONY : brickpi3_ros_generate_messages/fast
 
 #=============================================================================
 # Target rules for targets named brickpi3_ros
@@ -608,6 +504,97 @@ brickpi3_ros: cmake_check_build_system
 brickpi3_ros/fast:
 	$(MAKE) -f brickpi3_ros/CMakeFiles/brickpi3_ros.dir/build.make brickpi3_ros/CMakeFiles/brickpi3_ros.dir/build
 .PHONY : brickpi3_ros/fast
+
+#=============================================================================
+# Target rules for targets named std_msgs_generate_messages_cpp
+
+# Build rule for target.
+std_msgs_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_cpp
+.PHONY : std_msgs_generate_messages_cpp
+
+# fast build rule for target.
+std_msgs_generate_messages_cpp/fast:
+	$(MAKE) -f brickpi3_ros/CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make brickpi3_ros/CMakeFiles/std_msgs_generate_messages_cpp.dir/build
+.PHONY : std_msgs_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named rosgraph_msgs_generate_messages_nodejs
+
+# Build rule for target.
+rosgraph_msgs_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 rosgraph_msgs_generate_messages_nodejs
+.PHONY : rosgraph_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_nodejs/fast:
+	$(MAKE) -f brickpi3_ros/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build.make brickpi3_ros/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build
+.PHONY : rosgraph_msgs_generate_messages_nodejs/fast
+
+#=============================================================================
+# Target rules for targets named rosgraph_msgs_generate_messages_py
+
+# Build rule for target.
+rosgraph_msgs_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 rosgraph_msgs_generate_messages_py
+.PHONY : rosgraph_msgs_generate_messages_py
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_py/fast:
+	$(MAKE) -f brickpi3_ros/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make brickpi3_ros/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build
+.PHONY : rosgraph_msgs_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named std_msgs_generate_messages_eus
+
+# Build rule for target.
+std_msgs_generate_messages_eus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_eus
+.PHONY : std_msgs_generate_messages_eus
+
+# fast build rule for target.
+std_msgs_generate_messages_eus/fast:
+	$(MAKE) -f brickpi3_ros/CMakeFiles/std_msgs_generate_messages_eus.dir/build.make brickpi3_ros/CMakeFiles/std_msgs_generate_messages_eus.dir/build
+.PHONY : std_msgs_generate_messages_eus/fast
+
+#=============================================================================
+# Target rules for targets named std_msgs_generate_messages_nodejs
+
+# Build rule for target.
+std_msgs_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_nodejs
+.PHONY : std_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+std_msgs_generate_messages_nodejs/fast:
+	$(MAKE) -f brickpi3_ros/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build.make brickpi3_ros/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build
+.PHONY : std_msgs_generate_messages_nodejs/fast
+
+#=============================================================================
+# Target rules for targets named roscpp_generate_messages_nodejs
+
+# Build rule for target.
+roscpp_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 roscpp_generate_messages_nodejs
+.PHONY : roscpp_generate_messages_nodejs
+
+# fast build rule for target.
+roscpp_generate_messages_nodejs/fast:
+	$(MAKE) -f brickpi3_ros/CMakeFiles/roscpp_generate_messages_nodejs.dir/build.make brickpi3_ros/CMakeFiles/roscpp_generate_messages_nodejs.dir/build
+.PHONY : roscpp_generate_messages_nodejs/fast
+
+#=============================================================================
+# Target rules for targets named std_msgs_generate_messages_py
+
+# Build rule for target.
+std_msgs_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_py
+.PHONY : std_msgs_generate_messages_py
+
+# fast build rule for target.
+std_msgs_generate_messages_py/fast:
+	$(MAKE) -f brickpi3_ros/CMakeFiles/std_msgs_generate_messages_py.dir/build.make brickpi3_ros/CMakeFiles/std_msgs_generate_messages_py.dir/build
+.PHONY : std_msgs_generate_messages_py/fast
 
 #=============================================================================
 # Target rules for targets named rxros_lang_examples
@@ -1576,15 +1563,27 @@ help:
 	@echo "... doxygen"
 	@echo "... install/local"
 	@echo "... test"
+	@echo "... brickpi3_ros_genpy"
+	@echo "... brickpi3_ros_gennodejs"
+	@echo "... brickpi3_ros_generate_messages_nodejs"
+	@echo "... brickpi3_ros_genlisp"
+	@echo "... brickpi3_ros_geneus"
+	@echo "... brickpi3_ros_generate_messages_eus"
+	@echo "... _brickpi3_ros_generate_messages_check_deps_JointCommand"
 	@echo "... roscpp_generate_messages_py"
 	@echo "... roscpp_generate_messages_eus"
+	@echo "... brickpi3_ros_generate_messages_cpp"
 	@echo "... roscpp_generate_messages_lisp"
 	@echo "... rosgraph_msgs_generate_messages_cpp"
 	@echo "... std_msgs_generate_messages_lisp"
 	@echo "... roscpp_generate_messages_cpp"
 	@echo "... rosgraph_msgs_generate_messages_eus"
+	@echo "... brickpi3_ros_generate_messages_py"
+	@echo "... brickpi3_ros_generate_messages_lisp"
+	@echo "... brickpi3_ros_gencpp"
 	@echo "... rosgraph_msgs_generate_messages_lisp"
-	@echo "... brickpi3"
+	@echo "... brickpi3_ros_generate_messages"
+	@echo "... brickpi3_ros"
 	@echo "... std_msgs_generate_messages_cpp"
 	@echo "... rosgraph_msgs_generate_messages_nodejs"
 	@echo "... rosgraph_msgs_generate_messages_py"
@@ -1592,19 +1591,6 @@ help:
 	@echo "... std_msgs_generate_messages_nodejs"
 	@echo "... roscpp_generate_messages_nodejs"
 	@echo "... std_msgs_generate_messages_py"
-	@echo "... brickpi3_ros_geneus"
-	@echo "... brickpi3_ros_generate_messages"
-	@echo "... brickpi3_ros_generate_messages_eus"
-	@echo "... brickpi3_ros_generate_messages_cpp"
-	@echo "... brickpi3_ros_genlisp"
-	@echo "... brickpi3_ros_generate_messages_nodejs"
-	@echo "... _brickpi3_ros_generate_messages_check_deps_JointCommand"
-	@echo "... brickpi3_ros_gencpp"
-	@echo "... brickpi3_ros_generate_messages_py"
-	@echo "... brickpi3_ros_generate_messages_lisp"
-	@echo "... brickpi3_ros_gennodejs"
-	@echo "... brickpi3_ros_genpy"
-	@echo "... brickpi3_ros"
 	@echo "... rxros_lang_examples"
 	@echo "... teleop_generate_messages_eus"
 	@echo "... teleop_genlisp"

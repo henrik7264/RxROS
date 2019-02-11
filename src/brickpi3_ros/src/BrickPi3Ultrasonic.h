@@ -8,6 +8,7 @@
 #include <string>
 #include "BrickPi3Device.h"
 
+
 class BrickPi3Ultrasonic: public BrickPi3Device
 {
 private:

@@ -9,7 +9,7 @@
  *  C++ drivers for the BrickPi3
  */
 
-#include "brickpi3/BrickPi3.h"
+#include "BrickPi3.h"
 
 BrickPi3::BrickPi3(uint8_t addr){
   if(spi_file_handle < 0){
