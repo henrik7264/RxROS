@@ -140,6 +140,8 @@ include_directories(
 add_executable(brickpi3_ros
   src/BrickPi3.cpp
   src/BrickPi3Motor.cpp
+  src/BrickPi3Ultrasonic.cpp
+  src/BrickPi3Color.cpp
   src/BrickPi3Ros.cpp
 )
 

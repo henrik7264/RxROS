@@ -9,7 +9,7 @@
 #include <ros/ros.h>
 #include <ros/console.h>
 #include <teleop/Keyboard.h>
-#include "teleop/KeyboardPublisher.h"
+#include "KeyboardPublisher.h"
 
 int main(int argc, char** argv)
 {

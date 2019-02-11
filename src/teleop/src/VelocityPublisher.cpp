@@ -8,11 +8,11 @@
 #include <boost/bind.hpp>
 #include <ros/ros.h>
 #include <ros/console.h>
-#include <teleop/JoystickPublisher.h>
 #include <teleop/Joystick.h>
-#include <teleop/KeyboardPublisher.h>
 #include <teleop/Keyboard.h>
 #include <geometry_msgs/Twist.h>
+#include "JoystickPublisher.h"
+#include "KeyboardPublisher.h"
 
 
 class VelocityPublisher {

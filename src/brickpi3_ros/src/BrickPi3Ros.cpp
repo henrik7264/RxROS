@@ -9,8 +9,8 @@
 #include <ros/ros.h>
 #include <ros/console.h>
 #include "BrickPi3Motor.h"
-//#include "BrickPi3Ultrasonic.h"
-//#include "BrickPi3Color.h"
+#include "BrickPi3Ultrasonic.h"
+#include "BrickPi3Color.h"
 using namespace std;
 
 
@@ -53,8 +53,8 @@ BrickPi3Ros::BrickPi3Ros(int argc, char** argv):
             double max_range = brickpi3_device["max_range"];
             double spread_angle = brickpi3_device["spread_angle"];
 
-//            BrickPi3Ultrasonic* ultrasonic = new BrickPi3Ultrasonic(name, frame_id, port, freq, min_range, max_range, spread_angle); //todo: Needs better resource handling.
-//            scheduler.every(std::chrono::milliseconds(static_cast<int >(1000.0/freq)), boost::bind(&BrickPi3Ultrasonic::schedulerCB, ultrasonic));
+            BrickPi3Ultrasonic* ultrasonic = new BrickPi3Ultrasonic(name, frame_id, port, freq, min_range, max_range, spread_angle); //todo: Needs better resource handling.
+            scheduler.every(std::chrono::milliseconds(static_cast<int >(1000.0/freq)), boost::bind(&BrickPi3Ultrasonic::schedulerCB, ultrasonic));
         }
         else if (type ==  "color")
         {
@@ -63,8 +63,8 @@ BrickPi3Ros::BrickPi3Ros(int argc, char** argv):
             string port = brickpi3_device["port"];
             double freq = brickpi3_device["frequency"];
 
-//            BrickPi3Color* color = new BrickPi3Color(name, frame_id, port, freq); //todo: Needs better resource handling.
-//            scheduler.every(std::chrono::milliseconds(static_cast<int >(1000.0/freq)), boost::bind(&BrickPi3Color::schedulerCB, color));
+            BrickPi3Color* color = new BrickPi3Color(name, frame_id, port, freq); //todo: Needs better resource handling.
+            scheduler.every(std::chrono::milliseconds(static_cast<int >(1000.0/freq)), boost::bind(&BrickPi3Color::schedulerCB, color));
         }
     }
 }

@@ -377,7 +377,7 @@ learning_nxt_BINARY_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/build/learning_n
 learning_nxt_SOURCE_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/src/learning_nxt
 
 //Path to a library.
-lib:FILEPATH=/opt/ros/melodic/lib/libdynamic_reconfigure_config_init_mutex.so
+lib:FILEPATH=/opt/ros/melodic/lib/libxmlrpcpp.so
 
 //Value Computed by CMake
 lxf2urdf_BINARY_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/build/lxf2urdf
@@ -508,8 +508,7 @@ std_msgs_DIR:PATH=/opt/ros/melodic/share/std_msgs/cmake
 //Value Computed by CMake
 teleop_BINARY_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/build/teleop
 
-//The directory containing a CMake configuration file for teleop.
-teleop_DIR:PATH=/home/hl/Src/CLionProjects/RxROS/devel/share/teleop/cmake
+teleop_DIR:PATH=
 
 //Value Computed by CMake
 teleop_SOURCE_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/src/teleop

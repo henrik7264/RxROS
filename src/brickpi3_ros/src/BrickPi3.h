@@ -42,13 +42,13 @@
 #define ERROR_FIRMWARE_MISMATCH    -5
 #define ERROR_SENSOR_TYPE_MISMATCH -6
 
-int spi_file_handle = -1;                    // SPI file handle
-struct spi_ioc_transfer spi_xfer_struct;     // SPI transfer struct
-uint8_t spi_array_out[LONGEST_SPI_TRANSFER]; // SPI out array
-uint8_t spi_array_in[LONGEST_SPI_TRANSFER];  // SPI in array
+static int spi_file_handle = -1;                    // SPI file handle
+static struct spi_ioc_transfer spi_xfer_struct;     // SPI transfer struct
+static uint8_t spi_array_out[LONGEST_SPI_TRANSFER]; // SPI out array
+static uint8_t spi_array_in[LONGEST_SPI_TRANSFER];  // SPI in array
 
 // Set up SPI. Open the file, and define the configuration.
-int spi_setup(){
+static int spi_setup(){
   spi_file_handle = open(SPIDEV_FILE_NAME, O_RDWR);
 
   if (spi_file_handle < 0){
@@ -64,7 +64,7 @@ int spi_setup(){
 }
 
 // Transfer length number of bytes. Write from outArray, read to inArray.
-int spi_transfer_array(uint8_t length, uint8_t *outArray, uint8_t *inArray){
+static int spi_transfer_array(uint8_t length, uint8_t *outArray, uint8_t *inArray){
   spi_xfer_struct.len = length;
   spi_xfer_struct.tx_buf = (unsigned long)outArray;
   spi_xfer_struct.rx_buf = (unsigned long)inArray;
@@ -77,15 +77,15 @@ int spi_transfer_array(uint8_t length, uint8_t *outArray, uint8_t *inArray){
 }
 
 // Function to call if an error occured that can not be resolved, such as failure to set up SPI
-void fatal_error(char *error){
-  printf(error);
+static void fatal_error(char *error){
+  printf("%s", error);
   printf("\n");
   exit(-1);
 }
 
 // Function to call if an error occured that can not be resolved, such as failure to set up SPI
-void fatal_error(const char *error){
-  printf(error);
+static void fatal_error(const char *error){
+  printf("%s", error);
   printf("\n");
   exit(-1);
 }
@@ -292,7 +292,7 @@ struct sensor_infrared_t{
 };
 
 // Set a BrickPi3's address to allow stacking
-int BrickPi3_set_address(int addr, const char *id){
+static int BrickPi3_set_address(int addr, const char *id){
   if(addr < 1 || addr > 255){
     fatal_error("BrickPi3_set_address error: invalid address. Must be in the range of 1 to 255");
     return -1;

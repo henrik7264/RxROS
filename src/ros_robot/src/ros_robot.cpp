@@ -2,8 +2,6 @@
 #include <string>
 #include <ros/ros.h>
 #include <ros/console.h>
-#include <teleop/JoystickPublisher.h>
-#include <teleop/Joystick.h>
 #include <nxt_msgs/JointCommand.h>
 #include <nxt_msgs/Contact.h>
 #include <nxt_msgs/Color.h>
@@ -37,7 +35,6 @@ private:
     int effortMotor1 = ZERO_EFFORT;
     int effortMotor2 = ZERO_EFFORT;
     // Callback functions for ROS topics.
-    void joystickCB(const teleop::Joystick& joy);
     void colorCB(const nxt_msgs::Color& col);
     void rangeCB(const nxt_msgs::Range& rng);
     void motorCB(const sensor_msgs::JointState& mot);
@@ -56,7 +53,6 @@ RosRobot::RosRobot(int argc, char** argv) :
     cmdVelPublisher(nodeHandle.advertise<geometry_msgs::Twist>("/cmd_vel", 10)),
 //    laserScanPublisher(nodeHandle.advertise<sensor_msgs::LaserScan>("/scan", 10)),
 //    pointCloudPublisher(nodeHandle.advertise<sensor_msgs::PointCloud>("/cloud", 10)),
-    joystickSubscriber(nodeHandle.subscribe("/joystick", 10, &RosRobot::joystickCB, this)),
     colorSubscriber(nodeHandle.subscribe("/color_sensor", 10, &RosRobot::colorCB, this)),
     rangeSubscriber(nodeHandle.subscribe("/ultrasonic_sensor", 10, &RosRobot::rangeCB, this)),
     motorSubscriber(nodeHandle.subscribe("/joint_state", 10, &RosRobot::motorCB, this)),
@@ -187,56 +183,6 @@ void RosRobot::twistCB(const geometry_msgs::Twist& twist)
 void  RosRobot::odomCB(const nav_msgs::Odometry& odom)
 {
 }
-
-
-void RosRobot::joystickCB(const teleop::Joystick& joy)
-{
-    JoystickEvents event = static_cast<JoystickEvents>(joy.event);
-    switch (event) {
-        case JS_EVENT_BUTTON0_DOWN:
-            effortMotor1 = ZERO_EFFORT; // Stop.
-            effortMotor2 = ZERO_EFFORT;
-            break;
-        case JS_EVENT_BUTTON1_DOWN:
-            effortMotor1 = (effortMotor1 < effortMotor2) ? effortMotor1 : effortMotor2; // run with same speed
-            effortMotor2 = effortMotor1;
-            break;
-        case JS_EVENT_AXIS_UP:
-            effortMotor1 += (effortMotor1 == MAX_EFFORT) ? 0 : 1;
-            effortMotor2 += (effortMotor2 == MAX_EFFORT) ? 0 : 1;
-            break;
-        case JS_EVENT_AXIS_DOWN:
-            effortMotor1 -= (effortMotor1 == MIN_EFFORT) ? 0 : 1;
-            effortMotor2 -= (effortMotor2 == MIN_EFFORT) ? 0 : 1;
-            break;
-        case JS_EVENT_AXIS_LEFT:
-            if (effortMotor2 >= ZERO_EFFORT)
-                effortMotor2 -= (effortMotor2 == MIN_EFFORT) ? 0 : 1;
-            else
-                effortMotor2 += (effortMotor2 == MAX_EFFORT) ? 0 : 1;
-            break;
-        case JS_EVENT_AXIS_RIGHT:
-            if (effortMotor2 >= ZERO_EFFORT)
-                effortMotor2 += (effortMotor2 == MAX_EFFORT) ? 0 : 1;
-            else
-                effortMotor2 -= (effortMotor2 == MIN_EFFORT) ? 0 : 1;
-            break;
-        default:
-            break;
-    }
-
-//    ROS_INFO("effortMotor1 = %f, effortMotor2 = %f\n", Efforts[effortMotor1], Efforts[effortMotor2]);
-    nxt_msgs::JointCommand jointMotor1;
-    jointMotor1.name = "l_wheel_joint";
-    jointMotor1.effort = Efforts[effortMotor1];
-    motorPublisher.publish(jointMotor1);
-
-    nxt_msgs::JointCommand jointMotor2;
-    jointMotor2.name = "r_wheel_joint";
-    jointMotor2.effort = Efforts[effortMotor2];
-    motorPublisher.publish(jointMotor2);
-}
-
 
 int main(int argc, char** argv) {
     ros::init(argc, argv, "ros_robot"); // Name of this node.

@@ -5,4 +5,4 @@ Description: Description of ros_robot
 Version: 0.0.0
 Cflags: 
 Libs: -L/home/hl/Src/CLionProjects/RxROS/devel/lib 
-Requires: teleop move_base nxt_ros roscpp rospy std_msgs
+Requires: move_base nxt_ros roscpp rospy std_msgs

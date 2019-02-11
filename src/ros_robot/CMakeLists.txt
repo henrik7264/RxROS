@@ -8,7 +8,6 @@ project(ros_robot)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  teleop
   move_base
   nxt_ros
   roscpp
@@ -108,7 +107,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES ros_robot
-  CATKIN_DEPENDS teleop move_base nxt_ros roscpp rospy std_msgs
+  CATKIN_DEPENDS move_base nxt_ros roscpp rospy std_msgs
 #  DEPENDS system_lib
 )
 
@@ -121,7 +120,6 @@ catkin_package(
 include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
-  src/teleop/include
 )
 
 ## Declare a C++ library
@@ -140,12 +138,12 @@ include_directories(
 # add_executable(${PROJECT_NAME}_node src/ros_robot_node.cpp)
 
 add_executable(ros_robot
-  src/ros_robot.cpp
   src/CState.h
   src/CStateMachine.cpp
   src/CStateMachine.h
   src/CStateInitial.cpp
   src/CStateInitial.h
+  src/ros_robot.cpp
 )
 
 ## Rename C++ executable without prefix

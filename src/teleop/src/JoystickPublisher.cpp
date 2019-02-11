@@ -7,7 +7,7 @@
 #include <ros/ros.h>
 #include <ros/console.h>
 #include <teleop/Joystick.h>
-#include "teleop/JoystickPublisher.h"
+#include "JoystickPublisher.h"
 
 #define JS_EVENT_BUTTON 0x01    /* button pressed/released */
 #define JS_EVENT_AXIS   0x02    /* joystick moved */
