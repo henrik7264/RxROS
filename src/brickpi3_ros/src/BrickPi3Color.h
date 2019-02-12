@@ -6,15 +6,19 @@
 #define BRICKPI3_ROS_BRICKPI3COLOR_H
 
 #include <string>
+#include <ros/ros.h>
+#include <ros/console.h>
 #include "BrickPi3Device.h"
 
 class BrickPi3Color: public BrickPi3Device
 {
 private:
+    ros::Publisher colorPublisher;
     std::string name;
     std::string frameId;
-    std::string port;
+    uint8_t port;
     double freq;
+    unsigned int seqNo;
 
 public:
     BrickPi3Color(const std::string& name, const std::string& frameId, const std::string& port, const double frequency);
@@ -22,7 +26,7 @@ public:
 
     const std::string &getName() const {return name;}
     const std::string &getFrameId() const {return frameId;}
-    const std::string &getPort() const {return port;}
+    const uint8_t &getPort() const {return port;}
     double getFreq() const {return freq;}
 
     void schedulerCB();

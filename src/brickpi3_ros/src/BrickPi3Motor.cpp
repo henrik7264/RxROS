@@ -11,18 +11,7 @@
 #include "BrickPi3Motor.h"
 using namespace std;
 
-#define POWER_TO_NM 0.01
-#define POWER_MAX 125
-
-
-static uint8_t port2id(const string& port)
-{
-    int id = ((port == "PORT_A") ? PORT_A :
-             ((port == "PORT_B") ? PORT_B :
-             ((port == "PORT_C") ? PORT_C :
-             ((port == "PORT_D") ? PORT_D : INT_MAX))));
-    return static_cast<uint8_t>(id);
-}
+#define POWER_MAX 1.25
 
 
 BrickPi3Motor::BrickPi3Motor(const string& aName, const string& aPort, const double aFrequency):
@@ -46,10 +35,9 @@ void BrickPi3Motor::jointCommandCB(const brickpi3_ros::JointCommand& jointComman
     lock_guard<std::mutex> guard(mutex);
 
     if (name == jointCommand.name) {
-        //Store the commanded power value,
-        // limited to the range +/- POWER_MAX
+        //Store the commanded power value, limited to the range +/- POWER_MAX
 
-        effort = jointCommand.effort / POWER_TO_NM;
+        effort = jointCommand.effort;
         if (effort > POWER_MAX) {
             effort = POWER_MAX;
         } else if (effort < -POWER_MAX) {
@@ -61,6 +49,32 @@ void BrickPi3Motor::jointCommandCB(const brickpi3_ros::JointCommand& jointComman
 void BrickPi3Motor::schedulerCB()
 {
     lock_guard<std::mutex> guard(mutex);
+    uint8_t motorState = 0;// Variables for reading motor motorState
+    int8_t motorPower = 0;// Variables for reading motor powers
+    int32_t motorPosition = 0;  // Variables for reading motor encoder positions
+    int16_t motorDPS = 0; // Variables for reading motor speeds (Degrees Per Second)
 
+//    // Use the encoder value from motor A to control motors B, C, and D
+//    BP.set_motor_power(PORT_B, PositionA < 100 ? PositionA > -100 ? PositionA : -100 : 100);
+//    BP.set_motor_dps(PORT_C, PositionA);
+//    BP.set_motor_position(PORT_D, PositionA);
 
+    int rc = brickPi3.get_motor_status(PORT_A, motorState, motorPower, motorPosition, motorDPS);;
+    if (rc == 0) {
+        printf("State A: %d Power A: %4d  Encoder A: %6d  DPS A: %6d  \n", motorState, motorPower, motorPosition, motorDPS);
+
+        sensor_msgs::JointState jointState;
+        jointState.header.frame_id = name;
+        jointState.header.stamp = ros::Time::now();
+        jointState.header.seq = seqNo++;
+        jointState.name = name;
+        jointState.effort = effort;
+        jointState.position = 1;
+        jointState.velocity = 1;
+
+        jointStatePublisher.publish(jointState);
+    }
+    else {
+        ROS_ERROR("BrickPi3 failed to read Motor status %s, rc %d", name.c_str(), rc);
+    }
 }

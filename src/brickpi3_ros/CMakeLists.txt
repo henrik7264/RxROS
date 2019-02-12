@@ -11,6 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  geometry_msgs
   message_generation
 )
 
@@ -54,7 +55,13 @@ find_package(catkin REQUIRED COMPONENTS
 #   Message2.msg
 # )
 add_message_files(FILES
+  Accelerometer.msg
+  Color.msg
+  Contact.msg
+  Gyro.msg
   JointCommand.msg
+  Light.msg
+  Range.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -74,6 +81,7 @@ add_message_files(FILES
 ## Generate added messages and services with any dependencies listed here
 generate_messages(DEPENDENCIES
   std_msgs
+  geometry_msgs
 )
 
 ################################################
@@ -108,7 +116,7 @@ generate_messages(DEPENDENCIES
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES brickpi3_ros
-  CATKIN_DEPENDS roscpp rospy std_msgs message_runtime
+  CATKIN_DEPENDS roscpp rospy std_msgs geometry_msgs message_runtime
 #  DEPENDS system_lib
 )
 
@@ -159,9 +167,7 @@ add_executable(brickpi3_ros
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
-target_link_libraries(brickpi3_ros
-  ${catkin_LIBRARIES}
-)
+target_link_libraries(brickpi3_ros ${catkin_LIBRARIES})
 
 #############
 ## Install ##

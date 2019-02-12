@@ -43,7 +43,7 @@ int main(int argc, char** argv)
     bool doLoop = true;
     input_event keyboardEvent;
     while (doLoop && ros::ok()) {
-        int rc = select(fd+1, &readfds, NULL, NULL, NULL);  // wait for input on keyboard device
+        int rc = select(fd+1, &readfds, nullptr, nullptr, nullptr);  // wait for input on keyboard device
         if (rc == -1 && errno == EINTR) {
             close(fd);
             doLoop = false;
@@ -55,7 +55,7 @@ int main(int argc, char** argv)
         }
         else {
             if (FD_ISSET(fd, &readfds)) {
-                size_t sz = read(fd, &keyboardEvent, sizeof(keyboardEvent)); // read pressed key
+                ssize_t sz = read(fd, &keyboardEvent, sizeof(keyboardEvent)); // read pressed key
                 if (sz == -1) {
                     printf("Failed to read keyboard. Error: %d.\n", errno);
                     close(fd);

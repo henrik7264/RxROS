@@ -2,6 +2,7 @@
 // Created by hl on 2/7/19.
 //
 
+#include <mutex>
 #include <string>
 #include <stdio.h>
 #include <Scheduler.h>
@@ -17,6 +18,7 @@
 
 class VelocityPublisher {
 private:
+    std::mutex mutex;
     Bosma::Scheduler scheduler;
     ros::NodeHandle nodeHandle;
     ros::Publisher cmdVelPublisher;
@@ -70,6 +72,8 @@ VelocityPublisher::VelocityPublisher(int argc, char** argv) :
 
 void VelocityPublisher::schedulerCB()
 {
+    std::lock_guard<std::mutex> guard(mutex);
+
     geometry_msgs::Twist vel;
     vel.linear.x = currVelLinear;
     vel.angular.z = currVelAngular;
@@ -79,6 +83,8 @@ void VelocityPublisher::schedulerCB()
 
 void VelocityPublisher::joystickCB(const teleop::Joystick& joy)
 {
+    std::lock_guard<std::mutex> guard(mutex);
+
     JoystickEvents event = static_cast<JoystickEvents>(joy.event);
     switch (event) {
         case JS_EVENT_BUTTON0_DOWN:
@@ -133,6 +139,8 @@ void VelocityPublisher::joystickCB(const teleop::Joystick& joy)
 
 void VelocityPublisher::keyboardCB(const teleop::Keyboard& key)
 {
+    std::lock_guard<std::mutex> guard(mutex);
+
     KeyboardEvents event = static_cast<KeyboardEvents>(key.event);
     switch (event) {
         case KB_EVENT_UP:
