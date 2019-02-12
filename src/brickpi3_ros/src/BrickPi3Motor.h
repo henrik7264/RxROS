@@ -22,6 +22,8 @@ private:
     double freq; // Frequency the schedulerCB will be called with. Defined in yaml file.
     double effort; // The desired effort the motor should use.
     unsigned int seqNo;
+    ros::Time lastTime;
+    double lastPosition;
 
     void jointCommandCB(const brickpi3_ros::JointCommand& jointCommand);
 

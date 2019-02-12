@@ -19,6 +19,7 @@ BrickPi3Ultrasonic::BrickPi3Ultrasonic(const std::string& aName, const std::stri
     minRange = aMinRange;
     maxRange = aMaxRange;
     spreadAngle = aSpreadAngle;
+    seqNo = 0;
 
     brickPi3.set_sensor_type(port, SENSOR_TYPE_NXT_ULTRASONIC);
 }

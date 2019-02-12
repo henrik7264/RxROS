@@ -1,6 +1,7 @@
 //
 // Created by hl on 1/13/19.
 //
+#include <Scheduler.h> // Bosma::Scheduler
 #include <iostream>
 #include <iterator>
 #include <vector>
@@ -11,6 +12,11 @@
 using namespace std;
 
 #include <rxcpp/rx.hpp>
+#include <rxcpp/schedulers/rx-currentthread.hpp>
+#include <rxcpp/schedulers/rx-eventloop.hpp>
+#include <rxcpp/schedulers/rx-immediate.hpp>
+#include <rxcpp/schedulers/rx-newthread.hpp>
+#include <rxcpp/schedulers/rx-runloop.hpp>
 #include <rxcpp/operators/rx-reduce.hpp>
 #include <rxcpp/operators/rx-filter.hpp>
 #include <rxcpp/operators/rx-map.hpp>
@@ -49,6 +55,7 @@ public:
     void rxPipe();
     void rxMerge2();
 
+    void stdScheduler();
     void rxTimer1();
     void rxTimer2();
     void rxScheduler1();
@@ -230,6 +237,25 @@ void Examples::rxMerge2()
 
 
 //--------------------------------------------------------------------------------------
+void Examples::stdScheduler()
+{
+    Bosma::Scheduler scheduler; // default 4 threads.
+
+    // every second call
+    scheduler.every(std::chrono::seconds(1), []() { std::cout << "in one minute" << std::endl; });
+
+    // in one minute
+    scheduler.in(std::chrono::minutes(1), []() { std::cout << "in one minute" << std::endl; });
+
+    // Time formats supported:
+    // %Y/%m/%d %H:%M:%S, %Y-%m-%d %H:%M:%S, %H:%M:%S
+    // With only a time given, it will run tomorrow if that time has already passed.
+    // But with a date given, it will run immediately if that time has already passed.
+    scheduler.at("2019-02-15 17:00:00", []() { std::cout << "at a specific time." << std::endl; });
+}
+
+
+//--------------------------------------------------------------------------------------
 void Examples::rxTimer1()
 {
     auto start = std::chrono::steady_clock::now() + std::chrono::milliseconds(10);
@@ -238,24 +264,57 @@ void Examples::rxTimer1()
         [](int v){printf("OnNext: %d\n", v);},
         [](){printf("OnCompleted\n");});
 
+
     auto period = std::chrono::milliseconds(10);
     auto values2 = rxcpp::observable<>::timer(period);
     values2.subscribe(
         [](int v){printf("OnNext: %d\n", v);},
         [](){printf("OnCompleted\n");});
+
+
+    auto o1 = rxcpp::observable<>::timer(std::chrono::milliseconds(15)).map([](int) { return 1; });
+    auto o2 = rxcpp::observable<>::timer(std::chrono::milliseconds(10)).map([](int) { return 2; });
+    auto o3 = rxcpp::observable<>::timer(std::chrono::milliseconds(5)).map([](int) { return 3; });
+    auto values3 = rxcpp::observable<>::from(o1.as_dynamic(), o2, o3).merge();
+    values3.subscribe(
+        [](int v) { printf("OnNext: %d\n", v); },
+        []() { printf("OnCompleted\n"); });
 }
 
 
 //--------------------------------------------------------------------------------------
 void Examples::rxTimer2()
 {
-    auto o1 = rxcpp::observable<>::timer(std::chrono::milliseconds(15)).map([](int) { return 1; });
-    auto o2 = rxcpp::observable<>::timer(std::chrono::milliseconds(10)).map([](int) { return 2; });
-    auto o3 = rxcpp::observable<>::timer(std::chrono::milliseconds(5)).map([](int) { return 3; });
-    auto values = rxcpp::observable<>::from(o1.as_dynamic(), o2, o3).merge();
-    values.subscribe(
-        [](int v) { printf("OnNext: %d\n", v); },
-        []() { printf("OnCompleted\n"); });
+//    int c = 0;
+//    auto sc = rxsc::make_current_thread();
+//    auto w = sc.create_worker();
+//    auto start = w.now() + seconds(2);
+//    auto period = seconds(1);
+//    w.schedule_periodically(start, period,
+//                            [=, &c](rxsc::schedulable scbl){
+//                                auto nsDelta = duration_cast<milliseconds>(scbl.now() - (start + (period * c)));
+//                                ++c;
+//                                std::cout << "schedule_periodically          : period " << c << ", " << nsDelta.count() << "ms delta from target time" << std::endl;
+//                                if (c == 5) {scbl.unsubscribe();}
+//                            });
+//
+//    int c = 0;
+//    auto sc = rxsc::make_current_thread();
+//    auto so = rx::synchronize_in_one_worker(sc);
+//    auto start = sc.now() + seconds(2);
+//    auto period = seconds(1);
+//    rx::composite_subscription cs;
+//    rx::observable<>::interval(start, period, so)
+//        .subscribe(
+//            cs,
+//            [=, &c](long counter){
+//                auto nsDelta = duration_cast<milliseconds>(sc.now() - (start + (period * (counter - 1))));
+//                c = counter - 1;
+//                std::cout << "interval          : period " << counter << ", " << nsDelta.count() << "ms delta from target time" << std::endl;
+//                if (counter == 5) {cs.unsubscribe();}
+//            },
+//            [](rxu::error_ptr){abort();});
+//}
 }
 
 
@@ -338,6 +397,7 @@ int main(int argc, char** argv)
     examples.rxPipe();
     examples.rxMerge2();
 
+    examples.stdScheduler();
     examples.rxTimer1();
     examples.rxTimer2();
     examples.rxScheduler1();
