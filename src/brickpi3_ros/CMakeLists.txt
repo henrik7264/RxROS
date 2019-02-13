@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   geometry_msgs
+  sensor_msgs
   message_generation
 )
 
@@ -81,6 +82,7 @@ add_message_files(FILES
 ## Generate added messages and services with any dependencies listed here
 generate_messages(DEPENDENCIES
   std_msgs
+  sensor_msgs
   geometry_msgs
 )
 
@@ -116,7 +118,7 @@ generate_messages(DEPENDENCIES
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES brickpi3_ros
-  CATKIN_DEPENDS roscpp rospy std_msgs geometry_msgs message_runtime
+  CATKIN_DEPENDS roscpp rospy std_msgs sensor_msgs geometry_msgs message_runtime
 #  DEPENDS system_lib
 )
 
@@ -153,6 +155,14 @@ add_executable(brickpi3_ros
   src/BrickPi3Ros.cpp
 )
 
+add_executable(joint_states_aggregator
+  src/JointStatesAggregator.cpp
+)
+
+add_executable(brickpi3_odom_publisher
+  src/BrickPi3OdomPublisher.cpp
+)
+
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -168,6 +178,9 @@ add_executable(brickpi3_ros
 #   ${catkin_LIBRARIES}
 # )
 target_link_libraries(brickpi3_ros ${catkin_LIBRARIES})
+target_link_libraries(joint_states_aggregator ${catkin_LIBRARIES})
+target_link_libraries(brickpi3_odom_publisher ${catkin_LIBRARIES})
+
 
 #############
 ## Install ##
