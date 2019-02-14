@@ -60,6 +60,8 @@ public:
     void rxInterval();
     void rxScheduler1();
     void rxScheduler2();
+    void rxObserveOnScheduler();
+    void rxSubscribeOnScheduler();
 };
 
 
@@ -290,6 +292,7 @@ void Examples::rxInterval()
         [](int v){printf("OnNext: %d\n", v);},
         [](){printf("OnCompleted\n");});
 
+
     auto start = std::chrono::steady_clock::now() + std::chrono::milliseconds(10000);
     auto period = std::chrono::milliseconds(1000);
     auto values2 = rxcpp::observable<>::interval(start, period).take(10);
@@ -300,102 +303,135 @@ void Examples::rxInterval()
 
 
 //--------------------------------------------------------------------------------------
-//void Examples::rxTimer2()
-//{
-//    int c = 0;
-//    auto sc = rxsc::make_current_thread();
-//    auto w = sc.create_worker();
-//    auto start = w.now() + seconds(2);
-//    auto period = seconds(1);
-//    w.schedule_periodically(start, period,
-//                            [=, &c](rxsc::schedulable scbl){
-//                                auto nsDelta = duration_cast<milliseconds>(scbl.now() - (start + (period * c)));
-//                                ++c;
-//                                std::cout << "schedule_periodically          : period " << c << ", " << nsDelta.count() << "ms delta from target time" << std::endl;
-//                                if (c == 5) {scbl.unsubscribe();}
-//                            });
+// RxCpp operates with:
+// * Scheduler
+// * Worker
+// * Coordination
+// * Coordinator
+// * Schedulable
+// * Timeline
 //
-//    int c = 0;
-//    auto sc = rxsc::make_current_thread();
-//    auto so = rx::synchronize_in_one_worker(sc);
-//    auto start = sc.now() + seconds(2);
-//    auto period = seconds(1);
-//    rx::composite_subscription cs;
-//    rx::observable<>::interval(start, period, so)
-//        .subscribe(
-//            cs,
-//            [=, &c](long counter){
-//                auto nsDelta = duration_cast<milliseconds>(sc.now() - (start + (period * (counter - 1))));
-//                c = counter - 1;
-//                std::cout << "interval          : period " << counter << ", " << nsDelta.count() << "ms delta from target time" << std::endl;
-//                if (counter == 5) {cs.unsubscribe();}
-//            },
-//            [](rxu::error_ptr){abort();});
-//}
-//}
+// * A Scheduler has a timeline.
+// * A Scheduler can create a lot of workers in the timeline.
+// * A Worker owns a queue of Schedulabes in the timeline.
+// * A Schedulable owns a function (called an Action) and has a lifetime.
+// * A Coordination is a factory for Coordinators and has a scheduler.
+// * A Coordinator has a Worker and is factory for
+//     * Coordinated Schedulers
+//     * Coordinated Observers and Subscribers.
+//
+// * In RxCpp, All operators that take multiple streams as input or
+//   deal with tasks that involves time take a Coordination as a parameter.
 
+// * Some of the Coordination functions using a particular Scheduler are:
+//     * identity_immediate()
+//     * identity_current_thread()
+//     * identity_same_worker(worker w)
+//     * serialize_event_loop();
+//     * serialize_new_thread();
+//     * serialize_same_worker(worker w);
+//     * observe_on_event_loop();
+//     * observe_on_new_thread();
 
-//--------------------------------------------------------------------------------------
+void printThreadId(int val = 0)
+{
+    static std::mutex mutex;
+    mutex.lock();
+    cout << "Current Thread id: " << this_thread::get_id() << ", " << val << endl;
+    mutex.unlock();
+}
+
 void Examples::rxScheduler1()
 {
-    auto scheduler = rxcpp::observe_on_new_thread();
-    auto period = std::chrono::milliseconds(1);
-    auto values = rxcpp::observable<>::timer(period, scheduler).
-        finally([](){printf("The final action\n");});
+    // Get a Coordination
+    auto coordination = rxcpp::serialize_new_thread();
 
-    values.as_blocking().subscribe(
-        [](int v){printf("OnNext: %d\n", v);},
-        [](){printf("OnCompleted\n");});
+    // Create a Worker instance
+    auto worker = coordination.create_coordinator().get_worker();
+
+    // Create an Action
+    auto action = rxcpp::schedulers::make_action([](const rxcpp::schedulers::schedulable&) {printThreadId(1234);});
+
+    // Create a Schedulable
+    auto scheduled = rxcpp::schedulers::make_schedulable(worker, action);
+
+    scheduled.schedule();
 }
-
 
 
 //--------------------------------------------------------------------------------------
-mutex console_mutex;
-
-void CTDetails(int val = 0 )
-{
-    console_mutex.lock();
-    cout << "Current Thread id: " << this_thread::get_id() << ", " << val << endl;
-    console_mutex.unlock();
-}
-
 void Examples::rxScheduler2()
 {
+    // Create an Observable
+    auto values = rxcpp::observable<>::interval(std::chrono::milliseconds(50)).take(5);
+
     // Coordination object
     auto coordination = rxcpp::serialize_new_thread();
 
     // Retrieve the worker
     auto worker = coordination.create_coordinator().get_worker();
 
-    // Create an Observable
-    auto values = rxcpp::observable<>::interval(std::chrono::milliseconds(50)).
-        take(5).
-        replay(coordination);
-
     // Subscribe from the beginning
     worker.schedule(
         [&](const rxcpp::schedulers::schedulable&) {
             values.subscribe(
-                [](long v){CTDetails(v);},
-                [](){ CTDetails();});});
+                [](long v){ printThreadId(v);},
+                [](){ printThreadId(2345);});});
 
     // Wait before subscribing
-    worker.schedule(coordination.now() + std::chrono::milliseconds(125),
-                    [&](const rxcpp::schedulers::schedulable&) {
-                        values.subscribe(
-                            [](long v){ CTDetails(v*v);},
-                            [](){ CTDetails(); });});
-
-    // Start emitting
-    worker.schedule(
+    worker.schedule(coordination.now() + std::chrono::milliseconds(100),
         [&](const rxcpp::schedulers::schedulable&) {
-            values.connect();});
+            values.subscribe(
+                [](long v){ printThreadId(v*v);},
+                [](){ printThreadId(2345);});});
 
     // Add blocking subscription to see results
     values.as_blocking().subscribe();
 }
 
+//--------------------------------------------------------------------------------------
+void Examples::rxObserveOnScheduler()
+{
+    //Print the main thread id
+    printThreadId();
+
+    //We are using observe_on here
+    //The Map will use the main thread
+    //Subscribed lambda will use a new thread
+    rxcpp::observable<>::range(0,15).
+        map([](int i) {
+            printThreadId(i);
+            return i;}).
+        take(5).
+        observe_on(rxcpp::synchronize_new_thread()).
+        subscribe(
+            [&](int i) {printThreadId(i*i);});
+
+    //Wait for Two Seconds
+    rxcpp::observable<>::timer(std::chrono::milliseconds(2000)).subscribe();
+}
+
+
+void Examples::rxSubscribeOnScheduler()
+{
+    //Print the main thread id
+    printThreadId();
+
+    //We are using subscribe_on here
+    //The Map and subscribed lambda will
+    //use the secondary thread
+    rxcpp::observable<>::range(0, 15).
+        map([](int i) {
+            printThreadId(i);
+            return i;}).
+        take(5).
+        subscribe_on(rxcpp::synchronize_new_thread()).
+        subscribe(
+            [&](int i) {printThreadId(i*i);});
+
+    //Wait for Two Seconds
+    rxcpp::observable<>::timer(std::chrono::milliseconds(2000)).subscribe();
+}
 
 //--------------------------------------------------------------------------------------
 int main(int argc, char** argv)
@@ -419,4 +455,6 @@ int main(int argc, char** argv)
     examples.rxInterval();
     examples.rxScheduler1();
     examples.rxScheduler2();
+    examples.rxObserveOnScheduler();
+    examples.rxSubscribeOnScheduler();
 }
