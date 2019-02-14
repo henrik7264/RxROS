@@ -56,8 +56,8 @@ public:
     void rxMerge2();
 
     void stdScheduler();
-    void rxTimer1();
-    void rxTimer2();
+    void rxTime();
+    void rxInterval();
     void rxScheduler1();
     void rxScheduler2();
 };
@@ -256,20 +256,20 @@ void Examples::stdScheduler()
 
 
 //--------------------------------------------------------------------------------------
-void Examples::rxTimer1()
+void Examples::rxTime()
 {
     auto start = std::chrono::steady_clock::now() + std::chrono::milliseconds(10);
     auto values = rxcpp::observable<>::timer(start);
     values.subscribe(
-        [](int v){printf("OnNext: %d\n", v);},
-        [](){printf("OnCompleted\n");});
+        [](int v) { printf("OnNext: %d\n", v); },
+        []() { printf("OnCompleted\n"); });
 
 
     auto period = std::chrono::milliseconds(10);
     auto values2 = rxcpp::observable<>::timer(period);
     values2.subscribe(
-        [](int v){printf("OnNext: %d\n", v);},
-        [](){printf("OnCompleted\n");});
+        [](int v) { printf("OnNext: %d\n", v); },
+        []() { printf("OnCompleted\n"); });
 
 
     auto o1 = rxcpp::observable<>::timer(std::chrono::milliseconds(15)).map([](int) { return 1; });
@@ -279,12 +279,29 @@ void Examples::rxTimer1()
     values3.subscribe(
         [](int v) { printf("OnNext: %d\n", v); },
         []() { printf("OnCompleted\n"); });
+
+}
+
+//--------------------------------------------------------------------------------------
+void Examples::rxInterval()
+{
+    auto values = rxcpp::observable<>::interval(std::chrono::milliseconds(1000)).take(10);
+    values.subscribe(
+        [](int v){printf("OnNext: %d\n", v);},
+        [](){printf("OnCompleted\n");});
+
+    auto start = std::chrono::steady_clock::now() + std::chrono::milliseconds(10000);
+    auto period = std::chrono::milliseconds(1000);
+    auto values2 = rxcpp::observable<>::interval(start, period).take(10);
+    values2.subscribe(
+        [](int v){printf("OnNext: %d\n", v);},
+        [](){printf("OnCompleted\n");});
 }
 
 
 //--------------------------------------------------------------------------------------
-void Examples::rxTimer2()
-{
+//void Examples::rxTimer2()
+//{
 //    int c = 0;
 //    auto sc = rxsc::make_current_thread();
 //    auto w = sc.create_worker();
@@ -315,7 +332,7 @@ void Examples::rxTimer2()
 //            },
 //            [](rxu::error_ptr){abort();});
 //}
-}
+//}
 
 
 //--------------------------------------------------------------------------------------
@@ -398,8 +415,8 @@ int main(int argc, char** argv)
     examples.rxMerge2();
 
     examples.stdScheduler();
-    examples.rxTimer1();
-    examples.rxTimer2();
+    examples.rxTime();
+    examples.rxInterval();
     examples.rxScheduler1();
     examples.rxScheduler2();
 }
