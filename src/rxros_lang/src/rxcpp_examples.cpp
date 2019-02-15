@@ -400,12 +400,12 @@ void Examples::rxObserveOnScheduler()
     //Subscribed lambda will use a new thread
     rxcpp::observable<>::range(0,15).
         map([](int i) {
-            printThreadId(i);
+            printThreadId(i);  // will execute in main thread.
             return i;}).
         take(5).
         observe_on(rxcpp::synchronize_new_thread()).
         subscribe(
-            [&](int i) {printThreadId(i*i);});
+            [&](int i) {printThreadId(i*i);}); // will execute in new thread.
 
     //Wait for Two Seconds
     rxcpp::observable<>::timer(std::chrono::milliseconds(2000)).subscribe();
@@ -425,9 +425,9 @@ void Examples::rxSubscribeOnScheduler()
             printThreadId(i);
             return i;}).
         take(5).
-        subscribe_on(rxcpp::synchronize_new_thread()).
+        subscribe_on(rxcpp::synchronize_new_thread()). // will all execute in new thread
         subscribe(
-            [&](int i) {printThreadId(i*i);});
+                [&](int i) {printThreadId(i*i);});
 
     //Wait for Two Seconds
     rxcpp::observable<>::timer(std::chrono::milliseconds(2000)).subscribe();
