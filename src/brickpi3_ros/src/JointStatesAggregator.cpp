@@ -34,15 +34,20 @@ JointStatesAggregator::JointStatesAggregator(int argc, char** argv):
 
 void JointStatesAggregator::jointStateSubscriberCB(const sensor_msgs::JointState& jointState)
 {
-
-    for (int i = 0; i < jointStates.name.size(); i++) {
-        if (jointStates.name[i] == jointState.name[0]) {
-            jointStates.name.erase(jointStates.name.begin() + i);
-            jointStates.effort.erase(jointStates.effort.begin() + i);
-            jointStates.position.erase(jointStates.position.begin() + i);
-            jointStates.velocity.erase(jointStates.velocity.begin() + i);
-        }
+    if (std::find(jointStates.name.begin(), jointStates.name.end(), jointState.name[0]) != jointStates.name.end()) { // name already exists in the jointStates
+        jointStates.name.clear();
+        jointStates.effort.clear();
+        jointStates.position.clear();
+        jointStates.velocity.clear();
     }
+//    for (int i = 0; i < jointStates.name.size(); i++) {
+//        if (jointStates.name[i] == jointState.name[0]) {
+//            jointStates.name.erase(jointStates.name.begin() + i);
+//            jointStates.effort.erase(jointStates.effort.begin() + i);
+//            jointStates.position.erase(jointStates.position.begin() + i);
+//            jointStates.velocity.erase(jointStates.velocity.begin() + i);
+//        }
+//    }
     jointStates.name.push_back(jointState.name[0]);
     jointStates.effort.push_back(jointState.effort[0]);
     jointStates.position.push_back(jointState.position[0]); // rad
@@ -55,11 +60,6 @@ void JointStatesAggregator::jointStateSubscriberCB(const sensor_msgs::JointState
         jointStates.header.seq = seqNo++;
 
         jointStatesPublisher.publish(jointStates);
-
-        jointStates.name.clear();
-        jointStates.effort.clear();
-        jointStates.position.clear();
-        jointStates.velocity.clear();
     }
 }
 
