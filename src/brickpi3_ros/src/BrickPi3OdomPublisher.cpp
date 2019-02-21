@@ -18,8 +18,6 @@
 
 class BrickPi3OdomPublisher {
 private:
-    std::mutex mutex;
-    Bosma::Scheduler scheduler;
     ros::NodeHandle nodeHandle;
     ros::Subscriber jointStatesSubscriber;
     ros::Publisher odomPublisher;
@@ -34,7 +32,6 @@ private:
     ros::Time lastTime;
     bool isInitialized;
 
-    void schedulerCB();
     void jointStatesSubscriberCB(const sensor_msgs::JointState& jointStates);
 
 public:
@@ -74,15 +71,8 @@ BrickPi3OdomPublisher::BrickPi3OdomPublisher(int argc, char** argv) :
 //    transformBroadcaster.sendTransform(tf::StampedTransform(tf::Transform(orientation, position), ros::Time::now(), "odom", "base_footprint"));
 //}
 
-void BrickPi3OdomPublisher::schedulerCB()
-{
-    std::lock_guard<std::mutex> guard(mutex);
-}
-
 void BrickPi3OdomPublisher::jointStatesSubscriberCB(const sensor_msgs::JointState& jointStates)
 {
-    std::lock_guard<std::mutex> guard(mutex);
-
     ros::Time currTime = ros::Time::now();
 
     // find current position of left and right wheel
