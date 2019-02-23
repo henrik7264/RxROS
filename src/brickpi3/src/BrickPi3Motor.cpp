@@ -7,7 +7,7 @@
 #include <math.h>
 #include <ros/ros.h>
 #include <sensor_msgs/JointState.h>
-#include <brickpi3_ros/JointCommand.h>
+#include <brickpi3_msgs/JointCommand.h>
 #include "BrickPi3Device.h"
 #include "BrickPi3Motor.h"
 using namespace std;
@@ -34,7 +34,7 @@ BrickPi3Motor::~BrickPi3Motor()
     brickPi3.reset_motor_encoder(port);
 }
 
-void BrickPi3Motor::jointCommandCB(const brickpi3_ros::JointCommand& jointCommand)
+void BrickPi3Motor::jointCommandCB(const brickpi3_msgs::JointCommand& jointCommand)
 {
     lock_guard<std::mutex> guard(mutex);
 

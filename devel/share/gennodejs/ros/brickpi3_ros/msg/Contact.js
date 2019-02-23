@@ -1,6 +1,6 @@
 // Auto-generated. Do not edit!
 
-// (in-package brickpi3_ros.msg)
+// (in-package brickpi3.msg)
 
 
 "use strict";
@@ -66,7 +66,7 @@ class Contact {
 
   static datatype() {
     // Returns string type for a message object
-    return 'brickpi3_ros/Contact';
+    return 'brickpi3/Contact';
   }
 
   static md5sum() {

@@ -8,7 +8,7 @@
 #include <string>
 #include <ros/ros.h>
 #include <ros/console.h>
-#include <brickpi3_ros/JointCommand.h>
+#include <brickpi3_msgs/JointCommand.h>
 #include "BrickPi3Device.h"
 
 
@@ -25,7 +25,7 @@ private:
     ros::Time lastTime;
     double lastPosition;
 
-    void jointCommandCB(const brickpi3_ros::JointCommand& jointCommand);
+    void jointCommandCB(const brickpi3_msgs::JointCommand& jointCommand);
 
 public:
     BrickPi3Motor(const std::string& name, const std::string& port, const double frequency);

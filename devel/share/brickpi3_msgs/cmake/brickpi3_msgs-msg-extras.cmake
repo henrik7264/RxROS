@@ -1,0 +1,2 @@
+set(brickpi3_msgs_MESSAGE_FILES "/home/hl/Src/CLionProjects/RxROS/src/brickpi3_msgs/msg/Accelerometer.msg;/home/hl/Src/CLionProjects/RxROS/src/brickpi3_msgs/msg/Color.msg;/home/hl/Src/CLionProjects/RxROS/src/brickpi3_msgs/msg/Contact.msg;/home/hl/Src/CLionProjects/RxROS/src/brickpi3_msgs/msg/Gyro.msg;/home/hl/Src/CLionProjects/RxROS/src/brickpi3_msgs/msg/JointCommand.msg;/home/hl/Src/CLionProjects/RxROS/src/brickpi3_msgs/msg/Light.msg;/home/hl/Src/CLionProjects/RxROS/src/brickpi3_msgs/msg/Range.msg")
+set(brickpi3_msgs_SERVICE_FILES "")

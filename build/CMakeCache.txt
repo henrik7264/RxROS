@@ -308,10 +308,19 @@ brickpi3_LIB_DEPENDS:STATIC=general;/opt/ros/melodic/lib/libroscpp.so;general;/u
 brickpi3_SOURCE_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/src/brickpi3
 
 //Value Computed by CMake
-brickpi3_ros_BINARY_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/build/brickpi3_ros
+brickpi3_msgs_BINARY_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/build/brickpi3_msgs
+
+//The directory containing a CMake configuration file for brickpi3_msgs.
+brickpi3_msgs_DIR:PATH=/home/hl/Src/CLionProjects/RxROS/devel/share/brickpi3_msgs/cmake
 
 //Value Computed by CMake
-brickpi3_ros_SOURCE_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/src/brickpi3_ros
+brickpi3_msgs_SOURCE_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/src/brickpi3_msgs
+
+//Value Computed by CMake
+brickpi3_ros_BINARY_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/build/brickpi3
+
+//Value Computed by CMake
+brickpi3_ros_SOURCE_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/src/brickpi3
 
 //Value Computed by CMake
 brikpi3_BINARY_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/build/brickpi3
@@ -513,6 +522,15 @@ teleop_DIR:PATH=
 //Value Computed by CMake
 teleop_SOURCE_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/src/teleop
 
+//Value Computed by CMake
+teleop_msgs_BINARY_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/build/teleop_msgs
+
+//The directory containing a CMake configuration file for teleop_msgs.
+teleop_msgs_DIR:PATH=/home/hl/Src/CLionProjects/RxROS/devel/share/teleop_msgs/cmake
+
+//Value Computed by CMake
+teleop_msgs_SOURCE_DIR:STATIC=/home/hl/Src/CLionProjects/RxROS/src/teleop_msgs
+
 //The directory containing a CMake configuration file for tf2.
 tf2_DIR:PATH=/opt/ros/melodic/share/tf2/cmake
 
@@ -653,7 +671,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=8
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=10
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

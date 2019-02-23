@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(brickpi3_ros)
+project(teleop_msgs)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -8,12 +8,7 @@ project(brickpi3_ros)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  roscpp
-  rospy
   std_msgs
-  geometry_msgs
-  sensor_msgs
-  nav_msgs
   message_generation
 )
 
@@ -56,14 +51,9 @@ find_package(catkin REQUIRED COMPONENTS
 #   Message1.msg
 #   Message2.msg
 # )
-add_message_files(FILES
-  Accelerometer.msg
-  Color.msg
-  Contact.msg
-  Gyro.msg
-  JointCommand.msg
-  Light.msg
-  Range.msg
+add_message_files (FILES
+  Joystick.msg
+  Keyboard.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -81,11 +71,13 @@ add_message_files(FILES
 # )
 
 ## Generate added messages and services with any dependencies listed here
+# generate_messages(
+#   DEPENDENCIES
+#   std_msgs
+# )
 generate_messages(DEPENDENCIES
   std_msgs
-  sensor_msgs
-  geometry_msgs
-  nav_msgs
+  teleop_msgs
 )
 
 ################################################
@@ -119,8 +111,8 @@ generate_messages(DEPENDENCIES
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES brickpi3_ros
-  CATKIN_DEPENDS roscpp rospy std_msgs sensor_msgs nav_msgs geometry_msgs message_runtime
+#  LIBRARIES teleop
+  CATKIN_DEPENDS std_msgs message_runtime
 #  DEPENDS system_lib
 )
 
@@ -130,14 +122,14 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-include_directories(
-# include
-  ${catkin_INCLUDE_DIRS}
-)
+#include_directories(
+#  include
+#  ${catkin_INCLUDE_DIRS}
+#)
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/brikpi3_ros.cpp
+#   src/${PROJECT_NAME}/teleop.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -148,26 +140,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/brikpi3_ros_node.cpp)
-add_executable(brickpi3_ros
-  src/BrickPi3.cpp
-  src/BrickPi3Motor.cpp
-  src/BrickPi3Ultrasonic.cpp
-  src/BrickPi3Color.cpp
-  src/BrickPi3Ros.cpp
-)
-
-add_executable(joint_states_aggregator
-  src/JointStatesAggregator.cpp
-)
-
-add_executable(brickpi3_odom_publisher
-  src/BrickPi3OdomPublisher.cpp
-)
-
-add_executable(brickpi3_base_controller
-  src/Brickpi3BaseController.cpp
-)
+# add_executable(${PROJECT_NAME}_node src/teleop_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -183,10 +156,6 @@ add_executable(brickpi3_base_controller
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
-target_link_libraries(brickpi3_ros ${catkin_LIBRARIES})
-target_link_libraries(joint_states_aggregator ${catkin_LIBRARIES})
-target_link_libraries(brickpi3_odom_publisher ${catkin_LIBRARIES})
-target_link_libraries(brickpi3_base_controller ${catkin_LIBRARIES})
 
 #############
 ## Install ##
@@ -228,7 +197,7 @@ target_link_libraries(brickpi3_base_controller ${catkin_LIBRARIES})
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_brikpi3_ros.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_teleop.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

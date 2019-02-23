@@ -1,6 +1,6 @@
 // Auto-generated. Do not edit!
 
-// (in-package brickpi3_ros.msg)
+// (in-package brickpi3.msg)
 
 
 "use strict";
@@ -82,7 +82,7 @@ class Accelerometer {
 
   static datatype() {
     // Returns string type for a message object
-    return 'brickpi3_ros/Accelerometer';
+    return 'brickpi3/Accelerometer';
   }
 
   static md5sum() {

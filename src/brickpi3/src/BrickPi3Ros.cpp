@@ -30,7 +30,7 @@ BrickPi3Ros::BrickPi3Ros(int argc, char** argv):
 {
     // Parse the ros_robot.yaml file and create the appropriate sensors and actuators
     XmlRpc::XmlRpcValue brickpi3_robot;
-    nodeHandle.getParam("/brickpi3_ros/brickpi3_robot", brickpi3_robot);
+    nodeHandle.getParam("/brickpi3/brickpi3_robot", brickpi3_robot);
     ROS_ASSERT(brickpi3_robot.getType() == XmlRpc::XmlRpcValue::TypeArray);
     cout << "---------------------------------" << endl;
     for (int i = 0; i < brickpi3_robot.size(); i++) {
@@ -70,7 +70,7 @@ BrickPi3Ros::BrickPi3Ros(int argc, char** argv):
 }
 
 int main(int argc, char** argv) {
-    ros::init(argc, argv, "brickpi3_ros"); // Name of this node.
+    ros::init(argc, argv, "brickpi3"); // Name of this node.
     BrickPi3Ros brickPi3Ros(argc, argv);
     brickPi3Ros.run();
 }

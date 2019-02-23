@@ -9,8 +9,8 @@
 #include <boost/bind.hpp>
 #include <ros/ros.h>
 #include <ros/console.h>
-#include <teleop/Joystick.h>
-#include <teleop/Keyboard.h>
+#include <teleop_msgs/Joystick.h>
+#include <teleop_msgs/Keyboard.h>
 #include <geometry_msgs/Twist.h>
 #include "JoystickPublisher.h"
 #include "KeyboardPublisher.h"
@@ -36,8 +36,8 @@ private:
 
     // Callback functions for ROS topics.
     void schedulerCB();
-    void joystickCB(const teleop::Joystick& joy);
-    void keyboardCB(const teleop::Keyboard& key);
+    void joystickCB(const teleop_msgs::Joystick& joy);
+    void keyboardCB(const teleop_msgs::Keyboard& key);
 
 public:
     VelocityPublisher(int argc, char** argv);
@@ -81,7 +81,7 @@ void VelocityPublisher::schedulerCB()
 }
 
 
-void VelocityPublisher::joystickCB(const teleop::Joystick& joy)
+void VelocityPublisher::joystickCB(const teleop_msgs::Joystick& joy)
 {
     std::lock_guard<std::mutex> guard(mutex);
 
@@ -137,7 +137,7 @@ void VelocityPublisher::joystickCB(const teleop::Joystick& joy)
 }
 
 
-void VelocityPublisher::keyboardCB(const teleop::Keyboard& key)
+void VelocityPublisher::keyboardCB(const teleop_msgs::Keyboard& key)
 {
     std::lock_guard<std::mutex> guard(mutex);
 

@@ -1,6 +1,6 @@
 // Auto-generated. Do not edit!
 
-// (in-package brickpi3_ros.msg)
+// (in-package brickpi3.msg)
 
 
 "use strict";
@@ -99,7 +99,7 @@ class Color {
 
   static datatype() {
     // Returns string type for a message object
-    return 'brickpi3_ros/Color';
+    return 'brickpi3/Color';
   }
 
   static md5sum() {

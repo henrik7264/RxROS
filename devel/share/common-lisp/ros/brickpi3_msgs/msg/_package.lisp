@@ -1,0 +1,33 @@
+(cl:defpackage brickpi3_msgs-msg
+  (:use )
+  (:export
+   "<ACCELEROMETER>"
+   "ACCELEROMETER"
+   "<ACCELEROMETER>"
+   "ACCELEROMETER"
+   "<COLOR>"
+   "COLOR"
+   "<COLOR>"
+   "COLOR"
+   "<CONTACT>"
+   "CONTACT"
+   "<CONTACT>"
+   "CONTACT"
+   "<GYRO>"
+   "GYRO"
+   "<GYRO>"
+   "GYRO"
+   "<JOINTCOMMAND>"
+   "JOINTCOMMAND"
+   "<JOINTCOMMAND>"
+   "JOINTCOMMAND"
+   "<LIGHT>"
+   "LIGHT"
+   "<LIGHT>"
+   "LIGHT"
+   "<RANGE>"
+   "RANGE"
+   "<RANGE>"
+   "RANGE"
+  ))
+

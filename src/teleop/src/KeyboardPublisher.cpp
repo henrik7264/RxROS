@@ -8,7 +8,7 @@
 #include <cstdlib>
 #include <ros/ros.h>
 #include <ros/console.h>
-#include <teleop/Keyboard.h>
+#include <teleop_msgs/Keyboard.h>
 #include "KeyboardPublisher.h"
 
 int main(int argc, char** argv)
@@ -16,7 +16,7 @@ int main(int argc, char** argv)
     // Initialize ROS
     ros::init(argc, argv, "keyboard_publisher"); // Name of this Node.
     ros::NodeHandle nodeHandle;
-    ros::Publisher pub = nodeHandle.advertise<teleop::Keyboard>("/keyboard", 10); // Publish Topic /keyboard
+    ros::Publisher pub = nodeHandle.advertise<teleop_msgs::Keyboard>("/keyboard", 10); // Publish Topic /keyboard
 
     // Read parameter device
     std::string keyboardDevice;
@@ -65,7 +65,7 @@ int main(int argc, char** argv)
                     if ((keyboardEvent.type == EV_KEY) && (keyboardEvent.value != REP_DELAY)) {
                         //printf("Key: T:%d, C:%d, V:%d\n", keyboardEvent.type, keyboardEvent.code, keyboardEvent.value);
 
-                        teleop::Keyboard keyboard;
+                        teleop_msgs::Keyboard keyboard;
                         ros::Time rosTime(keyboardEvent.time.tv_sec, keyboardEvent.time.tv_usec);
                         keyboard.time = rosTime;
                         switch (keyboardEvent.code) {
