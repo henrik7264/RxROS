@@ -7,7 +7,7 @@
 
 enum JoystickEvents
 {
-    JS_EVENT_NEUTRAL,
+    JS_EVENT_NEUTRAL = 0, // to avoid conflicts with KeyboardEvents
     JS_EVENT_BUTTON0_DOWN,
     JS_EVENT_BUTTON0_UP,
     JS_EVENT_BUTTON1_DOWN,

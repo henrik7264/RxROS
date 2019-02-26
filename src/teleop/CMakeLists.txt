@@ -138,6 +138,7 @@ include_directories(
 add_executable(joystick_publisher src/JoystickPublisher.cpp)
 add_executable(keyboard_publisher src/KeyboardPublisher.cpp)
 add_executable(velocity_publisher src/VelocityPublisher.cpp)
+add_executable(velocity_publisher_rxros src/VelocityPublisher_rx.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -156,6 +157,7 @@ add_executable(velocity_publisher src/VelocityPublisher.cpp)
 target_link_libraries(joystick_publisher ${catkin_LIBRARIES})
 target_link_libraries(keyboard_publisher ${catkin_LIBRARIES})
 target_link_libraries(velocity_publisher ${catkin_LIBRARIES})
+target_link_libraries(velocity_publisher_rxros ${catkin_LIBRARIES})
 
 #############
 ## Install ##

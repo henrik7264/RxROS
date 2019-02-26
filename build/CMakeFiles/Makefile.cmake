@@ -343,6 +343,7 @@ set(CMAKE_DEPEND_INFO_FILES
   "rxros_lang/CMakeFiles/rxros_lang_examples.dir/DependInfo.cmake"
   "rxros_lang/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/DependInfo.cmake"
   "teleop/CMakeFiles/keyboard_publisher.dir/DependInfo.cmake"
+  "teleop/CMakeFiles/velocity_publisher_rxros.dir/DependInfo.cmake"
   "teleop/CMakeFiles/joystick_publisher.dir/DependInfo.cmake"
   "teleop/CMakeFiles/velocity_publisher.dir/DependInfo.cmake"
   "brickpi3/CMakeFiles/brickpi3_odom_publisher.dir/DependInfo.cmake"

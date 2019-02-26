@@ -7,7 +7,7 @@
 
 enum KeyboardEvents
 {
-    KB_EVENT_NONE,
+    KB_EVENT_NONE = 100, // to avoid conflicts with JoystickEvents
     KB_EVENT_UP,
     KB_EVENT_LEFT,
     KB_EVENT_RIGHT,

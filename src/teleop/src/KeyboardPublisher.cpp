@@ -20,7 +20,9 @@ int main(int argc, char** argv)
 
     // Read parameter device
     std::string keyboardDevice;
-    nodeHandle.param<std::string>("/keyboard_publisher/device", keyboardDevice, "/dev/input/event1");
+    nodeHandle.param<std::string>("/keyboard_publisher/device", keyboardDevice, "/dev/input/event4");
+
+    printf("keyboard device: %s\n", keyboardDevice.c_str());
 
     // Open specified device. Needs to be in the group input to get access to the device!
     int fd = open(keyboardDevice.c_str(), O_RDONLY | O_NONBLOCK);
