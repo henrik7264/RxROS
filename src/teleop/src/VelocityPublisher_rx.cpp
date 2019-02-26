@@ -29,16 +29,15 @@ int main(int argc, char** argv) {
     double currVelLinear = 0.0;
     double currVelAngular = 0.0;
 
-    printf("publish_every_ms: %d\n", publishEveryMs);
-    printf("min_vel_linear: %f m/s\n", minVelLinear);
-    printf("max_vel_linear: %f m/s\n", maxVelLinear);
-    printf("min_vel_angular: %f rad/s\n", minVelAngular);
-    printf("max_vel_angular: %f rad/s\n", maxVelAngular);
+    rxros::Logging().debug() << "publish_every_ms: " << publishEveryMs;
+    rxros::Logging().debug() << "min_vel_linear: " << minVelLinear << " m/s";
+    rxros::Logging().debug() << "max_vel_linear: " << maxVelLinear << " m/s";
+    rxros::Logging().debug() << "min_vel_angular: " << minVelAngular << " rad/s";
+    rxros::Logging().debug() << "max_vel_angular: " << maxVelAngular << " rad/s";
 
     auto joyObsrv = rxros::Observable<teleop_msgs::Joystick>::fromTopic("/joystick").map([](teleop_msgs::Joystick joy) { return joy.event; });
     auto keyObsrv = rxros::Observable<teleop_msgs::Keyboard>::fromTopic("/keyboard").map([](teleop_msgs::Keyboard key) { return key.event; });
     auto teleopObsrv = joyObsrv.merge(keyObsrv);
-
     teleopObsrv.subscribe(
         [=, &currVelLinear, &currVelAngular](int event) { // on_next ...
             switch (event) {
@@ -91,7 +90,20 @@ int main(int argc, char** argv) {
                 default:
                     break;
             }
+            rxros::Logging().debug() << "currVelLinear: " << currVelLinear << ", currVelAngular: " << currVelAngular;
         });
 
+    ros::NodeHandle nodeHandle;
+    auto cmdVelPublisher(nodeHandle.advertise<geometry_msgs::Twist>("/cmd_vel", 10));
+    auto scheduler = rxcpp::observable<>::interval(std::chrono::milliseconds(publishEveryMs));
+    scheduler.subscribe_on(rxcpp::serialize_new_thread()).subscribe(
+        [&](int n) { // on_next
+            geometry_msgs::Twist vel;
+            vel.linear.x = currVelLinear;
+            vel.angular.z = currVelAngular;
+            cmdVelPublisher.publish(vel);
+        });
+
+    rxros::Logging().debug() << "Spinning ...";
     ros::spin();
 }

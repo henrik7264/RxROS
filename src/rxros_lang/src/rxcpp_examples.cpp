@@ -121,7 +121,7 @@ auto Compose(F&& f, R&&... r){
     return [=](auto x) { return f(Compose(r...)(x)); };
 }
 
-// Function that takes takes three arguments (int) and return the sum of them.
+// Function that takes takes three arguments (int) and return the s...um of them.
 // Observe that the lambda expressions make use of objects from the enclosing scope.
 auto CurriedAdd3(int x) {
     return [x](int y) { //capture x
