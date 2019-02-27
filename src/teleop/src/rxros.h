@@ -129,6 +129,10 @@ template<class T>
 class Observable
 {
 private:
+    /* A subject is an entity that is simultaneously
+     * an Observer and an Observable. It helps to
+     * relay notifications from Observable to a
+     * set of Observers. */
     rxcpp::subjects::subject<T> subject;
     ros::NodeHandle nodeHandle;
     ros::Subscriber subscriber;
@@ -136,11 +140,13 @@ private:
     auto getSubjectSubscriber() {return subject.get_subscriber();}
     auto getSubjectObservable() {return subject.get_observable();}
 
+    // Callback function used by ROS subscriber
     void callback(const T& val) {
         getSubjectSubscriber().on_next(val);
     }
 
 public:
+    // We subscribe to a ROS topic and use the callback function to handle updates of the topic.
     Observable(const std::string& topic, const uint32_t queueSize = 10) :
         subscriber(nodeHandle.subscribe(topic, queueSize, &Observable::callback, this)) {}
     virtual ~Observable() {}
@@ -149,8 +155,8 @@ public:
     {
         static Observable* self = nullptr;
         assert(self == nullptr);
-        self = new Observable(topic, queueSize);
-        return self->getSubjectObservable().finally([](){delete self;});
+        self = new Observable(topic, queueSize); // We create a new rxros::Observable which will setup an appropriate ROS subscription of the topic.
+        return self->getSubjectObservable().finally([](){delete self;}); // and return the RxCpp observable of the subject.
     }
 };
 
