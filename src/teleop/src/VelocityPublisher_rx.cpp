@@ -3,12 +3,9 @@
 //
 
 #include "rxros.h"
-#include <string>
-#include <stdio.h>
-#include <Scheduler.h>
-#include <boost/bind.hpp>
-#include <ros/ros.h>
-#include <ros/console.h>
+#include <rxcpp/operators/rx-map.hpp>
+#include <rxcpp/operators/rx-scan.hpp>
+#include <rxcpp/operators/rx-time_interval.hpp>
 #include <teleop_msgs/Joystick.h>
 #include <teleop_msgs/Keyboard.h>
 #include <geometry_msgs/Twist.h>
@@ -26,20 +23,19 @@ int main(int argc, char** argv) {
     const auto maxVelAngular = rxros::Parameter::get("/velocity_publisher/max_vel_angular", 1.60); // rad/s
     const auto deltaVelLinear = (maxVelLinear - minVelLinear) / 10.0;
     const auto deltaVelAngular = (maxVelAngular - minVelAngular) / 10.0;
-    double currVelLinear = 0.0;
-    double currVelAngular = 0.0;
 
-    rxros::Logging().debug() << "publish_every_ms: " << publishEveryMs;
-    rxros::Logging().debug() << "min_vel_linear: " << minVelLinear << " m/s";
-    rxros::Logging().debug() << "max_vel_linear: " << maxVelLinear << " m/s";
-    rxros::Logging().debug() << "min_vel_angular: " << minVelAngular << " rad/s";
-    rxros::Logging().debug() << "max_vel_angular: " << maxVelAngular << " rad/s";
+    rxros::Logging().info() << "publish_every_ms: " << publishEveryMs;
+    rxros::Logging().info() << "min_vel_linear: " << minVelLinear << " m/s";
+    rxros::Logging().info() << "max_vel_linear: " << maxVelLinear << " m/s";
+    rxros::Logging().info() << "min_vel_angular: " << minVelAngular << " rad/s";
+    rxros::Logging().info() << "max_vel_angular: " << maxVelAngular << " rad/s";
 
     auto joyObsrv = rxros::Observable<teleop_msgs::Joystick>::fromTopic("/joystick").map([](teleop_msgs::Joystick joy) { return joy.event; });
     auto keyObsrv = rxros::Observable<teleop_msgs::Keyboard>::fromTopic("/keyboard").map([](teleop_msgs::Keyboard key) { return key.event; });
-    auto teleopObsrv = joyObsrv.merge(keyObsrv);
-    teleopObsrv.subscribe(
-        [=, &currVelLinear, &currVelAngular](int event) { // on_next ...
+    auto velObsrv = joyObsrv.merge(keyObsrv) |
+        Rx::scan(std::make_tuple(0.0, 0.0), [=](const auto prevVelTuple, const int event) {
+            auto currVelLinear = std::get<0>(prevVelTuple);
+            auto currVelAngular = std::get<1>(prevVelTuple);
             switch (event) {
                 case JS_EVENT_BUTTON0_DOWN:
                 case JS_EVENT_BUTTON1_DOWN:
@@ -90,7 +86,7 @@ int main(int argc, char** argv) {
                 default:
                     break;
             }
-            rxros::Logging().debug() << "currVelLinear: " << currVelLinear << ", currVelAngular: " << currVelAngular;
+            return std::make_tuple(currVelLinear, currVelAngular);
         });
 
     ros::NodeHandle nodeHandle;
@@ -99,8 +95,8 @@ int main(int argc, char** argv) {
     scheduler.subscribe_on(rxcpp::serialize_new_thread()).subscribe(
         [&](int n) { // on_next
             geometry_msgs::Twist vel;
-            vel.linear.x = currVelLinear;
-            vel.angular.z = currVelAngular;
+            vel.linear.x = 0.0; // currVelLinear;
+            vel.angular.z = 0.0; // currVelAngular;
             cmdVelPublisher.publish(vel);
         });
 

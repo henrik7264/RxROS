@@ -7,9 +7,16 @@
 
 #include <cassert>
 #include <rxcpp/rx.hpp>
-//#include <rxcpp/rx-subscriber.hpp>
 #include <ros/ros.h>
 #include <ros/console.h>
+namespace Rx {
+using namespace rxcpp;
+using namespace rxcpp::sources;
+using namespace rxcpp::operators;
+using namespace rxcpp::util;
+}
+using namespace Rx;
+
 
 namespace rxros
 {
