@@ -20,7 +20,6 @@ using namespace Rx;
 
 namespace rxros
 {
-
 class Logging : public std::ostringstream
 {
 private:
@@ -29,9 +28,7 @@ private:
 
 public:
     Logging() {}
-
     virtual ~Logging() {
-
         switch(logLevel) {
             case DEBUG:
                 ROS_DEBUG("%s\n", str().c_str());
@@ -140,9 +137,9 @@ private:
      * an Observer and an Observable. It helps to
      * relay notifications from Observable to a
      * set of Observers. */
-    rxcpp::subjects::subject<T> subject;
     ros::NodeHandle nodeHandle;
     ros::Subscriber subscriber;
+    rxcpp::subjects::subject<T> subject;
 
     auto getSubjectSubscriber() {return subject.get_subscriber();}
     auto getSubjectObservable() {return subject.get_observable();}
@@ -166,36 +163,6 @@ public:
         return self->getSubjectObservable().finally([](){delete self;}); // and return the RxCpp observable of the subject.
     }
 };
-
-
-//template<class T>
-//class Subscriber: public rxcpp::subscriber<T>
-//{
-//private:
-//    ros::NodeHandle nodeHandle;
-//    ros::Publisher publisher;
-//
-//public:
-//    explicit Subscriber(const std::string& topic, const uint32_t queueSize = 10) :
-//        publisher(nodeHandle.advertise<T>(topic, queueSize)) {}
-//    virtual ~Subscriber() {}
-//
-//    template<class V>
-//    void on_next(V&& v) const {
-//        rxcpp::subscriber<T>::on_next(v);
-//        publisher.publish(v);
-//    }
-//
-//    void on_error(rxcpp::rxu::error_ptr e) const {
-//        rxcpp::subscriber<T>::on_error(e);
-//        publisher.shutdown();
-//    }
-//
-//    void on_completed() const {
-//        rxcpp::subscriber<T>::on_completed();
-//        publisher.shutdown();
-//    }
-//};
 
 }
 

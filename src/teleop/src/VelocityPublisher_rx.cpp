@@ -33,7 +33,7 @@ int main(int argc, char** argv) {
     auto joyObsrv = rxros::Observable<teleop_msgs::Joystick>::fromTopic("/joystick").map([](teleop_msgs::Joystick joy) { return joy.event; });
     auto keyObsrv = rxros::Observable<teleop_msgs::Keyboard>::fromTopic("/keyboard").map([](teleop_msgs::Keyboard key) { return key.event; });
     auto velObsrv = joyObsrv.merge(keyObsrv) |
-        Rx::scan(std::make_tuple(0.0, 0.0), [=](const auto prevVelTuple, const int event) {
+        scan(std::make_tuple(0.0, 0.0), [=](const auto prevVelTuple, const int event) {
             auto currVelLinear = std::get<0>(prevVelTuple);
             auto currVelAngular = std::get<1>(prevVelTuple);
             switch (event) {
@@ -93,7 +93,7 @@ int main(int argc, char** argv) {
     auto cmdVelPublisher(nodeHandle.advertise<geometry_msgs::Twist>("/cmd_vel", 10));
     auto scheduler = rxcpp::observable<>::interval(std::chrono::milliseconds(publishEveryMs));
     scheduler.subscribe_on(rxcpp::serialize_new_thread()).subscribe(
-        [&](int n) { // on_next
+        [=](int n) { // on_next
             geometry_msgs::Twist vel;
             vel.linear.x = 0.0; // currVelLinear;
             vel.angular.z = 0.0; // currVelAngular;
