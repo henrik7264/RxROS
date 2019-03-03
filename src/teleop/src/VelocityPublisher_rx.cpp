@@ -3,6 +3,7 @@
 //
 
 #include "rxros.h"
+#include <iostream>
 #include <rxcpp/operators/rx-map.hpp>
 #include <rxcpp/operators/rx-scan.hpp>
 #include <rxcpp/operators/rx-time_interval.hpp>
@@ -89,17 +90,24 @@ int main(int argc, char** argv) {
             return std::make_tuple(currVelLinear, currVelAngular);
         });
 
-    ros::NodeHandle nodeHandle;
-    auto cmdVelPublisher(nodeHandle.advertise<geometry_msgs::Twist>("/cmd_vel", 10));
+//    velObsrv.subscribe_on(rxcpp::serialize_new_thread()).subscribe(
+//            [=](auto currVelTuple) { // on_next
+//                auto currVelLinear = std::get<0>(currVelTuple);
+//                auto currVelAngular = std::get<1>(currVelTuple);
+//                std::cout << "currVelLinear: " << currVelLinear << ", currVelAngular: " << currVelAngular << std::endl;
+//            });
+
+    auto cmdVelPublisher = rxros::Publisher<geometry_msgs::Twist>("/cmd_vel");
     auto scheduler = rxcpp::observable<>::interval(std::chrono::milliseconds(publishEveryMs));
     scheduler.subscribe_on(rxcpp::serialize_new_thread()).subscribe(
-        [=](int n) { // on_next
+        [=] (int n) { // on_next
             geometry_msgs::Twist vel;
             vel.linear.x = 0.0; // currVelLinear;
             vel.angular.z = 0.0; // currVelAngular;
             cmdVelPublisher.publish(vel);
         });
 
+    std::cout << "Spinning ..." << std::endl;
     rxros::Logging().debug() << "Spinning ...";
     ros::spin();
 }

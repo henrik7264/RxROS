@@ -164,6 +164,76 @@ public:
     }
 };
 
+
+template<class T>
+class Publisher
+{
+private:
+    ros::NodeHandle nodeHandle;
+    ros::Publisher publisher;
+
+public:
+    Publisher(const std::string& topic, const uint32_t queueSize = 10) :
+        publisher(nodeHandle.advertise<T>(topic, queueSize)) {}
+    virtual ~Publisher() {}
+
+    void publish(const T& msg) const {
+        return publisher.publish(msg);
+    }
+};
+
+
+//template<class T>
+//class Observable
+//{
+//private:
+//    /* A subject is an entity that is simultaneously
+//     * an Observer and an Observable. It helps to
+//     * relay notifications from Observable to a
+//     * set of Observers. */
+//    static std::map<std::string, Observable<T>*> observables;
+//    ros::NodeHandle nodeHandle;
+//    ros::Subscriber subscriber;
+//    rxcpp::subjects::subject<T> subject;
+//
+//    auto getSubjectSubscriber() {return subject.get_subscriber();}
+//    auto getSubjectObservable() {return subject.get_observable();}
+//
+//    // Callback function used by ROS subscriber
+//    void callback(const T& val) {
+//        getSubjectSubscriber().on_next(val);
+//    }
+//
+//public:
+//    // We subscribe to a ROS topic and use the callback function to handle updates of the topic.
+//    Observable(const std::string& topic, const uint32_t queueSize = 10) :
+//        subscriber(nodeHandle.subscribe(topic, queueSize, &Observable::callback, this)) {}
+//    virtual ~Observable() {}
+//
+//    static auto fromTopic(const std::string& topic, const uint32_t queueSize = 10)
+//    {
+//        Observable<T>* self = nullptr;
+//        typename std::map<std::string, Observable<T>*>::iterator itr = observables.find(topic);
+//        if (itr == observables.end()) { // The topic does not exits.
+//            self = new Observable<T>(topic, queueSize); // We create a new rxros::Observable which will setup an appropriate ROS subscription of the topic.
+//            observables[topic] = self;
+//            std::cout << "No Observables: " << observables.size() << std::endl;
+//        }
+//        else {
+//            self = itr->second;
+//        }
+//        return self->getSubjectObservable(); // and return the RxCpp self of the subject.
+//    }
+//};
+//
+//template<class T>
+//std::map<std::string, Observable<T>*> Observable<T>::observables;
+
+template <class T>
+class myOperator: rxcpp::operators::
+
+
 }
 
 #endif //RXROS_H
+

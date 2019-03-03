@@ -20,7 +20,8 @@ int main(int argc, char** argv)
 
     // Read parameter device
     std::string keyboardDevice;
-    nodeHandle.param<std::string>("/keyboard_publisher/device", keyboardDevice, "/dev/input/event4");
+//    nodeHandle.param<std::string>("/keyboard_publisher/device", keyboardDevice, "/dev/input/event4");
+    nodeHandle.param<std::string>("/keyboard_publisher/device", keyboardDevice, "/dev/input/event1");
 
     printf("keyboard device: %s\n", keyboardDevice.c_str());
 
