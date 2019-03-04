@@ -20,6 +20,7 @@ using namespace Rx;
 
 namespace rxros
 {
+
 class Logging : public std::ostringstream
 {
 private:
@@ -72,7 +73,6 @@ public:
         return *this;
     }
 };
-
 
 class Parameter
 {
@@ -155,15 +155,13 @@ public:
         subscriber(nodeHandle.subscribe(topic, queueSize, &Observable::callback, this)) {}
     virtual ~Observable() {}
 
-    static auto fromTopic(const std::string& topic, const uint32_t queueSize = 10)
-    {
+    static auto fromTopic(const std::string& topic, const uint32_t queueSize = 10) {
         static Observable* self = nullptr;
         assert(self == nullptr);
         self = new Observable(topic, queueSize); // We create a new rxros::Observable which will setup an appropriate ROS subscription of the topic.
         return self->getSubjectObservable().finally([](){delete self;}); // and return the RxCpp observable of the subject.
     }
 };
-
 
 template<class T>
 class Publisher
@@ -229,11 +227,35 @@ public:
 //template<class T>
 //std::map<std::string, Observable<T>*> Observable<T>::observables;
 
-template <class T>
-class myOperator: rxcpp::operators::
+
+//template<typename Fn, typename... Observables>
+//auto myOperation(Fn f, Observables... observables) {
+//    return [=](auto &&source) {
+//        return source
+//            .with_latest_from(
+//                [=](auto &&...args) {
+//                    f(args...);
+//                    return 0; // dummy value
+//                },
+//                observables...
+//            )
+//            .subscribe([](auto _) {});
+//    };
+
+auto scheduler = rxcpp::observable<>::interval(std::chrono::milliseconds(100));
+auto myOperation(int publishEveryMs) {
+    return [=](auto &&source) {
+        source.subscribe([=](auto currVelTuple) {
+            auto currVelLinear = std::get<0>(currVelTuple);
+            auto currVelAngular = std::get<1>(currVelTuple);
+            std::cout << "currVelLinear: " << currVelLinear << ", currVelAngular: " << currVelAngular << std::endl;
+        });
+        return source;
+    };
+};
 
 
-}
+} // end of namespace rxros
 
 #endif //RXROS_H
 
