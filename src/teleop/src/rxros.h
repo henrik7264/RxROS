@@ -18,6 +18,18 @@ using namespace rxcpp::util;
 using namespace Rx;
 
 
+namespace rxcpp
+{
+namespace operators
+{
+auto sample_every(const std::chrono::milliseconds& durationInMs) {
+    return [=](auto &&source) {
+        return rxcpp::observable<>::interval(durationInMs)
+            .with_latest_from([=](const auto x, const auto y) {return y;}, source);};};
+}
+}
+
+
 namespace rxros
 {
 
@@ -56,18 +68,22 @@ public:
         logLevel = DEBUG;
         return *this;
     }
+
     Logging& info() {
         logLevel = INFO;
         return *this;
     }
+
     Logging& warn() {
         logLevel = WARN;
         return *this;
     }
+
     Logging& error() {
         logLevel = ERROR;
         return *this;
     }
+
     Logging& fatal() {
         logLevel = FATAL;
         return *this;
@@ -79,51 +95,33 @@ class Parameter
 private:
     ros::NodeHandle nodeHandle;
 
+public:
+    Parameter() {};
+    virtual ~Parameter() {};
+
     template<typename T>
-    auto getParam(const std::string& name, const T& defaultValue)
+    auto get(const std::string& name, const T& defaultValue)
     {
         T param;
         nodeHandle.param<T>(name, param, defaultValue);
         return param;
     }
 
-    auto getParam(const std::string& name, const int defaultValue)
+    auto get(const std::string& name, const int defaultValue)
     {
         int param;
         nodeHandle.param(name, param, defaultValue);
         return param;
     }
-    auto getParam(const std::string& name, const double defaultValue)
+
+    auto get(const std::string& name, const double defaultValue)
     {
         double param;
         nodeHandle.param(name, param, defaultValue);
         return param;
     }
 
-public:
-    Parameter() {};
-    virtual ~Parameter() {};
-
-    template<typename T>
-    static auto get(const std::string& name, const T& defaultValue)
-    {
-        Parameter self;
-        return self.getParam<T>(name, defaultValue);
-    }
-
-    static auto get(const std::string& name, const int defaultValue)
-    {
-        Parameter self;
-        return self.getParam(name, defaultValue);
-    }
-
-    static auto get(const std::string& name, const double defaultValue)
-    {
-        Parameter self;
-        return self.getParam(name, defaultValue);
-    }
-
-    static auto get(const std::string& name, const std::string& defaultValue)
+    auto get(const std::string& name, const std::string& defaultValue)
     {
         return get<std::string>(name, defaultValue);
     }
@@ -164,19 +162,20 @@ public:
 };
 
 template<class T>
-class Publisher
+class Publish
 {
 private:
     ros::NodeHandle nodeHandle;
     ros::Publisher publisher;
 
 public:
-    Publisher(const std::string& topic, const uint32_t queueSize = 10) :
+    Publish(const std::string& topic, const uint32_t queueSize = 10) :
         publisher(nodeHandle.advertise<T>(topic, queueSize)) {}
-    virtual ~Publisher() {}
+    virtual ~Publish() {}
 
-    void publish(const T& msg) const {
-        return publisher.publish(msg);
+    void fromObservable(const rxcpp::observable<T>& observ) const {
+        observ.subscribe(
+            [=](const T& msg) {publisher.publish(msg);});
     }
 };
 
@@ -226,33 +225,6 @@ public:
 //
 //template<class T>
 //std::map<std::string, Observable<T>*> Observable<T>::observables;
-
-
-//template<typename Fn, typename... Observables>
-//auto myOperation(Fn f, Observables... observables) {
-//    return [=](auto &&source) {
-//        return source
-//            .with_latest_from(
-//                [=](auto &&...args) {
-//                    f(args...);
-//                    return 0; // dummy value
-//                },
-//                observables...
-//            )
-//            .subscribe([](auto _) {});
-//    };
-
-auto scheduler = rxcpp::observable<>::interval(std::chrono::milliseconds(100));
-auto myOperation(int publishEveryMs) {
-    return [=](auto &&source) {
-        source.subscribe([=](auto currVelTuple) {
-            auto currVelLinear = std::get<0>(currVelTuple);
-            auto currVelAngular = std::get<1>(currVelTuple);
-            std::cout << "currVelLinear: " << currVelLinear << ", currVelAngular: " << currVelAngular << std::endl;
-        });
-        return source;
-    };
-};
 
 
 } // end of namespace rxros

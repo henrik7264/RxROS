@@ -62,6 +62,7 @@ public:
     void rxScheduler2();
     void rxObserveOnScheduler();
     void rxSubscribeOnScheduler();
+    void rxWithLatestFrom();
 };
 
 
@@ -434,27 +435,50 @@ void Examples::rxSubscribeOnScheduler()
 }
 
 //--------------------------------------------------------------------------------------
+auto myOperation(int periodInMs) {
+    return [=](auto &&source) {
+        return rxcpp::observable<>::interval(std::chrono::milliseconds(periodInMs))
+            .with_latest_from([=](const auto x, const auto y) {return y;}, source);};};
+
+
+void Examples::rxWithLatestFrom()
+{
+
+    auto o1 = rxcpp::observable<>::timer(std::chrono::milliseconds(15000)).map([](int) { return 1; });
+    auto o2 = rxcpp::observable<>::timer(std::chrono::milliseconds(10000)).map([](int) { return 2; });
+    auto o3 = rxcpp::observable<>::timer(std::chrono::milliseconds(5000)).map([](int) { return 3; });
+    auto values = rxcpp::observable<>::from(o1.as_dynamic(), o2, o3).merge() |
+        myOperation(1000);
+
+    values.subscribe(
+        [](int v){printf("OnNext: %d\n", v);},
+        [](){printf("OnCompleted\n");});
+}
+
+
+//--------------------------------------------------------------------------------------
 int main(int argc, char** argv)
 {
     Examples examples;
-    examples.lambdaFunction1();
-    examples.lambdaFunction2();
-    examples.lambdaFunction3();
-    examples.lambdaFunction4();
-
-    examples.rxCreate();
-    examples.rxRange();
-    examples.rxMap();
-    examples.rxMerge();
-    examples.rxConcat();
-    examples.rxPipe();
-    examples.rxMerge2();
-
-    examples.stdScheduler();
-    examples.rxTime();
-    examples.rxInterval();
-    examples.rxScheduler1();
-    examples.rxScheduler2();
-    examples.rxObserveOnScheduler();
-    examples.rxSubscribeOnScheduler();
+//    examples.lambdaFunction1();
+//    examples.lambdaFunction2();
+//    examples.lambdaFunction3();
+//    examples.lambdaFunction4();
+//
+//    examples.rxCreate();
+//    examples.rxRange();
+//    examples.rxMap();
+//    examples.rxMerge();
+//    examples.rxConcat();
+//    examples.rxPipe();
+//    examples.rxMerge2();
+//
+//    examples.stdScheduler();
+//    examples.rxTime();
+//    examples.rxInterval();
+//    examples.rxScheduler1();
+//    examples.rxScheduler2();
+//    examples.rxObserveOnScheduler();
+//    examples.rxSubscribeOnScheduler();
+    examples.rxWithLatestFrom();
 }
