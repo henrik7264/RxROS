@@ -47,6 +47,7 @@ public:
                 ROS_DEBUG("%s\n", str().c_str());
                 break;
             case INFO:
+                std::cout << str() << std::endl;
                 ROS_INFO("%s\n", str().c_str());
                 break;
             case WARN:
@@ -149,17 +150,17 @@ private:
 
 public:
     // We subscribe to a ROS topic and use the callback function to handle updates of the topic.
-    Observable(const std::string& topic, const uint32_t queueSize = 10) :
+    Observable() {}
+    Observable(const std::string& topic, const uint32_t queueSize):
         subscriber(nodeHandle.subscribe(topic, queueSize, &Observable::callback, this)) {}
-    virtual ~Observable() {}
+    virtual ~Observable() {std::cout << "Calling mr ~Observable." << std::endl;}
 
-    static auto fromTopic(const std::string& topic, const uint32_t queueSize = 10) {
-        static Observable* self = nullptr;
-        assert(self == nullptr);
-        self = new Observable(topic, queueSize); // We create a new rxros::Observable which will setup an appropriate ROS subscription of the topic.
-        return self->getSubjectObservable().finally([](){delete self;}); // and return the RxCpp observable of the subject.
+    auto fromTopic(const std::string& topic, const uint32_t queueSize = 10) {
+        Observable* observable1 = new Observable(topic, queueSize);
+        return observable1->getSubjectObservable(); // and return the RxCpp observable of the subject.
     }
 };
+
 
 template<class T>
 class Publish
@@ -167,65 +168,17 @@ class Publish
 private:
     ros::NodeHandle nodeHandle;
     ros::Publisher publisher;
+    long i;
 
 public:
     Publish(const std::string& topic, const uint32_t queueSize = 10) :
-        publisher(nodeHandle.advertise<T>(topic, queueSize)) {}
+        publisher(nodeHandle.advertise<T>(topic, queueSize)) {i = 0;}
     virtual ~Publish() {}
 
-    void fromObservable(const rxcpp::observable<T>& observ) const {
-        observ.subscribe(
-            [=](const T& msg) {publisher.publish(msg);});
-    }
+    void fromObservable(rxcpp::observable<T>& observ) {
+        observ.subscribe_on(synchronize_new_thread()).subscribe(
+            [&](const T& msg) {publisher.publish(msg); std::cout << i++ << std::endl;});}
 };
-
-
-//template<class T>
-//class Observable
-//{
-//private:
-//    /* A subject is an entity that is simultaneously
-//     * an Observer and an Observable. It helps to
-//     * relay notifications from Observable to a
-//     * set of Observers. */
-//    static std::map<std::string, Observable<T>*> observables;
-//    ros::NodeHandle nodeHandle;
-//    ros::Subscriber subscriber;
-//    rxcpp::subjects::subject<T> subject;
-//
-//    auto getSubjectSubscriber() {return subject.get_subscriber();}
-//    auto getSubjectObservable() {return subject.get_observable();}
-//
-//    // Callback function used by ROS subscriber
-//    void callback(const T& val) {
-//        getSubjectSubscriber().on_next(val);
-//    }
-//
-//public:
-//    // We subscribe to a ROS topic and use the callback function to handle updates of the topic.
-//    Observable(const std::string& topic, const uint32_t queueSize = 10) :
-//        subscriber(nodeHandle.subscribe(topic, queueSize, &Observable::callback, this)) {}
-//    virtual ~Observable() {}
-//
-//    static auto fromTopic(const std::string& topic, const uint32_t queueSize = 10)
-//    {
-//        Observable<T>* self = nullptr;
-//        typename std::map<std::string, Observable<T>*>::iterator itr = observables.find(topic);
-//        if (itr == observables.end()) { // The topic does not exits.
-//            self = new Observable<T>(topic, queueSize); // We create a new rxros::Observable which will setup an appropriate ROS subscription of the topic.
-//            observables[topic] = self;
-//            std::cout << "No Observables: " << observables.size() << std::endl;
-//        }
-//        else {
-//            self = itr->second;
-//        }
-//        return self->getSubjectObservable(); // and return the RxCpp self of the subject.
-//    }
-//};
-//
-//template<class T>
-//std::map<std::string, Observable<T>*> Observable<T>::observables;
-
 
 } // end of namespace rxros
 

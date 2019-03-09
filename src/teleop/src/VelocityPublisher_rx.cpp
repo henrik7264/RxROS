@@ -79,10 +79,10 @@ int main(int argc, char** argv) {
         vel.angular.z = std::get<1>(currVelTuple);
         return vel;};
 
-    auto joyObsrv = rxros::Observable<teleop_msgs::Joystick>::fromTopic("/joystick") |
+    auto joyObsrv = rxros::Observable<teleop_msgs::Joystick>().fromTopic("/joystick") |
         map([](teleop_msgs::Joystick joy) { return joy.event; });
 
-    auto keyObsrv = rxros::Observable<teleop_msgs::Keyboard>::fromTopic("/keyboard") |
+    auto keyObsrv = rxros::Observable<teleop_msgs::Keyboard>().fromTopic("/keyboard") |
         map([](teleop_msgs::Keyboard key) { return key.event; });
 
     auto velObsrv = joyObsrv.merge(keyObsrv) |
@@ -90,7 +90,19 @@ int main(int argc, char** argv) {
         map(velTuple2Twist) |
         sample_every(std::chrono::milliseconds(publishEveryMs));
 
-    rxros::Publish<geometry_msgs::Twist>("/cmd_vel").fromObservable(velObsrv);
+    velObsrv.subscribe_on(synchronize_new_thread()).subscribe(
+        [](const auto msg){std::cout << msg.linear.x << msg.angular.z << std::endl;});
+
+    velObsrv.subscribe_on(synchronize_new_thread()).subscribe(
+        [](const auto msg){std::cout << msg.linear.x << " ," << msg.angular.z << std::endl;});
+
+//    rxros::Publish<geometry_msgs::Twist>("/cmd_vel").fromObservable(velObsrv);
+
+    ros::NodeHandle nodeHandle;
+    ros::Publisher publisher(nodeHandle.advertise<geometry_msgs::Twist>("/cmd_vel", 10));
+    long i = 0;
+    velObsrv.subscribe_on(synchronize_new_thread()).subscribe(
+        [&](const auto& msg) {publisher.publish(msg); std::cout << i++ << std::endl;});
 
     rxros::Logging().info() << "Spinning ...";
     ros::spin();
