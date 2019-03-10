@@ -85,6 +85,8 @@ namespace rxros
     private:
         ros::NodeHandle nodeHandle;
 
+        Parameter() {};
+
         template<typename T>
         auto getParam(const std::string& name, const T& defaultValue)
         {
@@ -108,7 +110,6 @@ namespace rxros
         }
 
     public:
-        Parameter() {};
         virtual ~Parameter() {};
 
         template<typename T>
@@ -141,9 +142,13 @@ namespace rxros
          * an Observer and an Observable. It helps to
          * relay notifications from Observable to a
          * set of Observers. */
+        rxcpp::subjects::subject<T> subject;
         ros::NodeHandle nodeHandle;
         ros::Subscriber subscriber;
-        rxcpp::subjects::subject<T> subject;
+
+        // We subscribe to a ROS topic and use the callback function to handle updates of the topic.
+        Observable(const std::string& topic, const uint32_t queueSize = 10):
+            subscriber(nodeHandle.subscribe(topic, queueSize, &Observable::callback, this)) {}
 
         auto getSubjectSubscriber() {return subject.get_subscriber();}
         auto getSubjectObservable() {return subject.get_observable();}
@@ -154,11 +159,7 @@ namespace rxros
         }
 
     public:
-        // We subscribe to a ROS topic and use the callback function to handle updates of the topic.
-        Observable() {}
-        Observable(const std::string& topic, const uint32_t queueSize = 10):
-            subscriber(nodeHandle.subscribe(topic, queueSize, &Observable::callback, this)) {}
-        virtual ~Observable() {std::cout << "Calling mr ~Observable." << std::endl;}
+        virtual ~Observable() {}
 
         static auto fromTopic(const std::string& topic, const uint32_t queueSize = 10) {
             Observable* self = new Observable(topic, queueSize);
@@ -173,10 +174,11 @@ namespace rxros
         ros::NodeHandle nodeHandle;
         ros::Publisher publisher;
 
-    public:
         Publisher(const std::string& topic, const uint32_t queueSize = 10) :
             publisher(nodeHandle.advertise<T>(topic, queueSize)) {}
-        virtual ~Publisher() {std::cout << "Calling mr Publisher." << std::endl;}
+
+    public:
+        virtual ~Publisher() {}
 
         static auto publish(const rxcpp::observable<T> &observ, const std::string &topic, const uint32_t queueSize = 10) {
             Publisher* self = new Publisher(topic, queueSize);
@@ -197,7 +199,7 @@ namespace rxcpp
                         [=](const auto x, const auto y) { return y; }, source);};};
 
         template<typename T>
-        auto publishTo(const std::string &topic, const uint32_t queueSize = 10) {
+        auto publishToTopic(const std::string &topic, const uint32_t queueSize = 10) {
             return [=](auto &&source) {
                 return rxros::Publisher<T>::publish(source, topic, queueSize);};};
 

@@ -28,7 +28,7 @@ int main(int argc, char** argv) {
     rxros::Logging().info() << "min_vel_angular: " << minVelAngular << " rad/s";
     rxros::Logging().info() << "max_vel_angular: " << maxVelAngular << " rad/s";
 
-    auto teleop2VelTuple = [=](const auto prevVelTuple, const int event) {
+    auto teleopToVelTuple = [=](const auto prevVelTuple, const int event) {
         auto currVelLinear = std::get<0>(prevVelTuple);
         auto currVelAngular = std::get<1>(prevVelTuple);
         switch (event) {
@@ -73,21 +73,21 @@ int main(int argc, char** argv) {
         }
         return std::make_tuple(currVelLinear, currVelAngular);};
 
-    auto velTuple2Twist = [](auto currVelTuple) {
+    auto velTupleToTwist = [](auto currVelTuple) {
         geometry_msgs::Twist vel;
         vel.linear.x = std::get<0>(currVelTuple);
         vel.angular.z = std::get<1>(currVelTuple);
         return vel;};
 
-    auto joyObsrv = rxros::Observable<teleop_msgs::Joystick>::fromTopic("/joystick") |
-        map([](teleop_msgs::Joystick joy) { return joy.event; });
-    auto keyObsrv = rxros::Observable<teleop_msgs::Keyboard>::fromTopic("/keyboard") |
-        map([](teleop_msgs::Keyboard key) { return key.event; });
-    auto velObsrv = joyObsrv.merge(keyObsrv) |
-        scan(std::make_tuple(0.0, 0.0), teleop2VelTuple) |
-        map(velTuple2Twist) |
-        sample_every(std::chrono::milliseconds(publishEveryMs)) |
-        publishTo<geometry_msgs::Twist>("/cmd_vel");
+    auto joyObsrv = rxros::Observable<teleop_msgs::Joystick>::fromTopic("/joystick")
+        | map([](teleop_msgs::Joystick joy) { return joy.event; });
+    auto keyObsrv = rxros::Observable<teleop_msgs::Keyboard>::fromTopic("/keyboard")
+        | map([](teleop_msgs::Keyboard key) { return key.event; });
+    auto velObsrv = joyObsrv.merge(keyObsrv)
+        | scan(std::make_tuple(0.0, 0.0), teleopToVelTuple)
+        | map(velTupleToTwist)
+        | sample_every(std::chrono::milliseconds(publishEveryMs))
+        | publishToTopic<geometry_msgs::Twist>("/cmd_vel");
 
 //    rxros::Publisher<geometry_msgs::Twist>()::publish(velObsrv, "/cmd_vel");
 
