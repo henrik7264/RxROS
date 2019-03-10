@@ -191,14 +191,14 @@ src/CStateInitial.cpp.o:
 	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/ros_robot.dir/build.make ros_robot/CMakeFiles/ros_robot.dir/src/CStateInitial.cpp.o
 .PHONY : src/CStateInitial.cpp.o
 
-src/CStateInitial.i: src/CStateInitial.cpp.i
+src/CStateInitial.val: src/CStateInitial.cpp.val
 
-.PHONY : src/CStateInitial.i
+.PHONY : src/CStateInitial.val
 
 # target to preprocess a source file
-src/CStateInitial.cpp.i:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/ros_robot.dir/build.make ros_robot/CMakeFiles/ros_robot.dir/src/CStateInitial.cpp.i
-.PHONY : src/CStateInitial.cpp.i
+src/CStateInitial.cpp.val:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/ros_robot.dir/build.make ros_robot/CMakeFiles/ros_robot.dir/src/CStateInitial.cpp.val
+.PHONY : src/CStateInitial.cpp.val
 
 src/CStateInitial.s: src/CStateInitial.cpp.s
 
@@ -218,14 +218,14 @@ src/CStateMachine.cpp.o:
 	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/ros_robot.dir/build.make ros_robot/CMakeFiles/ros_robot.dir/src/CStateMachine.cpp.o
 .PHONY : src/CStateMachine.cpp.o
 
-src/CStateMachine.i: src/CStateMachine.cpp.i
+src/CStateMachine.val: src/CStateMachine.cpp.val
 
-.PHONY : src/CStateMachine.i
+.PHONY : src/CStateMachine.val
 
 # target to preprocess a source file
-src/CStateMachine.cpp.i:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/ros_robot.dir/build.make ros_robot/CMakeFiles/ros_robot.dir/src/CStateMachine.cpp.i
-.PHONY : src/CStateMachine.cpp.i
+src/CStateMachine.cpp.val:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/ros_robot.dir/build.make ros_robot/CMakeFiles/ros_robot.dir/src/CStateMachine.cpp.val
+.PHONY : src/CStateMachine.cpp.val
 
 src/CStateMachine.s: src/CStateMachine.cpp.s
 
@@ -245,14 +245,14 @@ src/ros_robot.cpp.o:
 	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/ros_robot.dir/build.make ros_robot/CMakeFiles/ros_robot.dir/src/ros_robot.cpp.o
 .PHONY : src/ros_robot.cpp.o
 
-src/ros_robot.i: src/ros_robot.cpp.i
+src/ros_robot.val: src/ros_robot.cpp.val
 
-.PHONY : src/ros_robot.i
+.PHONY : src/ros_robot.val
 
 # target to preprocess a source file
-src/ros_robot.cpp.i:
-	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/ros_robot.dir/build.make ros_robot/CMakeFiles/ros_robot.dir/src/ros_robot.cpp.i
-.PHONY : src/ros_robot.cpp.i
+src/ros_robot.cpp.val:
+	cd /home/hl/Src/CLionProjects/RxROS/build && $(MAKE) -f ros_robot/CMakeFiles/ros_robot.dir/build.make ros_robot/CMakeFiles/ros_robot.dir/src/ros_robot.cpp.val
+.PHONY : src/ros_robot.cpp.val
 
 src/ros_robot.s: src/ros_robot.cpp.s
 
@@ -278,13 +278,13 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... install"
 	@echo "... src/CStateInitial.o"
-	@echo "... src/CStateInitial.i"
+	@echo "... src/CStateInitial.val"
 	@echo "... src/CStateInitial.s"
 	@echo "... src/CStateMachine.o"
-	@echo "... src/CStateMachine.i"
+	@echo "... src/CStateMachine.val"
 	@echo "... src/CStateMachine.s"
 	@echo "... src/ros_robot.o"
-	@echo "... src/ros_robot.i"
+	@echo "... src/ros_robot.val"
 	@echo "... src/ros_robot.s"
 .PHONY : help
 

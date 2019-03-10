@@ -23,7 +23,7 @@ int main(int argc, char** argv)
 {
     ros::init(argc, argv, "joystick_publisher"); // Name of this Node.
     ros::NodeHandle nodeHandle;
-    ros::Publisher publisher = nodeHandle.advertise<teleop_msgs::Joystick>("/joystick", 10); // Publish Topic /joystick
+    ros::Publisher publisher = nodeHandle.advertise<teleop_msgs::Joystick>("/joystick", 10); // Publisher Topic /joystick
 
     // Read parameter device
     std::string joystickDevice;

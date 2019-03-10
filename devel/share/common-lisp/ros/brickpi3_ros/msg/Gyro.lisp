@@ -79,7 +79,7 @@
   (roslisp-msg-protocol:deserialize (cl:slot-value msg 'angular_velocity) istream)
   (cl:setf (cl:slot-value msg 'angular_velocity_covariance) (cl:make-array 9))
   (cl:let ((vals (cl:slot-value msg 'angular_velocity_covariance)))
-    (cl:dotimes (i 9)
+    (cl:dotimes (val 9)
     (cl:let ((bits 0))
       (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 8) bits) (cl:read-byte istream))
@@ -89,7 +89,7 @@
       (cl:setf (cl:ldb (cl:byte 8 40) bits) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 48) bits) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 56) bits) (cl:read-byte istream))
-    (cl:setf (cl:aref vals i) (roslisp-utils:decode-double-float-bits bits)))))
+    (cl:setf (cl:aref vals val) (roslisp-utils:decode-double-float-bits bits)))))
   msg
 )
 (cl:defmethod roslisp-msg-protocol:ros-datatype ((msg (cl:eql '<Gyro>)))

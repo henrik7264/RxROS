@@ -17,170 +17,193 @@ using namespace rxcpp::util;
 }
 using namespace Rx;
 
+namespace rxros
+{
+    static void init(int argc, char** argv, const std::string& name) {ros::init(argc, argv, name);}
+    static void spin() {ros::spin();}
+
+    class Logging: public std::ostringstream
+    {
+    private:
+        enum LogLevel {DEBUG, INFO, WARN, ERROR, FATAL};
+        LogLevel logLevel;
+
+    public:
+        Logging() {}
+        virtual ~Logging() {
+            switch(logLevel) {
+                case DEBUG:
+                    ROS_DEBUG("%s\n", str().c_str());
+                    break;
+                case INFO:
+                    std::cout << str() << std::endl;
+                    ROS_INFO("%s\n", str().c_str());
+                    break;
+                case WARN:
+                    ROS_WARN("%s\n", str().c_str());
+                    break;
+                case ERROR:
+                    ROS_ERROR("%s\n", str().c_str());
+                    break;
+                case FATAL:
+                    ROS_FATAL("%s\n", str().c_str());
+                    break;
+                default:
+                    ROS_FATAL("Ups!!!!");
+                    break;
+            }
+        }
+
+        Logging& debug() {
+            logLevel = DEBUG;
+            return *this;
+        }
+
+        Logging& info() {
+            logLevel = INFO;
+            return *this;
+        }
+
+        Logging& warn() {
+            logLevel = WARN;
+            return *this;
+        }
+
+        Logging& error() {
+            logLevel = ERROR;
+            return *this;
+        }
+
+        Logging& fatal() {
+            logLevel = FATAL;
+            return *this;
+        }
+    };
+
+    class Parameter
+    {
+    private:
+        ros::NodeHandle nodeHandle;
+
+        template<typename T>
+        auto getParam(const std::string& name, const T& defaultValue)
+        {
+            T param;
+            nodeHandle.param<T>(name, param, defaultValue);
+            return param;
+        }
+
+        auto getParam(const std::string& name, const int defaultValue)
+        {
+            int param;
+            nodeHandle.param(name, param, defaultValue);
+            return param;
+        }
+
+        auto getParam(const std::string& name, const double defaultValue)
+        {
+            double param;
+            nodeHandle.param(name, param, defaultValue);
+            return param;
+        }
+
+    public:
+        Parameter() {};
+        virtual ~Parameter() {};
+
+        template<typename T>
+        static auto get(const std::string& name, const T& defaultValue)
+        {
+            return Parameter().getParam<T>(name, defaultValue);
+        }
+
+        static auto get(const std::string& name, const int defaultValue)
+        {
+            return Parameter().getParam(name, defaultValue);
+        }
+
+        static auto get(const std::string& name, const double defaultValue)
+        {
+            return Parameter().getParam(name, defaultValue);
+        }
+
+        static auto get(const std::string& name, const std::string& defaultValue)
+        {
+            return get<std::string>(name, defaultValue);
+        }
+    };
+
+    template<class T>
+    class Observable
+    {
+    private:
+        /* A subject is an entity that is simultaneously
+         * an Observer and an Observable. It helps to
+         * relay notifications from Observable to a
+         * set of Observers. */
+        ros::NodeHandle nodeHandle;
+        ros::Subscriber subscriber;
+        rxcpp::subjects::subject<T> subject;
+
+        auto getSubjectSubscriber() {return subject.get_subscriber();}
+        auto getSubjectObservable() {return subject.get_observable();}
+
+        // Callback function used by ROS subscriber
+        void callback(const T& val) {
+            getSubjectSubscriber().on_next(val);
+        }
+
+    public:
+        // We subscribe to a ROS topic and use the callback function to handle updates of the topic.
+        Observable() {}
+        Observable(const std::string& topic, const uint32_t queueSize = 10):
+            subscriber(nodeHandle.subscribe(topic, queueSize, &Observable::callback, this)) {}
+        virtual ~Observable() {std::cout << "Calling mr ~Observable." << std::endl;}
+
+        static auto fromTopic(const std::string& topic, const uint32_t queueSize = 10) {
+            Observable* self = new Observable(topic, queueSize);
+            return self->getSubjectObservable(); // and return the RxCpp observable of the subject.
+        }
+    };
+
+    template<class T>
+    class Publisher
+    {
+    private:
+        ros::NodeHandle nodeHandle;
+        ros::Publisher publisher;
+
+    public:
+        Publisher(const std::string& topic, const uint32_t queueSize = 10) :
+            publisher(nodeHandle.advertise<T>(topic, queueSize)) {}
+        virtual ~Publisher() {std::cout << "Calling mr Publisher." << std::endl;}
+
+        static auto publish(const rxcpp::observable<T> &observ, const std::string &topic, const uint32_t queueSize = 10) {
+            Publisher* self = new Publisher(topic, queueSize);
+            observ.subscribe_on(synchronize_new_thread()).subscribe(
+                [=](const T& msg) {self->publisher.publish(msg);});
+            return observ;}
+    };
+}; // end of namespace rxros
+
 
 namespace rxcpp
 {
-namespace operators
-{
-auto sample_every(const std::chrono::milliseconds& durationInMs) {
-    return [=](auto &&source) {
-        return rxcpp::observable<>::interval(durationInMs)
-            .with_latest_from([=](const auto x, const auto y) {return y;}, source);};};
-}
-}
-
-
-namespace rxros
-{
-
-class Logging : public std::ostringstream
-{
-private:
-    enum LogLevel {DEBUG, INFO, WARN, ERROR, FATAL};
-    LogLevel logLevel;
-
-public:
-    Logging() {}
-    virtual ~Logging() {
-        switch(logLevel) {
-            case DEBUG:
-                ROS_DEBUG("%s\n", str().c_str());
-                break;
-            case INFO:
-                std::cout << str() << std::endl;
-                ROS_INFO("%s\n", str().c_str());
-                break;
-            case WARN:
-                ROS_WARN("%s\n", str().c_str());
-                break;
-            case ERROR:
-                ROS_ERROR("%s\n", str().c_str());
-                break;
-            case FATAL:
-                ROS_FATAL("%s\n", str().c_str());
-                break;
-            default:
-                ROS_FATAL("Ups!!!!");
-                break;
-        }
-    }
-
-    Logging& debug() {
-        logLevel = DEBUG;
-        return *this;
-    }
-
-    Logging& info() {
-        logLevel = INFO;
-        return *this;
-    }
-
-    Logging& warn() {
-        logLevel = WARN;
-        return *this;
-    }
-
-    Logging& error() {
-        logLevel = ERROR;
-        return *this;
-    }
-
-    Logging& fatal() {
-        logLevel = FATAL;
-        return *this;
-    }
-};
-
-class Parameter
-{
-private:
-    ros::NodeHandle nodeHandle;
-
-public:
-    Parameter() {};
-    virtual ~Parameter() {};
-
-    template<typename T>
-    auto get(const std::string& name, const T& defaultValue)
+    namespace operators
     {
-        T param;
-        nodeHandle.param<T>(name, param, defaultValue);
-        return param;
-    }
+        auto sample_every(const std::chrono::milliseconds &durationInMs) {
+            return [=](auto &&source) {
+                return rxcpp::observable<>::interval(durationInMs).with_latest_from(
+                        [=](const auto x, const auto y) { return y; }, source);};};
 
-    auto get(const std::string& name, const int defaultValue)
-    {
-        int param;
-        nodeHandle.param(name, param, defaultValue);
-        return param;
-    }
+        template<typename T>
+        auto publishTo(const std::string &topic, const uint32_t queueSize = 10) {
+            return [=](auto &&source) {
+                return rxros::Publisher<T>::publish(source, topic, queueSize);};};
 
-    auto get(const std::string& name, const double defaultValue)
-    {
-        double param;
-        nodeHandle.param(name, param, defaultValue);
-        return param;
-    }
+    }; // end namespace operators
+}; // end namespace rxcpp
 
-    auto get(const std::string& name, const std::string& defaultValue)
-    {
-        return get<std::string>(name, defaultValue);
-    }
-};
-
-template<class T>
-class Observable
-{
-private:
-    /* A subject is an entity that is simultaneously
-     * an Observer and an Observable. It helps to
-     * relay notifications from Observable to a
-     * set of Observers. */
-    ros::NodeHandle nodeHandle;
-    ros::Subscriber subscriber;
-    rxcpp::subjects::subject<T> subject;
-
-    auto getSubjectSubscriber() {return subject.get_subscriber();}
-    auto getSubjectObservable() {return subject.get_observable();}
-
-    // Callback function used by ROS subscriber
-    void callback(const T& val) {
-        getSubjectSubscriber().on_next(val);
-    }
-
-public:
-    // We subscribe to a ROS topic and use the callback function to handle updates of the topic.
-    Observable() {}
-    Observable(const std::string& topic, const uint32_t queueSize):
-        subscriber(nodeHandle.subscribe(topic, queueSize, &Observable::callback, this)) {}
-    virtual ~Observable() {std::cout << "Calling mr ~Observable." << std::endl;}
-
-    auto fromTopic(const std::string& topic, const uint32_t queueSize = 10) {
-        Observable* observable1 = new Observable(topic, queueSize);
-        return observable1->getSubjectObservable(); // and return the RxCpp observable of the subject.
-    }
-};
-
-
-template<class T>
-class Publish
-{
-private:
-    ros::NodeHandle nodeHandle;
-    ros::Publisher publisher;
-    long i;
-
-public:
-    Publish(const std::string& topic, const uint32_t queueSize = 10) :
-        publisher(nodeHandle.advertise<T>(topic, queueSize)) {i = 0;}
-    virtual ~Publish() {}
-
-    void fromObservable(rxcpp::observable<T>& observ) {
-        observ.subscribe_on(synchronize_new_thread()).subscribe(
-            [&](const T& msg) {publisher.publish(msg); std::cout << i++ << std::endl;});}
-};
-
-} // end of namespace rxros
 
 #endif //RXROS_H
 

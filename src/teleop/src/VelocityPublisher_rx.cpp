@@ -12,13 +12,13 @@
 
 
 int main(int argc, char** argv) {
-    ros::init(argc, argv, "velocity_publisher"); // Name of this node.
+    rxros::init(argc, argv, "velocity_publisher"); // Name of this node.
 
-    const auto publishEveryMs = rxros::Parameter().get("/velocity_publisher/publish_every_ms", 100);
-    const auto minVelLinear = rxros::Parameter().get("/velocity_publisher/min_vel_linear", 0.04); // m/s
-    const auto maxVelLinear = rxros::Parameter().get("/velocity_publisher/max_vel_linear", 0.10); // m/s
-    const auto minVelAngular = rxros::Parameter().get("/velocity_publisher/min_vel_angular", 0.64); // rad/s
-    const auto maxVelAngular = rxros::Parameter().get("/velocity_publisher/max_vel_angular", 1.60); // rad/s
+    const auto publishEveryMs = rxros::Parameter::get("/velocity_publisher/publish_every_ms", 100);
+    const auto minVelLinear = rxros::Parameter::get("/velocity_publisher/min_vel_linear", 0.04); // m/s
+    const auto maxVelLinear = rxros::Parameter::get("/velocity_publisher/max_vel_linear", 0.10); // m/s
+    const auto minVelAngular = rxros::Parameter::get("/velocity_publisher/min_vel_angular", 0.64); // rad/s
+    const auto maxVelAngular = rxros::Parameter::get("/velocity_publisher/max_vel_angular", 1.60); // rad/s
     const auto deltaVelLinear = (maxVelLinear - minVelLinear) / 10.0;
     const auto deltaVelAngular = (maxVelAngular - minVelAngular) / 10.0;
 
@@ -79,31 +79,18 @@ int main(int argc, char** argv) {
         vel.angular.z = std::get<1>(currVelTuple);
         return vel;};
 
-    auto joyObsrv = rxros::Observable<teleop_msgs::Joystick>().fromTopic("/joystick") |
+    auto joyObsrv = rxros::Observable<teleop_msgs::Joystick>::fromTopic("/joystick") |
         map([](teleop_msgs::Joystick joy) { return joy.event; });
-
-    auto keyObsrv = rxros::Observable<teleop_msgs::Keyboard>().fromTopic("/keyboard") |
+    auto keyObsrv = rxros::Observable<teleop_msgs::Keyboard>::fromTopic("/keyboard") |
         map([](teleop_msgs::Keyboard key) { return key.event; });
-
     auto velObsrv = joyObsrv.merge(keyObsrv) |
         scan(std::make_tuple(0.0, 0.0), teleop2VelTuple) |
         map(velTuple2Twist) |
-        sample_every(std::chrono::milliseconds(publishEveryMs));
+        sample_every(std::chrono::milliseconds(publishEveryMs)) |
+        publishTo<geometry_msgs::Twist>("/cmd_vel");
 
-    velObsrv.subscribe_on(synchronize_new_thread()).subscribe(
-        [](const auto msg){std::cout << msg.linear.x << msg.angular.z << std::endl;});
-
-    velObsrv.subscribe_on(synchronize_new_thread()).subscribe(
-        [](const auto msg){std::cout << msg.linear.x << " ," << msg.angular.z << std::endl;});
-
-//    rxros::Publish<geometry_msgs::Twist>("/cmd_vel").fromObservable(velObsrv);
-
-    ros::NodeHandle nodeHandle;
-    ros::Publisher publisher(nodeHandle.advertise<geometry_msgs::Twist>("/cmd_vel", 10));
-    long i = 0;
-    velObsrv.subscribe_on(synchronize_new_thread()).subscribe(
-        [&](const auto& msg) {publisher.publish(msg); std::cout << i++ << std::endl;});
+//    rxros::Publisher<geometry_msgs::Twist>()::publish(velObsrv, "/cmd_vel");
 
     rxros::Logging().info() << "Spinning ...";
-    ros::spin();
+    rxros::spin();
 }

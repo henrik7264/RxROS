@@ -24,14 +24,14 @@
     <!--node pkg="joystick" name="JoystickPublisher" type="joystickPublisher" output="screen" respawn="true"/-->
 
     <!-- Start keyboard node. Will provide teleop via the keyboard. -->
-    <!-- Publish topic: Twist:/cmd_vel -->
+    <!-- Publisher topic: Twist:/cmd_vel -->
     <node pkg="nxt_teleop" name="nxt_teleop" type="nxt_teleop_node" output="screen"/>
 
     <!-- Start my robot. Does actually not do anything at the moment-->
     <node pkg="ros_robot" name="ros_robot" type="ros_robot" output="screen" respawn="true"/>
 
     <!-- Start NXT driver: starts and monitors the wheels, ultrasonic sensor and color sensor-->
-    <!-- Publish topic: /ultrasonic_sensor, /color_sensor, /joint_state-->
+    <!-- Publisher topic: /ultrasonic_sensor, /color_sensor, /joint_state-->
     <node pkg="nxt_ros" name="nxt_ros" type="nxt_ros.py" output="screen" respawn="true">
         <rosparam command="load" file="$(find ros_robot)/ros_robot.yaml" />
         <!--param name="host" value="00:16:53:1A:0B:F5"/-->
@@ -39,12 +39,12 @@
 
     <!-- Start node joint_state_publisher: read joint_state for each motor and publish an aggregate joint_states for all motors -->
     <!-- Subscribe topic: /joint_state-->
-    <!-- Publish topic: /joint_states-->
+    <!-- Publisher topic: /joint_states-->
     <node pkg="nxt_ros" name="joint_state_publisher"  type="joint_states_aggregator.py" output="screen" />
 
     <!-- Start node nxt_base_controller: publish effect to motors from cmd_vel and joint_states-->
     <!-- Subscribe topic: JointStare:/joint_states, Twist/cmd_vel /-->
-    <!-- Publish topic: JointCommand:/joint_command-->
+    <!-- Publisher topic: JointCommand:/joint_command-->
     <node pkg="nxt_controllers" name="nxt_base_controller" type="base_controller.py" output="screen"/>
 
     <!-- Start -->
@@ -66,7 +66,7 @@
 
     <!-- Start Adaptive Monte Carlo Localisation (ACML). Use the example with differential drive -->
     <!-- The AMCL will publish topic tr map->odom and listen on topic odom-->
-    <!-- Publish scans from best pose at a max of 10 Hz -->
+    <!-- Publisher scans from best pose at a max of 10 Hz -->
     <node pkg="amcl" type="amcl" name="amcl" output="screen">
       <param name="odom_model_type" value="diff"/>
       <param name="odom_frame_id" value="odom"/>

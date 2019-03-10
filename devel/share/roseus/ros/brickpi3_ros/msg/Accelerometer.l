@@ -68,8 +68,8 @@
      ;; geometry_msgs/Vector3 _linear_acceleration
        (send _linear_acceleration :serialize s)
      ;; float64[9] _linear_acceleration_covariance
-     (dotimes (i 9)
-       (sys::poke (elt _linear_acceleration_covariance i) (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
+     (dotimes (val 9)
+       (sys::poke (elt _linear_acceleration_covariance val) (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
        )
      ;;
      (if (null strm) (get-output-stream-string s))))
@@ -80,8 +80,8 @@
    ;; geometry_msgs/Vector3 _linear_acceleration
      (send _linear_acceleration :deserialize buf ptr-) (incf ptr- (send _linear_acceleration :serialization-length))
    ;; float64[9] _linear_acceleration_covariance
-   (dotimes (i (length _linear_acceleration_covariance))
-     (setf (elt _linear_acceleration_covariance i) (sys::peek buf ptr- :double)) (incf ptr- 8)
+   (dotimes (val (length _linear_acceleration_covariance))
+     (setf (elt _linear_acceleration_covariance val) (sys::peek buf ptr- :double)) (incf ptr- 8)
      )
    ;;
    self)

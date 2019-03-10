@@ -81,8 +81,8 @@
      ;; geometry_msgs/Vector3 _angular_velocity
        (send _angular_velocity :serialize s)
      ;; float64[9] _angular_velocity_covariance
-     (dotimes (i 9)
-       (sys::poke (elt _angular_velocity_covariance i) (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
+     (dotimes (val 9)
+       (sys::poke (elt _angular_velocity_covariance val) (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
        )
      ;;
      (if (null strm) (get-output-stream-string s))))
@@ -95,8 +95,8 @@
    ;; geometry_msgs/Vector3 _angular_velocity
      (send _angular_velocity :deserialize buf ptr-) (incf ptr- (send _angular_velocity :serialization-length))
    ;; float64[9] _angular_velocity_covariance
-   (dotimes (i (length _angular_velocity_covariance))
-     (setf (elt _angular_velocity_covariance i) (sys::peek buf ptr- :double)) (incf ptr- 8)
+   (dotimes (val (length _angular_velocity_covariance))
+     (setf (elt _angular_velocity_covariance val) (sys::peek buf ptr- :double)) (incf ptr- 8)
      )
    ;;
    self)

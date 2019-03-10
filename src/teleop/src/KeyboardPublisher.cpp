@@ -16,12 +16,12 @@ int main(int argc, char** argv)
     // Initialize ROS
     ros::init(argc, argv, "keyboard_publisher"); // Name of this Node.
     ros::NodeHandle nodeHandle;
-    ros::Publisher pub = nodeHandle.advertise<teleop_msgs::Keyboard>("/keyboard", 10); // Publish Topic /keyboard
+    ros::Publisher pub = nodeHandle.advertise<teleop_msgs::Keyboard>("/keyboard", 10); // Publisher Topic /keyboard
 
     // Read parameter device
     std::string keyboardDevice;
-    nodeHandle.param<std::string>("/keyboard_publisher/device", keyboardDevice, "/dev/input/event4");
-//    nodeHandle.param<std::string>("/keyboard_publisher/device", keyboardDevice, "/dev/input/event1");
+//    nodeHandle.param<std::string>("/keyboard_publisher/device", keyboardDevice, "/dev/input/event4");
+    nodeHandle.param<std::string>("/keyboard_publisher/device", keyboardDevice, "/dev/input/event1");
 
     printf("keyboard device: %s\n", keyboardDevice.c_str());
 
