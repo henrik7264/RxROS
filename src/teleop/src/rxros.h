@@ -9,6 +9,9 @@
 #include <rxcpp/rx.hpp>
 #include <ros/ros.h>
 #include <ros/console.h>
+#include <tf/transform_broadcaster.h>
+#include <tf/transform_listener.h>
+
 namespace Rx {
 using namespace rxcpp;
 using namespace rxcpp::sources;
@@ -186,6 +189,38 @@ namespace rxros
                 [=](const T& msg) {self->publisher.publish(msg);});
             return observ;}
     };
+
+    class TransformBroadcaster
+    {
+    private:
+        tf::TransformBroadcaster transformBroadcaster;
+
+        TransformBroadcaster() {}
+
+    public:
+        virtual ~TransformBroadcaster() {}
+
+        static auto sendTransform(const rxcpp::observable<tf::Transform> &observ, const std::string& frame_id, const std::string& child_frame_id) {
+            TransformBroadcaster* self = new TransformBroadcaster();
+            observ.subscribe_on(synchronize_new_thread()).subscribe(
+                [=](const tf::Transform& tf) {self->transformBroadcaster.sendTransform(tf::StampedTransform(tf, ros::Time::now(), frame_id, child_frame_id));});
+            return observ;}
+    };
+
+
+//    class Observable
+//    {
+//    private:
+//        tf::TransformListener transformListener;
+//
+//        Observable() {}
+//
+//    public:
+//        virtual ~Observable() {}
+//
+//
+//    };
+
 }; // end of namespace rxros
 
 
@@ -202,6 +237,10 @@ namespace rxcpp
         auto publishToTopic(const std::string &topic, const uint32_t queueSize = 10) {
             return [=](auto &&source) {
                 return rxros::Publisher<T>::publish(source, topic, queueSize);};};
+
+        auto sendTransform(const std::string& frame_id, const std::string& child_frame_id) {
+            return [=](auto &&source) {
+                return rxros::TransformBroadcaster::sendTransform(source, frame_id, child_frame_id);};};
 
     }; // end namespace operators
 }; // end namespace rxcpp
