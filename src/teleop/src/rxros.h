@@ -20,6 +20,7 @@ using namespace rxcpp::util;
 }
 using namespace Rx;
 
+
 namespace rxros
 {
     static void init(int argc, char** argv, const std::string& name) {ros::init(argc, argv, name);}
@@ -57,31 +58,37 @@ namespace rxros
             }
         }
 
-        Logging& debug() {
+        Logging& debug()
+        {
             logLevel = DEBUG;
             return *this;
         }
 
-        Logging& info() {
+        Logging& info()
+        {
             logLevel = INFO;
             return *this;
         }
 
-        Logging& warn() {
+        Logging& warn()
+        {
             logLevel = WARN;
             return *this;
         }
 
-        Logging& error() {
+        Logging& error()
+        {
             logLevel = ERROR;
             return *this;
         }
 
-        Logging& fatal() {
+        Logging& fatal()
+        {
             logLevel = FATAL;
             return *this;
         }
-    };
+    }; // end of class Logging
+
 
     class Parameter
     {
@@ -135,7 +142,8 @@ namespace rxros
         {
             return get<std::string>(name, defaultValue);
         }
-    };
+    }; // end of class Parameter
+
 
     template<class T>
     class Observable
@@ -153,22 +161,52 @@ namespace rxros
         Observable(const std::string& topic, const uint32_t queueSize = 10):
             subscriber(nodeHandle.subscribe(topic, queueSize, &Observable::callback, this)) {}
 
-        auto getSubjectSubscriber() {return subject.get_subscriber();}
-        auto getSubjectObservable() {return subject.get_observable();}
-
         // Callback function used by ROS subscriber
-        void callback(const T& val) {
-            getSubjectSubscriber().on_next(val);
+        void callback(const T& val)
+        {
+            subject.get_subscriber().on_next(val);
         }
 
     public:
         virtual ~Observable() {}
 
-        static auto fromTopic(const std::string& topic, const uint32_t queueSize = 10) {
+
+        static auto fromTopic(const std::string& topic, const uint32_t queueSize = 10)
+        {
             Observable* self = new Observable(topic, queueSize);
-            return self->getSubjectObservable(); // and return the RxCpp observable of the subject.
+            return self->subject.get_observable(); // and return the RxCpp observable of the subject.
         }
-    };
+
+        
+        static auto fromTransformListener(const std::string& frameId, const std::string& childFrameId, const double frequencyInHz = 10.0)
+        {
+            assert(typeid(T) == typeid(tf::StampedTransform));
+            return rxcpp::observable<>::create<T>(
+                [=](rxcpp::subscriber<T> subscriber) {
+                    ros::NodeHandle nodeHandle;
+                    tf::TransformListener listener;
+                    ros::Rate rate(frequencyInHz);
+                    while (nodeHandle.ok())
+                    {
+                        try {
+                            tf::StampedTransform transform;
+                            listener.lookupTransform(frameId, childFrameId, ros::Time(0), transform);
+                            subscriber.on_next(transform);
+                        }
+                        catch (...) {
+                            std::exception_ptr err = std::current_exception();
+                            subscriber.on_error(err);
+                            break;
+                        }
+                        rate.sleep();
+                    }
+                    if (!nodeHandle.ok())
+                    {
+                        subscriber.on_completed();
+                    }});
+        };
+    }; // end of class Observable
+
 
     template<class T>
     class Publisher
@@ -183,43 +221,14 @@ namespace rxros
     public:
         virtual ~Publisher() {}
 
-        static auto publish(const rxcpp::observable<T> &observ, const std::string &topic, const uint32_t queueSize = 10) {
+        static auto publish(const rxcpp::observable<T> &observ, const std::string &topic, const uint32_t queueSize = 10)
+        {
             Publisher* self = new Publisher(topic, queueSize);
             observ.subscribe_on(synchronize_new_thread()).subscribe(
                 [=](const T& msg) {self->publisher.publish(msg);});
-            return observ;}
-    };
-
-    class TransformBroadcaster
-    {
-    private:
-        tf::TransformBroadcaster transformBroadcaster;
-
-        TransformBroadcaster() {}
-
-    public:
-        virtual ~TransformBroadcaster() {}
-
-        static auto sendTransform(const rxcpp::observable<tf::Transform> &observ, const std::string& frame_id, const std::string& child_frame_id) {
-            TransformBroadcaster* self = new TransformBroadcaster();
-            observ.subscribe_on(synchronize_new_thread()).subscribe(
-                [=](const tf::Transform& tf) {self->transformBroadcaster.sendTransform(tf::StampedTransform(tf, ros::Time::now(), frame_id, child_frame_id));});
-            return observ;}
-    };
-
-
-//    class Observable
-//    {
-//    private:
-//        tf::TransformListener transformListener;
-//
-//        Observable() {}
-//
-//    public:
-//        virtual ~Observable() {}
-//
-//
-//    };
+            return observ;
+        }
+    }; // end of class Publisher
 
 }; // end of namespace rxros
 
@@ -228,23 +237,28 @@ namespace rxcpp
 {
     namespace operators
     {
-        auto sample_every(const std::chrono::milliseconds &durationInMs) {
+        auto sample_every(const double frequencyInHz) {
             return [=](auto &&source) {
+                const std::chrono::milliseconds durationInMs(static_cast<long>(1000.0/frequencyInHz));
                 return rxcpp::observable<>::interval(durationInMs).with_latest_from(
-                        [=](const auto x, const auto y) { return y; }, source);};};
+                        [=](const auto intervalObsrv, const auto sourceObsrv) { return sourceObsrv; }, source);};};
+
 
         template<typename T>
-        auto publishToTopic(const std::string &topic, const uint32_t queueSize = 10) {
+        auto publish_to_topic(const std::string &topic, const uint32_t queueSize = 10) {
             return [=](auto &&source) {
                 return rxros::Publisher<T>::publish(source, topic, queueSize);};};
 
-        auto sendTransform(const std::string& frame_id, const std::string& child_frame_id) {
+
+        auto send_transform(const std::string &frame_id, const std::string &child_frame_id) {
             return [=](auto &&source) {
-                return rxros::TransformBroadcaster::sendTransform(source, frame_id, child_frame_id);};};
+                static tf::TransformBroadcaster transformBroadcaster;
+                source.subscribe_on(synchronize_new_thread()).subscribe(
+                    [=](const tf::Transform& tf) {transformBroadcaster.sendTransform(tf::StampedTransform(tf, ros::Time::now(), frame_id, child_frame_id));});
+                return source;};};
 
     }; // end namespace operators
 }; // end namespace rxcpp
 
 
 #endif //RXROS_H
-

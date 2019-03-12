@@ -14,7 +14,7 @@
 int main(int argc, char** argv) {
     rxros::init(argc, argv, "velocity_publisher"); // Name of this node.
 
-    const auto publishEveryMs = rxros::Parameter::get("/velocity_publisher/publish_every_ms", 100);
+    const auto frequencyInHz = rxros::Parameter::get("/velocity_publisher/frequency", 10.0);
     const auto minVelLinear = rxros::Parameter::get("/velocity_publisher/min_vel_linear", 0.04); // m/s
     const auto maxVelLinear = rxros::Parameter::get("/velocity_publisher/max_vel_linear", 0.10); // m/s
     const auto minVelAngular = rxros::Parameter::get("/velocity_publisher/min_vel_angular", 0.64); // rad/s
@@ -22,7 +22,7 @@ int main(int argc, char** argv) {
     const auto deltaVelLinear = (maxVelLinear - minVelLinear) / 10.0;
     const auto deltaVelAngular = (maxVelAngular - minVelAngular) / 10.0;
 
-    rxros::Logging().info() << "publish_every_ms: " << publishEveryMs;
+    rxros::Logging().info() << "frequency: " << frequencyInHz;
     rxros::Logging().info() << "min_vel_linear: " << minVelLinear << " m/s";
     rxros::Logging().info() << "max_vel_linear: " << maxVelLinear << " m/s";
     rxros::Logging().info() << "min_vel_angular: " << minVelAngular << " rad/s";
@@ -86,8 +86,8 @@ int main(int argc, char** argv) {
     auto velObsrv = joyObsrv.merge(keyObsrv)
         | scan(std::make_tuple(0.0, 0.0), teleopToVelTuple)
         | map(velTupleToTwist)
-        | sample_every(std::chrono::milliseconds(publishEveryMs))
-        | publishToTopic<geometry_msgs::Twist>("/cmd_vel");
+        | sample_every(frequencyInHz)
+        | publish_to_topic<geometry_msgs::Twist>("/cmd_vel");
 
 //    rxros::Publisher<geometry_msgs::Twist>()::publish(velObsrv, "/cmd_vel");
 
