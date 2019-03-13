@@ -33,8 +33,8 @@ namespace rxros
         LogLevel logLevel;
 
     public:
-        Logging() {}
-        virtual ~Logging() {
+        Logging() = default;
+        ~Logging() override {
             switch(logLevel) {
                 case DEBUG:
                     ROS_DEBUG("%s\n", str().c_str());
@@ -95,7 +95,7 @@ namespace rxros
     private:
         ros::NodeHandle nodeHandle;
 
-        Parameter() {};
+        Parameter() = default;;
 
         template<typename T>
         auto getParam(const std::string& name, const T& defaultValue)
@@ -120,7 +120,7 @@ namespace rxros
         }
 
     public:
-        virtual ~Parameter() {};
+        virtual ~Parameter() = default;;
 
         template<typename T>
         static auto get(const std::string& name, const T& defaultValue)
@@ -168,7 +168,7 @@ namespace rxros
         }
 
     public:
-        virtual ~Observable() {}
+        virtual ~Observable() = default;
 
 
         static auto fromTopic(const std::string& topic, const uint32_t queueSize = 10)
@@ -219,7 +219,7 @@ namespace rxros
             publisher(nodeHandle.advertise<T>(topic, queueSize)) {}
 
     public:
-        virtual ~Publisher() {}
+        virtual ~Publisher() = default;
 
         static auto publish(const rxcpp::observable<T> &observ, const std::string &topic, const uint32_t queueSize = 10)
         {
