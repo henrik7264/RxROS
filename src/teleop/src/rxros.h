@@ -33,8 +33,8 @@ namespace rxros
         LogLevel logLevel;
 
     public:
-        Logging() {}
-        virtual ~Logging() {
+        Logging() = default;
+        ~Logging() override {
             switch(logLevel) {
                 case DEBUG:
                     ROS_DEBUG("%s\n", str().c_str());
@@ -95,7 +95,7 @@ namespace rxros
     private:
         ros::NodeHandle nodeHandle;
 
-        Parameter() {};
+        Parameter() = default;;
 
         template<typename T>
         auto getParam(const std::string& name, const T& defaultValue)
@@ -120,7 +120,7 @@ namespace rxros
         }
 
     public:
-        virtual ~Parameter() {};
+        virtual ~Parameter() = default;;
 
         template<typename T>
         static auto get(const std::string& name, const T& defaultValue)
@@ -145,6 +145,22 @@ namespace rxros
     }; // end of class Parameter
 
 
+    class NodeHandle : public ros::NodeHandle
+    {
+    public:
+        template<class T>
+        ros::Subscriber subscribe(const std::string& topic, uint32_t queue_size, const std::function<void(const T&)>& callback, const ros::VoidConstPtr& tracked_object = ros::VoidConstPtr(), const ros::TransportHints& transport_hints = ros::TransportHints())
+        {
+            return ros::NodeHandle::subscribe<T>(topic, queue_size, static_cast<boost::function<void(const T&)>>(callback), tracked_object, transport_hints);
+        }
+
+        template<class T>
+        ros::ServiceServer advertiseService(const std::string& service, const std::function<bool(typename T::Request&, typename T::Response&)> callback,const ros::VoidConstPtr& tracked_object = ros::VoidConstPtr())
+        {
+            return ros::NodeHandle::advertiseService<typename T::Request, typename T::Response>(service, static_cast<boost::function<bool(typename T::Request&, typename T::Response&)>>(callback), tracked_object);
+        }
+    };
+
     template<class T>
     class Observable
     {
@@ -154,40 +170,32 @@ namespace rxros
          * relay notifications from Observable to a
          * set of Observers. */
         rxcpp::subjects::subject<T> subject;
-        ros::NodeHandle nodeHandle;
+        rxros::NodeHandle nodeHandle;
         ros::Subscriber subscriber;
 
         // We subscribe to a ROS topic and use the callback function to handle updates of the topic.
-        Observable(const std::string& topic, const uint32_t queueSize = 10):
-            subscriber(nodeHandle.subscribe(topic, queueSize, &Observable::callback, this)) {}
-
-        // Callback function used by ROS subscriber
-        void callback(const T& val)
-        {
-            subject.get_subscriber().on_next(val);
-        }
+        explicit Observable(const std::string& topic, const uint32_t queueSize = 10):
+            subscriber(nodeHandle.subscribe(topic, queueSize, [=](const T& val){subject.get_subscriber().on_next(val);})) {}
 
     public:
-        virtual ~Observable() {}
-
+        virtual ~Observable() = default;
 
         static auto fromTopic(const std::string& topic, const uint32_t queueSize = 10)
         {
-            Observable* self = new Observable(topic, queueSize);
+            auto* self = new Observable(topic, queueSize);
             return self->subject.get_observable(); // and return the RxCpp observable of the subject.
         }
 
-        
+
         static auto fromTransformListener(const std::string& frameId, const std::string& childFrameId, const double frequencyInHz = 10.0)
         {
-            assert(typeid(T) == typeid(tf::StampedTransform));
+            //assert(typeid(T) == typeid(tf::StampedTransform));
             return rxcpp::observable<>::create<T>(
                 [=](rxcpp::subscriber<T> subscriber) {
                     ros::NodeHandle nodeHandle;
                     tf::TransformListener listener;
                     ros::Rate rate(frequencyInHz);
-                    while (nodeHandle.ok())
-                    {
+                    while (nodeHandle.ok()) {
                         try {
                             tf::StampedTransform transform;
                             listener.lookupTransform(frameId, childFrameId, ros::Time(0), transform);
@@ -200,8 +208,7 @@ namespace rxros
                         }
                         rate.sleep();
                     }
-                    if (!nodeHandle.ok())
-                    {
+                    if (!nodeHandle.ok()) {
                         subscriber.on_completed();
                     }});
         };
@@ -215,21 +222,44 @@ namespace rxros
         ros::NodeHandle nodeHandle;
         ros::Publisher publisher;
 
-        Publisher(const std::string& topic, const uint32_t queueSize = 10) :
+        explicit Publisher(const std::string& topic, const uint32_t queueSize = 10) :
             publisher(nodeHandle.advertise<T>(topic, queueSize)) {}
 
     public:
-        virtual ~Publisher() {}
+        virtual ~Publisher() = default;
 
         static auto publish(const rxcpp::observable<T> &observ, const std::string &topic, const uint32_t queueSize = 10)
         {
-            Publisher* self = new Publisher(topic, queueSize);
+            auto* self = new Publisher(topic, queueSize);
             observ.subscribe_on(synchronize_new_thread()).subscribe(
                 [=](const T& msg) {self->publisher.publish(msg);});
             return observ;
         }
     }; // end of class Publisher
 
+}; // end of namespace rxros
+
+
+namespace rxros
+{
+    namespace utils
+    {
+        template <typename T, typename F>
+        auto iff(bool b, T&& t, F&& f) {
+            if (b)
+                return t;
+            return f;
+        }
+
+//        template <typename V, typename... Vs, typename T, typename F>
+//        auto eq(V v, Vs... vs, T&& t, F&& f) {
+//            for (auto e: vs) {
+//                if (v == e)
+//                    return t;
+//            }
+//            return f;};
+
+    }; // end of namespace utils
 }; // end of namespace rxros
 
 

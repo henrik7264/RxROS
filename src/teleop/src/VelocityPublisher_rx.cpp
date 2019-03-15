@@ -89,8 +89,6 @@ int main(int argc, char** argv) {
         | sample_every(frequencyInHz)
         | publish_to_topic<geometry_msgs::Twist>("/cmd_vel");
 
-//    rxros::Publisher<geometry_msgs::Twist>()::publish(velObsrv, "/cmd_vel");
-
     rxros::Logging().info() << "Spinning ...";
     rxros::spin();
 }
