@@ -39,8 +39,8 @@ int main(int argc, char** argv)
             return makeKeyboardMsg(KB_EVENT_NONE);};
 
     rxros::Observable<input_event>::fromKeyboardDevice(keyboardDevice)
-    | map(keyboardEventToKeyboardMsg)
-    | publish_to_topic<teleop_msgs::Keyboard>("/keyboard");
+        | map(keyboardEventToKeyboardMsg)
+        | publish_to_topic<teleop_msgs::Keyboard>("/keyboard");
 
     rxros::Logging().info() << "Spinning keyboard_publisher...";
     rxros::spin();

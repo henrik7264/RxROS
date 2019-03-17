@@ -180,10 +180,9 @@ namespace rxros
 
         // We subscribe to a ROS topic and use the callback function to handle updates of the topic.
         explicit Observable(const std::string& topic, const uint32_t queueSize = 10):
-            //subscriber(nodeHandle.subscribe(topic, queueSize, [=](const T& val){subject.get_subscriber().on_next(val);})) {}
-            subscriber(nodeHandle.subscribe(topic, queueSize, &Observable::cb, this)) {}
+            subscriber(nodeHandle.subscribe(topic, queueSize, &Observable::callback, this)) {}
 
-         void cb(const T& val)
+         void callback(const T &val)
          {
             subject.get_subscriber().on_next(val);
          }
@@ -199,7 +198,7 @@ namespace rxros
 
         static auto fromTransformListener(const std::string& frameId, const std::string& childFrameId, const double frequencyInHz = 10.0)
         {
-            //assert(typeid(T) == typeid(tf::StampedTransform));
+            assert(typeid(T) == typeid(tf::StampedTransform));
             return rxcpp::observable<>::create<T>(
                 [=](rxcpp::subscriber<T> subscriber) {
                     ros::NodeHandle nodeHandle;
@@ -237,8 +236,7 @@ namespace rxros
                     input_event keyboardEvent{};
                     bool doLoop = true;
                     while (doLoop && rxros::ok()) {
-                        int rc = select(fd + 1, &readfds, nullptr, nullptr,
-                                        nullptr);  // wait for input on keyboard device
+                        int rc = select(fd + 1, &readfds, nullptr, nullptr, nullptr);  // wait for input on keyboard device
                         if (rc == -1 &&
                             errno == EINTR) { // select was interrupted. This is not an error but we exit the loop
                             subscriber.on_completed();
