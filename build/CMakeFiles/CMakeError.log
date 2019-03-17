@@ -13,10 +13,10 @@ CMakeFiles/cmTC_188d5.dir/CheckSymbolExists.c.o: In function `main':
 CheckSymbolExists.c:(.text+0x1b): undefined reference to `pthread_create'
 collect2: error: ld returned 1 exit status
 CMakeFiles/cmTC_188d5.dir/build.make:97: recipe for target 'cmTC_188d5' failed
-make[1]: *** [cmTC_188d5] Error 1
+make[1]: *** [cmTC_188d5] Exception 1
 make[1]: Leaving directory '/home/hl/Src/CLionProjects/RxROS/build/CMakeFiles/CMakeTmp'
 Makefile:126: recipe for target 'cmTC_188d5/fast' failed
-make: *** [cmTC_188d5/fast] Error 2
+make: *** [cmTC_188d5/fast] Exception 2
 
 File /home/hl/Src/CLionProjects/RxROS/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
 /* */
@@ -47,9 +47,9 @@ Linking C executable cmTC_8f9f5
 /usr/bin/x86_64-linux-gnu-ld: cannot find -lpthreads
 collect2: error: ld returned 1 exit status
 CMakeFiles/cmTC_8f9f5.dir/build.make:97: recipe for target 'cmTC_8f9f5' failed
-make[1]: *** [cmTC_8f9f5] Error 1
+make[1]: *** [cmTC_8f9f5] Exception 1
 make[1]: Leaving directory '/home/hl/Src/CLionProjects/RxROS/build/CMakeFiles/CMakeTmp'
 Makefile:126: recipe for target 'cmTC_8f9f5/fast' failed
-make: *** [cmTC_8f9f5/fast] Error 2
+make: *** [cmTC_8f9f5/fast] Exception 2
 
 

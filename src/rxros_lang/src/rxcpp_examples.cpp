@@ -2,6 +2,7 @@
 // Created by hl on 1/13/19.
 //
 #include <Scheduler.h> // Bosma::Scheduler
+#include <boost/function.hpp>
 #include <iostream>
 #include <iterator>
 #include <vector>
@@ -63,6 +64,7 @@ public:
     void rxObserveOnScheduler();
     void rxSubscribeOnScheduler();
     void rxWithLatestFrom();
+    void rxStdFunction2BoostFunction();
 };
 
 
@@ -457,6 +459,19 @@ void Examples::rxWithLatestFrom()
 
 
 //--------------------------------------------------------------------------------------
+void Examples::rxStdFunction2BoostFunction()
+{
+    std::function<void (const std::string&)> f = [](const std::string& a) { cout << "Hello " << a << endl; };
+
+    f("John");
+
+    boost::function<void (const std::string&)> g = [](const std::string& a) { cout << "Hello " << a << endl; };
+
+    g("Eva");
+}
+
+
+//--------------------------------------------------------------------------------------
 int main(int argc, char** argv)
 {
     Examples examples;
@@ -480,5 +495,6 @@ int main(int argc, char** argv)
 //    examples.rxScheduler2();
 //    examples.rxObserveOnScheduler();
 //    examples.rxSubscribeOnScheduler();
-    examples.rxWithLatestFrom();
+//    examples.rxWithLatestFrom();
+    examples.rxStdFunction2BoostFunction();
 }

@@ -5,26 +5,42 @@
 #ifndef RXROS_H
 #define RXROS_H
 
+#include <fcntl.h>
+#include <unistd.h>
+#include <cstdlib>
 #include <cassert>
+#include <linux/input.h>
 #include <rxcpp/rx.hpp>
 #include <ros/ros.h>
 #include <ros/console.h>
 #include <tf/transform_broadcaster.h>
 #include <tf/transform_listener.h>
 
-namespace Rx {
 using namespace rxcpp;
 using namespace rxcpp::sources;
 using namespace rxcpp::operators;
 using namespace rxcpp::util;
-}
-using namespace Rx;
 
 
 namespace rxros
 {
     static void init(int argc, char** argv, const std::string& name) {ros::init(argc, argv, name);}
     static void spin() {ros::spin();}
+    static bool ok() {return ros::ok();}
+
+    class Exception
+    {
+    private:
+        Exception() = default;
+
+    public:
+        ~Exception() = default;
+        static auto systemError(const int errCode, const std::string &msg)
+        {
+            return std::make_exception_ptr(std::system_error(std::error_code(errCode, std::generic_category()), msg));
+        }
+    }; // end of class Exception
+
 
     class Logging: public std::ostringstream
     {
@@ -138,28 +154,17 @@ namespace rxros
             return Parameter().getParam(name, defaultValue);
         }
 
+        static auto get(const std::string& name, const char* defaultValue)
+        {
+            return get<std::string>(name, defaultValue);
+        }
+
         static auto get(const std::string& name, const std::string& defaultValue)
         {
             return get<std::string>(name, defaultValue);
         }
     }; // end of class Parameter
 
-
-    class NodeHandle : public ros::NodeHandle
-    {
-    public:
-        template<class T>
-        ros::Subscriber subscribe(const std::string& topic, uint32_t queue_size, const std::function<void(const T&)>& callback, const ros::VoidConstPtr& tracked_object = ros::VoidConstPtr(), const ros::TransportHints& transport_hints = ros::TransportHints())
-        {
-            return ros::NodeHandle::subscribe<T>(topic, queue_size, static_cast<boost::function<void(const T&)>>(callback), tracked_object, transport_hints);
-        }
-
-        template<class T>
-        ros::ServiceServer advertiseService(const std::string& service, const std::function<bool(typename T::Request&, typename T::Response&)> callback,const ros::VoidConstPtr& tracked_object = ros::VoidConstPtr())
-        {
-            return ros::NodeHandle::advertiseService<typename T::Request, typename T::Response>(service, static_cast<boost::function<bool(typename T::Request&, typename T::Response&)>>(callback), tracked_object);
-        }
-    };
 
     template<class T>
     class Observable
@@ -170,12 +175,18 @@ namespace rxros
          * relay notifications from Observable to a
          * set of Observers. */
         rxcpp::subjects::subject<T> subject;
-        rxros::NodeHandle nodeHandle;
+        ros::NodeHandle nodeHandle;
         ros::Subscriber subscriber;
 
         // We subscribe to a ROS topic and use the callback function to handle updates of the topic.
         explicit Observable(const std::string& topic, const uint32_t queueSize = 10):
-            subscriber(nodeHandle.subscribe(topic, queueSize, [=](const T& val){subject.get_subscriber().on_next(val);})) {}
+            //subscriber(nodeHandle.subscribe(topic, queueSize, [=](const T& val){subject.get_subscriber().on_next(val);})) {}
+            subscriber(nodeHandle.subscribe(topic, queueSize, &Observable::cb, this)) {}
+
+         void cb(const T& val)
+         {
+            subject.get_subscriber().on_next(val);
+         }
 
     public:
         virtual ~Observable() = default;
@@ -186,7 +197,6 @@ namespace rxros
             return self->subject.get_observable(); // and return the RxCpp observable of the subject.
         }
 
-
         static auto fromTransformListener(const std::string& frameId, const std::string& childFrameId, const double frequencyInHz = 10.0)
         {
             //assert(typeid(T) == typeid(tf::StampedTransform));
@@ -195,7 +205,7 @@ namespace rxros
                     ros::NodeHandle nodeHandle;
                     tf::TransformListener listener;
                     ros::Rate rate(frequencyInHz);
-                    while (nodeHandle.ok()) {
+                    while (rxros::ok()) {
                         try {
                             tf::StampedTransform transform;
                             listener.lookupTransform(frameId, childFrameId, ros::Time(0), transform);
@@ -208,9 +218,52 @@ namespace rxros
                         }
                         rate.sleep();
                     }
-                    if (!nodeHandle.ok()) {
+                    if (!rxros::ok()) {
                         subscriber.on_completed();
                     }});
+        };
+
+        static auto fromKeyboardDevice(const std::string& deviceName)
+        {
+            assert(typeid(T) == typeid(input_event));
+            return rxcpp::observable<>::create<input_event>([=](rxcpp::subscriber<input_event> subscriber) {
+                int fd = open(deviceName.c_str(), O_RDONLY | O_NONBLOCK);
+                if (fd < 0)
+                    subscriber.on_error(rxros::Exception::systemError(errno, std::string("Cannot open keyboard device ") + deviceName));
+                else {
+                    fd_set readfds; // initialize file descriptor set.
+                    FD_ZERO(&readfds);
+                    FD_SET(fd, &readfds);
+                    input_event keyboardEvent{};
+                    bool doLoop = true;
+                    while (doLoop && rxros::ok()) {
+                        int rc = select(fd + 1, &readfds, nullptr, nullptr,
+                                        nullptr);  // wait for input on keyboard device
+                        if (rc == -1 &&
+                            errno == EINTR) { // select was interrupted. This is not an error but we exit the loop
+                            subscriber.on_completed();
+                            close(fd);
+                            doLoop = false;
+                        } else if (rc == -1 || rc == 0) { // select failed and we issue an error.
+                            subscriber.on_error(rxros::Exception::systemError(errno, "Failed to read keyboard."));
+                            close(fd);
+                            doLoop = false;
+                        } else if (FD_ISSET(fd, &readfds)) {
+                            ssize_t sz = read(fd, &keyboardEvent, sizeof(keyboardEvent)); // read pressed key
+                            if (sz == -1) {
+                                subscriber.on_error(rxros::Exception::systemError(errno, "Failed to read keyboard."));
+                                close(fd);
+                                doLoop = false;
+                            } else if (sz == sizeof(keyboardEvent)) {
+                                subscriber.on_next(keyboardEvent); // populate the event on the
+                            }
+                        }
+                    }
+                    if (!rxros::ok()) {
+                        subscriber.on_completed();
+                    }
+                }
+            });
         };
     }; // end of class Observable
 
@@ -244,21 +297,18 @@ namespace rxros
 {
     namespace utils
     {
-        template <typename T, typename F>
-        auto iff(bool b, T&& t, F&& f) {
-            if (b)
-                return t;
-            return f;
+        template <typename E, typename F>
+        auto select(E exp, F&& func) {
+            if (exp)
+                return func();
         }
 
-//        template <typename V, typename... Vs, typename T, typename F>
-//        auto eq(V v, Vs... vs, T&& t, F&& f) {
-//            for (auto e: vs) {
-//                if (v == e)
-//                    return t;
-//            }
-//            return f;};
-
+        template <typename E, typename F, typename ...EFs>
+        auto select(E exp, F&& func, EFs... exp_func_pairs) {
+            if (exp)
+                return func();
+            return select(exp_func_pairs...);
+        }
     }; // end of namespace utils
 }; // end of namespace rxros
 
@@ -267,7 +317,7 @@ namespace rxcpp
 {
     namespace operators
     {
-        auto sample_every(const double frequencyInHz) {
+        auto sample_with_frequency(const double frequencyInHz) {
             return [=](auto &&source) {
                 const std::chrono::milliseconds durationInMs(static_cast<long>(1000.0/frequencyInHz));
                 return rxcpp::observable<>::interval(durationInMs).with_latest_from(

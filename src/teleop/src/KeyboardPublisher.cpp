@@ -32,14 +32,6 @@ int main(int argc, char** argv)
         exit(1);
     }
 
-//    // Redirect stdin to /dev/null
-//    int devNull = open("/dev/null", O_RDONLY);
-//    if( devNull < 0 ) {
-//        printf("Cannot open /dev/null\n");
-//        exit(1);
-//    }
-//    dup2(devNull, 0);
-
     fd_set readfds; // initialize file descriptor set.
     FD_ZERO(&readfds);
     FD_SET(fd, &readfds);
@@ -52,7 +44,7 @@ int main(int argc, char** argv)
             doLoop = false;
         }
         else if (rc == -1 || rc == 0) {
-            printf("Failed to read keyboard. Error: %d.\n", errno);
+            printf("Failed to read keyboard. Exception: %d.\n", errno);
             close(fd);
             doLoop = false;
         }
@@ -60,7 +52,7 @@ int main(int argc, char** argv)
             if (FD_ISSET(fd, &readfds)) {
                 ssize_t sz = read(fd, &keyboardEvent, sizeof(keyboardEvent)); // read pressed key
                 if (sz == -1) {
-                    printf("Failed to read keyboard. Error: %d.\n", errno);
+                    printf("Failed to read keyboard. Exception: %d.\n", errno);
                     close(fd);
                     doLoop = false;
                 }
