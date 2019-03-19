@@ -12,8 +12,8 @@ int main(int argc, char** argv)
 {
     rxros::init(argc, argv, "keyboard_publisher"); // Name of this Node.
 
-    //const auto keyboardDevice = rxros::Parameter::get("/keyboard_publisher/device", "/dev/input/event1"); // for other PCs
-    const auto keyboardDevice = rxros::Parameter::get("/keyboard_publisher/device", "/dev/input/event4"); // for Dell PC
+    const auto keyboardDevice = rxros::Parameter::get("/keyboard_publisher/device", "/dev/input/event1"); // for other PCs
+    //const auto keyboardDevice = rxros::Parameter::get("/keyboard_publisher/device", "/dev/input/event4"); // for Dell PC
 
     rxros::Logging().info() << "Keyboard device: " << keyboardDevice;
 

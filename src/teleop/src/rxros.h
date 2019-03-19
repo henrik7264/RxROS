@@ -28,6 +28,18 @@ namespace rxros
     static void spin() {ros::spin();}
     static bool ok() {return ros::ok();}
 
+    class Node
+    {
+    private:
+        Node() = default;
+    public:
+        ~Node() = default;
+        static auto getHandle() {
+            static ros::NodeHandle nodehandle;
+            return nodehandle;
+        }
+    }; // end of class Node
+
     class Exception
     {
     private:
@@ -53,20 +65,19 @@ namespace rxros
         ~Logging() override {
             switch(logLevel) {
                 case DEBUG:
-                    ROS_DEBUG("%s\n", str().c_str());
+                    ROS_DEBUG("%s", str().c_str());
                     break;
                 case INFO:
-                    std::cout << str() << std::endl;
-                    ROS_INFO("%s\n", str().c_str());
+                    ROS_INFO("%s", str().c_str());
                     break;
                 case WARN:
-                    ROS_WARN("%s\n", str().c_str());
+                    ROS_WARN("%s", str().c_str());
                     break;
                 case ERROR:
-                    ROS_ERROR("%s\n", str().c_str());
+                    ROS_ERROR("%s", str().c_str());
                     break;
                 case FATAL:
-                    ROS_FATAL("%s\n", str().c_str());
+                    ROS_FATAL("%s", str().c_str());
                     break;
                 default:
                     ROS_FATAL("Ups!!!!");
@@ -109,29 +120,27 @@ namespace rxros
     class Parameter
     {
     private:
-        ros::NodeHandle nodeHandle;
-
         Parameter() = default;;
 
         template<typename T>
         auto getParam(const std::string& name, const T& defaultValue)
         {
             T param;
-            nodeHandle.param<T>(name, param, defaultValue);
+            Node::getHandle().param<T>(name, param, defaultValue);
             return param;
         }
 
         auto getParam(const std::string& name, const int defaultValue)
         {
             int param;
-            nodeHandle.param(name, param, defaultValue);
+            Node::getHandle().param(name, param, defaultValue);
             return param;
         }
 
         auto getParam(const std::string& name, const double defaultValue)
         {
             double param;
-            nodeHandle.param(name, param, defaultValue);
+            Node::getHandle().param(name, param, defaultValue);
             return param;
         }
 
@@ -175,12 +184,11 @@ namespace rxros
          * relay notifications from Observable to a
          * set of Observers. */
         rxcpp::subjects::subject<T> subject;
-        ros::NodeHandle nodeHandle;
         ros::Subscriber subscriber;
 
         // We subscribe to a ROS topic and use the callback function to handle updates of the topic.
         explicit Observable(const std::string& topic, const uint32_t queueSize = 10):
-            subscriber(nodeHandle.subscribe(topic, queueSize, &Observable::callback, this)) {}
+            subscriber(Node::getHandle().subscribe(topic, queueSize, &Observable::callback, this)) {}
 
          void callback(const T &val)
          {
@@ -201,7 +209,6 @@ namespace rxros
             assert(typeid(T) == typeid(tf::StampedTransform));
             return rxcpp::observable<>::create<T>(
                 [=](rxcpp::subscriber<T> subscriber) {
-                    ros::NodeHandle nodeHandle;
                     tf::TransformListener listener;
                     ros::Rate rate(frequencyInHz);
                     while (rxros::ok()) {
@@ -298,11 +305,10 @@ namespace rxros
     class Publisher
     {
     private:
-        ros::NodeHandle nodeHandle;
         ros::Publisher publisher;
 
         explicit Publisher(const std::string& topic, const uint32_t queueSize = 10) :
-            publisher(nodeHandle.advertise<T>(topic, queueSize)) {}
+            publisher(Node::getHandle().advertise<T>(topic, queueSize)) {}
 
     public:
         virtual ~Publisher() = default;
@@ -311,7 +317,7 @@ namespace rxros
         {
             auto* self = new Publisher(topic, queueSize);
             observ.subscribe_on(synchronize_new_thread()).subscribe(
-                [=](const T& msg) {static int i = 0; std::cout << i++ << std::endl;}); //self->publisher.publish(msg);});
+                [=](const T& msg) {self->publisher.publish(msg);});
             return observ;
         }
     }; // end of class Publisher
