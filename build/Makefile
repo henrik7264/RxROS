@@ -909,6 +909,32 @@ rosgraph_msgs_generate_messages_eus/fast:
 .PHONY : rosgraph_msgs_generate_messages_eus/fast
 
 #=============================================================================
+# Target rules for targets named joystick_publisher_rxros
+
+# Build rule for target.
+joystick_publisher_rxros: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 joystick_publisher_rxros
+.PHONY : joystick_publisher_rxros
+
+# fast build rule for target.
+joystick_publisher_rxros/fast:
+	$(MAKE) -f teleop/CMakeFiles/joystick_publisher_rxros.dir/build.make teleop/CMakeFiles/joystick_publisher_rxros.dir/build
+.PHONY : joystick_publisher_rxros/fast
+
+#=============================================================================
+# Target rules for targets named keyboard_publisher_rxros
+
+# Build rule for target.
+keyboard_publisher_rxros: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 keyboard_publisher_rxros
+.PHONY : keyboard_publisher_rxros
+
+# fast build rule for target.
+keyboard_publisher_rxros/fast:
+	$(MAKE) -f teleop/CMakeFiles/keyboard_publisher_rxros.dir/build.make teleop/CMakeFiles/keyboard_publisher_rxros.dir/build
+.PHONY : keyboard_publisher_rxros/fast
+
+#=============================================================================
 # Target rules for targets named keyboard_publisher
 
 # Build rule for target.
@@ -922,19 +948,6 @@ keyboard_publisher/fast:
 .PHONY : keyboard_publisher/fast
 
 #=============================================================================
-# Target rules for targets named velocity_publisher_rxros
-
-# Build rule for target.
-velocity_publisher_rxros: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 velocity_publisher_rxros
-.PHONY : velocity_publisher_rxros
-
-# fast build rule for target.
-velocity_publisher_rxros/fast:
-	$(MAKE) -f teleop/CMakeFiles/velocity_publisher_rxros.dir/build.make teleop/CMakeFiles/velocity_publisher_rxros.dir/build
-.PHONY : velocity_publisher_rxros/fast
-
-#=============================================================================
 # Target rules for targets named joystick_publisher
 
 # Build rule for target.
@@ -946,6 +959,19 @@ joystick_publisher: cmake_check_build_system
 joystick_publisher/fast:
 	$(MAKE) -f teleop/CMakeFiles/joystick_publisher.dir/build.make teleop/CMakeFiles/joystick_publisher.dir/build
 .PHONY : joystick_publisher/fast
+
+#=============================================================================
+# Target rules for targets named velocity_publisher_rxros
+
+# Build rule for target.
+velocity_publisher_rxros: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 velocity_publisher_rxros
+.PHONY : velocity_publisher_rxros
+
+# fast build rule for target.
+velocity_publisher_rxros/fast:
+	$(MAKE) -f teleop/CMakeFiles/velocity_publisher_rxros.dir/build.make teleop/CMakeFiles/velocity_publisher_rxros.dir/build
+.PHONY : velocity_publisher_rxros/fast
 
 #=============================================================================
 # Target rules for targets named velocity_publisher
@@ -1745,9 +1771,11 @@ help:
 	@echo "... roscpp_generate_messages_lisp"
 	@echo "... rxros_lang_examples"
 	@echo "... rosgraph_msgs_generate_messages_eus"
+	@echo "... joystick_publisher_rxros"
+	@echo "... keyboard_publisher_rxros"
 	@echo "... keyboard_publisher"
-	@echo "... velocity_publisher_rxros"
 	@echo "... joystick_publisher"
+	@echo "... velocity_publisher_rxros"
 	@echo "... velocity_publisher"
 	@echo "... brickpi3_odom_publisher"
 	@echo "... nav_msgs_generate_messages_cpp"

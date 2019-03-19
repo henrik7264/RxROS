@@ -58,8 +58,9 @@ int main(int argc, char** argv) {
         vel.angular.z = std::get<1>(velTuple);
         return vel;};
 
+    int i = 0;
     auto joyObsrv = rxros::Observable<teleop_msgs::Joystick>::fromTopic("/joystick") // create an observable stream from "/joystick" topic
-        | map([](teleop_msgs::Joystick joy) { return joy.event; });
+        | map([&](teleop_msgs::Joystick joy) { std::cout << i++ << std::endl; return joy.event; });
 
     auto keyObsrv = rxros::Observable<teleop_msgs::Keyboard>::fromTopic("/keyboard") // create an observable stream from "/keyboard" topic
         | map([](teleop_msgs::Keyboard key) { return key.event; });

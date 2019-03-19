@@ -222,10 +222,10 @@ namespace rxros
                     }});
         };
 
-        static auto fromKeyboardDevice(const std::string& deviceName)
+        static auto fromDevice(const std::string& deviceName)
         {
-            assert(typeid(T) == typeid(input_event));
-            return rxcpp::observable<>::create<input_event>([=](rxcpp::subscriber<input_event> subscriber) {
+            return rxcpp::observable<>::create<T>(
+                [=](rxcpp::subscriber<T> subscriber) {
                 int fd = open(deviceName.c_str(), O_RDONLY | O_NONBLOCK);
                 if (fd < 0)
                     subscriber.on_error(rxros::Exception::systemError(errno, std::string("Cannot open keyboard device ") + deviceName));
@@ -233,7 +233,7 @@ namespace rxros
                     fd_set readfds; // initialize file descriptor set.
                     FD_ZERO(&readfds);
                     FD_SET(fd, &readfds);
-                    input_event keyboardEvent{};
+                    T event{};
                     bool doLoop = true;
                     while (doLoop && rxros::ok()) {
                         int rc = select(fd + 1, &readfds, nullptr, nullptr, nullptr);  // wait for input on keyboard device
@@ -247,13 +247,13 @@ namespace rxros
                             close(fd);
                             doLoop = false;
                         } else if (FD_ISSET(fd, &readfds)) {
-                            ssize_t sz = read(fd, &keyboardEvent, sizeof(keyboardEvent)); // read pressed key
+                            ssize_t sz = read(fd, &event, sizeof(T)); // read pressed key
                             if (sz == -1) {
                                 subscriber.on_error(rxros::Exception::systemError(errno, "Failed to read keyboard."));
                                 close(fd);
                                 doLoop = false;
-                            } else if (sz == sizeof(keyboardEvent)) {
-                                subscriber.on_next(keyboardEvent); // populate the event on the
+                            } else if (sz == sizeof(T)) {
+                                subscriber.on_next(event); // populate the event on the
                             }
                         }
                     }
@@ -263,6 +263,34 @@ namespace rxros
                 }
             });
         };
+
+        static auto fromBlockingDevice(const std::string& deviceName)
+        {
+            return rxcpp::observable<>::create<T>(
+                [=](rxcpp::subscriber<T> subscriber) {
+                    int fd = open(deviceName.c_str(), O_RDONLY);
+                    if (fd < 0)
+                        subscriber.on_error(rxros::Exception::systemError(errno, std::string("Cannot open keyboard device ") + deviceName));
+                    else {
+                        T event{};
+                        bool doLoop = true;
+                        while (doLoop && rxros::ok()) {
+                            ssize_t sz = read(fd, &event, sizeof(T)); // read pressed key
+                            if (sz == -1) {
+                                subscriber.on_error(rxros::Exception::systemError(errno, "Failed to read keyboard."));
+                                close(fd);
+                                doLoop = false;
+                            } else if (sz == sizeof(T)) {
+                                subscriber.on_next(event); // populate the event on the
+                            }
+                        }
+                        if (!rxros::ok()) {
+                            subscriber.on_completed();
+                        }
+                    }
+                });
+        };
+
     }; // end of class Observable
 
 
@@ -283,7 +311,7 @@ namespace rxros
         {
             auto* self = new Publisher(topic, queueSize);
             observ.subscribe_on(synchronize_new_thread()).subscribe(
-                [=](const T& msg) {self->publisher.publish(msg);});
+                [=](const T& msg) {static int i = 0; std::cout << i++ << std::endl;}); //self->publisher.publish(msg);});
             return observ;
         }
     }; // end of class Publisher

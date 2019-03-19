@@ -2,8 +2,7 @@
 // Created by hl on 8/22/18.
 //
 
-#include <fcntl.h>
-#include <string>
+#include "rxros.h"
 #include <ros/ros.h>
 #include <ros/console.h>
 #include <teleop_msgs/Joystick.h>
@@ -12,7 +11,8 @@
 #define JS_EVENT_BUTTON 0x01    /* button pressed/released */
 #define JS_EVENT_AXIS   0x02    /* joystick moved */
 
-struct joystick_event {
+struct joystick_event
+{
     unsigned int time;      /* event timestamp in milliseconds */
     short value;            /* value */
     unsigned char type;     /* event type */
@@ -21,79 +21,53 @@ struct joystick_event {
 
 int main(int argc, char** argv)
 {
-    ros::init(argc, argv, "joystick_publisher"); // Name of this Node.
-    ros::NodeHandle nodeHandle;
-    ros::Publisher publisher = nodeHandle.advertise<teleop_msgs::Joystick>("/joystick", 10); // Publisher Topic /joystick
+    rxros::init(argc, argv, "joystick_publisher"); // Name of this Node.
 
-    // Read parameter device
-    std::string joystickDevice;
-    nodeHandle.param<std::string>("/joystick_publisher/device", joystickDevice, "/dev/input/js0");
+    const auto joystickDevice = rxros::Parameter::get("/joystick_publisher/device", "/dev/input/js0");
 
-    int fd = open(joystickDevice.c_str(), O_RDONLY);
-    if( fd < 0 ) {
-        printf("Cannot open joystick device.\n");
-        exit(1);
-    }
+    rxros::Logging().info() << "Joystick device: " << joystickDevice;
 
-    struct joystick_event joystickEvent;
-    while (ros::ok()) {
-        read(fd, &joystickEvent, sizeof(joystickEvent));
-        if (joystickEvent.type == JS_EVENT_BUTTON || joystickEvent.type == JS_EVENT_AXIS) {
-            ros::Time rosTime(joystickEvent.time, 0);
-            teleop_msgs::Joystick joystick;
-            joystick.time = rosTime;
-
-            unsigned char type = joystickEvent.type;
-            unsigned char number = joystickEvent.number;
-            short value = joystickEvent.value;
-            joystick.event = JS_EVENT_NEUTRAL;
-            if (type == JS_EVENT_BUTTON) {
-                if (number == 0 && value == 0) {
-                    joystick.event = JS_EVENT_BUTTON0_UP;
-                }
-                else if (number == 0 && value == 1) {
-                    joystick.event = JS_EVENT_BUTTON0_DOWN;
-                }
-                else if (number == 1 && value == 0) {
-                    joystick.event = JS_EVENT_BUTTON1_UP;
-                }
-                else if (number == 1 && value == 1) {
-                    joystick.event = JS_EVENT_BUTTON1_DOWN;
-                }
-                else if (number == 2 && value == 0) {
-                    joystick.event = JS_EVENT_BUTTON2_UP;
-                }
-                else if (number == 2 && value == 1) {
-                    joystick.event = JS_EVENT_BUTTON2_DOWN;
-                }
-                else if (number == 3 && value == 0) {
-                    joystick.event = JS_EVENT_BUTTON3_UP;
-                }
-                else if (number == 3 && value == 1) {
-                    joystick.event = JS_EVENT_BUTTON3_DOWN;
-                }
-            }
-            else if (type == JS_EVENT_AXIS) {
-                if (number==0 && value == 32767)
-                {
-                    joystick.event = JS_EVENT_AXIS_RIGHT;
-                }
-                else if (number==0 && value==-32767)
-                {
-                    joystick.event = JS_EVENT_AXIS_LEFT;
-                }
-                else if (number==1 && value==32767)
-                {
-                    joystick.event = JS_EVENT_AXIS_DOWN;
-                }
-                else if (number==1 && value==-32767) {
-                    joystick.event = JS_EVENT_AXIS_UP;
-                }
-            }
-
-            if (joystick.event != JS_EVENT_NEUTRAL) {
-                publisher.publish(joystick);
-            }
+    auto joystickEventToJoystickMsg = [=](const auto joystickEvent) {
+        auto makeJoystickMsg = [=] (auto event) {
+            teleop_msgs::Joystick joystickMsg;
+            joystickMsg.time = ros::Time(joystickEvent.time, 0);
+            joystickMsg.event = event;
+            return joystickMsg;};
+        if (joystickEvent.type == JS_EVENT_BUTTON) {
+            if (joystickEvent.number == 0 && joystickEvent.value == 0)
+                return makeJoystickMsg(JS_EVENT_BUTTON0_UP);
+            else if (joystickEvent.number == 0 && joystickEvent.value == 1)
+                return makeJoystickMsg(JS_EVENT_BUTTON0_DOWN);
+            else if (joystickEvent.number == 1 && joystickEvent.value == 0)
+                return makeJoystickMsg(JS_EVENT_BUTTON1_UP);
+            else if (joystickEvent.number == 1 && joystickEvent.value == 1)
+                return makeJoystickMsg(JS_EVENT_BUTTON1_DOWN);
+            else if (joystickEvent.number == 2 && joystickEvent.value == 0)
+                return makeJoystickMsg(JS_EVENT_BUTTON2_UP);
+            else if (joystickEvent.number == 2 && joystickEvent.value == 1)
+                return makeJoystickMsg(JS_EVENT_BUTTON2_DOWN);
+            else if (joystickEvent.number == 3 && joystickEvent.value == 0)
+                return makeJoystickMsg(JS_EVENT_BUTTON3_UP);
+            else if (joystickEvent.number == 3 && joystickEvent.value == 1)
+                return makeJoystickMsg(JS_EVENT_BUTTON3_DOWN);
         }
-    }
+        else if (joystickEvent.type == JS_EVENT_AXIS) {
+            if (joystickEvent.number == 0 && joystickEvent.value == 32767)
+                return makeJoystickMsg(JS_EVENT_AXIS_RIGHT);
+            else if (joystickEvent.number == 0 && joystickEvent.value == -32767)
+                return makeJoystickMsg(JS_EVENT_AXIS_LEFT);
+            else if (joystickEvent.number == 1 && joystickEvent.value == 32767)
+                return makeJoystickMsg(JS_EVENT_AXIS_DOWN);
+            else if (joystickEvent.number == 1 && joystickEvent.value == -32767)
+                return makeJoystickMsg(JS_EVENT_AXIS_UP);
+        }
+        else
+            return makeJoystickMsg(JS_EVENT_NEUTRAL);};
+
+    rxros::Observable<joystick_event>::fromBlockingDevice(joystickDevice)
+        | map(joystickEventToJoystickMsg)
+        | publish_to_topic<teleop_msgs::Joystick>("/joystick");
+
+    rxros::Logging().info() << "Spinning joystick_publisher ...";
+    rxros::spin();
 }
