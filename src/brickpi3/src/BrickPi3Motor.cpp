@@ -8,6 +8,7 @@
 #include <ros/ros.h>
 #include <sensor_msgs/JointState.h>
 #include <brickpi3_msgs/JointCommand.h>
+#include "Node.h"
 #include "BrickPi3Device.h"
 #include "BrickPi3Motor.h"
 using namespace std;
@@ -16,8 +17,8 @@ using namespace std;
 
 
 BrickPi3Motor::BrickPi3Motor(const string& aName, const string& aPort, const double aFrequency):
-    jointStatePublisher(nodeHandle.advertise<sensor_msgs::JointState>("/joint_state", 10)),
-    jointCommandSubscriber(nodeHandle.subscribe("/joint_command", 10, &BrickPi3Motor::jointCommandCB, this)),
+    jointStatePublisher(Node::getHandle().advertise<sensor_msgs::JointState>("/joint_state", 10)),
+    jointCommandSubscriber(Node::getHandle().subscribe("/joint_command", 10, &BrickPi3Motor::jointCommandCB, this)),
     lastTime(0,0),
     lastPosition(0)
 {
@@ -61,7 +62,7 @@ void BrickPi3Motor::schedulerCB()
 
     int rc = brickPi3.get_motor_status(PORT_A, motorState, motorPower, motorPosition, motorDPS);;
     if (rc == 0) {
-        printf("State A: %d Power A: %4d  Encoder A: %6d  DPS A: %6d  \n", motorState, motorPower, motorPosition, motorDPS);
+        ROS_DEBUG("State A: %d Power A: %4d  Encoder A: %6d  DPS A: %6d", motorState, motorPower, motorPosition, motorDPS);
 
         ros::Time currTime = ros::Time::now();
         double currPosition = static_cast<double>(motorPosition) * M_PI / 180.0 / 3.0;

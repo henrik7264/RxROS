@@ -2,9 +2,7 @@
 // Created by hl on 8/22/18.
 //
 
-#include "rxros.h"
-#include <ros/ros.h>
-#include <ros/console.h>
+#include <rxros.h>
 #include <teleop_msgs/Keyboard.h>
 #include "KeyboardPublisher.h"
 

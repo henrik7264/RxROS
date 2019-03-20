@@ -6,11 +6,12 @@
 #include <ros/ros.h>
 #include <ros/console.h>
 #include <sensor_msgs/JointState.h>
+#include "Node.h"
 
-class JointStatesAggregator
+
+class BrickPi3JointStatesPublisher
 {
 private:
-    ros::NodeHandle nodeHandle;
     ros::Subscriber jointStateSubscriber;
     ros::Publisher jointStatesPublisher;
     sensor_msgs::JointState jointStates;
@@ -19,20 +20,20 @@ private:
     void jointStateSubscriberCB(const sensor_msgs::JointState& jointState);
 
 public:
-    JointStatesAggregator(int argc, char** argv);
-    virtual ~JointStatesAggregator() {}
+    BrickPi3JointStatesPublisher(int argc, char** argv);
+    virtual ~BrickPi3JointStatesPublisher() {}
     void run() {ros::spin();}
 };
 
 
-JointStatesAggregator::JointStatesAggregator(int argc, char** argv):
-    jointStatesPublisher(nodeHandle.advertise<sensor_msgs::JointState>("/joint_states", 10)),
-    jointStateSubscriber(nodeHandle.subscribe("/joint_state", 10, &JointStatesAggregator::jointStateSubscriberCB, this)),
+BrickPi3JointStatesPublisher::BrickPi3JointStatesPublisher(int argc, char** argv):
+    jointStatesPublisher(Node::getHandle().advertise<sensor_msgs::JointState>("/joint_states", 10)),
+    jointStateSubscriber(Node::getHandle().subscribe("/joint_state", 10, &BrickPi3JointStatesPublisher::jointStateSubscriberCB, this)),
     seqNo(0)
 {
 }
 
-void JointStatesAggregator::jointStateSubscriberCB(const sensor_msgs::JointState& jointState)
+void BrickPi3JointStatesPublisher::jointStateSubscriberCB(const sensor_msgs::JointState& jointState)
 {
     if (std::find(jointStates.name.begin(), jointStates.name.end(), jointState.name[0]) != jointStates.name.end()) { // name already exists in the jointStates
         jointStates.name.clear();
@@ -66,6 +67,6 @@ void JointStatesAggregator::jointStateSubscriberCB(const sensor_msgs::JointState
 int main(int argc, char** argv)
 {
     ros::init(argc, argv, "joint_state_aggregator"); // Name of this node.
-    JointStatesAggregator jointStatesAggregator(argc, argv);
+    BrickPi3JointStatesPublisher jointStatesAggregator(argc, argv);
     jointStatesAggregator.run();
 }

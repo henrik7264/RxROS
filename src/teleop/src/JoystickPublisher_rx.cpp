@@ -2,9 +2,7 @@
 // Created by hl on 8/22/18.
 //
 
-#include "rxros.h"
-#include <ros/ros.h>
-#include <ros/console.h>
+#include <rxros.h>
 #include <teleop_msgs/Joystick.h>
 #include "JoystickPublisher.h"
 
@@ -64,7 +62,7 @@ int main(int argc, char** argv)
         else
             return makeJoystickMsg(JS_EVENT_NEUTRAL);};
 
-    rxros::Observable<joystick_event>::fromBlockingDevice(joystickDevice)
+    rxros::Observable<joystick_event>::fromDevice(joystickDevice)
         | map(joystickEventToJoystickMsg)
         | publish_to_topic<teleop_msgs::Joystick>("/joystick");
 

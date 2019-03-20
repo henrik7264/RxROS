@@ -235,7 +235,7 @@ namespace rxros
                 [=](rxcpp::subscriber<T> subscriber) {
                 int fd = open(deviceName.c_str(), O_RDONLY | O_NONBLOCK);
                 if (fd < 0)
-                    subscriber.on_error(rxros::Exception::systemError(errno, std::string("Cannot open keyboard device ") + deviceName));
+                    subscriber.on_error(rxros::Exception::systemError(errno, std::string("Cannot open device ") + deviceName));
                 else {
                     fd_set readfds; // initialize file descriptor set.
                     FD_ZERO(&readfds);
@@ -250,13 +250,13 @@ namespace rxros
                             close(fd);
                             doLoop = false;
                         } else if (rc == -1 || rc == 0) { // select failed and we issue an error.
-                            subscriber.on_error(rxros::Exception::systemError(errno, "Failed to read keyboard."));
+                            subscriber.on_error(rxros::Exception::systemError(errno, std::string("Failed to read device ") + deviceName));
                             close(fd);
                             doLoop = false;
                         } else if (FD_ISSET(fd, &readfds)) {
                             ssize_t sz = read(fd, &event, sizeof(T)); // read pressed key
                             if (sz == -1) {
-                                subscriber.on_error(rxros::Exception::systemError(errno, "Failed to read keyboard."));
+                                subscriber.on_error(rxros::Exception::systemError(errno, std::string("Failed to read device ") + deviceName));
                                 close(fd);
                                 doLoop = false;
                             } else if (sz == sizeof(T)) {
@@ -270,34 +270,6 @@ namespace rxros
                 }
             });
         };
-
-        static auto fromBlockingDevice(const std::string& deviceName)
-        {
-            return rxcpp::observable<>::create<T>(
-                [=](rxcpp::subscriber<T> subscriber) {
-                    int fd = open(deviceName.c_str(), O_RDONLY);
-                    if (fd < 0)
-                        subscriber.on_error(rxros::Exception::systemError(errno, std::string("Cannot open keyboard device ") + deviceName));
-                    else {
-                        T event{};
-                        bool doLoop = true;
-                        while (doLoop && rxros::ok()) {
-                            ssize_t sz = read(fd, &event, sizeof(T)); // read pressed key
-                            if (sz == -1) {
-                                subscriber.on_error(rxros::Exception::systemError(errno, "Failed to read keyboard."));
-                                close(fd);
-                                doLoop = false;
-                            } else if (sz == sizeof(T)) {
-                                subscriber.on_next(event); // populate the event on the
-                            }
-                        }
-                        if (!rxros::ok()) {
-                            subscriber.on_completed();
-                        }
-                    }
-                });
-        };
-
     }; // end of class Observable
 
 

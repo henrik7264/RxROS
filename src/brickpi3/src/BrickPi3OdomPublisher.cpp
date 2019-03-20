@@ -14,11 +14,11 @@
 #include <geometry_msgs/Pose.h>
 #include <nav_msgs/Odometry.h>
 #include <tf/transform_broadcaster.h>
+#include "Node.h"
 
 
 class BrickPi3OdomPublisher {
 private:
-    ros::NodeHandle nodeHandle;
     ros::Subscriber jointStatesSubscriber;
     ros::Publisher odomPublisher;
     unsigned int seqNo;
@@ -41,8 +41,8 @@ public:
 };
 
 BrickPi3OdomPublisher::BrickPi3OdomPublisher(int argc, char** argv) :
-    odomPublisher(nodeHandle.advertise<nav_msgs::Odometry>("/odom", 10)),
-    jointStatesSubscriber(nodeHandle.subscribe("/joint_states", 10, &BrickPi3OdomPublisher::jointStatesSubscriberCB, this)),
+    odomPublisher(Node::getHandle().advertise<nav_msgs::Odometry>("/odom", 10)),
+    jointStatesSubscriber(Node::getHandle().subscribe("/joint_states", 10, &BrickPi3OdomPublisher::jointStatesSubscriberCB, this)),
     seqNo(0),
     lastLWheelPosition(0.0),
     lastRWheelPosition(0.0),
@@ -52,15 +52,15 @@ BrickPi3OdomPublisher::BrickPi3OdomPublisher(int argc, char** argv) :
     lastTime(ros::Time::now()),
     isInitialized(false)
 {
-    nodeHandle.param<std::string>("/brickpi3_odom_publisher/l_wheel_joint", lWheelJoint, "l_wheel_joint");
-    nodeHandle.param<std::string>("/brickpi3_odom_publisher/r_wheel_joint", rWheelJoint, "r_wheel_joint");
-    nodeHandle.param("/brickpi3_odom_publisher/wheel_radius", wheelRadius, 0.028); // m
-    nodeHandle.param("/brickpi3_odom_publisher/wheel_basis", wheelBasis, 0.0625); // m
+    Node::getHandle().param<std::string>("/brickpi3_odom_publisher/l_wheel_joint", lWheelJoint, "l_wheel_joint");
+    Node::getHandle().param<std::string>("/brickpi3_odom_publisher/r_wheel_joint", rWheelJoint, "r_wheel_joint");
+    Node::getHandle().param("/brickpi3_odom_publisher/wheel_radius", wheelRadius, 0.028); // m
+    Node::getHandle().param("/brickpi3_odom_publisher/wheel_basis", wheelBasis, 0.0625); // m
 
-    printf("l_wheel_joint: %s\n", lWheelJoint.c_str());
-    printf("r_wheel_joint: %s m/s\n", rWheelJoint.c_str());
-    printf("wheel_radius: %f rad/s\n", wheelRadius);
-    printf("wheel_basis: %f rad/s\n", wheelBasis);
+    ROS_DEBUG("l_wheel_joint: %s\n", lWheelJoint.c_str());
+    ROS_DEBUG("r_wheel_joint: %s m/s\n", rWheelJoint.c_str());
+    ROS_DEBUG("wheel_radius: %f rad/s\n", wheelRadius);
+    ROS_DEBUG("wheel_basis: %f rad/s\n", wheelBasis);
 }
 
 //void RosRobotTfBroadcaster::odomCB(const nav_msgs::Odometry& odom)

@@ -2,8 +2,8 @@
 // Created by hl on 2/10/19.
 //
 
-#ifndef BRICKPI3_ROS_BRICKPI3COLOR_H
-#define BRICKPI3_ROS_BRICKPI3COLOR_H
+#ifndef BRICKPI3_BRICKPI3COLOR_H
+#define BRICKPI3_BRICKPI3COLOR_H
 
 #include <string>
 #include <ros/ros.h>
@@ -33,4 +33,4 @@ public:
 };
 
 
-#endif //BRICKPI3_ROS_BRICKPI3COLOR_H
+#endif //BRICKPI3_BRICKPI3COLOR_H

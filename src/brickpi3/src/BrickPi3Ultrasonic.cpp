@@ -4,13 +4,15 @@
 
 #include <string>
 #include <iostream>
+#include <ros/ros.h>
 #include <brickpi3_msgs/Range.h>
+#include "Node.h"
 #include "BrickPi3Ultrasonic.h"
 using namespace std;
 
 
 BrickPi3Ultrasonic::BrickPi3Ultrasonic(const std::string& aName, const std::string& aFrameId,const std::string& aPort, const double aFrequency, const double aMinRange, const double aMaxRange, const double aSpreadAngle):
-    ultrasonicPublisher(nodeHandle.advertise<brickpi3_msgs::Range>("/" + aName, 10))
+    ultrasonicPublisher(Node::getHandle().advertise<brickpi3_msgs::Range>("/" + aName, 10))
 {
     name = aName;
     frameId = aFrameId;
@@ -30,7 +32,7 @@ void BrickPi3Ultrasonic::schedulerCB()
     sensor_ultrasonic_t sensorUltrasonic;
     int rc = brickPi3.get_sensor(port, &sensorUltrasonic);
     if (rc == 0) {
-        printf("Ultrasonic sensor: CM %5.1f Inches %5.1f   ", sensorUltrasonic.cm, sensorUltrasonic.inch);
+        ROS_DEBUG("Ultrasonic sensor: CM %5.1f Inches %5.1f", sensorUltrasonic.cm, sensorUltrasonic.inch);
 
         brickpi3_msgs::Range range;
         range.header.frame_id = frameId;

@@ -2,8 +2,8 @@
 // Created by hl on 2/10/19.
 //
 
-#ifndef BRICKPI3_ROS_BRICKPI3ULTRASONIC_H
-#define BRICKPI3_ROS_BRICKPI3ULTRASONIC_H
+#ifndef BRICKPI3_BRICKPI3ULTRASONIC_H
+#define BRICKPI3_BRICKPI3ULTRASONIC_H
 
 #include <string>
 #include <ros/ros.h>
@@ -40,4 +40,4 @@ public:
 };
 
 
-#endif //BRICKPI3_ROS_BRICKPI3ULTRASONIC_H
+#endif //BRICKPI3_BRICKPI3ULTRASONIC_H

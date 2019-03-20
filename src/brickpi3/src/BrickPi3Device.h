@@ -2,13 +2,12 @@
 // Created by hl on 2/10/19.
 //
 
-#ifndef BRICKPI3_ROS_BRICKPI3DEVICE_H
-#define BRICKPI3_ROS_BRICKPI3DEVICE_H
+#ifndef BRICKPI3_BRICKPI3DEVICE_H
+#define BRICKPI3_BRICKPI3DEVICE_H
 
 #include <climits>
 #include <string>
 #include <mutex>
-#include <ros/ros.h>
 #include "BrickPi3.h"
 
 
@@ -31,7 +30,6 @@ class BrickPi3Device
 protected:
     BrickPi3 brickPi3;
     std::mutex mutex;
-    ros::NodeHandle nodeHandle;
 
 public:
     BrickPi3Device() {brickPi3.detect();}
@@ -40,4 +38,4 @@ public:
     virtual void schedulerCB() = 0;
 };
 
-#endif //BRICKPI3_ROS_BRICKPI3DEVICE_H
+#endif //BRICKPI3_BRICKPI3DEVICE_H

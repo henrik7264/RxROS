@@ -150,7 +150,7 @@ add_executable(brickpi3
 )
 
 add_executable(joint_states_aggregator
-  src/JointStatesAggregator.cpp
+        src/BrickPi3JointStatesPublisher.cpp
 )
 
 add_executable(brickpi3_odom_publisher

@@ -2,8 +2,7 @@
 // Created by hl on 2/7/19.
 //
 
-#include "rxros.h"
-#include <iostream>
+#include <rxros.h>
 #include <teleop_msgs/Joystick.h>
 #include <teleop_msgs/Keyboard.h>
 #include <geometry_msgs/Twist.h>

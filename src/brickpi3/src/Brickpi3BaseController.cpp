@@ -11,12 +11,12 @@
 #include <geometry_msgs/Twist.h>
 #include <sensor_msgs/JointState.h>
 #include <brickpi3_msgs/JointCommand.h>
+#include "Node.h"
 
 
 class BrickPi3BaseController {
 private:
     std::mutex mutex;
-    ros::NodeHandle nodeHandle;
     ros::Publisher jointCommandPublisher;
     ros::Subscriber cmdVelSubscriber;
     ros::Subscriber jointStatesSubscriber;
@@ -42,9 +42,9 @@ public:
 };
 
 BrickPi3BaseController::BrickPi3BaseController(int argc, char** argv) :
-    jointCommandPublisher(nodeHandle.advertise<brickpi3_msgs::JointCommand>("/joint_command", 10)),
-    cmdVelSubscriber(nodeHandle.subscribe("/cmd_vel", 10, &BrickPi3BaseController::cmdVelSubscriberCB, this)),
-    jointStatesSubscriber(nodeHandle.subscribe("/joint_states", 10, &BrickPi3BaseController::jointStatesSubscriberCB, this)),
+    jointCommandPublisher(Node::getHandle().advertise<brickpi3_msgs::JointCommand>("/joint_command", 10)),
+    cmdVelSubscriber(Node::getHandle().subscribe("/cmd_vel", 10, &BrickPi3BaseController::cmdVelSubscriberCB, this)),
+    jointStatesSubscriber(Node::getHandle().subscribe("/joint_states", 10, &BrickPi3BaseController::jointStatesSubscriberCB, this)),
     seqNo(0),
     lastDesiLinVel(0.0),
     lastDesiAngVel(0.0),
@@ -53,10 +53,10 @@ BrickPi3BaseController::BrickPi3BaseController(int argc, char** argv) :
     factorLWheel(0.0),
     factorRWheel(0.0)
 {
-    nodeHandle.param<std::string>("/brickpi3_base_controller/l_wheel_joint", lWheelJoint, "l_wheel_joint");
-    nodeHandle.param<std::string>("/brickpi3_base_controller/r_wheel_joint", rWheelJoint, "r_wheel_joint");
-    nodeHandle.param("/brickpi3_base_controller/wheel_radius", wheelRadius, 0.028); // m
-    nodeHandle.param("/brickpi3_base_controller/wheel_basis", wheelBasis, 0.0625); // m
+    Node::getHandle().param<std::string>("/brickpi3_base_controller/l_wheel_joint", lWheelJoint, "l_wheel_joint");
+    Node::getHandle().param<std::string>("/brickpi3_base_controller/r_wheel_joint", rWheelJoint, "r_wheel_joint");
+    Node::getHandle().param("/brickpi3_base_controller/wheel_radius", wheelRadius, 0.028); // m
+    Node::getHandle().param("/brickpi3_base_controller/wheel_basis", wheelBasis, 0.0625); // m
 
     printf("l_wheel_joint: %s\n", lWheelJoint.c_str());
     printf("r_wheel_joint: %s m/s\n", rWheelJoint.c_str());
