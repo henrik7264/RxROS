@@ -108,9 +108,9 @@
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/list_install_components.dir
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/test.dir
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/brickpi3_odom_publisher.dir
+/home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/brickpi3_joint_states_publisher.dir
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/nav_msgs_generate_messages_cpp.dir
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/sensor_msgs_generate_messages_py.dir
-/home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/joint_states_aggregator.dir
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/actionlib_msgs_generate_messages_py.dir
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/rebuild_cache.dir

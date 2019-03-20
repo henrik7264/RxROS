@@ -37,6 +37,8 @@ namespace Rx {
 }
 using namespace Rx;
 
+#include "rxros.h"
+
 
 class Examples
 {

@@ -66,7 +66,7 @@ void BrickPi3JointStatesPublisher::jointStateSubscriberCB(const sensor_msgs::Joi
 
 int main(int argc, char** argv)
 {
-    ros::init(argc, argv, "joint_state_aggregator"); // Name of this node.
+    ros::init(argc, argv, "brickpi3_joint_states_publisher"); // Name of this node.
     BrickPi3JointStatesPublisher jointStatesAggregator(argc, argv);
     jointStatesAggregator.run();
 }

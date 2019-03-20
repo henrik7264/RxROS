@@ -149,8 +149,8 @@ add_executable(brickpi3
   src/BrickPi3Ros.cpp
 )
 
-add_executable(joint_states_aggregator
-        src/BrickPi3JointStatesPublisher.cpp
+add_executable(brickpi3_joint_states_publisher
+  src/BrickPi3JointStatesPublisher.cpp
 )
 
 add_executable(brickpi3_odom_publisher
@@ -176,7 +176,7 @@ add_executable(brickpi3_base_controller
 #   ${catkin_LIBRARIES}
 # )
 target_link_libraries(brickpi3 ${catkin_LIBRARIES})
-target_link_libraries(joint_states_aggregator ${catkin_LIBRARIES})
+target_link_libraries(brickpi3_joint_states_publisher ${catkin_LIBRARIES})
 target_link_libraries(brickpi3_odom_publisher ${catkin_LIBRARIES})
 target_link_libraries(brickpi3_base_controller ${catkin_LIBRARIES})
 

@@ -1000,6 +1000,19 @@ brickpi3_odom_publisher/fast:
 .PHONY : brickpi3_odom_publisher/fast
 
 #=============================================================================
+# Target rules for targets named brickpi3_joint_states_publisher
+
+# Build rule for target.
+brickpi3_joint_states_publisher: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 brickpi3_joint_states_publisher
+.PHONY : brickpi3_joint_states_publisher
+
+# fast build rule for target.
+brickpi3_joint_states_publisher/fast:
+	$(MAKE) -f brickpi3/CMakeFiles/brickpi3_joint_states_publisher.dir/build.make brickpi3/CMakeFiles/brickpi3_joint_states_publisher.dir/build
+.PHONY : brickpi3_joint_states_publisher/fast
+
+#=============================================================================
 # Target rules for targets named nav_msgs_generate_messages_cpp
 
 # Build rule for target.
@@ -1024,19 +1037,6 @@ sensor_msgs_generate_messages_py: cmake_check_build_system
 sensor_msgs_generate_messages_py/fast:
 	$(MAKE) -f brickpi3/CMakeFiles/sensor_msgs_generate_messages_py.dir/build.make brickpi3/CMakeFiles/sensor_msgs_generate_messages_py.dir/build
 .PHONY : sensor_msgs_generate_messages_py/fast
-
-#=============================================================================
-# Target rules for targets named joint_states_aggregator
-
-# Build rule for target.
-joint_states_aggregator: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 joint_states_aggregator
-.PHONY : joint_states_aggregator
-
-# fast build rule for target.
-joint_states_aggregator/fast:
-	$(MAKE) -f brickpi3/CMakeFiles/joint_states_aggregator.dir/build.make brickpi3/CMakeFiles/joint_states_aggregator.dir/build
-.PHONY : joint_states_aggregator/fast
 
 #=============================================================================
 # Target rules for targets named sensor_msgs_generate_messages_nodejs
@@ -1778,9 +1778,9 @@ help:
 	@echo "... velocity_publisher_rxros"
 	@echo "... velocity_publisher"
 	@echo "... brickpi3_odom_publisher"
+	@echo "... brickpi3_joint_states_publisher"
 	@echo "... nav_msgs_generate_messages_cpp"
 	@echo "... sensor_msgs_generate_messages_py"
-	@echo "... joint_states_aggregator"
 	@echo "... sensor_msgs_generate_messages_nodejs"
 	@echo "... actionlib_msgs_generate_messages_py"
 	@echo "... sensor_msgs_generate_messages_lisp"
