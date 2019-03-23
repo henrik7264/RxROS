@@ -227,49 +227,64 @@ namespace rxros
                     if (!rxros::ok()) {
                         subscriber.on_completed();
                     }});
-        };
+        }
 
         static auto fromDevice(const std::string& deviceName)
         {
             return rxcpp::observable<>::create<T>(
                 [=](rxcpp::subscriber<T> subscriber) {
-                int fd = open(deviceName.c_str(), O_RDONLY | O_NONBLOCK);
-                if (fd < 0)
-                    subscriber.on_error(rxros::Exception::systemError(errno, std::string("Cannot open device ") + deviceName));
-                else {
-                    fd_set readfds; // initialize file descriptor set.
-                    FD_ZERO(&readfds);
-                    FD_SET(fd, &readfds);
-                    T event{};
-                    bool doLoop = true;
-                    while (doLoop && rxros::ok()) {
-                        int rc = select(fd + 1, &readfds, nullptr, nullptr, nullptr);  // wait for input on keyboard device
-                        if (rc == -1 &&
-                            errno == EINTR) { // select was interrupted. This is not an error but we exit the loop
-                            subscriber.on_completed();
-                            close(fd);
-                            doLoop = false;
-                        } else if (rc == -1 || rc == 0) { // select failed and we issue an error.
-                            subscriber.on_error(rxros::Exception::systemError(errno, std::string("Failed to read device ") + deviceName));
-                            close(fd);
-                            doLoop = false;
-                        } else if (FD_ISSET(fd, &readfds)) {
-                            ssize_t sz = read(fd, &event, sizeof(T)); // read pressed key
-                            if (sz == -1) {
+                    int fd = open(deviceName.c_str(), O_RDONLY | O_NONBLOCK);
+                    if (fd < 0)
+                        subscriber.on_error(rxros::Exception::systemError(errno, std::string("Cannot open device ") + deviceName));
+                    else {
+                        fd_set readfds; // initialize file descriptor set.
+                        FD_ZERO(&readfds);
+                        FD_SET(fd, &readfds);
+                        T event{};
+                        bool doLoop = true;
+                        while (doLoop && rxros::ok()) {
+                            int rc = select(fd + 1, &readfds, nullptr, nullptr, nullptr);  // wait for input on keyboard device
+                            if (rc == -1 &&
+                                errno == EINTR) { // select was interrupted. This is not an error but we exit the loop
+                                subscriber.on_completed();
+                                close(fd);
+                                doLoop = false;
+                            } else if (rc == -1 || rc == 0) { // select failed and we issue an error.
                                 subscriber.on_error(rxros::Exception::systemError(errno, std::string("Failed to read device ") + deviceName));
                                 close(fd);
                                 doLoop = false;
-                            } else if (sz == sizeof(T)) {
-                                subscriber.on_next(event); // populate the event on the
+                            } else if (FD_ISSET(fd, &readfds)) {
+                                ssize_t sz = read(fd, &event, sizeof(T)); // read pressed key
+                                if (sz == -1) {
+                                    subscriber.on_error(rxros::Exception::systemError(errno, std::string("Failed to read device ") + deviceName));
+                                    close(fd);
+                                    doLoop = false;
+                                } else if (sz == sizeof(T)) {
+                                    subscriber.on_next(event); // populate the event on the
+                                }
                             }
                         }
+                        if (!rxros::ok()) {
+                            subscriber.on_completed();
+                        }
                     }
-                    if (!rxros::ok()) {
-                        subscriber.on_completed();
-                    }
-                }
-            });
-        };
+                });
+        }
+
+        // Parse the ros_robot.yaml file and create an observable stream of the sensors and actuators configurations
+        static auto fromRobotYaml(const std::string& aNamespace)
+        {
+            assert(typeid(T) == typeid(XmlRpc::XmlRpcValue));
+            return rxcpp::observable<>::create<T>(
+                [=](rxcpp::subscriber<T> subscriber) {
+                    XmlRpc::XmlRpcValue robotConfig;
+                    Node::getHandle().getParam(aNamespace, robotConfig);
+                    assert (robotConfig.getType() == XmlRpc::XmlRpcValue::TypeArray);
+                    for (int i = 0; i < robotConfig.size(); i++)
+                        subscriber.on_next(robotConfig[i]);
+                    subscriber.on_completed();
+                });
+        }
     }; // end of class Observable
 
 

@@ -79,10 +79,10 @@ void BrickPi3OdomPublisher::jointStatesSubscriberCB(const sensor_msgs::JointStat
     double currLWheelPosition = 0.0;
     double currRWheelPosition = 0.0;
     for (int i = 0; i < jointStates.name.size(); i++) {
-        if (lWheelJoint.compare(jointStates.name[i]) == 0) {
+        if (lWheelJoint == jointStates.name[i]) {
             currLWheelPosition = jointStates.position[i];
         }
-        else if (rWheelJoint.compare(jointStates.name[i]) == 0) {
+        else if (rWheelJoint == jointStates.name[i]) {
             currRWheelPosition = jointStates.position[i];
         }
     }
