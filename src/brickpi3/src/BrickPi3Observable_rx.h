@@ -25,9 +25,9 @@ namespace brickpi3
     public:
         virtual ~Observable() = default;
 
-        static auto colorSensor(const std::string& name, const std::string& port, const double frequency);
-        static auto ultrasonicSensor(const std::string& name, const std::string& port, const double frequency);
-        static auto motorActuator(const std::string& name, const std::string& port, const double frequency);
+        static auto colorSensor(const std::string& name, const std::string& port, double frequency);
+        static auto ultrasonicSensor(const std::string& name, const std::string& port, double frequency);
+        static auto motorActuator(const std::string& name, const std::string& port, double frequency);
     };// end class Observable
 }; // end namespace brickpi3
 
