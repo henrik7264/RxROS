@@ -10,6 +10,7 @@
 #include <ros/console.h>
 #include "BrickPi3Device.h"
 
+
 class BrickPi3Color: public BrickPi3Device
 {
 private:
@@ -24,10 +25,10 @@ public:
     BrickPi3Color(const std::string& name, const std::string& frameId, const std::string& port, const double frequency);
     virtual ~BrickPi3Color() {}
 
-    const std::string &getName() const {return name;}
-    const std::string &getFrameId() const {return frameId;}
-    const uint8_t &getPort() const {return port;}
-    double getFreq() const {return freq;}
+    const std::string& getName() const {return name;}
+    const std::string& getFrameId() const {return frameId;}
+    const uint8_t getPort() const {return port;}
+    const double getFreq() const {return freq;}
 
     void schedulerCB();
 };

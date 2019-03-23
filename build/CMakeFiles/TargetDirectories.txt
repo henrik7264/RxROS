@@ -118,6 +118,7 @@
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/sensor_msgs_generate_messages_cpp.dir
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/sensor_msgs_generate_messages_eus.dir
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/edit_cache.dir
+/home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/brickpi3_rxros.dir
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/nav_msgs_generate_messages_lisp.dir
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/nav_msgs_generate_messages_nodejs.dir
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/nav_msgs_generate_messages_py.dir

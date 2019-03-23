@@ -1104,6 +1104,19 @@ sensor_msgs_generate_messages_eus/fast:
 .PHONY : sensor_msgs_generate_messages_eus/fast
 
 #=============================================================================
+# Target rules for targets named brickpi3_rxros
+
+# Build rule for target.
+brickpi3_rxros: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 brickpi3_rxros
+.PHONY : brickpi3_rxros
+
+# fast build rule for target.
+brickpi3_rxros/fast:
+	$(MAKE) -f brickpi3/CMakeFiles/brickpi3_rxros.dir/build.make brickpi3/CMakeFiles/brickpi3_rxros.dir/build
+.PHONY : brickpi3_rxros/fast
+
+#=============================================================================
 # Target rules for targets named nav_msgs_generate_messages_lisp
 
 # Build rule for target.
@@ -1786,6 +1799,7 @@ help:
 	@echo "... sensor_msgs_generate_messages_lisp"
 	@echo "... sensor_msgs_generate_messages_cpp"
 	@echo "... sensor_msgs_generate_messages_eus"
+	@echo "... brickpi3_rxros"
 	@echo "... nav_msgs_generate_messages_lisp"
 	@echo "... nav_msgs_generate_messages_nodejs"
 	@echo "... nav_msgs_generate_messages_py"

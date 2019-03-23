@@ -60,7 +60,7 @@ void BrickPi3Motor::schedulerCB()
     int32_t motorPosition = 0;  // Variable for reading motor encoder positions
     int16_t motorDPS = 0; // Variable for reading motor speeds (Degrees Per Second)
 
-    int rc = brickPi3.get_motor_status(PORT_A, motorState, motorPower, motorPosition, motorDPS);;
+    int rc = brickPi3.get_motor_status(PORT_A, motorState, motorPower, motorPosition, motorDPS);
     if (rc == 0) {
         ROS_DEBUG("State A: %d Power A: %4d  Encoder A: %6d  DPS A: %6d", motorState, motorPower, motorPosition, motorDPS);
 

@@ -357,6 +357,7 @@ set(CMAKE_DEPEND_INFO_FILES
   "brickpi3/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/DependInfo.cmake"
   "brickpi3/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/DependInfo.cmake"
   "brickpi3/CMakeFiles/sensor_msgs_generate_messages_eus.dir/DependInfo.cmake"
+  "brickpi3/CMakeFiles/brickpi3_rxros.dir/DependInfo.cmake"
   "brickpi3/CMakeFiles/nav_msgs_generate_messages_lisp.dir/DependInfo.cmake"
   "brickpi3/CMakeFiles/nav_msgs_generate_messages_nodejs.dir/DependInfo.cmake"
   "brickpi3/CMakeFiles/nav_msgs_generate_messages_py.dir/DependInfo.cmake"

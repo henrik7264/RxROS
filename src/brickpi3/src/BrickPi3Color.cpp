@@ -7,10 +7,9 @@
 #include <brickpi3_msgs/Color.h>
 #include "Node.h"
 #include "BrickPi3Color.h"
-using namespace std;
 
 
-BrickPi3Color::BrickPi3Color(const string& aName, const string& aFrameId, const string& aPort, const double aFrequency):
+BrickPi3Color::BrickPi3Color(const std::string& aName, const std::string& aFrameId, const std::string& aPort, const double aFrequency):
     colorPublisher(Node::getHandle().advertise<brickpi3_msgs::Color>("/" + aName, 10))
 {
     name = aName;
@@ -25,7 +24,7 @@ BrickPi3Color::BrickPi3Color(const string& aName, const string& aFrameId, const 
 
 void BrickPi3Color::schedulerCB()
 {
-    lock_guard<std::mutex> guard(mutex);
+    std::lock_guard<std::mutex> guard(mutex);
 
     sensor_color_t sensorColor;
     int rc = brickPi3.get_sensor(port, &sensorColor);
