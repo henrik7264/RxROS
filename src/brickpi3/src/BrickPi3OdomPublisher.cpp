@@ -17,10 +17,12 @@
 #include "Node.h"
 
 
-class BrickPi3OdomPublisher {
+class BrickPi3OdomPublisher
+{
 private:
     ros::Subscriber jointStatesSubscriber;
     ros::Publisher odomPublisher;
+    tf::TransformBroadcaster transformBroadcaster;
     unsigned int seqNo;
     std::string lWheelJoint;
     std::string rWheelJoint;
@@ -43,6 +45,7 @@ public:
 BrickPi3OdomPublisher::BrickPi3OdomPublisher(int argc, char** argv) :
     odomPublisher(Node::getHandle().advertise<nav_msgs::Odometry>("/odom", 10)),
     jointStatesSubscriber(Node::getHandle().subscribe("/joint_states", 10, &BrickPi3OdomPublisher::jointStatesSubscriberCB, this)),
+    transformBroadcaster(),
     seqNo(0),
     lastLWheelPosition(0.0),
     lastRWheelPosition(0.0),
@@ -62,14 +65,6 @@ BrickPi3OdomPublisher::BrickPi3OdomPublisher(int argc, char** argv) :
     ROS_DEBUG("wheel_radius: %f rad/s\n", wheelRadius);
     ROS_DEBUG("wheel_basis: %f rad/s\n", wheelBasis);
 }
-
-//void RosRobotTfBroadcaster::odomCB(const nav_msgs::Odometry& odom)
-//{
-//    currOdom = odom;
-//    tf::Quaternion orientation = tf::Quaternion(odom.pose.pose.orientation.x, odom.pose.pose.orientation.y, odom.pose.pose.orientation.z, odom.pose.pose.orientation.w);
-//    tf::Vector3 position = tf::Vector3(odom.pose.pose.position.x, odom.pose.pose.position.y, odom.pose.pose.position.z);
-//    transformBroadcaster.sendTransform(tf::StampedTransform(tf::Transform(orientation, position), ros::Time::now(), "odom", "base_footprint"));
-//}
 
 void BrickPi3OdomPublisher::jointStatesSubscriberCB(const sensor_msgs::JointState& jointStates)
 {
@@ -91,14 +86,14 @@ void BrickPi3OdomPublisher::jointStatesSubscriberCB(const sensor_msgs::JointStat
     {
         double deltaRWheelPosition = currRWheelPosition - lastRWheelPosition;
         double deltaLWheelPosition = currLWheelPosition - lastLWheelPosition;
-        double vx = (deltaRWheelPosition + deltaLWheelPosition) * wheelRadius / 2.0;
-        double vy = 0.0;
-        double vth = (deltaRWheelPosition - deltaLWheelPosition) * wheelRadius / (2.0 * wheelBasis);
+        double velocityX = (deltaRWheelPosition + deltaLWheelPosition) * wheelRadius / 2.0;
+        double velocityY = 0.0;
+        double velocityTheta = (deltaRWheelPosition - deltaLWheelPosition) * wheelRadius / (2.0 * wheelBasis);
 
         double dt = (currTime - lastTime).toSec();
-        double dx = (vx * cos(th) - vy * sin(th)) * dt;
-        double dy = (vx * sin(th) + vy * cos(th)) * dt;
-        double dth = vth * dt;
+        double dx = (velocityX * cos(th) - velocityY * sin(th)) * dt;
+        double dy = (velocityX * sin(th) + velocityY * cos(th)) * dt;
+        double dth = velocityTheta * dt;
 
         x += dx;
         y += dy;
@@ -108,7 +103,7 @@ void BrickPi3OdomPublisher::jointStatesSubscriberCB(const sensor_msgs::JointStat
         odom.header.stamp = currTime;
         odom.header.seq = seqNo++;
         odom.header.frame_id = "odom";
-        odom.child_frame_id = "base_link";
+        odom.child_frame_id = "base_footprint";
 
         //set the position
         odom.pose.pose.position.x = x;
@@ -120,14 +115,19 @@ void BrickPi3OdomPublisher::jointStatesSubscriberCB(const sensor_msgs::JointStat
                                 0.0,     0.0,     10.0000, 0.0,     0.0,     0.0,
                                 0.0,     0.0,     0.0,     1.00000, 0.0,     0.0,
                                 0.0,     0.0,     0.0,     0.0,     1.00000, 0.0,
-                                0.0,     0.0,     0.0,     0.0,     0.0,     1.00000};
+                                0.0,     0.0,     0.0,     0.0,     0.0,     (velocityTheta == 0.0) ? 0.00000000001 : 1.00000};
 
         //set the velocity
-        odom.twist.twist.linear.x = vx;
-        odom.twist.twist.angular.z = vth;
+        odom.twist.twist.linear.x = velocityX;
+        odom.twist.twist.angular.z = velocityTheta;
 
         //publish the message
         odomPublisher.publish(odom);
+
+        // broadcast transformation /tf
+        tf::Quaternion orientation = tf::Quaternion(odom.pose.pose.orientation.x,odom.pose.pose.orientation.y, odom.pose.pose.orientation.z, odom.pose.pose.orientation.w);
+        tf::Vector3 position = tf::Vector3(odom.pose.pose.position.x, odom.pose.pose.position.y, odom.pose.pose.position.z);
+        transformBroadcaster.sendTransform(tf::StampedTransform(tf::Transform(orientation, position), currTime, "odom", "base_footprint"));
     }
 
     lastLWheelPosition = currLWheelPosition;
