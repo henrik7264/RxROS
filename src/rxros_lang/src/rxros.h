@@ -28,15 +28,39 @@ namespace rxros
     static void spin() {ros::spin();}
     static bool ok() {return ros::ok();}
 
-    class Node
+class Node: public ros::NodeHandle
     {
     private:
         Node() = default;
     public:
         ~Node() = default;
+
+//        template<class M>
+//        ros::Subscriber subscribe(const std::string& topic, uint32_t queue_size,
+//                             const std::function<void(const M&)>& callback,
+//                             const ros::VoidConstPtr& tracked_object = ros::VoidConstPtr(),
+//                             const ros::TransportHints& transport_hints = ros::TransportHints())
+//        {
+//            return ros::NodeHandle::subscribe<M>(topic, queue_size,
+//                                               static_cast<boost::function<void(const M&)>>(callback),
+//                                               tracked_object, transport_hints);
+//        }
+//
+//        template<class S>
+//        ros::ServiceServer advertiseService(const std::string& service,
+//                                       const std::function<bool(typename S::Request&, typename S::Response&)>& callback,
+//                                       const ros::VoidConstPtr& tracked_object = ros::VoidConstPtr())
+//        {
+//            return ros::NodeHandle::advertiseService<typename S::Request, typename S::Response>(
+//                service,
+//                static_cast<boost::function<bool(typename S::Request&, typename S::Response&)>>(callback),
+//                tracked_object);
+//        }
+
+
         static auto getHandle() {
-            static ros::NodeHandle nodehandle;
-            return nodehandle;
+            static Node self;
+            return self;
         }
     }; // end of class Node
 
@@ -188,12 +212,13 @@ namespace rxros
 
         // We subscribe to a ROS topic and use the callback function to handle updates of the topic.
         explicit Observable(const std::string& topic, const uint32_t queueSize = 10):
+//            subscriber(Node::getHandle().subscribe(topic, queueSize, [=](const T& val){subject.get_subscriber().on_next(val);})) {}
             subscriber(Node::getHandle().subscribe(topic, queueSize, &Observable::callback, this)) {}
 
-         void callback(const T &val)
-         {
+        void callback(const T& val)
+        {
             subject.get_subscriber().on_next(val);
-         }
+        }
 
     public:
         virtual ~Observable() = default;
@@ -286,29 +311,6 @@ namespace rxros
                 });
         }
     }; // end of class Observable
-
-
-    template<class T>
-    class Publisher
-    {
-    private:
-        ros::Publisher publisher;
-
-        explicit Publisher(const std::string& topic, const uint32_t queueSize = 10) :
-            publisher(Node::getHandle().advertise<T>(topic, queueSize)) {}
-
-    public:
-        virtual ~Publisher() = default;
-
-        static auto publish(const rxcpp::observable<T> &observ, const std::string &topic, const uint32_t queueSize = 10)
-        {
-            auto* self = new Publisher(topic, queueSize);
-            observ.subscribe_on(synchronize_new_thread()).subscribe(
-                [=](const T& msg) {self->publisher.publish(msg);});
-            return observ;
-        }
-    }; // end of class Publisher
-
 }; // end of namespace rxros
 
 
@@ -346,14 +348,17 @@ namespace rxcpp
         template<typename T>
         auto publish_to_topic(const std::string &topic, const uint32_t queueSize = 10) {
             return [=](auto &&source) {
-                return rxros::Publisher<T>::publish(source, topic, queueSize);};};
+                ros::Publisher publisher(rxros::Node::getHandle().advertise<T>(topic, queueSize));
+                source.subscribe_on(synchronize_new_thread()).subscribe(
+                    [=](const T& msg) {publisher.publish(msg);});
+                return source;};};
 
 
         auto send_transform(const std::string &frame_id, const std::string &child_frame_id) {
             return [=](auto &&source) {
-                static tf::TransformBroadcaster transformBroadcaster;
+                tf::TransformBroadcaster transformBroadcaster;
                 source.subscribe_on(synchronize_new_thread()).subscribe(
-                    [=](const tf::Transform& tf) {transformBroadcaster.sendTransform(tf::StampedTransform(tf, ros::Time::now(), frame_id, child_frame_id));});
+                    [&](const tf::Transform& tf) {transformBroadcaster.sendTransform(tf::StampedTransform(tf, ros::Time::now(), frame_id, child_frame_id));});
                 return source;};};
 
     }; // end namespace operators
