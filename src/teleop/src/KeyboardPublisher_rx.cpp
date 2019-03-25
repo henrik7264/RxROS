@@ -35,7 +35,7 @@ int main(int argc, char** argv)
         else
             return makeKeyboardMsg(KB_EVENT_NONE);};
 
-    rxros::Observable<input_event>::fromDevice(keyboardDevice)
+    rxros::Observable::fromDevice<input_event>(keyboardDevice)
         | map(keyboardEventToKeyboardMsg)
         | publish_to_topic<teleop_msgs::Keyboard>("/keyboard");
 

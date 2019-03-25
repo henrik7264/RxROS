@@ -32,31 +32,15 @@ class Node: public ros::NodeHandle
     {
     private:
         Node() = default;
+
     public:
         ~Node() = default;
 
-//        template<class M>
-//        ros::Subscriber subscribe(const std::string& topic, uint32_t queue_size,
-//                             const std::function<void(const M&)>& callback,
-//                             const ros::VoidConstPtr& tracked_object = ros::VoidConstPtr(),
-//                             const ros::TransportHints& transport_hints = ros::TransportHints())
-//        {
-//            return ros::NodeHandle::subscribe<M>(topic, queue_size,
-//                                               static_cast<boost::function<void(const M&)>>(callback),
-//                                               tracked_object, transport_hints);
-//        }
-//
-//        template<class S>
-//        ros::ServiceServer advertiseService(const std::string& service,
-//                                       const std::function<bool(typename S::Request&, typename S::Response&)>& callback,
-//                                       const ros::VoidConstPtr& tracked_object = ros::VoidConstPtr())
-//        {
-//            return ros::NodeHandle::advertiseService<typename S::Request, typename S::Response>(
-//                service,
-//                static_cast<boost::function<bool(typename S::Request&, typename S::Response&)>>(callback),
-//                tracked_object);
-//        }
-
+        template<class T>
+        ros::Subscriber subscribe(const std::string& topic, uint32_t queue_size, const std::function<void(const T&)>& callback)
+        {
+            return ros::NodeHandle::subscribe<T>(topic, queue_size, static_cast<boost::function<void(const T&)>>(callback));
+        }
 
         static auto getHandle() {
             static Node self;
@@ -169,7 +153,7 @@ class Node: public ros::NodeHandle
         }
 
     public:
-        virtual ~Parameter() = default;;
+        ~Parameter() = default;;
 
         template<typename T>
         static auto get(const std::string& name, const T& defaultValue)
@@ -199,41 +183,29 @@ class Node: public ros::NodeHandle
     }; // end of class Parameter
 
 
-    template<class T>
     class Observable
     {
     private:
-        /* A subject is an entity that is simultaneously
-         * an Observer and an Observable. It helps to
-         * relay notifications from Observable to a
-         * set of Observers. */
-        rxcpp::subjects::subject<T> subject;
-        ros::Subscriber subscriber;
-
-        // We subscribe to a ROS topic and use the callback function to handle updates of the topic.
-        explicit Observable(const std::string& topic, const uint32_t queueSize = 10):
-//            subscriber(Node::getHandle().subscribe(topic, queueSize, [=](const T& val){subject.get_subscriber().on_next(val);})) {}
-            subscriber(Node::getHandle().subscribe(topic, queueSize, &Observable::callback, this)) {}
-
-        void callback(const T& val)
-        {
-            subject.get_subscriber().on_next(val);
-        }
+        Observable() = default;
 
     public:
-        virtual ~Observable() = default;
+        ~Observable() = default;
 
+        template<class T>
         static auto fromTopic(const std::string& topic, const uint32_t queueSize = 10)
         {
-            auto* self = new Observable(topic, queueSize);
-            return self->subject.get_observable(); // and return the RxCpp observable of the subject.
+            return rxcpp::observable<>::create<T>(
+                [=](rxcpp::subscriber<T> subscriber) {
+                    auto callback = [=](const T& val){subscriber.on_next(val);};
+                    ros::Subscriber rosSubscriber(Node::getHandle().subscribe<T>(topic, queueSize, callback));
+                    ros::waitForShutdown();
+                    subscriber.on_completed();}).subscribe_on(synchronize_new_thread());
         }
 
         static auto fromTransformListener(const std::string& frameId, const std::string& childFrameId, const double frequencyInHz = 10.0)
         {
-            assert(typeid(T) == typeid(tf::StampedTransform));
-            return rxcpp::observable<>::create<T>(
-                [=](rxcpp::subscriber<T> subscriber) {
+            return rxcpp::observable<>::create<tf::StampedTransform>(
+                [=](rxcpp::subscriber<tf::StampedTransform> subscriber) {
                     tf::TransformListener listener;
                     ros::Rate rate(frequencyInHz);
                     while (rxros::ok()) {
@@ -254,6 +226,7 @@ class Node: public ros::NodeHandle
                     }});
         }
 
+        template<class T>
         static auto fromDevice(const std::string& deviceName)
         {
             return rxcpp::observable<>::create<T>(
@@ -299,9 +272,8 @@ class Node: public ros::NodeHandle
         // Parse the ros_robot.yaml file and create an observable stream of the sensors and actuators configurations
         static auto fromRobotYaml(const std::string& aNamespace)
         {
-            assert(typeid(T) == typeid(XmlRpc::XmlRpcValue));
-            return rxcpp::observable<>::create<T>(
-                [=](rxcpp::subscriber<T> subscriber) {
+            return rxcpp::observable<>::create<XmlRpc::XmlRpcValue>(
+                [=](rxcpp::subscriber<XmlRpc::XmlRpcValue> subscriber) {
                     XmlRpc::XmlRpcValue robotConfig;
                     Node::getHandle().getParam(aNamespace, robotConfig);
                     assert (robotConfig.getType() == XmlRpc::XmlRpcValue::TypeArray);

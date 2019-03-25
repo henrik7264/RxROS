@@ -62,7 +62,7 @@ int main(int argc, char** argv)
         else
             return makeJoystickMsg(JS_EVENT_NEUTRAL);};
 
-    rxros::Observable<joystick_event>::fromDevice(joystickDevice)
+    rxros::Observable::fromDevice<joystick_event>(joystickDevice)
         | map(joystickEventToJoystickMsg)
         | publish_to_topic<teleop_msgs::Joystick>("/joystick");
 
