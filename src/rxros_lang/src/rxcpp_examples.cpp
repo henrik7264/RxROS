@@ -195,8 +195,8 @@ void Examples::rxMap()
 //--------------------------------------------------------------------------------------
 void Examples::rxMerge()
 {
-    auto o1 = rxcpp::observable<>::range(1, 3);
-    auto o2 = rxcpp::observable<>::from(4, 5, 6);
+    auto o1 = rxcpp::observable<>::range(1, 100);
+    auto o2 = rxcpp::observable<>::from(400, 500, 600);
     auto values = o1.merge(o2);
     values.subscribe(
         [](int v) {cout << "OnNext: " <<  v << endl;},
@@ -207,8 +207,8 @@ void Examples::rxMerge()
 //--------------------------------------------------------------------------------------
 void Examples::rxConcat()
 {
-    auto o1 = rxcpp::observable<>::range(1, 3);
-    auto o2 = rxcpp::observable<>::from(4, 5, 6);
+    auto o1 = rxcpp::observable<>::range(1,  100);
+    auto o2 = rxcpp::observable<>::from(400, 500, 600);
     auto values = o1.concat(o2);
     values.subscribe(
         [](int v) {cout << "OnNext: " <<  v << endl;},
@@ -485,8 +485,8 @@ int main(int argc, char** argv)
 //    examples.rxCreate();
 //    examples.rxRange();
 //    examples.rxMap();
-//    examples.rxMerge();
-//    examples.rxConcat();
+    examples.rxMerge();
+    examples.rxConcat();
 //    examples.rxPipe();
 //    examples.rxMerge2();
 //
@@ -498,5 +498,5 @@ int main(int argc, char** argv)
 //    examples.rxObserveOnScheduler();
 //    examples.rxSubscribeOnScheduler();
 //    examples.rxWithLatestFrom();
-    examples.rxStdFunction2BoostFunction();
+//    examples.rxStdFunction2BoostFunction();
 }

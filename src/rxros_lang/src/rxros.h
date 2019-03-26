@@ -28,7 +28,8 @@ namespace rxros
     static void spin() {ros::spin();}
     static bool ok() {return ros::ok();}
 
-class Node: public ros::NodeHandle
+
+    class Node: public ros::NodeHandle
     {
     private:
         Node() = default;
@@ -47,6 +48,7 @@ class Node: public ros::NodeHandle
             return self;
         }
     }; // end of class Node
+
 
     class Exception
     {
@@ -128,47 +130,31 @@ class Node: public ros::NodeHandle
     class Parameter
     {
     private:
-        Parameter() = default;;
+        Parameter() = default;
+
+    public:
+        ~Parameter() = default;
 
         template<typename T>
-        auto getParam(const std::string& name, const T& defaultValue)
+        static auto get(const std::string& name, const T& defaultValue)
         {
             T param;
             Node::getHandle().param<T>(name, param, defaultValue);
             return param;
         }
 
-        auto getParam(const std::string& name, const int defaultValue)
+        static auto get(const std::string& name, const int defaultValue)
         {
             int param;
             Node::getHandle().param(name, param, defaultValue);
             return param;
         }
 
-        auto getParam(const std::string& name, const double defaultValue)
+        static auto get(const std::string& name, const double defaultValue)
         {
             double param;
             Node::getHandle().param(name, param, defaultValue);
             return param;
-        }
-
-    public:
-        ~Parameter() = default;;
-
-        template<typename T>
-        static auto get(const std::string& name, const T& defaultValue)
-        {
-            return Parameter().getParam<T>(name, defaultValue);
-        }
-
-        static auto get(const std::string& name, const int defaultValue)
-        {
-            return Parameter().getParam(name, defaultValue);
-        }
-
-        static auto get(const std::string& name, const double defaultValue)
-        {
-            return Parameter().getParam(name, defaultValue);
         }
 
         static auto get(const std::string& name, const char* defaultValue)
@@ -194,12 +180,13 @@ class Node: public ros::NodeHandle
         template<class T>
         static auto fromTopic(const std::string& topic, const uint32_t queueSize = 10)
         {
-            return rxcpp::observable<>::create<T>(
+            auto observable = rxcpp::observable<>::create<T>(
                 [=](rxcpp::subscriber<T> subscriber) {
                     auto callback = [=](const T& val){subscriber.on_next(val);};
                     ros::Subscriber rosSubscriber(Node::getHandle().subscribe<T>(topic, queueSize, callback));
                     ros::waitForShutdown();
-                    subscriber.on_completed();}).subscribe_on(synchronize_new_thread());
+                    subscriber.on_completed();});
+            return observable.subscribe_on(synchronize_new_thread());
         }
 
         static auto fromTransformListener(const std::string& frameId, const std::string& childFrameId, const double frequencyInHz = 10.0)
@@ -208,6 +195,7 @@ class Node: public ros::NodeHandle
                 [=](rxcpp::subscriber<tf::StampedTransform> subscriber) {
                     tf::TransformListener listener;
                     ros::Rate rate(frequencyInHz);
+                    bool errReported = false;
                     while (rxros::ok()) {
                         try {
                             tf::StampedTransform transform;
@@ -217,11 +205,12 @@ class Node: public ros::NodeHandle
                         catch (...) {
                             std::exception_ptr err = std::current_exception();
                             subscriber.on_error(err);
+                            errReported = true;
                             break;
                         }
                         rate.sleep();
                     }
-                    if (!rxros::ok()) {
+                    if (!errReported) {
                         subscriber.on_completed();
                     }});
         }
@@ -239,30 +228,32 @@ class Node: public ros::NodeHandle
                         FD_ZERO(&readfds);
                         FD_SET(fd, &readfds);
                         T event{};
-                        bool doLoop = true;
-                        while (doLoop && rxros::ok()) {
+                        bool errReported = false;
+                        while (rxros::ok()) {
                             int rc = select(fd + 1, &readfds, nullptr, nullptr, nullptr);  // wait for input on keyboard device
                             if (rc == -1 &&
                                 errno == EINTR) { // select was interrupted. This is not an error but we exit the loop
                                 subscriber.on_completed();
                                 close(fd);
-                                doLoop = false;
+                                break;
                             } else if (rc == -1 || rc == 0) { // select failed and we issue an error.
                                 subscriber.on_error(rxros::Exception::systemError(errno, std::string("Failed to read device ") + deviceName));
                                 close(fd);
-                                doLoop = false;
+                                errReported = true;
+                                break;
                             } else if (FD_ISSET(fd, &readfds)) {
-                                ssize_t sz = read(fd, &event, sizeof(T)); // read pressed key
+                                ssize_t sz = read(fd, &event, sizeof(T)); // read element from device.
                                 if (sz == -1) {
                                     subscriber.on_error(rxros::Exception::systemError(errno, std::string("Failed to read device ") + deviceName));
                                     close(fd);
-                                    doLoop = false;
+                                    errReported = true;
+                                    break;
                                 } else if (sz == sizeof(T)) {
                                     subscriber.on_next(event); // populate the event on the
                                 }
                             }
                         }
-                        if (!rxros::ok()) {
+                        if (!errReported) {
                             subscriber.on_completed();
                         }
                     }
@@ -315,6 +306,13 @@ namespace rxcpp
                 const std::chrono::milliseconds durationInMs(static_cast<long>(1000.0/frequencyInHz));
                 return rxcpp::observable<>::interval(durationInMs).with_latest_from(
                         [=](const auto intervalObsrv, const auto sourceObsrv) { return sourceObsrv; }, source);};};
+
+        template<class Coordination>
+        auto sample_with_frequency(const double frequencyInHz, Coordination coordination) {
+            return [=](auto &&source) {
+                const std::chrono::milliseconds durationInMs(static_cast<long>(1000.0/frequencyInHz));
+                return rxcpp::observable<>::interval(durationInMs, coordination).with_latest_from(
+                    [=](const auto intervalObsrv, const auto sourceObsrv) { return sourceObsrv; }, source);};};
 
 
         template<typename T>

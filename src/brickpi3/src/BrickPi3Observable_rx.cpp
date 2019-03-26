@@ -29,6 +29,7 @@ auto brickpi3::Observable::colorSensor(const std::string& name, const std::strin
                     errReported = true;
                     brickPi3.reset_all();
                     subscriber.on_error(rxros::Exception::systemError(errno, "BrickPi3 failed to read Color sensor '" +  name + "' rc: " + std::to_string(rc)));
+                    break;
                 }
                 rate.sleep();
             }
@@ -59,6 +60,7 @@ auto brickpi3::Observable::ultrasonicSensor(const std::string& name, const std::
                     errReported = true;
                     brickPi3.reset_all();
                     subscriber.on_error(rxros::Exception::systemError(errno, "BrickPi3 failed to read Ultrasonic sensor '" +  name + "' rc: " + std::to_string(rc)));
+                    break;
                 }
                 rate.sleep();
             }
@@ -89,6 +91,7 @@ auto brickpi3::Observable::motorActuator(const std::string& name, const std::str
                     errReported = true;
                     brickPi3.reset_motor_encoder(id);
                     subscriber.on_error(rxros::Exception::systemError(errno, "BrickPi3 failed to read Motor '" +  name + "' rc: " + std::to_string(rc)));
+                    break;
                 }
                 rate.sleep();
             }

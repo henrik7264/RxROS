@@ -59,16 +59,13 @@ int main(int argc, char** argv) {
 
     auto joyObsrv = rxros::Observable::fromTopic<teleop_msgs::Joystick>("/joystick") // create an observable stream from "/joystick" topic
         | map([](teleop_msgs::Joystick joy) { return joy.event; });
-
     auto keyObsrv = rxros::Observable::fromTopic<teleop_msgs::Keyboard>("/keyboard") // create an observable stream from "/keyboard" topic
         | map([](teleop_msgs::Keyboard key) { return key.event; });
-
     joyObsrv.merge(keyObsrv)                                  // merge the joystick and keyboard messages into an observable teleop stream.
         | scan(std::make_tuple(0.0, 0.0), teleopToVelTuple)   // turn the teleop stream into a linear and angular velocity stream.
         | map(velTupleToTwist)                                // turn the linear and angular velocity stream into a Twist stream.
         | sample_with_frequency(frequencyInHz)                // take latest Twist msg and populate it with the specified frequency.
         | publish_to_topic<geometry_msgs::Twist>("/cmd_vel"); // publish the Twist messages to the topic "/cmd_vel"
-
 
     rxros::Logging().info() << "Spinning velocity_publisher ...";
     rxros::spin();
