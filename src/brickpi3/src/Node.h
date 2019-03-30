@@ -14,6 +14,7 @@ private:
 
 public:
     ~Node() = default;
+
     static ros::NodeHandle& getHandle() {
         static ros::NodeHandle nodehandle;
         return nodehandle;

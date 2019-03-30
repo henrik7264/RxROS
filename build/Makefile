@@ -1117,6 +1117,19 @@ nav_msgs_generate_messages_nodejs/fast:
 .PHONY : nav_msgs_generate_messages_nodejs/fast
 
 #=============================================================================
+# Target rules for targets named nav_msgs_generate_messages_lisp
+
+# Build rule for target.
+nav_msgs_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 nav_msgs_generate_messages_lisp
+.PHONY : nav_msgs_generate_messages_lisp
+
+# fast build rule for target.
+nav_msgs_generate_messages_lisp/fast:
+	$(MAKE) -f brickpi3/CMakeFiles/nav_msgs_generate_messages_lisp.dir/build.make brickpi3/CMakeFiles/nav_msgs_generate_messages_lisp.dir/build
+.PHONY : nav_msgs_generate_messages_lisp/fast
+
+#=============================================================================
 # Target rules for targets named tf2_msgs_generate_messages_eus
 
 # Build rule for target.
@@ -1130,17 +1143,17 @@ tf2_msgs_generate_messages_eus/fast:
 .PHONY : tf2_msgs_generate_messages_eus/fast
 
 #=============================================================================
-# Target rules for targets named nav_msgs_generate_messages_lisp
+# Target rules for targets named brickpi3_rxros
 
 # Build rule for target.
-nav_msgs_generate_messages_lisp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 nav_msgs_generate_messages_lisp
-.PHONY : nav_msgs_generate_messages_lisp
+brickpi3_rxros: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 brickpi3_rxros
+.PHONY : brickpi3_rxros
 
 # fast build rule for target.
-nav_msgs_generate_messages_lisp/fast:
-	$(MAKE) -f brickpi3/CMakeFiles/nav_msgs_generate_messages_lisp.dir/build.make brickpi3/CMakeFiles/nav_msgs_generate_messages_lisp.dir/build
-.PHONY : nav_msgs_generate_messages_lisp/fast
+brickpi3_rxros/fast:
+	$(MAKE) -f brickpi3/CMakeFiles/brickpi3_rxros.dir/build.make brickpi3/CMakeFiles/brickpi3_rxros.dir/build
+.PHONY : brickpi3_rxros/fast
 
 #=============================================================================
 # Target rules for targets named nav_msgs_generate_messages_eus
@@ -1787,8 +1800,9 @@ help:
 	@echo "... tf_generate_messages_eus"
 	@echo "... nav_msgs_generate_messages_py"
 	@echo "... nav_msgs_generate_messages_nodejs"
-	@echo "... tf2_msgs_generate_messages_eus"
 	@echo "... nav_msgs_generate_messages_lisp"
+	@echo "... tf2_msgs_generate_messages_eus"
+	@echo "... brickpi3_rxros"
 	@echo "... nav_msgs_generate_messages_eus"
 	@echo "... brickpi3"
 	@echo "... brickpi3_base_controller"

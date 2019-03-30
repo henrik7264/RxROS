@@ -21,7 +21,6 @@ using namespace rxcpp::sources;
 using namespace rxcpp::operators;
 using namespace rxcpp::util;
 
-
 namespace rxros
 {
     static void init(int argc, char** argv, const std::string& name) {ros::init(argc, argv, name);}
@@ -260,6 +259,7 @@ namespace rxros
                 });
         }
 
+
         // Parse the ros_robot.yaml file and create an observable stream of the sensors and actuators configurations
         static auto fromRobotYaml(const std::string& aNamespace)
         {
@@ -274,7 +274,7 @@ namespace rxros
                 });
         }
     }; // end of class Observable
-}; // end of namespace rxros
+} // end of namespace rxros
 
 
 namespace rxros
@@ -293,8 +293,8 @@ namespace rxros
                 return func();
             return select(exp_func_pairs...);
         }
-    }; // end of namespace utils
-}; // end of namespace rxros
+    } // end of namespace utils
+} // end of namespace rxros
 
 
 namespace rxcpp
@@ -302,17 +302,18 @@ namespace rxcpp
     namespace operators
     {
         auto sample_with_frequency(const double frequencyInHz) {
-            return [=](auto &&source) {
+            return [=](const auto&& source) {
                 const std::chrono::milliseconds durationInMs(static_cast<long>(1000.0/frequencyInHz));
                 return rxcpp::observable<>::interval(durationInMs).with_latest_from(
-                        [=](const auto intervalObsrv, const auto sourceObsrv) { return sourceObsrv; }, source);};};
+                        [=](const auto intervalObsrv, const auto sourceObsrv) { return sourceObsrv; }, source);};}
 
-        template<class Coordination>
-        auto sample_with_frequency(const double frequencyInHz, Coordination coordination) {
-            return [=](auto &&source) {
-                const std::chrono::milliseconds durationInMs(static_cast<long>(1000.0/frequencyInHz));
-                return rxcpp::observable<>::interval(durationInMs, coordination).with_latest_from(
-                    [=](const auto intervalObsrv, const auto sourceObsrv) { return sourceObsrv; }, source);};};
+
+//        template<class Coordination>
+//        auto sample_with_frequency(const double frequencyInHz, Coordination coordination) {
+//            return [=](auto &&source) {
+//                const std::chrono::milliseconds durationInMs(static_cast<long>(1000.0/frequencyInHz));
+//                return rxcpp::observable<>::interval(durationInMs, coordination).with_latest_from(
+//                    [=](const auto intervalObsrv, const auto sourceObsrv) { return sourceObsrv; }, source);};}
 
 
         template<typename T>
@@ -321,7 +322,7 @@ namespace rxcpp
                 ros::Publisher publisher(rxros::Node::getHandle().advertise<T>(topic, queueSize));
                 source.subscribe_on(synchronize_new_thread()).subscribe(
                     [=](const T& msg) {publisher.publish(msg);});
-                return source;};};
+                return source;};}
 
 
         auto send_transform(const std::string &frame_id, const std::string &child_frame_id) {
@@ -329,10 +330,18 @@ namespace rxcpp
                 tf::TransformBroadcaster transformBroadcaster;
                 source.subscribe_on(synchronize_new_thread()).subscribe(
                     [&](const tf::Transform& tf) {transformBroadcaster.sendTransform(tf::StampedTransform(tf, ros::Time::now(), frame_id, child_frame_id));});
-                return source;};};
+                return source;};}
 
-    }; // end namespace operators
-}; // end namespace rxcpp
+
+        template <class Observable>
+        auto join_with_latest_from(const Observable& observable) {
+            return [=](const auto&& source) {
+                return source.with_latest_from (
+                    [=](const auto o1, const auto o2) {
+                        return std::make_tuple(o1, o2);}, observable);};}
+
+    } // end namespace operators
+} // end namespace rxcpp
 
 
 #endif //RXROS_H

@@ -10,32 +10,6 @@
 #include <numeric>
 #include <thread>
 #include <mutex>
-using namespace std;
-
-#include <rxcpp/rx.hpp>
-#include <rxcpp/schedulers/rx-currentthread.hpp>
-#include <rxcpp/schedulers/rx-eventloop.hpp>
-#include <rxcpp/schedulers/rx-immediate.hpp>
-#include <rxcpp/schedulers/rx-newthread.hpp>
-#include <rxcpp/schedulers/rx-runloop.hpp>
-#include <rxcpp/operators/rx-reduce.hpp>
-#include <rxcpp/operators/rx-filter.hpp>
-#include <rxcpp/operators/rx-map.hpp>
-#include <rxcpp/operators/rx-tap.hpp>
-#include <rxcpp/operators/rx-concat_map.hpp>
-#include <rxcpp/operators/rx-flat_map.hpp>
-#include <rxcpp/operators/rx-concat.hpp>
-#include <rxcpp/operators/rx-merge.hpp>
-#include <rxcpp/operators/rx-repeat.hpp>
-#include <rxcpp/operators/rx-publish.hpp>
-#include <rxcpp/operators/rx-ref_count.hpp>
-namespace Rx {
-    using namespace rxcpp;
-    using namespace rxcpp::sources;
-    using namespace rxcpp::operators;
-    using namespace rxcpp::util;
-}
-using namespace Rx;
 
 #include "rxros.h"
 
@@ -66,28 +40,28 @@ public:
     void rxObserveOnScheduler();
     void rxSubscribeOnScheduler();
     void rxWithLatestFrom();
-    void rxStdFunction2BoostFunction();
+    void rxInterval2();
 };
 
 
 //--------------------------------------------------------------------------------------
 void Examples::lambdaFunction1()
 {
-    auto numbers = vector<int>{ 10, 23, -33, 15, -7, 60, 80};
+    auto numbers = std::vector<int>{ 10, 23, -33, 15, -7, 60, 80};
     // Lambda expression. Returns true if value is positive else false.
     auto isPositveFunc = [](int const val) {return val > 0; };
     // Count the number of positive values
     auto cnt = count_if(begin(numbers), end(numbers), isPositveFunc);
-    cout << cnt << endl;
+    std::cout << cnt << std::endl;
 }
 
 //--------------------------------------------------------------------------------------
 void Examples::lambdaFunction2()
 {
-    auto numbers = vector<int>{ 10, 23, -33, 15, -7, 60, 80};
+    auto numbers = std::vector<int>{ 10, 23, -33, 15, -7, 60, 80};
     // Lambda expression take two arguments of any type and returns the sum.
     auto accum = std::accumulate(std::begin(numbers), std::end(numbers), 0, [](auto const accSum, auto const val) {return accSum + val;});
-    cout << accum << endl;
+    std::cout << accum << std::endl;
 }
 
 //--------------------------------------------------------------------------------------
@@ -104,10 +78,10 @@ void Examples::lambdaFunction3()
     double sum = 0;
 
     // Functors vs Lambda expressions.
-    sum = accumulate(numbers, numbers+3, 0.0, addition<double>());
-    cout << "sum = " << sum << endl;
-    sum = accumulate(numbers, numbers+3, 0.0, [] (const double& accSum, const double& val ) {return accSum +val;});
-    cout << "sum = " << sum << endl;
+    sum = std::accumulate(numbers, numbers+3, 0.0, addition<double>());
+    std::cout << "sum = " << sum << std::endl;
+    sum = std::accumulate(numbers, numbers+3, 0.0, [] (const double& accSum, const double& val ) {return accSum +val;});
+    std::cout << "sum = " << sum << std::endl;
 }
 
 //--------------------------------------------------------------------------------------
@@ -138,21 +112,21 @@ void Examples::lambdaFunction4()
 {
     // Compose two functions together
     auto val = Compose(
-            [](int const a) {return to_string(a); },
+            [](int const a) {return std::to_string(a); },
             [](int const a) {return a * a; }) ( 4 ); // val = "16"
-    cout << val << std::endl; //should print 16
+    std::cout << val << std::endl; //should print 16
 
     //Compose a set of function together
     auto func = Compose(
-            [](int const n) {return to_string(n); },
+            [](int const n) {return std::to_string(n); },
             [](int const n) {return n * n; },
             [](int const n) {return n + n; },
             [](int const n) {return abs(n); });
-    cout << func(5) << endl;
+    std::cout << func(5) << std::endl;
 
     // Invoke the Curried function
     auto p = CurriedAdd3(4)(5)(6);
-    cout << p << endl;
+    std::cout << p << std::endl;
 }
 
 
@@ -168,8 +142,8 @@ void Examples::rxCreate()
         });
 
     ints.subscribe(
-        [](int v) {cout << "OnNext: " << v << endl;},
-        []() {cout << "OnCompleted" << endl;});
+        [](int v) {std::cout << "OnNext: " << v << std::endl;},
+        []() {std::cout << "OnCompleted" << std::endl;});
 }
 
 //--------------------------------------------------------------------------------------
@@ -177,8 +151,8 @@ void Examples::rxRange()
 {
     auto values = rxcpp::observable<>::range(1, 10);
     values.subscribe(
-        [](int v) {cout << "OnNext: " << v << endl;},
-        []() {cout << "OnCompleted" << endl;});
+        [](int v) {std::cout << "OnNext: " << v << std::endl;},
+        []() {std::cout << "OnCompleted" << std::endl;});
 }
 
 
@@ -187,8 +161,8 @@ void Examples::rxMap()
 {
     auto ints = rxcpp::observable<>::range(1, 10).map([](int n) { return n * n; });
     ints.subscribe(
-        [](int v) { cout << "OnNext: " << v << endl; },
-        []() { cout << "OnCompleted" << endl; });
+        [](int v) { std::cout << "OnNext: " << v << std::endl; },
+        []() { std::cout << "OnCompleted" << std::endl; });
 }
 
 
@@ -199,8 +173,8 @@ void Examples::rxMerge()
     auto o2 = rxcpp::observable<>::from(400, 500, 600);
     auto values = o1.merge(o2);
     values.subscribe(
-        [](int v) {cout << "OnNext: " <<  v << endl;},
-        []() {cout << "OnCompleted" << endl;});
+        [](int v) {std::cout << "OnNext: " <<  v << std::endl;},
+        []() {std::cout << "OnCompleted" << std::endl;});
 }
 
 
@@ -211,34 +185,34 @@ void Examples::rxConcat()
     auto o2 = rxcpp::observable<>::from(400, 500, 600);
     auto values = o1.concat(o2);
     values.subscribe(
-        [](int v) {cout << "OnNext: " <<  v << endl;},
-        []() {cout << "OnCompleted" << endl;});
+        [](int v) {std::cout << "OnNext: " <<  v << std::endl;},
+        []() {std::cout << "OnCompleted" << std::endl;});
 }
 
 
 //--------------------------------------------------------------------------------------
 void Examples::rxPipe()
 {
-    auto ints = rxcpp::observable<>::range(1,10) | Rx::map([](int n) { return n * n; });
+    auto ints = rxcpp::observable<>::range(1,10) | map([](int n) { return n * n; });
     ints.subscribe(
-        [](int v){cout << "OnNext: " << v << endl;},
-        [](){cout << "OnCompleted" << endl;});
+        [](int v){std::cout << "OnNext: " << v << std::endl;},
+        [](){std::cout << "OnCompleted" << std::endl;});
 }
 
 
 //--------------------------------------------------------------------------------------
 void Examples::rxMerge2()
 {
-    auto o1 = rxcpp::observable<>::timer(chrono::milliseconds(15)).map([](int) { return 1; });
-    auto o2 = rxcpp::observable<>::error<int>(runtime_error("Error from source"));
-    auto o3 = rxcpp::observable<>::timer(chrono::milliseconds(5)).map([](int) { return 3; });
+    auto o1 = rxcpp::observable<>::timer(std::chrono::milliseconds(15)).map([](int) { return 1; });
+    auto o2 = rxcpp::observable<>::error<int>(std::runtime_error("Error from source"));
+    auto o3 = rxcpp::observable<>::timer(std::chrono::milliseconds(5)).map([](int) { return 3; });
     auto base = rxcpp::observable<>::from(o1.as_dynamic(), o2, o3);
     auto values = base.merge();
 
     values.subscribe(
-            [](int v) { cout << "OnNext: " << v << endl; },
-            [](exception_ptr e) { cout << "OnError: " << Rx::what(e) << endl; },
-            []() { cout << "OnCompleted" << endl; });
+            [](int v) { std::cout << "OnNext: " << v << std::endl; },
+            [](std::exception_ptr e) { std::cout << "OnError: " << what(e) << std::endl; },
+            []() { std::cout << "OnCompleted" << std::endl; });
 }
 
 
@@ -342,7 +316,7 @@ void printThreadId(int val = 0)
 {
     static std::mutex mutex;
     mutex.lock();
-    cout << "Current Thread id: " << this_thread::get_id() << ", " << val << endl;
+    std::cout << "Current Thread id: " << std::this_thread::get_id() << ", " << val << std::endl;
     mutex.unlock();
 }
 
@@ -461,15 +435,29 @@ void Examples::rxWithLatestFrom()
 
 
 //--------------------------------------------------------------------------------------
-void Examples::rxStdFunction2BoostFunction()
+struct T1 {
+    std::string string;
+    int number;
+};
+
+struct T2 {
+    std::string string;
+    double real;
+};
+
+void Examples::rxInterval2()
 {
-    std::function<void (const std::string&)> f = [](const std::string& a) { cout << "Hello " << a << endl; };
+    auto o1 = rxcpp::observable<>::interval(std::chrono::milliseconds(1000)).take(10)
+        | map([=](int i){T1 t1; t1.string = "t1"; t1.number = i; return t1;});
 
-    f("John");
+    auto o2 = rxcpp::observable<>::interval(std::chrono::milliseconds(500)).take(20)
+        | map([=](int i){T2 t2; t2.string = "t2"; t2.real = i*i; return t2;});
 
-    boost::function<void (const std::string&)> g = [](const std::string& a) { cout << "Hello " << a << endl; };
+    auto o3 = o1.with_latest_from ([=](const auto obs1, const auto obs2) {return std::make_tuple(obs1, obs2);}, o2);
 
-    g("Eva");
+    o3.as_blocking().subscribe(
+        [](auto tuple){std::cout << std::get<0>(tuple).number << ", " << std::get<1>(tuple).real << std::endl;},
+        [](){std::cout << "OnCompleted" << std::endl;});
 }
 
 
@@ -485,8 +473,8 @@ int main(int argc, char** argv)
 //    examples.rxCreate();
 //    examples.rxRange();
 //    examples.rxMap();
-    examples.rxMerge();
-    examples.rxConcat();
+//    examples.rxMerge();
+//    examples.rxConcat();
 //    examples.rxPipe();
 //    examples.rxMerge2();
 //
@@ -498,5 +486,5 @@ int main(int argc, char** argv)
 //    examples.rxObserveOnScheduler();
 //    examples.rxSubscribeOnScheduler();
 //    examples.rxWithLatestFrom();
-//    examples.rxStdFunction2BoostFunction();
+    examples.rxInterval2();
 }

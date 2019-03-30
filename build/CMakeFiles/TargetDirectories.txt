@@ -115,9 +115,10 @@
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/install.dir
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/nav_msgs_generate_messages_py.dir
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/nav_msgs_generate_messages_nodejs.dir
-/home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/tf2_msgs_generate_messages_eus.dir
-/home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/nav_msgs_generate_messages_lisp.dir
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/edit_cache.dir
+/home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/nav_msgs_generate_messages_lisp.dir
+/home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/tf2_msgs_generate_messages_eus.dir
+/home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/brickpi3_rxros.dir
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/nav_msgs_generate_messages_eus.dir
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/brickpi3.dir
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/brickpi3_base_controller.dir

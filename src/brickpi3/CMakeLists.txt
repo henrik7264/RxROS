@@ -150,11 +150,10 @@ add_executable(brickpi3
   src/BrickPi3Ros.cpp
 )
 
-#add_executable(brickpi3_rxros
-#  src/BrickPi3.cpp
-#  src/BrickPi3Observable_rx.cpp
-#  src/BrickPi3Ros_rx.cpp
-#)
+add_executable(brickpi3_rxros
+  src/BrickPi3.cpp
+  src/BrickPi3Ros_rx.cpp
+)
 
 add_executable(brickpi3_joint_states_publisher
   src/BrickPi3JointStatesPublisher.cpp
@@ -178,6 +177,7 @@ add_executable(brickpi3_base_controller
 ## same as for the library above
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(brickpi3 ${catkin_EXPORTED_TARGETS})
+add_dependencies(brickpi3_rxros ${catkin_EXPORTED_TARGETS})
 add_dependencies(brickpi3_joint_states_publisher ${catkin_EXPORTED_TARGETS})
 add_dependencies(brickpi3_odom_publisher ${catkin_EXPORTED_TARGETS})
 add_dependencies(brickpi3_base_controller ${catkin_EXPORTED_TARGETS})
@@ -187,7 +187,7 @@ add_dependencies(brickpi3_base_controller ${catkin_EXPORTED_TARGETS})
 #   ${catkin_LIBRARIES}
 # )
 target_link_libraries(brickpi3 ${catkin_LIBRARIES})
-#target_link_libraries(brickpi3_rxros ${catkin_LIBRARIES})
+target_link_libraries(brickpi3_rxros ${catkin_LIBRARIES})
 target_link_libraries(brickpi3_joint_states_publisher ${catkin_LIBRARIES})
 target_link_libraries(brickpi3_odom_publisher ${catkin_LIBRARIES})
 target_link_libraries(brickpi3_base_controller ${catkin_LIBRARIES})

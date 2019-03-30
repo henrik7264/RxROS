@@ -25,7 +25,7 @@ int main(int argc, char** argv)
 
     rxros::Logging().info() << "Joystick device: " << joystickDevice;
 
-    auto joystickEventToJoystickMsg = [=](const auto joystickEvent) {
+    auto joystickEvent2JoystickMsg = [=](const auto joystickEvent) {
         auto makeJoystickMsg = [=] (auto event) {
             teleop_msgs::Joystick joystickMsg;
             joystickMsg.time = ros::Time(joystickEvent.time, 0);
@@ -63,7 +63,7 @@ int main(int argc, char** argv)
             return makeJoystickMsg(JS_EVENT_NEUTRAL);};
 
     rxros::Observable::fromDevice<joystick_event>(joystickDevice)
-        | map(joystickEventToJoystickMsg)
+        | map(joystickEvent2JoystickMsg)
         | publish_to_topic<teleop_msgs::Joystick>("/joystick");
 
     rxros::Logging().info() << "Spinning joystick_publisher ...";
