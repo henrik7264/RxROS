@@ -12,6 +12,7 @@
 #include "BrickPi3Motor.h"
 #include "BrickPi3Ultrasonic.h"
 #include "BrickPi3Color.h"
+#include "BrickPi3Touch.h"
 
 class BrickPi3Ros {
 private:
@@ -63,6 +64,16 @@ BrickPi3Ros::BrickPi3Ros(int argc, char** argv):
 
             BrickPi3Color* color = new BrickPi3Color(name, frame_id, port, freq); //todo: Needs better resource handling.
             scheduler.every(std::chrono::milliseconds(static_cast<int >(1000.0/freq)), boost::bind(&BrickPi3Color::schedulerCB, color));
+        }
+        else if (type == "touch")
+        {
+            std::string name = brickpi3_device["name"];
+            std::string frame_id = brickpi3_device["frame_id"];
+            std::string port = brickpi3_device["port"];
+            double freq = brickpi3_device["frequency"];
+
+            BrickPi3Touch* touch = new BrickPi3Touch(name, frame_id, port, freq); //todo: Needs better resource handling.
+            scheduler.every(std::chrono::milliseconds(static_cast<int >(1000.0/freq)), boost::bind(&BrickPi3Touch::schedulerCB, touch));
         }
     }
 }

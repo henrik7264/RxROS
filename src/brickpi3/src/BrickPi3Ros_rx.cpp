@@ -33,6 +33,13 @@ int main(int argc, char** argv) {
 //                brickpi3::Observable::colorSensor(device.getName(), device.getPort(), device.getFrequency())
 //                | map(colorEvent2ColorMsg, device.getFrameId())
 //                | publish_to_topic<brickpi3_msgs::Color>("/" + device.getName());
+            }
+            else if (device.getType() == "touch") {
+                rxros::Logging().info() << device.getType() << ", " << device.getName() << ", " << device.getPort() << ", " << device.getFrequency();
+
+//                brickpi3::Observable::tuchSensor(device.getName(), device.getPort(), device.getFrequency())
+//                | map(touchEvent2ContactMsg, device.getFrameId())
+//                | publish_to_topic<brickpi3_msgs::Contact>("/" + device.getName());
             }},
         [](){}); // on completed event
 

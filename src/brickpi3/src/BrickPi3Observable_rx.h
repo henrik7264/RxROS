@@ -28,11 +28,46 @@ namespace brickpi3
     public:
         ~Observable() = default;
 
+        static auto touchSensor(const std::string& name, const std::string& port, double frequency);
         static auto colorSensor(const std::string& name, const std::string& port, double frequency);
         static auto ultrasonicSensor(const std::string& name, const std::string& port, double frequency);
         static auto motor(const std::string &name, const std::string &port, double frequency);
     };// end class Observable
 } // end namespace brickpi3
+
+
+
+auto brickpi3::Observable::touchSensor(const std::string& name, const std::string& port, double frequency)
+{
+    auto observable = rxcpp::observable<>::create<sensor_touch_t>(
+        [=](rxcpp::subscriber<sensor_touch_t> subscriber) {
+            const uint8_t id = port2id(port);
+            bool errReported = false;
+            BrickPi3 brickPi3;
+            brickPi3.detect();
+            brickPi3.set_sensor_type(id, SENSOR_TYPE_TOUCH_NXT);
+
+            ros::Rate rate(frequency);
+            while (rxros::ok()) {
+                sensor_touch_t touch;
+                int rc = brickPi3.get_sensor(id, &touch);
+                if (rc == 0) {
+                    rxros::Logging().debug() << "Touch sensor: pressed " << touch.pressed;
+                    subscriber.on_next(touch);
+                } else {
+                    errReported = true;
+                    brickPi3.reset_all();
+                    subscriber.on_error(rxros::Exception::systemError(errno, "BrickPi3 failed to read Touch sensor '" +  name + "' rc: " + std::to_string(rc)));
+                    break;
+                }
+                rate.sleep();
+            }
+            if (!errReported) {
+                brickPi3.reset_all();
+                subscriber.on_completed();
+            }});
+    return observable.subscribe_on(synchronize_new_thread());
+}
 
 
 auto brickpi3::Observable::colorSensor(const std::string& name, const std::string& port, double frequency)
@@ -50,7 +85,7 @@ auto brickpi3::Observable::colorSensor(const std::string& name, const std::strin
                 sensor_color_t color;
                 int rc = brickPi3.get_sensor(id, &color);
                 if (rc == 0) {
-                    rxros::Logging().debug() << "Color sensor:" << color.color << ", red: " << color.reflected_red << ", green: " << color.reflected_green << ", blue: " << color.reflected_blue << ", ambient: " << color.ambient;
+                    rxros::Logging().debug() << "Color sensor: " << color.color << ", red: " << color.reflected_red << ", green: " << color.reflected_green << ", blue: " << color.reflected_blue << ", ambient: " << color.ambient;
                     subscriber.on_next(color);
                 } else {
                     errReported = true;

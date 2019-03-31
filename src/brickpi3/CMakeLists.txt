@@ -147,6 +147,7 @@ add_executable(brickpi3
   src/BrickPi3Motor.cpp
   src/BrickPi3Ultrasonic.cpp
   src/BrickPi3Color.cpp
+  src/BrickPi3Touch.cpp
   src/BrickPi3Ros.cpp
 )
 

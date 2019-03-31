@@ -6,6 +6,7 @@
 #define BRICKPI3_BRICKPI3ROS_RX_H
 
 #include <sensor_msgs/JointState.h>
+#include <brickpi3_msgs/Contact.h>
 #include <brickpi3_msgs/Color.h>
 #include <brickpi3_msgs/Range.h>
 #include <brickpi3_msgs/JointCommand.h>
@@ -40,17 +41,27 @@ auto posVelTimeTuple2JointStateMsg = [](const auto& tuple, const std::string& na
     return jointState;};
 
 
+auto touchEvent2ContactMsg = [](const sensor_touch_t& sensorColor, const std::string& frameId) {
+    static int seqNo = 0;
+    brickpi3_msgs::Contact contact;
+    contact.header.frame_id = frameId;
+    contact.header.stamp = ros::Time::now();
+    contact.header.seq = seqNo++;
+    contact.contact = sensorColor.pressed;
+    return contact;};
+
+
 auto colorEvent2ColorMsg = [](const sensor_color_t& sensorColor, const std::string& frameId) {
     static int seqNo = 0;
-    brickpi3_msgs::Color rosColor;
-    rosColor.header.frame_id = frameId;
-    rosColor.header.stamp = ros::Time::now();
-    rosColor.header.seq = seqNo++;
-    rosColor.r = static_cast<double>(sensorColor.reflected_red);
-    rosColor.g = static_cast<double>(sensorColor.reflected_green);
-    rosColor.b = static_cast<double>(sensorColor.reflected_blue);
-    rosColor.intensity = static_cast<double>(sensorColor.ambient);
-    return rosColor;};
+    brickpi3_msgs::Color color;
+    color.header.frame_id = frameId;
+    color.header.stamp = ros::Time::now();
+    color.header.seq = seqNo++;
+    color.r = static_cast<double>(sensorColor.reflected_red);
+    color.g = static_cast<double>(sensorColor.reflected_green);
+    color.b = static_cast<double>(sensorColor.reflected_blue);
+    color.intensity = static_cast<double>(sensorColor.ambient);
+    return color;};
 
 
 auto ultrasonicEvent2RangeMsg = [](const sensor_ultrasonic_t& sensorUltrasonic, const std::string& frameId, const double minRange, const double maxRange, const double spreadAngle) {
