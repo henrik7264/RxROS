@@ -197,7 +197,7 @@ This is done by means of the init function<br>
 rxros::init(argc, argv, "Name_of_ROS_node");
 ```
 
-#####Example
+###Example
 
 ```cpp
 #include <rxros.h>
@@ -210,13 +210,13 @@ int main(int argc, char** argv) {'
 }
 ```
 
-####Parameters
-####Logging
-####Topics
-####Broadcasters
-####Actions
-####Services
-#### Example
+###Parameters
+###Logging
+###Topics
+###Broadcasters
+###Actions
+###Services
+### Example
 The following example is a full implementation of a velocity publisher
 that takes input from a keyboard and joystick and publishes Twist messages
 on the /cmd_vel topic:
