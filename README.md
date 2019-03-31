@@ -193,13 +193,13 @@ A RxROS program is in principle a ROS node,
 so the first step is not surprisingly to initialise it and specify the node name.
 This is done by means of the init function<br>
 
-```
+```cpp
 rxros::init(argc, argv, "Name_of_ROS_node");
 ```
 
 #####Example
 
-```
+```cpp
 #include <rxros.h>
 int main(int argc, char** argv) {'
     rxros::init(argc, argv, "velocity_publisher"); // Name of this node.
@@ -221,7 +221,7 @@ The following example is a full implementation of a velocity publisher
 that takes input from a keyboard and joystick and publishes Twist messages
 on the /cmd_vel topic:
 
-```
+```cpp
 #include <rxros.h>
 #include <teleop_msgs/Joystick.h>
 #include <teleop_msgs/Keyboard.h>
