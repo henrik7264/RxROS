@@ -119,6 +119,27 @@ Finally, ensure that the udev rules for rplidar is configured correctly:
 sudo cp slamtec/src/rplidar_ros/scripts/rplidar.rules /etc/udev/rules.d/70-rplidar.rules
 ```
 
+### Bosma Scheduler
+The Bosma scheduler is a blue print of how software should be created.
+It has a very clean interface as is very easy to use and understand.
+It can be found at<br>
+https://github.com/Bosma/Scheduler<br>
+To install the Bosma Scheduler execute the following commands:
+
+```
+git clone https://github.com/vit-vit/CTPL.git
+cd CTPL
+sudo cp *.h /usr/local/include
+cd ..
+
+git clone https://github.com/Bosma/Scheduler.git
+cd Scheduler
+cmake CMakeLists.txt
+make
+sudo cp *.h /usr/local/include
+cd ..
+```
+
 ### Reactive C++
 
 Reactive C++ is also a github project. It can be found at<br>
@@ -143,12 +164,136 @@ The needed C++ header files have been installed in /usr/include/rxcpp.
 
 Finally, we have come to the RxROS project. To install RxROS do the following:
 ```
-git clone --recursive https://github.com/henrik7264/RxROS.git
+git clone https://github.com/henrik7264/RxROS.git
 cd RxROS
 catkin_make
+# catkin_make may fail to compile if the platform is not amd64. 
+# Remove the build and devel directory to fix this pronblem
+# and run catkin_make again.
 sudo ./src/rxros_lang/src/install.sh
 cd .. 
 ```
+
+The RxROS language depends on the following software:<br>
+1. Ubuntu Binoic 18.04
+2. ROS Melodic
+3. Reactive C++ v2
+
+The software must be installed as described above.<br>
+The RxROS itself consist of a singe file named rxros.h.
+The file most be installed in /usr/local/include.<br>
+
+Now, lets look at the language in more details.
+The RxROS provides simple access to ROS via a set of classes.
+The classes provides more precisely an extension to RxCpp that
+gives simple access to ROS.<br>
+
+####Initial setup
+A RxROS program is in principle a ROS node,
+so the first step is not surprisingly to initialise it and specify the node name.
+This is done by means of the init function<br>
+
+```
+rxros::init(argc, argv, "Name_of_ROS_node");
+```
+
+#####Example
+
+```
+#include <rxros.h>
+int main(int argc, char** argv) {'
+    rxros::init(argc, argv, "velocity_publisher"); // Name of this node.
+
+    // ... here 
+
+    rxros::spin();
+}
+```
+
+####Parameters
+####Logging
+####Topics
+####Broadcasters
+####Actions
+####Services
+#### Example
+The following example is a full implementation of a velocity publisher
+that takes input from a keyboard and joystick and publishes Twist messages
+on the /cmd_vel topic:
+
+```
+#include <rxros.h>
+#include <teleop_msgs/Joystick.h>
+#include <teleop_msgs/Keyboard.h>
+#include <geometry_msgs/Twist.h>
+#include "JoystickPublisher.h"
+#include "KeyboardPublisher.h"
+
+
+int main(int argc, char** argv) {
+    rxros::init(argc, argv, "velocity_publisher"); // Name of this node.
+
+    const auto frequencyInHz = rxros::Parameter::get("/velocity_publisher/frequency", 10.0); // hz
+    const auto minVelLinear = rxros::Parameter::get("/velocity_publisher/min_vel_linear", 0.04); // m/s
+    const auto maxVelLinear = rxros::Parameter::get("/velocity_publisher/max_vel_linear", 0.10); // m/s
+    const auto minVelAngular = rxros::Parameter::get("/velocity_publisher/min_vel_angular", 0.64); // rad/s
+    const auto maxVelAngular = rxros::Parameter::get("/velocity_publisher/max_vel_angular", 1.60); // rad/s
+    const auto deltaVelLinear = (maxVelLinear - minVelLinear) / 10.0;
+    const auto deltaVelAngular = (maxVelAngular - minVelAngular) / 10.0;
+
+    rxros::Logging().info() << "frequency: " << frequencyInHz;
+    rxros::Logging().info() << "min_vel_linear: " << minVelLinear << " m/s";
+    rxros::Logging().info() << "max_vel_linear: " << maxVelLinear << " m/s";
+    rxros::Logging().info() << "min_vel_angular: " << minVelAngular << " rad/s";
+    rxros::Logging().info() << "max_vel_angular: " << maxVelAngular << " rad/s";
+
+    auto adaptVelocity = [=] (auto newVel, auto minVel, auto maxVel, auto isIncrVel) {
+        if (newVel > maxVel)
+            return maxVel;
+        else if (newVel < -maxVel)
+            return -maxVel;
+        else if (newVel > -minVel && newVel < minVel)
+            return (isIncrVel) ? minVel : -minVel;
+        else
+            return newVel;};
+
+    auto teleop2VelTuple = [=](const auto& prevVelTuple, const int event) {
+        const auto prevVelLinear = std::get<0>(prevVelTuple);  // use previous linear and angular velocity
+        const auto prevVelAngular = std::get<1>(prevVelTuple); // to calculate the new linear and angular velocity.
+        if (event == JS_EVENT_BUTTON0_DOWN || event == JS_EVENT_BUTTON1_DOWN || event == KB_EVENT_SPACE)
+            return std::make_tuple(0.0, 0.0); // Stop the robot
+        else if (event == JS_EVENT_AXIS_UP || event == KB_EVENT_UP)
+            return std::make_tuple(adaptVelocity((prevVelLinear + deltaVelLinear), minVelLinear, maxVelLinear, true), prevVelAngular); // move forward
+        else if (event == JS_EVENT_AXIS_DOWN || event == KB_EVENT_DOWN)
+            return std::make_tuple(adaptVelocity((prevVelLinear - deltaVelLinear), minVelLinear, maxVelLinear, false), prevVelAngular); // move backward
+        else if (event == JS_EVENT_AXIS_LEFT || event == KB_EVENT_LEFT)
+            return std::make_tuple(prevVelLinear, adaptVelocity((prevVelAngular + deltaVelAngular), minVelAngular, maxVelAngular, true)); // move left
+        else if (event == JS_EVENT_AXIS_RIGHT || event == KB_EVENT_RIGHT)
+            return std::make_tuple(prevVelLinear, adaptVelocity((prevVelAngular - deltaVelAngular), minVelAngular, maxVelAngular, false));}; // move right
+
+    auto velTuple2TwistMsg = [](auto velTuple) {
+        geometry_msgs::Twist vel;
+        vel.linear.x = std::get<0>(velTuple);
+        vel.angular.z = std::get<1>(velTuple);
+        return vel;};
+
+    auto joyObsrv = rxros::Observable::fromTopic<teleop_msgs::Joystick>("/joystick") // create an observable stream from "/joystick" topic
+        | map([](teleop_msgs::Joystick joy) { return joy.event; });
+    auto keyObsrv = rxros::Observable::fromTopic<teleop_msgs::Keyboard>("/keyboard") // create an observable stream from "/keyboard" topic
+        | map([](teleop_msgs::Keyboard key) { return key.event; });
+    joyObsrv.merge(keyObsrv)                                  // merge the joystick and keyboard messages into an observable teleop stream.
+        | scan(std::make_tuple(0.0, 0.0), teleop2VelTuple)    // turn the teleop stream into a linear and angular velocity stream.
+        | map(velTuple2TwistMsg)                              // turn the linear and angular velocity stream into a Twist stream.
+        | sample_with_frequency(frequencyInHz)                // take latest Twist msg and populate it with the specified frequency.
+        | publish_to_topic<geometry_msgs::Twist>("/cmd_vel"); // publish the Twist messages to the topic "/cmd_vel"
+
+    rxros::Logging().info() << "Spinning velocity_publisher ...";
+    rxros::spin();
+}
+```
+
+
+
 
 ## Problems and observations
 
