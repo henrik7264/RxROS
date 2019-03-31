@@ -1,34 +1,34 @@
 brickpi3_robot:
-  - type: motor
-    name: r_wheel_joint
-    port: PORT_A
-    frequency: 20.0
+#  - type: motor
+#    name: r_wheel_joint
+#    port: PORT_D
+#    frequency: 20.0
 
-  - type: motor
-    name: l_wheel_joint
-    port: PORT_C
-    frequency: 20.0
+#  - type: motor
+#    name: l_wheel_joint
+#    port: PORT_A
+#    frequency: 20.0
 
-  - type: ultrasonic
-    frame_id: ultrasonic_link
-    name: ultrasonic_sensor
-    spread_angle: 10.0
-    min_range: 0.10
-    max_range: 1.00
-    port: PORT_1
-    frequency: 2.0
-
-  - type: color
-    frame_id: color_link
-    name: color_sensor
-    port: PORT_4
-    frequency: 2.0
-
-#  - type: touch
-#    frame_id: touch_link
-#    name: touch_sensor
+#  - type: ultrasonic
+#    frame_id: ultrasonic_link
+#    name: ultrasonic_sensor
+#    spread_angle: 10.0
+#    min_range: 0.10
+#    max_range: 1.00
 #    port: PORT_1
-#    desired_frequency: 2.0
+#    frequency: 2.0
+
+#  - type: color
+#    frame_id: color_link
+#    name: color_sensor
+#    port: PORT_4
+#    frequency: 2.0
+
+  - type: touch
+    frame_id: touch_link
+    name: touch_sensor
+    port: PORT_1
+    desired_frequency: 2.0
 
 #  - type: touch
 #    frame_id: touch_link2
