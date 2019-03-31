@@ -30,6 +30,7 @@ sudo apt-get install git doxygen graphviz-* meld cmake
 sudo apt-get install emacs qtcreator qt5-*
 sudo apt-get install tree gimp
 sudo apt-get install liburdfdom-tools
+sudo apt-get install libcanberra-gtk-module
 ```
 
 ### ROS Melodic Morenia
@@ -39,16 +40,16 @@ http://wiki.ros.org/melodic/Installation/Ubuntu<br>
 Execute the following commands to install ROS Melodic Morenia:
 
 ```
- sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list' 
- sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116 
- sudo apt-get update 
- sudo apt-get install ros-melodic-desktop-full 
- sudo rosdep init 
- rosdep update 
- echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc 
- sudo apt-get install python-rosinstall python-rosinstall-generator python-wstool build-essential
- sudo apt-get install ros-melodic-joy ros-melodic-teleop-twist-keyboard
- sudo apt-get install ros-melodic-navigation
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116
+sudo apt-get update
+sudo apt-get install ros-melodic-desktop-full
+sudo rosdep init
+rosdep update
+echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
+sudo apt-get install python-rosinstall python-rosinstall-generator python-wstool build-essential
+sudo apt-get install ros-melodic-joy ros-melodic-teleop-twist-keyboard
+sudo apt-get install ros-melodic-navigation
 ```
 
 
@@ -60,7 +61,7 @@ The installation process of NXT-ROS is a bit complicated, but here is the proced
 Start to install the nxt-python package. NXT-ROS will not work without it!
 
 ```
-sudo apt-get install libnxt nxt-python 
+sudo apt-get install libnxt python-nxt 
 ```
 
 Create then a lego group and add the udev USB definition for the NXT controller:
@@ -106,7 +107,6 @@ catkin_make
 cd src
 git clone https://github.com/Slamtec/rplidar_ros.git
 cd ..
-The<br>
 catkin_make
 cd ..
 ```
@@ -133,6 +133,7 @@ cd projects/build
 cmake -G"Unix Makefiles" -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_BUILD_TYPE=RelWithDebInfo -B. ../CMake 
 make 
 sudo make install 
+cd ..
 ```
 
 After the installation has completed you can remove the RxCpp directory.
@@ -141,6 +142,13 @@ The needed C++ header files have been installed in /usr/include/rxcpp.
 ### RxROS
 
 Finally, we have come to the RxROS project. To install RxROS do the following:
+```
+git clone --recursive https://github.com/henrik7264/RxROS.git
+cd RxROS
+catkin_make
+sudo ./src/rxros_lang/src/install.sh
+cd .. 
+```
 
 ## Problems and observations
 

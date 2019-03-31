@@ -73,38 +73,47 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/hl/Src/CLionProjects/RxROS/install/setup.bash")
+   "/home/hl/Src/CLionProjects/RxROS/install/setup.bash;/home/hl/Src/CLionProjects/RxROS/install/local_setup.bash")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/hl/Src/CLionProjects/RxROS/install" TYPE FILE FILES "/home/hl/Src/CLionProjects/RxROS/build/catkin_generated/installspace/setup.bash")
+file(INSTALL DESTINATION "/home/hl/Src/CLionProjects/RxROS/install" TYPE FILE FILES
+    "/home/hl/Src/CLionProjects/RxROS/build/catkin_generated/installspace/setup.bash"
+    "/home/hl/Src/CLionProjects/RxROS/build/catkin_generated/installspace/local_setup.bash"
+    )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/hl/Src/CLionProjects/RxROS/install/setup.sh")
+   "/home/hl/Src/CLionProjects/RxROS/install/setup.sh;/home/hl/Src/CLionProjects/RxROS/install/local_setup.sh")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/hl/Src/CLionProjects/RxROS/install" TYPE FILE FILES "/home/hl/Src/CLionProjects/RxROS/build/catkin_generated/installspace/setup.sh")
+file(INSTALL DESTINATION "/home/hl/Src/CLionProjects/RxROS/install" TYPE FILE FILES
+    "/home/hl/Src/CLionProjects/RxROS/build/catkin_generated/installspace/setup.sh"
+    "/home/hl/Src/CLionProjects/RxROS/build/catkin_generated/installspace/local_setup.sh"
+    )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/hl/Src/CLionProjects/RxROS/install/setup.zsh")
+   "/home/hl/Src/CLionProjects/RxROS/install/setup.zsh;/home/hl/Src/CLionProjects/RxROS/install/local_setup.zsh")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/hl/Src/CLionProjects/RxROS/install" TYPE FILE FILES "/home/hl/Src/CLionProjects/RxROS/build/catkin_generated/installspace/setup.zsh")
+file(INSTALL DESTINATION "/home/hl/Src/CLionProjects/RxROS/install" TYPE FILE FILES
+    "/home/hl/Src/CLionProjects/RxROS/build/catkin_generated/installspace/setup.zsh"
+    "/home/hl/Src/CLionProjects/RxROS/build/catkin_generated/installspace/local_setup.zsh"
+    )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)

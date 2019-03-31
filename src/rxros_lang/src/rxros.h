@@ -259,17 +259,38 @@ namespace rxros
                 });
         }
 
-
-        // Parse the ros_robot.yaml file and create an observable stream of the sensors and actuators configurations
+        // Parse the ros_robot.yaml file and create an observable stream for the configuration of the sensors and actuators
         static auto fromRobotYaml(const std::string& aNamespace)
         {
-            return rxcpp::observable<>::create<XmlRpc::XmlRpcValue>(
-                [=](rxcpp::subscriber<XmlRpc::XmlRpcValue> subscriber) {
+            // Support class to simplify access to configuration parameters for device
+            class DeviceConfig
+            {
+            private:
+                XmlRpc::XmlRpcValue value;
+
+            public:
+                DeviceConfig(const XmlRpc::XmlRpcValue& val) {value = val;}
+                ~DeviceConfig() = default;
+
+                std::string getType() {return value["type"];}
+                std::string getName() {return value["name"];}
+                std::string getFrameId() {return value["frame_id"];}
+                std::string getPort() {return value["port"];}
+                double getFrequency() {return value["frequency"];}
+                double getMinRange() { return value["min_range"];}
+                double getMaxRange() { return value["max_range"];}
+                double getSpreadAngle() { return value["spread_angle"];}
+            };
+
+            return rxcpp::observable<>::create<DeviceConfig>(
+                [=](rxcpp::subscriber<DeviceConfig> subscriber) {
                     XmlRpc::XmlRpcValue robotConfig;
                     Node::getHandle().getParam(aNamespace, robotConfig);
                     assert (robotConfig.getType() == XmlRpc::XmlRpcValue::TypeArray);
-                    for (int i = 0; i < robotConfig.size(); i++)
-                        subscriber.on_next(robotConfig[i]);
+                    for (int i = 0; i < robotConfig.size(); i++) {
+                        DeviceConfig deviceConfig(robotConfig[i]);
+                        subscriber.on_next(deviceConfig);
+                    }
                     subscriber.on_completed();
                 });
         }
@@ -302,18 +323,18 @@ namespace rxcpp
     namespace operators
     {
         auto sample_with_frequency(const double frequencyInHz) {
-            return [=](const auto&& source) {
+            return [=](auto&& source) {
                 const std::chrono::milliseconds durationInMs(static_cast<long>(1000.0/frequencyInHz));
                 return rxcpp::observable<>::interval(durationInMs).with_latest_from(
-                        [=](const auto intervalObsrv, const auto sourceObsrv) { return sourceObsrv; }, source);};}
+                    [=](const auto intervalObsrv, const auto sourceObsrv) { return sourceObsrv; }, source);};}
 
 
-//        template<class Coordination>
-//        auto sample_with_frequency(const double frequencyInHz, Coordination coordination) {
-//            return [=](auto &&source) {
-//                const std::chrono::milliseconds durationInMs(static_cast<long>(1000.0/frequencyInHz));
-//                return rxcpp::observable<>::interval(durationInMs, coordination).with_latest_from(
-//                    [=](const auto intervalObsrv, const auto sourceObsrv) { return sourceObsrv; }, source);};}
+        template<class Coordination>
+        auto sample_with_frequency(const double frequencyInHz, Coordination coordination) {
+            return [=](auto&& source) {
+                const std::chrono::milliseconds durationInMs(static_cast<long>(1000.0/frequencyInHz));
+                return rxcpp::observable<>::interval(durationInMs, coordination).with_latest_from(
+                    [=](const auto intervalObsrv, const auto sourceObsrv) { return sourceObsrv; }, source);};}
 
 
         template<typename T>
@@ -335,7 +356,7 @@ namespace rxcpp
 
         template <class Observable>
         auto join_with_latest_from(const Observable& observable) {
-            return [=](const auto&& source) {
+            return [=](auto&& source) {
                 return source.with_latest_from (
                     [=](const auto o1, const auto o2) {
                         return std::make_tuple(o1, o2);}, observable);};}

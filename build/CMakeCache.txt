@@ -284,6 +284,9 @@ RT_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/librt.so
 //Enable debian style python package layout
 SETUPTOOLS_DEB_LAYOUT:BOOL=ON
 
+//Name of the computer/site where compile is being run
+SITE:STRING=nuc
+
 //LSB Distrib tag
 UBUNTU:BOOL=TRUE
 
