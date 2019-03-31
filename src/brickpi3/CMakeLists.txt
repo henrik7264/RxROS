@@ -165,7 +165,7 @@ add_executable(brickpi3_odom_publisher
 )
 
 add_executable(brickpi3_base_controller
-  src/Brickpi3BaseController.cpp
+  src/BrickPi3BaseController.cpp
 )
 
 ## Rename C++ executable without prefix

@@ -28,13 +28,13 @@ brickpi3_robot:
     frame_id: touch_link
     name: touch_sensor
     port: PORT_1
-    desired_frequency: 2.0
+    frequency: 2.0
 
 #  - type: touch
 #    frame_id: touch_link2
 #    name: touch_sensor2
 #    port: PORT_4
-#    desired_frequency: 2.0
+#    frequency: 2.0
 
 #  - type: intensity
 #    frame_id: intensity_sensor_frame
@@ -43,25 +43,25 @@ brickpi3_robot:
 #    color_g: 1.0
 #    color_b: 0.0
 #    port: PORT_1
-#    desired_frequency: 10.0
+#    frequency: 10.0
 
 #  - type: light
 #    frame_id: light_sensor_frame
 #    name: my_light_sensor
 #    illuminated: true
 #    port: PORT_1
-#    desired_frequency: 10.0
+#    frequency: 10.0
 
 #  - type: gyro
 #    frame_id: gyro_sensor_frame
 #    name: my_gyro_sensor
 #    offset: 0.0
 #    port: PORT_1
-#    desired_frequency: 10.0
+#    frequency: 10.0
 
 #  - type: accelerometer
 #    frame_id: accel_sensor_frame
 #    name: my_accel_sensor
 #    port: PORT_1
-#    desired_frequency: 10.0
+#    frequency: 10.0
 
