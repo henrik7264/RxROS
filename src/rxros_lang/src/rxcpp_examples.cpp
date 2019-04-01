@@ -27,6 +27,7 @@ public:
     void rxCreate();
     void rxRange();
     void rxMap();
+    void rxMap2();
     void rxMerge();
     void rxConcat();
     void rxPipe();
@@ -35,12 +36,12 @@ public:
     void stdScheduler();
     void rxTime();
     void rxInterval();
+    void rxInterval2();
     void rxScheduler1();
     void rxScheduler2();
     void rxObserveOnScheduler();
     void rxSubscribeOnScheduler();
     void rxWithLatestFrom();
-    void rxInterval2();
 };
 
 
@@ -165,6 +166,18 @@ void Examples::rxMap()
         []() { std::cout << "OnCompleted" << std::endl; });
 }
 
+void Examples::rxMap2()
+{
+    auto fn2 = [](int n, int m) { return n * m;};
+
+    auto ints = rxcpp::observable<>::range(1, 10)
+        | group_by([](int v){return v;}, 1234)
+        | map(fn2);
+    ints.subscribe(
+        [](int v) { std::cout << "OnNext: " << v << std::endl; },
+        []() { std::cout << "OnCompleted" << std::endl; });
+}
+
 
 //--------------------------------------------------------------------------------------
 void Examples::rxMerge()
@@ -278,6 +291,31 @@ void Examples::rxInterval()
     values2.subscribe(
         [](int v){printf("OnNext: %d\n", v);},
         [](){printf("OnCompleted\n");});
+}
+
+struct T1 {
+    std::string string;
+    int number;
+};
+
+struct T2 {
+    std::string string;
+    double real;
+};
+
+void Examples::rxInterval2()
+{
+    auto o1 = rxcpp::observable<>::interval(std::chrono::milliseconds(1000)).take(10)
+        | map([=](int i){T1 t1; t1.string = "t1"; t1.number = i; return t1;});
+
+    auto o2 = rxcpp::observable<>::interval(std::chrono::milliseconds(500)).take(20)
+        | map([=](int i){T2 t2; t2.string = "t2"; t2.real = i*i; return t2;});
+
+    auto o3 = o1.with_latest_from ([=](const auto obs1, const auto obs2) {return std::make_tuple(obs1, obs2);}, o2);
+
+    o3.as_blocking().subscribe(
+        [](auto tuple){std::cout << std::get<0>(tuple).number << ", " << std::get<1>(tuple).real << std::endl;},
+        [](){std::cout << "OnCompleted" << std::endl;});
 }
 
 
@@ -435,33 +473,6 @@ void Examples::rxWithLatestFrom()
 
 
 //--------------------------------------------------------------------------------------
-struct T1 {
-    std::string string;
-    int number;
-};
-
-struct T2 {
-    std::string string;
-    double real;
-};
-
-void Examples::rxInterval2()
-{
-    auto o1 = rxcpp::observable<>::interval(std::chrono::milliseconds(1000)).take(10)
-        | map([=](int i){T1 t1; t1.string = "t1"; t1.number = i; return t1;});
-
-    auto o2 = rxcpp::observable<>::interval(std::chrono::milliseconds(500)).take(20)
-        | map([=](int i){T2 t2; t2.string = "t2"; t2.real = i*i; return t2;});
-
-    auto o3 = o1.with_latest_from ([=](const auto obs1, const auto obs2) {return std::make_tuple(obs1, obs2);}, o2);
-
-    o3.as_blocking().subscribe(
-        [](auto tuple){std::cout << std::get<0>(tuple).number << ", " << std::get<1>(tuple).real << std::endl;},
-        [](){std::cout << "OnCompleted" << std::endl;});
-}
-
-
-//--------------------------------------------------------------------------------------
 int main(int argc, char** argv)
 {
     Examples examples;
@@ -473,6 +484,7 @@ int main(int argc, char** argv)
 //    examples.rxCreate();
 //    examples.rxRange();
 //    examples.rxMap();
+    examples.rxMap2();
 //    examples.rxMerge();
 //    examples.rxConcat();
 //    examples.rxPipe();
@@ -486,5 +498,5 @@ int main(int argc, char** argv)
 //    examples.rxObserveOnScheduler();
 //    examples.rxSubscribeOnScheduler();
 //    examples.rxWithLatestFrom();
-    examples.rxInterval2();
+//    examples.rxInterval2();
 }
