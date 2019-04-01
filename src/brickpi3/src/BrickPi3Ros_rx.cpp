@@ -80,14 +80,14 @@ int main(int argc, char** argv) {
 
     auto jointCmdObserv = rxros::Observable::fromTopic<brickpi3_msgs::JointCommand>("/joint_command");
 
-    rxros::Observable::fromRobotYaml("/brickpi3/brickpi3_robot").subscribe(
-        [=](auto device) { // on_next event
+    rxros::Observable::fromYaml("/brickpi3/brickpi3_robot").subscribe(
+        [=](const auto& device) { // on_next event
             if (device.getType() == "motor") {
                 rxros::Logging().debug() << device.getType() << ", " << device.getName() << ", " << device.getPort() << ", " << device.getFrequency();
 
                 brickpi3::Observable::motor(device.getName(), device.getPort(), device.getFrequency())
                 | scan(std::make_tuple(ros::Time::now(), 0.0, 0.0), motorEvent2PosVelTimeTuple)
-                | join_with_latest_from(jointCmdObserv.filter([=](auto jointCmd){ return (jointCmd.name == device.getName()); }))
+                | join_with_latest_from(jointCmdObserv.filter([=](const auto& jointCmd){ return (jointCmd.name == device.getName()); }))
                 | map(posVelTimeTuple2JointStateMsg(device.getName()))
                 | publish_to_topic<sensor_msgs::JointState>("/joint_state");
 //                | brickPi3.set_motor_power(port, static_cast<int8_t>(effort * 100.0));

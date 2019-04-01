@@ -256,26 +256,42 @@ namespace rxros
         }
 
         // Parse the ros_robot.yaml file and create an observable stream for the configuration of the sensors and actuators
-        static auto fromRobotYaml(const std::string& aNamespace)
+        static auto fromYaml(const std::string& aNamespace)
         {
             // Support class to simplify access to configuration parameters for device
             class DeviceConfig
             {
             private:
-                XmlRpc::XmlRpcValue value;
+                std::string type;
+                std::string name;
+                std::string frameId;
+                std::string port;
+                double frequency;
+                double minRange;
+                double maxRange;
+                double spreadAngle;
 
             public:
-                DeviceConfig(const XmlRpc::XmlRpcValue& val) {value = val;}
+                DeviceConfig(XmlRpc::XmlRpcValue& value) {
+                    type = value.hasMember("") ? (std::string) value["type"] : std::string("");
+                    name = value.hasMember("") ? (std::string) value["name"] : std::string("");
+                    frameId = value.hasMember("") ? (std::string) value["frame_id"] : std::string("");
+                    port = value.hasMember("") ? (std::string) value["port"] : std::string("");
+                    frequency = value.hasMember("") ? (double) value["frequency"] : 0.0;
+                    minRange = value.hasMember("") ? (double) value["min_range"] : 0.0;
+                    maxRange = value.hasMember("") ? (double) value["max_range"] : 0.0;
+                    spreadAngle = value.hasMember("") ? (double) value["spread_angle"] : 0.0;
+                }
                 ~DeviceConfig() = default;
 
-                std::string getType() {return value["type"];}
-                std::string getName() {return value["name"];}
-                std::string getFrameId() {return value["frame_id"];}
-                std::string getPort() {return value["port"];}
-                double getFrequency() {return value["frequency"];}
-                double getMinRange() { return value["min_range"];}
-                double getMaxRange() { return value["max_range"];}
-                double getSpreadAngle() { return value["spread_angle"];}
+                const std::string& getType() const {return type;}
+                const std::string& getName() const {return name;}
+                const std::string& getFrameId() const {return frameId;}
+                const std::string& getPort() const {return port;}
+                double getFrequency() const {return frequency;}
+                double getMinRange() const { return minRange;}
+                double getMaxRange() const { return  maxRange;}
+                double getSpreadAngle() const { return spreadAngle;}
             };
 
             return rxcpp::observable<>::create<DeviceConfig>(
