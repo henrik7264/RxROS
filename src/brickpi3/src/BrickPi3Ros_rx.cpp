@@ -3,43 +3,115 @@
 //
 
 #include <rxros.h>
-#include "BrickPi3Ros_rx.h"
+#include <sensor_msgs/JointState.h>
+#include <brickpi3_msgs/Contact.h>
+#include <brickpi3_msgs/Color.h>
+#include <brickpi3_msgs/Range.h>
+#include <brickpi3_msgs/JointCommand.h>
+#include "BrickPi3Observable_rx.h"
+using namespace rxcpp::operators;
+using namespace rxros::operators;
+
 
 int main(int argc, char** argv) {
     rxros::init(argc, argv, "brickpi3"); // Name of this node.
+
+    auto touchEvent2ContactMsg = [] (const std::string& frameId) {
+        return [=](const sensor_touch_t& touchEvent) {
+            static int seqNo = 0;
+            brickpi3_msgs::Contact contact;
+            contact.header.frame_id = frameId;
+            contact.header.stamp = ros::Time::now();
+            contact.header.seq = seqNo++;
+            contact.contact = touchEvent.pressed;
+            return contact;};};
+
+    auto colorEvent2ColorMsg = [] (const std::string& frameId) {
+        return [=](const sensor_color_t& colorEvent) {
+            static int seqNo = 0;
+            brickpi3_msgs::Color color;
+            color.header.frame_id = frameId;
+            color.header.stamp = ros::Time::now();
+            color.header.seq = seqNo++;
+            color.r = static_cast<double>(colorEvent.reflected_red);
+            color.g = static_cast<double>(colorEvent.reflected_green);
+            color.b = static_cast<double>(colorEvent.reflected_blue);
+            color.intensity = static_cast<double>(colorEvent.ambient);
+            return color;};};
+
+    auto ultrasonicEvent2RangeMsg = [] (const std::string& frameId, const double minRange, const double maxRange, const double spreadAngle) {
+        return [=](const sensor_ultrasonic_t& ultrasonicEvent) {
+            static int seqNo = 0;
+            brickpi3_msgs::Range range;
+            range.header.frame_id = frameId;
+            range.header.stamp = ros::Time::now();
+            range.header.seq = seqNo++;
+            range.range = ultrasonicEvent.cm / 100.0;
+            range.range_min = minRange;
+            range.range_max = maxRange;
+            range.spread_angle = spreadAngle;
+            return range;};};
+
+    auto motorEvent2PosVelTimeTuple = [](const auto& prevPosVelTimeTuple, const actuator_motor_t& motorEvent) {
+        const auto prevTime = std::get<0>(prevPosVelTimeTuple);
+        const auto prevPos = std::get<1>(prevPosVelTimeTuple);
+        const auto prevVel = std::get<2>(prevPosVelTimeTuple);
+        const auto currTime = ros::Time::now();
+        const auto currPos = static_cast<double>(motorEvent.motorPosition) * M_PI / 180.0 / 3.0; // 3.0 is gearing ratio
+        const auto currVel = (currPos - prevPos)/(currTime - prevTime).toSec();
+        return std::make_tuple(currTime, currPos, currVel);};
+
+    auto posVelTimeTuple2JointStateMsg = [](const std::string& name) {
+        return [=](const auto& tuple) {
+            static int seqNo = 0;
+            const auto posVelTimeTuple = std::get<0>(tuple);
+            const auto position = std::get<1>(posVelTimeTuple);
+            const auto velocity = std::get<2>(posVelTimeTuple);
+            const auto effort = std::get<1>(tuple).effort;
+            sensor_msgs::JointState jointState;
+            //jointState.header.frame_id = name;
+            jointState.header.stamp = ros::Time::now();
+            jointState.header.seq = seqNo++;
+            jointState.name.push_back(name);
+            jointState.effort.push_back(effort);
+            jointState.position.push_back(position); // rad
+            jointState.velocity.push_back(velocity); // rad/s
+            return jointState;};};
 
     auto jointCmdObserv = rxros::Observable::fromTopic<brickpi3_msgs::JointCommand>("/joint_command");
 
     rxros::Observable::fromRobotYaml("/brickpi3/brickpi3_robot").subscribe(
         [=](auto device) { // on_next event
             if (device.getType() == "motor") {
-                rxros::Logging().info() << device.getType() << ", " << device.getName() << ", " << device.getPort() << ", " << device.getFrequency();
-//                brickpi3::Observable::motor(device.getName(), device.getPort(), device.getFrequency())
-//                | scan(std::make_tuple(ros::Time::now(), 0.0, 0.0), motorEvent2PosVelTimeTuple)
-//                | join_with_latest_from(jointCmdObserv.filter([=](const auto jointCmd){ return (device.getName() == jointCmd.name); }))
-//                | map(posVelTimeTuple2JointStateMsg, device.getName())
-//                | publish_to_topic<sensor_msgs::JointState>("/joint_state");
-//                //brickPi3.set_motor_power(port, static_cast<int8_t>(effort * 100.0));
+                rxros::Logging().debug() << device.getType() << ", " << device.getName() << ", " << device.getPort() << ", " << device.getFrequency();
+
+                brickpi3::Observable::motor(device.getName(), device.getPort(), device.getFrequency())
+                | scan(std::make_tuple(ros::Time::now(), 0.0, 0.0), motorEvent2PosVelTimeTuple)
+                | join_with_latest_from(jointCmdObserv.filter([=](auto jointCmd){ return (jointCmd.name == device.getName()); }))
+                | map(posVelTimeTuple2JointStateMsg(device.getName()))
+                | publish_to_topic<sensor_msgs::JointState>("/joint_state");
+//                | brickPi3.set_motor_power(port, static_cast<int8_t>(effort * 100.0));
             }
             else if (device.getType() == "ultrasonic") {
-                rxros::Logging().info() << device.getType() << ", " << device.getName() << ", " << device.getPort() << ", " << device.getFrequency();
-//                brickpi3::Observable::ultrasonicSensor(device.getName(), device.getPort(), device.getFrequency())
-//                | map(ultrasonicEvent2RangeMsg, device.getFrameId(), device.getMinRange(), device.getMaxRange(), device.getSpreadAngle())
-//                | publish_to_topic<brickpi3_msgs::Range>("/" + device.getName());
+                rxros::Logging().debug() << device.getType() << ", " << device.getName() << ", " << device.getPort() << ", " << device.getFrequency();
+
+                brickpi3::Observable::ultrasonicSensor(device.getName(), device.getPort(), device.getFrequency())
+                | map(ultrasonicEvent2RangeMsg(device.getFrameId(), device.getMinRange(), device.getMaxRange(), device.getSpreadAngle()))
+                | publish_to_topic<brickpi3_msgs::Range>("/" + device.getName());
             }
             else if (device.getType() == "color") {
-                rxros::Logging().info() << device.getType() << ", " << device.getName() << ", " << device.getPort() << ", " << device.getFrequency();
+                rxros::Logging().debug() << device.getType() << ", " << device.getName() << ", " << device.getPort() << ", " << device.getFrequency();
 
-//                brickpi3::Observable::colorSensor(device.getName(), device.getPort(), device.getFrequency())
-//                | map(colorEvent2ColorMsg, device.getFrameId())
-//                | publish_to_topic<brickpi3_msgs::Color>("/" + device.getName());
+                brickpi3::Observable::colorSensor(device.getName(), device.getPort(), device.getFrequency())
+                | map(colorEvent2ColorMsg(device.getFrameId()))
+                | publish_to_topic<brickpi3_msgs::Color>("/" + device.getName());
             }
             else if (device.getType() == "touch") {
-                rxros::Logging().info() << device.getType() << ", " << device.getName() << ", " << device.getPort() << ", " << device.getFrequency();
+                rxros::Logging().debug() << device.getType() << ", " << device.getName() << ", " << device.getPort() << ", " << device.getFrequency();
 
-//                brickpi3::Observable::tuchSensor(device.getName(), device.getPort(), device.getFrequency())
-//                | map(touchEvent2ContactMsg, device.getFrameId())
-//                | publish_to_topic<brickpi3_msgs::Contact>("/" + device.getName());
+                brickpi3::Observable::touchSensor(device.getName(), device.getPort(), device.getFrequency())
+                | map(touchEvent2ContactMsg(device.getFrameId()))
+                | publish_to_topic<brickpi3_msgs::Contact>("/" + device.getName());
             }},
         [](){}); // on completed event
 

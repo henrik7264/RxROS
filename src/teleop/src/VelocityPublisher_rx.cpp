@@ -8,6 +8,8 @@
 #include <geometry_msgs/Twist.h>
 #include "JoystickPublisher.h"
 #include "KeyboardPublisher.h"
+using namespace rxcpp::operators;
+using namespace rxros::operators;
 
 
 int main(int argc, char** argv) {

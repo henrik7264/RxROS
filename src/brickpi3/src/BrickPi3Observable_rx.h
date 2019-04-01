@@ -8,7 +8,6 @@
 #include <string>
 #include <rxros.h>
 #include "BrickPi3Device.h"
-#include "BrickPi3Observable_rx.h"
 
 struct actuator_motor_t
 {
@@ -66,7 +65,7 @@ auto brickpi3::Observable::touchSensor(const std::string& name, const std::strin
                 brickPi3.reset_all();
                 subscriber.on_completed();
             }});
-    return observable.subscribe_on(synchronize_new_thread());
+    return observable.subscribe_on(rxcpp::synchronize_new_thread());
 }
 
 
@@ -99,7 +98,7 @@ auto brickpi3::Observable::colorSensor(const std::string& name, const std::strin
                 brickPi3.reset_all();
                 subscriber.on_completed();
             }});
-    return observable.subscribe_on(synchronize_new_thread());
+    return observable.subscribe_on(rxcpp::synchronize_new_thread());
 }
 
 auto brickpi3::Observable::ultrasonicSensor(const std::string& name, const std::string& port, double frequency)
@@ -131,7 +130,7 @@ auto brickpi3::Observable::ultrasonicSensor(const std::string& name, const std::
                 brickPi3.reset_all();
                 subscriber.on_completed();
             }});
-    return observable.subscribe_on(synchronize_new_thread());
+    return observable.subscribe_on(rxcpp::synchronize_new_thread());
 }
 
 auto brickpi3::Observable::motor(const std::string &name, const std::string &port, double frequency)
@@ -163,7 +162,7 @@ auto brickpi3::Observable::motor(const std::string &name, const std::string &por
                 brickPi3.reset_all();
                 subscriber.on_completed();
             }});
-    return observable.subscribe_on(synchronize_new_thread());
+    return observable.subscribe_on(rxcpp::synchronize_new_thread());
 }
 
 

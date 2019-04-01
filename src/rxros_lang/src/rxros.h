@@ -16,10 +16,6 @@
 #include <tf/transform_broadcaster.h>
 #include <tf/transform_listener.h>
 
-using namespace rxcpp;
-using namespace rxcpp::sources;
-using namespace rxcpp::operators;
-using namespace rxcpp::util;
 
 namespace rxros
 {
@@ -185,7 +181,7 @@ namespace rxros
                     ros::Subscriber rosSubscriber(Node::getHandle().subscribe<T>(topic, queueSize, callback));
                     ros::waitForShutdown();
                     subscriber.on_completed();});
-            return observable.subscribe_on(synchronize_new_thread());
+            return observable.subscribe_on(rxcpp::synchronize_new_thread());
         }
 
         static auto fromTransformListener(const std::string& frameId, const std::string& childFrameId, const double frequencyInHz = 10.0)
@@ -300,26 +296,6 @@ namespace rxros
 
 namespace rxros
 {
-    namespace utils
-    {
-        template <typename E, typename F>
-        auto select(E exp, F&& func) {
-            if (exp)
-                return func();
-        }
-
-        template <typename E, typename F, typename ...EFs>
-        auto select(E exp, F&& func, EFs... exp_func_pairs) {
-            if (exp)
-                return func();
-            return select(exp_func_pairs...);
-        }
-    } // end of namespace utils
-} // end of namespace rxros
-
-
-namespace rxcpp
-{
     namespace operators
     {
         auto sample_with_frequency(const double frequencyInHz) {
@@ -341,7 +317,7 @@ namespace rxcpp
         auto publish_to_topic(const std::string &topic, const uint32_t queueSize = 10) {
             return [=](auto &&source) {
                 ros::Publisher publisher(rxros::Node::getHandle().advertise<T>(topic, queueSize));
-                source.subscribe_on(synchronize_new_thread()).subscribe(
+                source.subscribe_on(rxcpp::synchronize_new_thread()).subscribe(
                     [=](const T& msg) {publisher.publish(msg);});
                 return source;};}
 
@@ -349,7 +325,7 @@ namespace rxcpp
         auto send_transform(const std::string &frame_id, const std::string &child_frame_id) {
             return [=](auto &&source) {
                 tf::TransformBroadcaster transformBroadcaster;
-                source.subscribe_on(synchronize_new_thread()).subscribe(
+                source.subscribe_on(rxcpp::synchronize_new_thread()).subscribe(
                     [&](const tf::Transform& tf) {transformBroadcaster.sendTransform(tf::StampedTransform(tf, ros::Time::now(), frame_id, child_frame_id));});
                 return source;};}
 

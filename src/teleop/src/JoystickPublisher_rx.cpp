@@ -5,6 +5,9 @@
 #include <rxros.h>
 #include <teleop_msgs/Joystick.h>
 #include "JoystickPublisher.h"
+using namespace rxcpp::operators;
+using namespace rxros::operators;
+
 
 #define JS_EVENT_BUTTON 0x01    /* button pressed/released */
 #define JS_EVENT_AXIS   0x02    /* joystick moved */

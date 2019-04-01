@@ -10,8 +10,9 @@
 #include <numeric>
 #include <thread>
 #include <mutex>
-
 #include "rxros.h"
+using namespace rxcpp::operators;
+using namespace rxros::operators;
 
 
 class Examples
@@ -168,11 +169,10 @@ void Examples::rxMap()
 
 void Examples::rxMap2()
 {
-    auto fn2 = [](int n, int m) { return n * m;};
+    auto fn2 = [](int n) { return [n](int m) {return n * m;}; };
 
     auto ints = rxcpp::observable<>::range(1, 10)
-        | group_by([](int v){return v;}, 1234)
-        | map(fn2);
+        | map(fn2(1234));
     ints.subscribe(
         [](int v) { std::cout << "OnNext: " << v << std::endl; },
         []() { std::cout << "OnCompleted" << std::endl; });
@@ -224,7 +224,7 @@ void Examples::rxMerge2()
 
     values.subscribe(
             [](int v) { std::cout << "OnNext: " << v << std::endl; },
-            [](std::exception_ptr e) { std::cout << "OnError: " << what(e) << std::endl; },
+            [](std::exception_ptr e) { std::cout << "OnError: " << rxcpp::util::what(e) << std::endl; },
             []() { std::cout << "OnCompleted" << std::endl; });
 }
 
