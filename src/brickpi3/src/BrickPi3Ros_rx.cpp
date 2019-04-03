@@ -11,6 +11,7 @@
 #include "BrickPi3Observable_rx.h"
 using namespace rxcpp::operators;
 using namespace rxros::operators;
+using namespace brickpi3::operators;
 
 
 int main(int argc, char** argv) {
@@ -89,8 +90,8 @@ int main(int argc, char** argv) {
                 | scan(std::make_tuple(ros::Time::now(), 0.0, 0.0), motorEvent2PosVelTimeTuple)
                 | join_with_latest_from(jointCmdObserv.filter([=](const auto& jointCmd){ return (jointCmd.name == device.getName()); }))
                 | map(posVelTimeTuple2JointStateMsg(device.getName()))
-                | publish_to_topic<sensor_msgs::JointState>("/joint_state");
-//                | brickPi3.set_motor_power(port, static_cast<int8_t>(effort * 100.0));
+                | publish_to_topic<sensor_msgs::JointState>("/joint_state")
+                | set_motor_power(device.getPort());
             }
             else if (device.getType() == "ultrasonic") {
                 rxros::Logging().debug() << device.getType() << ", " << device.getName() << ", " << device.getPort() << ", " << device.getFrequency();

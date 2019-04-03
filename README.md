@@ -289,11 +289,11 @@ int main(int argc, char** argv) {
         vel.angular.z = std::get<1>(velTuple);
         return vel;};
 
-    auto joyObsrv = rxros::Observable::fromTopic<teleop_msgs::Joystick>("/joystick") // create an observable stream from "/joystick" topic
+    auto joyObsrv = rxros::Observable::fromTopic<teleop_msgs::Joystick>("/joystick") // create an Observable stream from "/joystick" topic
         | map([](teleop_msgs::Joystick joy) { return joy.event; });
-    auto keyObsrv = rxros::Observable::fromTopic<teleop_msgs::Keyboard>("/keyboard") // create an observable stream from "/keyboard" topic
+    auto keyObsrv = rxros::Observable::fromTopic<teleop_msgs::Keyboard>("/keyboard") // create an Observable stream from "/keyboard" topic
         | map([](teleop_msgs::Keyboard key) { return key.event; });
-    joyObsrv.merge(keyObsrv)                                  // merge the joystick and keyboard messages into an observable teleop stream.
+    joyObsrv.merge(keyObsrv)                                  // merge the joystick and keyboard messages into an Observable teleop stream.
         | scan(std::make_tuple(0.0, 0.0), teleop2VelTuple)    // turn the teleop stream into a linear and angular velocity stream.
         | map(velTuple2TwistMsg)                              // turn the linear and angular velocity stream into a Twist stream.
         | sample_with_frequency(frequencyInHz)                // take latest Twist msg and populate it with the specified frequency.

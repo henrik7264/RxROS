@@ -354,7 +354,7 @@ namespace rxros
                         return std::make_tuple(o1, o2);}, observable);};}
 
     } // end namespace operators
-} // end namespace rxcpp
+} // end namespace rxros
 
 
 #endif //RXROS_H
