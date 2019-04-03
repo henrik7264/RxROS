@@ -20,15 +20,15 @@ struct actuator_motor_t
 
 namespace brickpi3
 {
-    class Observable
+    class observable
     {
     private:
-        Observable() = default;
+        observable() = default;
 
     public:
-        ~Observable() = default;
+        ~observable() = default;
 
-        static auto touchSensor(const std::string& name, const std::string& port, double frequency)
+        static auto touch_sensor(const std::string& name, const std::string& port, double frequency)
         {
             auto observable = rxcpp::observable<>::create<sensor_touch_t>(
                 [=](rxcpp::subscriber<sensor_touch_t> subscriber) {
@@ -61,7 +61,7 @@ namespace brickpi3
         }
 
 
-        static auto colorSensor(const std::string& name, const std::string& port, double frequency)
+        static auto color_sensor(const std::string& name, const std::string& port, double frequency)
         {
             auto observable = rxcpp::observable<>::create<sensor_color_t>(
                 [=](rxcpp::subscriber<sensor_color_t> subscriber) {
@@ -93,7 +93,7 @@ namespace brickpi3
             return observable.subscribe_on(rxcpp::synchronize_new_thread());
         }
 
-        static auto ultrasonicSensor(const std::string& name, const std::string& port, double frequency)
+        static auto ultrasonic_sensor(const std::string& name, const std::string& port, double frequency)
         {
             auto observable = rxcpp::observable<>::create<sensor_ultrasonic_t>(
                 [=](rxcpp::subscriber<sensor_ultrasonic_t> subscriber) {
@@ -156,7 +156,7 @@ namespace brickpi3
                     }});
             return observable.subscribe_on(rxcpp::synchronize_new_thread());
         }
-    };// end class Observable
+    };// end class observable
 } // end namespace brickpi3
 
 
@@ -169,7 +169,7 @@ namespace brickpi3
                 const uint8_t id = port2id(port);
                 BrickPi3 brickPi3;
                 source.subscribe_on(rxcpp::synchronize_new_thread()).subscribe(
-                    [&](const auto& jointState) {brickPi3.set_motor_power(id, static_cast<int8_t>(jointState.effort. * 100.0));});
+                    [&](const auto& jointCommand) {brickPi3.set_motor_power(id, static_cast<int8_t>(jointCommand.effort * 100.0));});
                 return source;};}
     } // end namespace operators
 } // end namespace brickpi3

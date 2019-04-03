@@ -273,14 +273,14 @@ namespace rxros
 
             public:
                 DeviceConfig(XmlRpc::XmlRpcValue& value) {
-                    type = value.hasMember("") ? (std::string) value["type"] : std::string("");
-                    name = value.hasMember("") ? (std::string) value["name"] : std::string("");
-                    frameId = value.hasMember("") ? (std::string) value["frame_id"] : std::string("");
-                    port = value.hasMember("") ? (std::string) value["port"] : std::string("");
-                    frequency = value.hasMember("") ? (double) value["frequency"] : 0.0;
-                    minRange = value.hasMember("") ? (double) value["min_range"] : 0.0;
-                    maxRange = value.hasMember("") ? (double) value["max_range"] : 0.0;
-                    spreadAngle = value.hasMember("") ? (double) value["spread_angle"] : 0.0;
+                    type = value.hasMember("type") ? (std::string) value["type"] : std::string("");
+                    name = value.hasMember("name") ? (std::string) value["name"] : std::string("");
+                    frameId = value.hasMember("frame_id") ? (std::string) value["frame_id"] : std::string("");
+                    port = value.hasMember("port") ? (std::string) value["port"] : std::string("");
+                    frequency = value.hasMember("frequency") ? (double) value["frequency"] : 0.0;
+                    minRange = value.hasMember("min_range") ? (double) value["min_range"] : 0.0;
+                    maxRange = value.hasMember("max_range") ? (double) value["max_range"] : 0.0;
+                    spreadAngle = value.hasMember("spread_angle") ? (double) value["spread_angle"] : 0.0;
                 }
                 ~DeviceConfig() = default;
 

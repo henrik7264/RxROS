@@ -86,31 +86,33 @@ int main(int argc, char** argv) {
             if (device.getType() == "motor") {
                 rxros::Logging().debug() << device.getType() << ", " << device.getName() << ", " << device.getPort() << ", " << device.getFrequency();
 
-                brickpi3::Observable::motor(device.getName(), device.getPort(), device.getFrequency())
+                brickpi3::observable::motor(device.getName(), device.getPort(), device.getFrequency())
                 | scan(std::make_tuple(ros::Time::now(), 0.0, 0.0), motorEvent2PosVelTimeTuple)
-                | join_with_latest_from(jointCmdObserv.filter([=](const auto& jointCmd){ return (jointCmd.name == device.getName()); }))
+                | join_with_latest_from(
+                    jointCmdObserv
+                    | filter([=](const auto& jointCmd){ return (jointCmd.name == device.getName()); })
+                    | set_motor_power(device.getPort()))
                 | map(posVelTimeTuple2JointStateMsg(device.getName()))
-                | publish_to_topic<sensor_msgs::JointState>("/joint_state")
-                | set_motor_power(device.getPort());
+                | publish_to_topic<sensor_msgs::JointState>("/joint_state");
             }
             else if (device.getType() == "ultrasonic") {
                 rxros::Logging().debug() << device.getType() << ", " << device.getName() << ", " << device.getPort() << ", " << device.getFrequency();
 
-                brickpi3::Observable::ultrasonicSensor(device.getName(), device.getPort(), device.getFrequency())
+                brickpi3::observable::ultrasonic_sensor(device.getName(), device.getPort(), device.getFrequency())
                 | map(ultrasonicEvent2RangeMsg(device.getFrameId(), device.getMinRange(), device.getMaxRange(), device.getSpreadAngle()))
                 | publish_to_topic<brickpi3_msgs::Range>("/" + device.getName());
             }
             else if (device.getType() == "color") {
                 rxros::Logging().debug() << device.getType() << ", " << device.getName() << ", " << device.getPort() << ", " << device.getFrequency();
 
-                brickpi3::Observable::colorSensor(device.getName(), device.getPort(), device.getFrequency())
+                brickpi3::observable::color_sensor(device.getName(), device.getPort(), device.getFrequency())
                 | map(colorEvent2ColorMsg(device.getFrameId()))
                 | publish_to_topic<brickpi3_msgs::Color>("/" + device.getName());
             }
             else if (device.getType() == "touch") {
                 rxros::Logging().debug() << device.getType() << ", " << device.getName() << ", " << device.getPort() << ", " << device.getFrequency();
 
-                brickpi3::Observable::touchSensor(device.getName(), device.getPort(), device.getFrequency())
+                brickpi3::observable::touch_sensor(device.getName(), device.getPort(), device.getFrequency())
                 | map(touchEvent2ContactMsg(device.getFrameId()))
                 | publish_to_topic<brickpi3_msgs::Contact>("/" + device.getName());
             }},

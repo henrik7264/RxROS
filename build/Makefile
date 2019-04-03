@@ -1338,32 +1338,6 @@ tf2_msgs_generate_messages_nodejs/fast:
 .PHONY : tf2_msgs_generate_messages_nodejs/fast
 
 #=============================================================================
-# Target rules for targets named sensor_msgs_generate_messages_nodejs
-
-# Build rule for target.
-sensor_msgs_generate_messages_nodejs: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 sensor_msgs_generate_messages_nodejs
-.PHONY : sensor_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-sensor_msgs_generate_messages_nodejs/fast:
-	$(MAKE) -f brickpi3/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/build.make brickpi3/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/build
-.PHONY : sensor_msgs_generate_messages_nodejs/fast
-
-#=============================================================================
-# Target rules for targets named actionlib_generate_messages_cpp
-
-# Build rule for target.
-actionlib_generate_messages_cpp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 actionlib_generate_messages_cpp
-.PHONY : actionlib_generate_messages_cpp
-
-# fast build rule for target.
-actionlib_generate_messages_cpp/fast:
-	$(MAKE) -f brickpi3/CMakeFiles/actionlib_generate_messages_cpp.dir/build.make brickpi3/CMakeFiles/actionlib_generate_messages_cpp.dir/build
-.PHONY : actionlib_generate_messages_cpp/fast
-
-#=============================================================================
 # Target rules for targets named actionlib_generate_messages_lisp
 
 # Build rule for target.
@@ -1375,6 +1349,19 @@ actionlib_generate_messages_lisp: cmake_check_build_system
 actionlib_generate_messages_lisp/fast:
 	$(MAKE) -f brickpi3/CMakeFiles/actionlib_generate_messages_lisp.dir/build.make brickpi3/CMakeFiles/actionlib_generate_messages_lisp.dir/build
 .PHONY : actionlib_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named actionlib_generate_messages_nodejs
+
+# Build rule for target.
+actionlib_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 actionlib_generate_messages_nodejs
+.PHONY : actionlib_generate_messages_nodejs
+
+# fast build rule for target.
+actionlib_generate_messages_nodejs/fast:
+	$(MAKE) -f brickpi3/CMakeFiles/actionlib_generate_messages_nodejs.dir/build.make brickpi3/CMakeFiles/actionlib_generate_messages_nodejs.dir/build
+.PHONY : actionlib_generate_messages_nodejs/fast
 
 #=============================================================================
 # Target rules for targets named actionlib_generate_messages_py
@@ -1403,6 +1390,45 @@ tf2_msgs_generate_messages_cpp/fast:
 .PHONY : tf2_msgs_generate_messages_cpp/fast
 
 #=============================================================================
+# Target rules for targets named sensor_msgs_generate_messages_nodejs
+
+# Build rule for target.
+sensor_msgs_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 sensor_msgs_generate_messages_nodejs
+.PHONY : sensor_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+sensor_msgs_generate_messages_nodejs/fast:
+	$(MAKE) -f brickpi3/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/build.make brickpi3/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/build
+.PHONY : sensor_msgs_generate_messages_nodejs/fast
+
+#=============================================================================
+# Target rules for targets named actionlib_generate_messages_cpp
+
+# Build rule for target.
+actionlib_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 actionlib_generate_messages_cpp
+.PHONY : actionlib_generate_messages_cpp
+
+# fast build rule for target.
+actionlib_generate_messages_cpp/fast:
+	$(MAKE) -f brickpi3/CMakeFiles/actionlib_generate_messages_cpp.dir/build.make brickpi3/CMakeFiles/actionlib_generate_messages_cpp.dir/build
+.PHONY : actionlib_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named brickpi3_joint_states_publisher_rxros
+
+# Build rule for target.
+brickpi3_joint_states_publisher_rxros: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 brickpi3_joint_states_publisher_rxros
+.PHONY : brickpi3_joint_states_publisher_rxros
+
+# fast build rule for target.
+brickpi3_joint_states_publisher_rxros/fast:
+	$(MAKE) -f brickpi3/CMakeFiles/brickpi3_joint_states_publisher_rxros.dir/build.make brickpi3/CMakeFiles/brickpi3_joint_states_publisher_rxros.dir/build
+.PHONY : brickpi3_joint_states_publisher_rxros/fast
+
+#=============================================================================
 # Target rules for targets named tf_generate_messages_lisp
 
 # Build rule for target.
@@ -1427,19 +1453,6 @@ brickpi3_odom_publisher: cmake_check_build_system
 brickpi3_odom_publisher/fast:
 	$(MAKE) -f brickpi3/CMakeFiles/brickpi3_odom_publisher.dir/build.make brickpi3/CMakeFiles/brickpi3_odom_publisher.dir/build
 .PHONY : brickpi3_odom_publisher/fast
-
-#=============================================================================
-# Target rules for targets named actionlib_generate_messages_nodejs
-
-# Build rule for target.
-actionlib_generate_messages_nodejs: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 actionlib_generate_messages_nodejs
-.PHONY : actionlib_generate_messages_nodejs
-
-# fast build rule for target.
-actionlib_generate_messages_nodejs/fast:
-	$(MAKE) -f brickpi3/CMakeFiles/actionlib_generate_messages_nodejs.dir/build.make brickpi3/CMakeFiles/actionlib_generate_messages_nodejs.dir/build
-.PHONY : actionlib_generate_messages_nodejs/fast
 
 #=============================================================================
 # Target rules for targets named ros_robot_tf_broadcaster
@@ -1817,14 +1830,15 @@ help:
 	@echo "... brickpi3_joint_states_publisher"
 	@echo "... tf_generate_messages_nodejs"
 	@echo "... tf2_msgs_generate_messages_nodejs"
-	@echo "... sensor_msgs_generate_messages_nodejs"
-	@echo "... actionlib_generate_messages_cpp"
 	@echo "... actionlib_generate_messages_lisp"
+	@echo "... actionlib_generate_messages_nodejs"
 	@echo "... actionlib_generate_messages_py"
 	@echo "... tf2_msgs_generate_messages_cpp"
+	@echo "... sensor_msgs_generate_messages_nodejs"
+	@echo "... actionlib_generate_messages_cpp"
+	@echo "... brickpi3_joint_states_publisher_rxros"
 	@echo "... tf_generate_messages_lisp"
 	@echo "... brickpi3_odom_publisher"
-	@echo "... actionlib_generate_messages_nodejs"
 	@echo "... ros_robot_tf_broadcaster"
 	@echo "... ros_robot_tf_listener"
 	@echo "... nxt_msgs_generate_messages_py"
