@@ -15,19 +15,19 @@ using namespace rxros::operators;
 int main(int argc, char** argv) {
     rxros::init(argc, argv, "velocity_publisher"); // Name of this node.
 
-    const auto frequencyInHz = rxros::Parameter::get("/velocity_publisher/frequency", 10.0); // hz
-    const auto minVelLinear = rxros::Parameter::get("/velocity_publisher/min_vel_linear", 0.04); // m/s
-    const auto maxVelLinear = rxros::Parameter::get("/velocity_publisher/max_vel_linear", 0.10); // m/s
-    const auto minVelAngular = rxros::Parameter::get("/velocity_publisher/min_vel_angular", 0.64); // rad/s
-    const auto maxVelAngular = rxros::Parameter::get("/velocity_publisher/max_vel_angular", 1.60); // rad/s
+    const auto frequencyInHz = rxros::parameter::get("/velocity_publisher/frequency", 10.0); // hz
+    const auto minVelLinear = rxros::parameter::get("/velocity_publisher/min_vel_linear", 0.04); // m/s
+    const auto maxVelLinear = rxros::parameter::get("/velocity_publisher/max_vel_linear", 0.10); // m/s
+    const auto minVelAngular = rxros::parameter::get("/velocity_publisher/min_vel_angular", 0.64); // rad/s
+    const auto maxVelAngular = rxros::parameter::get("/velocity_publisher/max_vel_angular", 1.60); // rad/s
     const auto deltaVelLinear = (maxVelLinear - minVelLinear) / 10.0;
     const auto deltaVelAngular = (maxVelAngular - minVelAngular) / 10.0;
 
-    rxros::Logging().info() << "frequency: " << frequencyInHz;
-    rxros::Logging().info() << "min_vel_linear: " << minVelLinear << " m/s";
-    rxros::Logging().info() << "max_vel_linear: " << maxVelLinear << " m/s";
-    rxros::Logging().info() << "min_vel_angular: " << minVelAngular << " rad/s";
-    rxros::Logging().info() << "max_vel_angular: " << maxVelAngular << " rad/s";
+    rxros::logging().info() << "frequency: " << frequencyInHz;
+    rxros::logging().info() << "min_vel_linear: " << minVelLinear << " m/s";
+    rxros::logging().info() << "max_vel_linear: " << maxVelLinear << " m/s";
+    rxros::logging().info() << "min_vel_angular: " << minVelAngular << " rad/s";
+    rxros::logging().info() << "max_vel_angular: " << maxVelAngular << " rad/s";
 
     auto adaptVelocity = [=] (auto newVel, auto minVel, auto maxVel, auto isIncrVel) {
         if (newVel > maxVel)
@@ -59,9 +59,9 @@ int main(int argc, char** argv) {
         vel.angular.z = std::get<1>(velTuple);
         return vel;};
 
-    auto joyObsrv = rxros::Observable::fromTopic<teleop_msgs::Joystick>("/joystick") // create an observable stream from "/joystick" topic
+    auto joyObsrv = rxros::observable::from_topic<teleop_msgs::Joystick>("/joystick") // create an observable stream from "/joystick" topic
         | map([](teleop_msgs::Joystick joy) { return joy.event; });
-    auto keyObsrv = rxros::Observable::fromTopic<teleop_msgs::Keyboard>("/keyboard") // create an observable stream from "/keyboard" topic
+    auto keyObsrv = rxros::observable::from_topic<teleop_msgs::Keyboard>("/keyboard") // create an observable stream from "/keyboard" topic
         | map([](teleop_msgs::Keyboard key) { return key.event; });
     joyObsrv.merge(keyObsrv)                              // merge the joystick and keyboard messages into an observable teleop stream.
     | scan(std::make_tuple(0.0, 0.0), teleop2VelTuple)    // turn the teleop stream into a linear and angular velocity stream.
@@ -69,6 +69,6 @@ int main(int argc, char** argv) {
     | sample_with_frequency(frequencyInHz)                // take latest Twist msg and populate it with the specified frequency.
     | publish_to_topic<geometry_msgs::Twist>("/cmd_vel"); // publish the Twist messages to the topic "/cmd_vel"
 
-    rxros::Logging().info() << "Spinning velocity_publisher ...";
+    rxros::logging().info() << "Spinning velocity_publisher ...";
     rxros::spin();
 }

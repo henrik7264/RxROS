@@ -24,13 +24,13 @@ namespace rxros
     static bool ok() {return ros::ok();}
 
 
-    class Node: public ros::NodeHandle
+    class node: public ros::NodeHandle
     {
     private:
-        Node() = default;
+        node() = default;
 
     public:
-        ~Node() = default;
+        ~node() = default;
 
         template<class T>
         ros::Subscriber subscribe(const std::string& topic, uint32_t queue_size, const std::function<void(const T&)>& callback)
@@ -38,36 +38,36 @@ namespace rxros
             return ros::NodeHandle::subscribe<T>(topic, queue_size, static_cast<boost::function<void(const T&)>>(callback));
         }
 
-        static auto getHandle() {
-            static Node self;
+        static auto get_handle() {
+            static node self;
             return self;
         }
-    }; // end of class Node
+    }; // end of class node
 
 
-    class Exception
+    class exception
     {
     private:
-        Exception() = default;
+        exception() = default;
 
     public:
-        ~Exception() = default;
-        static auto systemError(const int errCode, const std::string &msg)
+        ~exception() = default;
+        static auto system_error(const int errCode, const std::string &msg)
         {
             return std::make_exception_ptr(std::system_error(std::error_code(errCode, std::generic_category()), msg));
         }
-    }; // end of class Exception
+    }; // end of class exception
 
 
-    class Logging: public std::ostringstream
+    class logging: public std::ostringstream
     {
     private:
         enum LogLevel {DEBUG, INFO, WARN, ERROR, FATAL};
         LogLevel logLevel;
 
     public:
-        Logging() = default;
-        ~Logging() override {
+        logging() = default;
+        ~logging() override {
             switch(logLevel) {
                 case DEBUG:
                     ROS_DEBUG("%s", str().c_str());
@@ -90,65 +90,65 @@ namespace rxros
             }
         }
 
-        Logging& debug()
+        logging& debug()
         {
             logLevel = DEBUG;
             return *this;
         }
 
-        Logging& info()
+        logging& info()
         {
             logLevel = INFO;
             return *this;
         }
 
-        Logging& warn()
+        logging& warn()
         {
             logLevel = WARN;
             return *this;
         }
 
-        Logging& error()
+        logging& error()
         {
             logLevel = ERROR;
             return *this;
         }
 
-        Logging& fatal()
+        logging& fatal()
         {
             logLevel = FATAL;
             return *this;
         }
-    }; // end of class Logging
+    }; // end of class logging
 
 
-    class Parameter
+    class parameter
     {
     private:
-        Parameter() = default;
+        parameter() = default;
 
     public:
-        ~Parameter() = default;
+        ~parameter() = default;
 
         template<typename T>
         static auto get(const std::string& name, const T& defaultValue)
         {
             T param;
-            Node::getHandle().param<T>(name, param, defaultValue);
+            node::get_handle().param<T>(name, param, defaultValue);
             return param;
         }
 
         static auto get(const std::string& name, const int defaultValue)
         {
             int param;
-            Node::getHandle().param(name, param, defaultValue);
+            node::get_handle().param(name, param, defaultValue);
             return param;
         }
 
         static auto get(const std::string& name, const double defaultValue)
         {
             double param;
-            Node::getHandle().param(name, param, defaultValue);
+            node::get_handle().param(name, param, defaultValue);
             return param;
         }
 
@@ -164,27 +164,27 @@ namespace rxros
     }; // end of class Parameter
 
 
-    class Observable
+    class observable
     {
     private:
-        Observable() = default;
+        observable() = default;
 
     public:
-        ~Observable() = default;
+        ~observable() = default;
 
         template<class T>
-        static auto fromTopic(const std::string& topic, const uint32_t queueSize = 10)
+        static auto from_topic(const std::string& topic, const uint32_t queueSize = 10)
         {
             auto observable = rxcpp::observable<>::create<T>(
                 [=](rxcpp::subscriber<T> subscriber) {
                     auto callback = [=](const T& val){subscriber.on_next(val);};
-                    ros::Subscriber rosSubscriber(Node::getHandle().subscribe<T>(topic, queueSize, callback));
+                    ros::Subscriber rosSubscriber(node::get_handle().subscribe<T>(topic, queueSize, callback));
                     ros::waitForShutdown();
                     subscriber.on_completed();});
             return observable.subscribe_on(rxcpp::synchronize_new_thread());
         }
 
-        static auto fromTransformListener(const std::string& frameId, const std::string& childFrameId, const double frequencyInHz = 10.0)
+        static auto from_transform_listener(const std::string& frameId, const std::string& childFrameId, const double frequencyInHz = 10.0)
         {
             return rxcpp::observable<>::create<tf::StampedTransform>(
                 [=](rxcpp::subscriber<tf::StampedTransform> subscriber) {
@@ -211,13 +211,13 @@ namespace rxros
         }
 
         template<class T>
-        static auto fromDevice(const std::string& deviceName)
+        static auto from_device(const std::string& deviceName)
         {
             return rxcpp::observable<>::create<T>(
                 [=](rxcpp::subscriber<T> subscriber) {
                     int fd = open(deviceName.c_str(), O_RDONLY | O_NONBLOCK);
                     if (fd < 0)
-                        subscriber.on_error(rxros::Exception::systemError(errno, std::string("Cannot open device ") + deviceName));
+                        subscriber.on_error(rxros::exception::system_error(errno, std::string("Cannot open device ") + deviceName));
                     else {
                         fd_set readfds; // initialize file descriptor set.
                         FD_ZERO(&readfds);
@@ -232,14 +232,14 @@ namespace rxros
                                 close(fd);
                                 break;
                             } else if (rc == -1 || rc == 0) { // select failed and we issue an error.
-                                subscriber.on_error(rxros::Exception::systemError(errno, std::string("Failed to read device ") + deviceName));
+                                subscriber.on_error(rxros::exception::system_error(errno, std::string("Failed to read device ") + deviceName));
                                 close(fd);
                                 errReported = true;
                                 break;
                             } else if (FD_ISSET(fd, &readfds)) {
                                 ssize_t sz = read(fd, &event, sizeof(T)); // read element from device.
                                 if (sz == -1) {
-                                    subscriber.on_error(rxros::Exception::systemError(errno, std::string("Failed to read device ") + deviceName));
+                                    subscriber.on_error(rxros::exception::system_error(errno, std::string("Failed to read device ") + deviceName));
                                     close(fd);
                                     errReported = true;
                                     break;
@@ -255,8 +255,8 @@ namespace rxros
                 });
         }
 
-        // Parse the ros_robot.yaml file and create an observable stream for the configuration of the sensors and actuators
-        static auto fromYaml(const std::string& aNamespace)
+        // Parse the robot.yaml file and create an observable stream for the configuration of the sensors and actuators
+        static auto from_yaml(const std::string& aNamespace)
         {
             // Support class to simplify access to configuration parameters for device
             class DeviceConfig
@@ -297,7 +297,7 @@ namespace rxros
             return rxcpp::observable<>::create<DeviceConfig>(
                 [=](rxcpp::subscriber<DeviceConfig> subscriber) {
                     XmlRpc::XmlRpcValue robotConfig;
-                    Node::getHandle().getParam(aNamespace, robotConfig);
+                    node::get_handle().getParam(aNamespace, robotConfig);
                     assert (robotConfig.getType() == XmlRpc::XmlRpcValue::TypeArray);
                     for (int i = 0; i < robotConfig.size(); i++) {
                         DeviceConfig deviceConfig(robotConfig[i]);
@@ -306,7 +306,7 @@ namespace rxros
                     subscriber.on_completed();
                 });
         }
-    }; // end of class Observable
+    }; // end of class observable
 } // end of namespace rxros
 
 
@@ -314,25 +314,25 @@ namespace rxros
 {
     namespace operators
     {
-        auto sample_with_frequency(const double frequencyInHz) {
+        auto sample_with_frequency(const double frequency) {
             return [=](auto&& source) {
-                const std::chrono::milliseconds durationInMs(static_cast<long>(1000.0/frequencyInHz));
+                const std::chrono::milliseconds durationInMs(static_cast<long>(1000.0/frequency));
                 return rxcpp::observable<>::interval(durationInMs).with_latest_from(
                     [=](const auto intervalObsrv, const auto sourceObsrv) { return sourceObsrv; }, source);};}
 
 
         template<class Coordination>
-        auto sample_with_frequency(const double frequencyInHz, Coordination coordination) {
+        auto sample_with_frequency(const double frequency, Coordination coordination) {
             return [=](auto&& source) {
-                const std::chrono::milliseconds durationInMs(static_cast<long>(1000.0/frequencyInHz));
+                const std::chrono::milliseconds durationInMs(static_cast<long>(1000.0/frequency));
                 return rxcpp::observable<>::interval(durationInMs, coordination).with_latest_from(
                     [=](const auto intervalObsrv, const auto sourceObsrv) { return sourceObsrv; }, source);};}
 
 
         template<typename T>
-        auto publish_to_topic(const std::string &topic, const uint32_t queueSize = 10) {
+        auto publish_to_topic(const std::string &topic, const uint32_t queue_size = 10) {
             return [=](auto &&source) {
-                ros::Publisher publisher(rxros::Node::getHandle().advertise<T>(topic, queueSize));
+                ros::Publisher publisher(rxros::node::get_handle().advertise<T>(topic, queue_size));
                 source.subscribe_on(rxcpp::synchronize_new_thread()).subscribe(
                     [=](const T& msg) {publisher.publish(msg);});
                 return source;};}

@@ -13,9 +13,9 @@ int main(int argc, char** argv)
 {
     rxros::init(argc, argv, "keyboard_publisher"); // Name of this Node.
 
-    const auto keyboardDevice = rxros::Parameter::get("/keyboard_publisher/device", "/dev/input/event3"); // Use event4 for dell and event1 for others
+    const auto keyboardDevice = rxros::parameter::get("/keyboard_publisher/device", "/dev/input/event3"); // Use event4 for dell and event1 for others
 
-    rxros::Logging().info() << "Keyboard device: " << keyboardDevice;
+    rxros::logging().info() << "Keyboard device: " << keyboardDevice;
 
     auto keyboardEvent2KeyboardMsg = [](const auto keyboardEvent) {
         auto makeKeyboardMsg = [=] (auto event) {
@@ -37,10 +37,10 @@ int main(int argc, char** argv)
         }
         return makeKeyboardMsg(KB_EVENT_NONE);};
 
-    rxros::Observable::fromDevice<input_event>(keyboardDevice)
+    rxros::observable::from_device<input_event>(keyboardDevice)
         | map(keyboardEvent2KeyboardMsg)
         | publish_to_topic<teleop_msgs::Keyboard>("/keyboard");
 
-    rxros::Logging().info() << "Spinning keyboard_publisher...";
+    rxros::logging().info() << "Spinning keyboard_publisher...";
     rxros::spin();
 }

@@ -24,9 +24,9 @@ int main(int argc, char** argv)
 {
     rxros::init(argc, argv, "joystick_publisher"); // Name of this Node.
 
-    const auto joystickDevice = rxros::Parameter::get("/joystick_publisher/device", "/dev/input/js0");
+    const auto joystickDevice = rxros::parameter::get("/joystick_publisher/device", "/dev/input/js0");
 
-    rxros::Logging().info() << "Joystick device: " << joystickDevice;
+    rxros::logging().info() << "Joystick device: " << joystickDevice;
 
     auto joystickEvent2JoystickMsg = [=](const auto joystickEvent) {
         auto makeJoystickMsg = [=] (auto event) {
@@ -65,10 +65,10 @@ int main(int argc, char** argv)
         else
             return makeJoystickMsg(JS_EVENT_NEUTRAL);};
 
-    rxros::Observable::fromDevice<joystick_event>(joystickDevice)
+    rxros::observable::from_device<joystick_event>(joystickDevice)
         | map(joystickEvent2JoystickMsg)
         | publish_to_topic<teleop_msgs::Joystick>("/joystick");
 
-    rxros::Logging().info() << "Spinning joystick_publisher ...";
+    rxros::logging().info() << "Spinning joystick_publisher ...";
     rxros::spin();
 }

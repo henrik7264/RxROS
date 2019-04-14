@@ -43,12 +43,12 @@ namespace brickpi3
                         sensor_touch_t touch;
                         int rc = brickPi3.get_sensor(id, &touch);
                         if (rc == 0) {
-                            rxros::Logging().debug() << "Touch sensor: pressed " << touch.pressed;
+                            rxros::logging().debug() << "Touch sensor: pressed " << touch.pressed;
                             subscriber.on_next(touch);
                         } else {
                             errReported = true;
                             brickPi3.reset_all();
-                            subscriber.on_error(rxros::Exception::systemError(errno, "BrickPi3 failed to read Touch sensor '" +  name + "' rc: " + std::to_string(rc)));
+                            subscriber.on_error(rxros::exception::system_error(errno, "BrickPi3 failed to read Touch sensor '" +  name + "' rc: " + std::to_string(rc)));
                             break;
                         }
                         rate.sleep();
@@ -76,12 +76,12 @@ namespace brickpi3
                         sensor_color_t color;
                         int rc = brickPi3.get_sensor(id, &color);
                         if (rc == 0) {
-                            rxros::Logging().debug() << "Color sensor: " << color.color << ", red: " << color.reflected_red << ", green: " << color.reflected_green << ", blue: " << color.reflected_blue << ", ambient: " << color.ambient;
+                            rxros::logging().debug() << "Color sensor: " << color.color << ", red: " << color.reflected_red << ", green: " << color.reflected_green << ", blue: " << color.reflected_blue << ", ambient: " << color.ambient;
                             subscriber.on_next(color);
                         } else {
                             errReported = true;
                             brickPi3.reset_all();
-                            subscriber.on_error(rxros::Exception::systemError(errno, "BrickPi3 failed to read Color sensor '" +  name + "' rc: " + std::to_string(rc)));
+                            subscriber.on_error(rxros::exception::system_error(errno, "BrickPi3 failed to read Color sensor '" +  name + "' rc: " + std::to_string(rc)));
                             break;
                         }
                         rate.sleep();
@@ -108,12 +108,12 @@ namespace brickpi3
                         sensor_ultrasonic_t ultrasonic;
                         int rc = brickPi3.get_sensor(id, &ultrasonic);
                         if (rc == 0) {
-                            rxros::Logging().debug() << "Ultrasonic sensor: cm: " << ultrasonic.cm << ", inches: " << ultrasonic.inch;
+                            rxros::logging().debug() << "Ultrasonic sensor: cm: " << ultrasonic.cm << ", inches: " << ultrasonic.inch;
                             subscriber.on_next(ultrasonic);
                         } else {
                             errReported = true;
                             brickPi3.reset_all();
-                            subscriber.on_error(rxros::Exception::systemError(errno, "BrickPi3 failed to read Ultrasonic sensor '" +  name + "' rc: " + std::to_string(rc)));
+                            subscriber.on_error(rxros::exception::system_error(errno, "BrickPi3 failed to read Ultrasonic sensor '" +  name + "' rc: " + std::to_string(rc)));
                             break;
                         }
                         rate.sleep();
@@ -140,12 +140,12 @@ namespace brickpi3
                         actuator_motor_t motor{};
                         int rc = brickPi3.get_motor_status(id, motor.motorState, motor.motorPower, motor.motorPosition, motor.motorDPS);
                         if (rc == 0) {
-                            rxros::Logging().debug() << "Motor name '" << name << "', State: " << motor.motorState << ", Power: " << motor.motorPower << ", Position: " << motor.motorPosition << ", DPS: " << motor.motorDPS;
+                            rxros::logging().debug() << "Motor name '" << name << "', State: " << motor.motorState << ", Power: " << motor.motorPower << ", Position: " << motor.motorPosition << ", DPS: " << motor.motorDPS;
                             subscriber.on_next(motor);
                         } else {
                             errReported = true;
                             brickPi3.reset_all();
-                            subscriber.on_error(rxros::Exception::systemError(errno, "BrickPi3 failed to read Motor '" +  name + "' rc: " + std::to_string(rc)));
+                            subscriber.on_error(rxros::exception::system_error(errno, "BrickPi3 failed to read Motor '" +  name + "' rc: " + std::to_string(rc)));
                             break;
                         }
                         rate.sleep();
