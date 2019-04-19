@@ -19,9 +19,21 @@
 
 namespace rxros
 {
-    static void init(int argc, char** argv, const std::string& name) {ros::init(argc, argv, name);}
-    static void spin() {ros::spin();}
-    static bool ok() {return ros::ok();}
+    static void init(int argc, char** argv, const std::string& name)
+    {
+        ros::init(argc, argv, name);
+    }
+
+    static void spin()
+    {
+        ros::AsyncSpinner(0).start();
+        ros::waitForShutdown();
+    }
+
+    static bool ok()
+    {
+        return ros::ok();
+    }
 
 
     class node: public ros::NodeHandle
@@ -36,6 +48,12 @@ namespace rxros
         ros::Subscriber subscribe(const std::string& topic, uint32_t queue_size, const std::function<void(const T&)>& callback)
         {
             return ros::NodeHandle::subscribe<T>(topic, queue_size, static_cast<boost::function<void(const T&)>>(callback));
+        }
+
+        template<class T>
+        ros::ServiceServer advertiseService(const std::string& service, const std::function<bool(typename T::Request&, typename T::Response&)> callback)
+        {
+            return ros::NodeHandle::advertiseService<typename T::Request, typename T::Response>(service, static_cast<boost::function<bool(typename T::Request&, typename T::Response&)>>(callback));
         }
 
         static auto get_handle() {
@@ -131,37 +149,37 @@ namespace rxros
         ~parameter() = default;
 
         template<typename T>
-        static auto get(const std::string& name, const T& defaultValue)
+        static auto get(const std::string& name, const T& default_value)
         {
             T param;
-            node::get_handle().param<T>(name, param, defaultValue);
+            node::get_handle().param<T>(name, param, default_value);
             return param;
         }
 
-        static auto get(const std::string& name, const int defaultValue)
+        static auto get(const std::string& name, const int default_value)
         {
             int param;
-            node::get_handle().param(name, param, defaultValue);
+            node::get_handle().param(name, param, default_value);
             return param;
         }
 
-        static auto get(const std::string& name, const double defaultValue)
+        static auto get(const std::string& name, const double default_value)
         {
             double param;
-            node::get_handle().param(name, param, defaultValue);
+            node::get_handle().param(name, param, default_value);
             return param;
         }
 
-        static auto get(const std::string& name, const char* defaultValue)
+        static auto get(const std::string& name, const char* default_value)
         {
-            return get<std::string>(name, defaultValue);
+            return get<std::string>(name, default_value);
         }
 
-        static auto get(const std::string& name, const std::string& defaultValue)
+        static auto get(const std::string& name, const std::string& default_value)
         {
-            return get<std::string>(name, defaultValue);
+            return get<std::string>(name, default_value);
         }
-    }; // end of class Parameter
+    }; // end of class parameter
 
 
     class observable
@@ -178,7 +196,7 @@ namespace rxros
             auto observable = rxcpp::observable<>::create<T>(
                 [=](rxcpp::subscriber<T> subscriber) {
                     auto callback = [=](const T& val){subscriber.on_next(val);};
-                    ros::Subscriber rosSubscriber(node::get_handle().subscribe<T>(topic, queueSize, callback));
+                    ros::Subscriber ros_subscriber(node::get_handle().subscribe<T>(topic, queueSize, callback));
                     ros::waitForShutdown();
                     subscriber.on_completed();});
             return observable.subscribe_on(rxcpp::synchronize_new_thread());
@@ -188,13 +206,13 @@ namespace rxros
         {
             return rxcpp::observable<>::create<tf::StampedTransform>(
                 [=](rxcpp::subscriber<tf::StampedTransform> subscriber) {
-                    tf::TransformListener listener;
+                    tf::TransformListener transform_listener;
                     ros::Rate rate(frequencyInHz);
                     bool errReported = false;
                     while (rxros::ok()) {
                         try {
                             tf::StampedTransform transform;
-                            listener.lookupTransform(frameId, childFrameId, ros::Time(0), transform);
+                            transform_listener.lookupTransform(frameId, childFrameId, ros::Time(0), transform);
                             subscriber.on_next(transform);
                         }
                         catch (...) {
@@ -211,13 +229,13 @@ namespace rxros
         }
 
         template<class T>
-        static auto from_device(const std::string& deviceName)
+        static auto from_device(const std::string& device_name)
         {
             return rxcpp::observable<>::create<T>(
                 [=](rxcpp::subscriber<T> subscriber) {
-                    int fd = open(deviceName.c_str(), O_RDONLY | O_NONBLOCK);
+                    int fd = open(device_name.c_str(), O_RDONLY | O_NONBLOCK);
                     if (fd < 0)
-                        subscriber.on_error(rxros::exception::system_error(errno, std::string("Cannot open device ") + deviceName));
+                        subscriber.on_error(rxros::exception::system_error(errno, std::string("Cannot open device ") + device_name));
                     else {
                         fd_set readfds; // initialize file descriptor set.
                         FD_ZERO(&readfds);
@@ -232,14 +250,14 @@ namespace rxros
                                 close(fd);
                                 break;
                             } else if (rc == -1 || rc == 0) { // select failed and we issue an error.
-                                subscriber.on_error(rxros::exception::system_error(errno, std::string("Failed to read device ") + deviceName));
+                                subscriber.on_error(rxros::exception::system_error(errno, std::string("Failed to read device ") + device_name));
                                 close(fd);
                                 errReported = true;
                                 break;
                             } else if (FD_ISSET(fd, &readfds)) {
                                 ssize_t sz = read(fd, &event, sizeof(T)); // read element from device.
                                 if (sz == -1) {
-                                    subscriber.on_error(rxros::exception::system_error(errno, std::string("Failed to read device ") + deviceName));
+                                    subscriber.on_error(rxros::exception::system_error(errno, std::string("Failed to read device ") + device_name));
                                     close(fd);
                                     errReported = true;
                                     break;
@@ -296,12 +314,12 @@ namespace rxros
 
             return rxcpp::observable<>::create<DeviceConfig>(
                 [=](rxcpp::subscriber<DeviceConfig> subscriber) {
-                    XmlRpc::XmlRpcValue robotConfig;
-                    node::get_handle().getParam(aNamespace, robotConfig);
-                    assert (robotConfig.getType() == XmlRpc::XmlRpcValue::TypeArray);
-                    for (int i = 0; i < robotConfig.size(); i++) {
-                        DeviceConfig deviceConfig(robotConfig[i]);
-                        subscriber.on_next(deviceConfig);
+                    XmlRpc::XmlRpcValue robot_config;
+                    node::get_handle().getParam(aNamespace, robot_config);
+                    assert (robot_config.getType() == XmlRpc::XmlRpcValue::TypeArray);
+                    for (int i = 0; i < robot_config.size(); i++) {
+                        DeviceConfig device_config(robot_config[i]);
+                        subscriber.on_next(device_config);
                     }
                     subscriber.on_completed();
                 });
@@ -345,6 +363,14 @@ namespace rxros
                     [&](const tf::Transform& tf) {transformBroadcaster.sendTransform(tf::StampedTransform(tf, ros::Time::now(), frame_id, child_frame_id));});
                 return source;};}
 
+        template<typename T>
+        auto call_service(const std::string& service) {
+            return [=](auto &&source) {
+                ros::ServiceClient service_client(rxros::node::get_handle().serviceClient<T>(service));
+                source.subscribe_on(rxcpp::synchronize_new_thread()).subscribe(
+                    [=](const T& msg) {
+                        return (service_client.call(msg)) ? msg : logging().error() << "Failed to call service " << service; });
+                return source;};}
 
         template <class Observable>
         auto join_with_latest_from(const Observable& observable) {
@@ -352,7 +378,6 @@ namespace rxros
                 return source.with_latest_from (
                     [=](const auto o1, const auto o2) {
                         return std::make_tuple(o1, o2);}, observable);};}
-
     } // end namespace operators
 } // end namespace rxros
 

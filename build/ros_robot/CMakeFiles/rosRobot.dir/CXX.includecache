@@ -520,7 +520,7 @@ forwards.h
 common.h
 /opt/ros/melodic/include/ros/common.h
 
-/opt/ros/melodic/include/ros/node_handle.h
+/opt/ros/melodic/include/ros/node.h
 ros/forwards.h
 /opt/ros/melodic/include/ros/ros/forwards.h
 ros/publisher.h
@@ -627,8 +627,8 @@ ros/common.h
 /opt/ros/melodic/include/ros/ros/common.h
 ros/types.h
 /opt/ros/melodic/include/ros/ros/types.h
-ros/node_handle.h
-/opt/ros/melodic/include/ros/ros/node_handle.h
+ros/node.h
+/opt/ros/melodic/include/ros/ros/node.h
 ros/publisher.h
 /opt/ros/melodic/include/ros/ros/publisher.h
 ros/single_subscriber_publisher.h
@@ -713,8 +713,8 @@ ros/message.h
 /opt/ros/melodic/include/ros/ros/message.h
 ros/forwards.h
 /opt/ros/melodic/include/ros/ros/forwards.h
-ros/node_handle.h
-/opt/ros/melodic/include/ros/ros/node_handle.h
+ros/node.h
+/opt/ros/melodic/include/ros/ros/node.h
 ros/service_traits.h
 /opt/ros/melodic/include/ros/ros/service_traits.h
 ros/names.h
@@ -901,8 +901,8 @@ ros/forwards.h
 /opt/ros/melodic/include/ros/topic.h
 common.h
 /opt/ros/melodic/include/ros/common.h
-node_handle.h
-/opt/ros/melodic/include/ros/node_handle.h
+node.h
+/opt/ros/melodic/include/ros/node.h
 boost/shared_ptr.hpp
 -
 

@@ -8,7 +8,7 @@
 
   <node pkg="nxt_ros" type="nxt_ros.py" name="nxt_ros" output="screen" respawn="true">
     <rosparam command="load" file="$(find learning_nxt)/robot.yaml" />    
-  </node>	 
+  </node>
 
   <group ns="base_parameters">
     <param name="r_wheel_joint" value="r_wheel_joint"/>

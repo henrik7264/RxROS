@@ -1,34 +1,34 @@
 
 "use strict";
 
-let Color = require('./Color.js');
 let Accelerometer = require('./Accelerometer.js');
-let JointCommand = require('./JointCommand.js');
-let Light = require('./Light.js');
-let Range = require('./Range.js');
-let Contact = require('./Contact.js');
 let Gyro = require('./Gyro.js');
+let JointCommand = require('./JointCommand.js');
+let Contact = require('./Contact.js');
+let Range = require('./Range.js');
 let Color = require('./Color.js');
-let Accelerometer = require('./Accelerometer.js');
-let JointCommand = require('./JointCommand.js');
 let Light = require('./Light.js');
-let Range = require('./Range.js');
-let Contact = require('./Contact.js');
+let Accelerometer = require('./Accelerometer.js');
 let Gyro = require('./Gyro.js');
+let JointCommand = require('./JointCommand.js');
+let Contact = require('./Contact.js');
+let Range = require('./Range.js');
+let Color = require('./Color.js');
+let Light = require('./Light.js');
 
 module.exports = {
-  Color: Color,
   Accelerometer: Accelerometer,
-  JointCommand: JointCommand,
-  Light: Light,
-  Range: Range,
-  Contact: Contact,
   Gyro: Gyro,
+  JointCommand: JointCommand,
+  Contact: Contact,
+  Range: Range,
   Color: Color,
-  Accelerometer: Accelerometer,
-  JointCommand: JointCommand,
   Light: Light,
-  Range: Range,
-  Contact: Contact,
+  Accelerometer: Accelerometer,
   Gyro: Gyro,
+  JointCommand: JointCommand,
+  Contact: Contact,
+  Range: Range,
+  Color: Color,
+  Light: Light,
 };
