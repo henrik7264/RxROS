@@ -26,23 +26,23 @@
     <!-- Start node joint_state_publisher: read joint_state for each motor and publish an aggregate joint_states for all motors -->
     <!-- Subscribe topic: /joint_state-->
     <!-- Publisher topic: /joint_states-->
-    <!--node pkg="nxt_ros" name="joint_state_publisher"  type="joint_states_aggregator.py" output="screen" /-->
+    <node pkg="brickpi3" name="brickpi3_joint_states_publisher"  type="brickpi3_joint_states_publisher" output="screen" />
 
     <!-- Start node nxt_base_controller: publish effect to motors from cmd_vel and joint_states-->
     <!-- Subscribe topic: JointStare:/joint_states, Twist/cmd_vel /-->
     <!-- Publisher topic: JointCommand:/joint_command-->
-    <!--node pkg="nxt_controllers" name="nxt_base_controller" type="base_controller.py" output="screen"/-->
+    <node pkg="brickpi3" name="brickpi3_base_controller" type="brickpi3_base_controller" output="screen"/>
 
     <!-- Start -->
-    <!--node pkg="nxt_controllers" name="nxt_base_odometry" type="base_odometry.py" output="screen"/-->
+    <node pkg="brickpi3" name="brickpi3_odom_publisher" type="brickpi3_odom_publisher" output="screen"/>
 
     <!-- Start -->
     <!--node pkg="ros_robot_tf" name="ros_robot_tf_broadcaster" type="ros_robot_tf_broadcaster" output="screen" respawn="true"/-->
 
     <!-- Start -->
-    <!--node pkg="robot_state_publisher" name="robot_state_publisher" type="robot_state_publisher">
+    <node pkg="robot_state_publisher" name="robot_state_publisher" type="robot_state_publisher">
         <param name="publish_frequency" value="10.0"/>
-    </node-->
+    </node>
 
     <!-- Start Slamtec rplidar a2 -->
     <node pkg="rplidar_ros" name="rplidarNode" type="rplidarNode" output="screen"/>

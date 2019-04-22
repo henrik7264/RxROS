@@ -39,6 +39,7 @@ BrickPi3Ros::BrickPi3Ros(int argc, char** argv):
             std::string name = brickpi3_device["name"];
             std::string port = brickpi3_device["port"];
             double freq = brickpi3_device["frequency"];
+            std::cout << type << ", " << name << ", " << port << ", " << freq << std::endl;
 
             BrickPi3Motor* motor = new BrickPi3Motor(name, port, freq); //todo: Needs better resource handling. Should be freed when the BrickPi3Ros object is deleted.
             scheduler.every(std::chrono::milliseconds(static_cast<int >(1000.0/freq)), boost::bind(&BrickPi3Motor::schedulerCB, motor));

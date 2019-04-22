@@ -3,10 +3,11 @@
 //
 
 #include <algorithm>
-#include <ros/ros.h>
-#include <ros/console.h>
+#include <rxros.h>
 #include <sensor_msgs/JointState.h>
 #include "Node.h"
+using namespace rxcpp::operators;
+using namespace rxros::operators;
 
 
 class BrickPi3JointStatesPublisher
@@ -66,7 +67,22 @@ void BrickPi3JointStatesPublisher::jointStateSubscriberCB(const sensor_msgs::Joi
 
 int main(int argc, char** argv)
 {
-    ros::init(argc, argv, "brickpi3_joint_states_publisher"); // Name of this node.
-    BrickPi3JointStatesPublisher jointStatesAggregator(argc, argv);
-    jointStatesAggregator.run();
+    rxros::init(argc, argv, "brickpi3_joint_states_publisher"); // Name of this node.
+
+    auto js = rxros::observable::from_topic<sensor_msgs::JointState>("/joint_state");
+    auto as = js.filter([](auto& js){return (js.name[0] == "a");});
+    auto bs = js.filter([](auto& js){return (js.name[0] == "b");});
+    as.combine_latest(
+        [=](const auto& a, const auto& b) {
+            return std::make_tuple(a, b);}, bs)
+
+
+        | group_by(
+            [] (auto& js) {if () },
+            [] (auto& js) {})
+        | publish_to_topic<sensor_msgs::JointState>("/joint_states");
+
+
+
+    rxros::spin();
 }
