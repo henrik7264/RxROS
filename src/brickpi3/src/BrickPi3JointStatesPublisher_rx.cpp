@@ -72,15 +72,15 @@ int main(int argc, char** argv)
     auto js = rxros::observable::from_topic<sensor_msgs::JointState>("/joint_state");
     auto as = js.filter([](auto& js){return (js.name[0] == "a");});
     auto bs = js.filter([](auto& js){return (js.name[0] == "b");});
-    as.combine_latest(
-        [=](const auto& a, const auto& b) {
-            return std::make_tuple(a, b);}, bs)
-
-
-        | group_by(
-            [] (auto& js) {if () },
-            [] (auto& js) {})
-        | publish_to_topic<sensor_msgs::JointState>("/joint_states");
+//    as.combine_latest(
+//        [=](const auto& a, const auto& b) {
+//            return std::make_tuple(a, b);}, bs)
+//
+//
+//        | group_by(
+//            [] (auto& js) {if () },
+//            [] (auto& js) {})
+//        | publish_to_topic<sensor_msgs::JointState>("/joint_states");
 
 
 
