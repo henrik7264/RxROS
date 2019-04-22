@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <launch>
-    <!-- Configuration file for rviz and robot model -->
-    <param name="robot_description" textfile="$(find ros_robot)/config_2x2/ros_robot.urdf"/>
-    <param name="use_sim_time" type="bool" value="false"/>
-
     <!-- Configuration for Slamtec rplidar a2 -->
     <param name="serial_port" type="string" value="/dev/ttyUSB0"/>
     <param name="serial_baudrate" type="int" value="115200"/>
@@ -12,24 +8,18 @@
     <param name="angle_compensate" type="bool" value="true"/>
 
     <!-- Base parameters for the nxt robot, used by nxt_base_controller -->
-    <group ns="base_parameters">
+    <group ns="brickpi3">
         <param name="r_wheel_joint" type="string" value="r_wheel_joint"/>
         <param name="l_wheel_joint" type="string" value="l_wheel_joint"/>
         <param name="wheel_radius" type="double" value="0.028" /> <!-- diameter of wheel / 2 -->
         <param name="wheel_basis" type="double" value="0.0625" /> <!-- length between wheels / 2 -->
-        <param name="vel_to_eff" type="double" value="1.0" /> <!-- used by nxt_base_controller to determine the effect of the motors -->
+        <param name="gearing" type="double" value="0.3333" />
     </group>
 
     <!-- Start my robot. Does actually not do anything at the moment-->
     <node pkg="ros_robot" name="ros_robot" type="ros_robot" output="screen" respawn="true"/>
 
-    <!-- Start NXT driver: starts and monitors the wheels, ultrasonic sensor and color sensor-->
-    <!-- Publisher topic: /ultrasonic_sensor, /color_sensor, /joint_state-->
-    <!--param name="host" value="00:16:53:1A:0B:F5"/-->
-    <!--node pkg="nxt_ros" name="nxt_ros" type="nxt_ros.py" output="screen" respawn="true">
-        <rosparam command="load" file="$(find ros_robot)/config_2x2/ros_robot.yaml" />
-    </node-->
-    <node pkg="brickpi3" name="brickpi3" type="brickpi3_rxros" output="screen" respawn="false">
+    <node pkg="brickpi3" name="brickpi3" type="brickpi3" output="screen" respawn="false">
         <rosparam command="load" file="$(find ros_robot)/config_2x2/ros_robot.yaml" />
     </node>
 
@@ -55,5 +45,5 @@
     </node-->
 
     <!-- Start Slamtec rplidar a2 -->
-    <!--node pkg="rplidar_ros" name="rplidarNode" type="rplidarNode" output="screen"/-->
+    <node pkg="rplidar_ros" name="rplidarNode" type="rplidarNode" output="screen"/>
 </launch>
