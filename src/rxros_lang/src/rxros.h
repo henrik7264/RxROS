@@ -26,8 +26,8 @@ namespace rxros
 
     static void spin()
     {
-        ros::AsyncSpinner(0).start();
-        ros::waitForShutdown();
+        ros::MultiThreadedSpinner spinner(0); // Use a spinner for each available CPU core
+        spinner.spin();
     }
 
     static bool ok()
@@ -44,6 +44,10 @@ namespace rxros
     public:
         ~node() = default;
 
+        // subscribe and advertiseService are overloaded ros::Nodehandle functions. They are used to subscribe to a topic and a service.
+        // The special about these to functions is that they allow the callback to be a std::functions
+        // which means that it will be possible to subscribe to a topic using a lambda expression as a callback.
+        // ideas borrowed from https://github.com/OTL/roscpp14
         template<class T>
         ros::Subscriber subscribe(const std::string& topic, uint32_t queue_size, const std::function<void(const T&)>& callback)
         {

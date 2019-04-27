@@ -70,7 +70,7 @@ void BrickPi3BaseController::cmdVelSubscriberCB(const geometry_msgs::Twist& twis
 
     double desiLinVel = twist.linear.x;
     double desiAngVel = twist.angular.z;
-    if ((desiLinVel != lastDesiLinVel) or (desiAngVel != lastDesiAngVel)) {
+    if ((desiLinVel != lastDesiLinVel) || (desiAngVel != lastDesiAngVel)) {
         desiLWheelVel = desiLinVel - desiAngVel * wheelBasis; // m/s
         desiRWheelVel = desiLinVel + desiAngVel * wheelBasis; // m/s
 //        (self.factor_l_joint, self.factor_r_joint) = get_default_factor(self.vel_l_joint_desi, self.vel_r_joint_desi)
@@ -121,7 +121,7 @@ void BrickPi3BaseController::jointStatesSubscriberCB(const sensor_msgs::JointSta
     brickpi3_msgs::JointCommand rJointCommand;
     rJointCommand.name = rWheelJoint;
     rJointCommand.effort = desiRWheelVel * factorRWheel;
-    jointCommandPublisher.publish(lJointCommand);
+    jointCommandPublisher.publish(rJointCommand);
 
 //     rospy.loginfo("current %f m/s, %f m/s", vel_l_joint_curr, vel_r_joint_curr)
 //     rospy.loginfo("desired %f m/s, %f m/s", self.vel_l_joint_desi, self.vel_r_joint_desi)

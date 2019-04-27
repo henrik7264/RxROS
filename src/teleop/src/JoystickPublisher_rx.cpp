@@ -25,7 +25,6 @@ int main(int argc, char** argv)
     rxros::init(argc, argv, "joystick_publisher"); // Name of this Node.
 
     const auto joystickDevice = rxros::parameter::get("/joystick_publisher/device", "/dev/input/js0");
-
     rxros::logging().info() << "Joystick device: " << joystickDevice;
 
     auto joystickEvent2JoystickMsg = [=](const auto joystickEvent) {

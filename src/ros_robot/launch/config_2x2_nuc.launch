@@ -8,7 +8,7 @@
     <node pkg="teleop" name="joystick_publisher" type="joystick_publisher_rxros" output="screen" respawn="false"/>
     <node pkg="teleop" name="keyboard_publisher" type="keyboard_publisher_rxros" output="screen" respawn="false"/>
 
-    <!-- Start keyboard node. Will provide teleop via the keyboard. -->
+    <!-- Start keyboard node.   Will provide teleop via the keyboard. -->
     <!-- Publisher topic: Twist:/cmd_vel -->
     <!--node pkg="nxt_teleop" name="nxt_teleop" type="nxt_teleop_node" output="screen"/-->
     <node pkg="teleop" name="velocity_publisher" type="velocity_publisher_rxros" output="screen" respawn="true"/>
