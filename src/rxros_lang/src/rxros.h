@@ -44,10 +44,10 @@ namespace rxros
     public:
         ~node() = default;
 
-        // subscribe and advertiseService are overloaded ros::Nodehandle functions. They are used to subscribe to a topic and a service.
-        // The special about these to functions is that they allow the callback to be a std::functions
-        // which means that it will be possible to subscribe to a topic using a lambda expression as a callback.
-        // ideas borrowed from https://github.com/OTL/roscpp14
+        // subscribe and advertiseService are overloaded ros::Nodehandle functions for subscribing to a topic and service.
+        // The special about these two functions is that they allow the callback to be a std::functions.
+        // This means that it will be possible to subscribe to a topic using a lambda expression as a callback.
+        // Ideas borrowed from https://github.com/OTL/roscpp14
         template<class T>
         ros::Subscriber subscribe(const std::string& topic, uint32_t queue_size, const std::function<void(const T&)>& callback)
         {
@@ -206,7 +206,7 @@ namespace rxros
             return observable.subscribe_on(rxcpp::synchronize_new_thread());
         }
 
-        static auto from_transform_listener(const std::string& frameId, const std::string& childFrameId, const double frequencyInHz = 10.0)
+        static auto from_transform(const std::string& parent_frameId, const std::string& child_frameId, const double frequencyInHz = 10.0)
         {
             return rxcpp::observable<>::create<tf::StampedTransform>(
                 [=](rxcpp::subscriber<tf::StampedTransform> subscriber) {
@@ -216,7 +216,7 @@ namespace rxros
                     while (rxros::ok()) {
                         try {
                             tf::StampedTransform transform;
-                            transform_listener.lookupTransform(frameId, childFrameId, ros::Time(0), transform);
+                            transform_listener.lookupTransform(parent_frameId, child_frameId, ros::Time(0), transform);
                             subscriber.on_next(transform);
                         }
                         catch (...) {
@@ -353,28 +353,41 @@ namespace rxros
 
         template<typename T>
         auto publish_to_topic(const std::string &topic, const uint32_t queue_size = 10) {
-            return [=](auto &&source) {
+            return [=](auto&& source) {
                 ros::Publisher publisher(rxros::node::get_handle().advertise<T>(topic, queue_size));
                 source.subscribe_on(rxcpp::synchronize_new_thread()).subscribe(
                     [=](const T& msg) {publisher.publish(msg);});
                 return source;};}
 
 
-        auto send_transform(const std::string &frame_id, const std::string &child_frame_id) {
-            return [=](auto &&source) {
+        auto send_transform() {
+            return [=](auto&& source) {
                 tf::TransformBroadcaster transformBroadcaster;
                 source.subscribe_on(rxcpp::synchronize_new_thread()).subscribe(
-                    [&](const tf::Transform& tf) {transformBroadcaster.sendTransform(tf::StampedTransform(tf, ros::Time::now(), frame_id, child_frame_id));});
+                    [&](const tf::StampedTransform& stf) {transformBroadcaster.sendTransform(stf);});
                 return source;};}
+
+
+        auto send_transform(const std::string &parent_frameId, const std::string &child_frameId) {
+            return [=](auto&& source) {
+                tf::TransformBroadcaster transformBroadcaster;
+                source.subscribe_on(rxcpp::synchronize_new_thread()).subscribe(
+                    [&](const tf::Transform& tf) {transformBroadcaster.sendTransform(tf::StampedTransform(tf, ros::Time::now(), parent_frameId, child_frameId));});
+                return source;};}
+
 
         template<typename T>
         auto call_service(const std::string& service) {
-            return [=](auto &&source) {
+            return [=](auto&& source) {
                 ros::ServiceClient service_client(rxros::node::get_handle().serviceClient<T>(service));
                 source.subscribe_on(rxcpp::synchronize_new_thread()).subscribe(
                     [=](const T& msg) {
-                        return (service_client.call(msg)) ? msg : logging().error() << "Failed to call service " << service; });
+                        if (service_client.call(msg))
+                            return msg;
+                        else
+                            logging().error() << "Failed to call service " << service; });
                 return source;};}
+
 
         template <class Observable>
         auto join_with_latest_from(const Observable& observable) {
