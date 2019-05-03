@@ -775,7 +775,7 @@ roscpp_generate_messages_nodejs: cmake_check_build_system
 
 # fast build rule for target.
 roscpp_generate_messages_nodejs/fast:
-	$(MAKE) -f rxros_lang/CMakeFiles/roscpp_generate_messages_nodejs.dir/build.make rxros_lang/CMakeFiles/roscpp_generate_messages_nodejs.dir/build
+	$(MAKE) -f rxros/CMakeFiles/roscpp_generate_messages_nodejs.dir/build.make rxros/CMakeFiles/roscpp_generate_messages_nodejs.dir/build
 .PHONY : roscpp_generate_messages_nodejs/fast
 
 #=============================================================================
@@ -788,7 +788,7 @@ roscpp_generate_messages_eus: cmake_check_build_system
 
 # fast build rule for target.
 roscpp_generate_messages_eus/fast:
-	$(MAKE) -f rxros_lang/CMakeFiles/roscpp_generate_messages_eus.dir/build.make rxros_lang/CMakeFiles/roscpp_generate_messages_eus.dir/build
+	$(MAKE) -f rxros/CMakeFiles/roscpp_generate_messages_eus.dir/build.make rxros/CMakeFiles/roscpp_generate_messages_eus.dir/build
 .PHONY : roscpp_generate_messages_eus/fast
 
 #=============================================================================
@@ -801,7 +801,7 @@ rosgraph_msgs_generate_messages_cpp: cmake_check_build_system
 
 # fast build rule for target.
 rosgraph_msgs_generate_messages_cpp/fast:
-	$(MAKE) -f rxros_lang/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make rxros_lang/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build
+	$(MAKE) -f rxros/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make rxros/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build
 .PHONY : rosgraph_msgs_generate_messages_cpp/fast
 
 #=============================================================================
@@ -814,7 +814,7 @@ roscpp_generate_messages_cpp: cmake_check_build_system
 
 # fast build rule for target.
 roscpp_generate_messages_cpp/fast:
-	$(MAKE) -f rxros_lang/CMakeFiles/roscpp_generate_messages_cpp.dir/build.make rxros_lang/CMakeFiles/roscpp_generate_messages_cpp.dir/build
+	$(MAKE) -f rxros/CMakeFiles/roscpp_generate_messages_cpp.dir/build.make rxros/CMakeFiles/roscpp_generate_messages_cpp.dir/build
 .PHONY : roscpp_generate_messages_cpp/fast
 
 #=============================================================================
@@ -827,7 +827,7 @@ rosgraph_msgs_generate_messages_lisp: cmake_check_build_system
 
 # fast build rule for target.
 rosgraph_msgs_generate_messages_lisp/fast:
-	$(MAKE) -f rxros_lang/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make rxros_lang/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build
+	$(MAKE) -f rxros/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make rxros/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build
 .PHONY : rosgraph_msgs_generate_messages_lisp/fast
 
 #=============================================================================
@@ -840,7 +840,7 @@ roscpp_generate_messages_py: cmake_check_build_system
 
 # fast build rule for target.
 roscpp_generate_messages_py/fast:
-	$(MAKE) -f rxros_lang/CMakeFiles/roscpp_generate_messages_py.dir/build.make rxros_lang/CMakeFiles/roscpp_generate_messages_py.dir/build
+	$(MAKE) -f rxros/CMakeFiles/roscpp_generate_messages_py.dir/build.make rxros/CMakeFiles/roscpp_generate_messages_py.dir/build
 .PHONY : roscpp_generate_messages_py/fast
 
 #=============================================================================
@@ -853,7 +853,7 @@ rosgraph_msgs_generate_messages_nodejs: cmake_check_build_system
 
 # fast build rule for target.
 rosgraph_msgs_generate_messages_nodejs/fast:
-	$(MAKE) -f rxros_lang/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build.make rxros_lang/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build
+	$(MAKE) -f rxros/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build.make rxros/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build
 .PHONY : rosgraph_msgs_generate_messages_nodejs/fast
 
 #=============================================================================
@@ -866,7 +866,7 @@ rosgraph_msgs_generate_messages_py: cmake_check_build_system
 
 # fast build rule for target.
 rosgraph_msgs_generate_messages_py/fast:
-	$(MAKE) -f rxros_lang/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make rxros_lang/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build
+	$(MAKE) -f rxros/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make rxros/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build
 .PHONY : rosgraph_msgs_generate_messages_py/fast
 
 #=============================================================================
@@ -879,21 +879,21 @@ roscpp_generate_messages_lisp: cmake_check_build_system
 
 # fast build rule for target.
 roscpp_generate_messages_lisp/fast:
-	$(MAKE) -f rxros_lang/CMakeFiles/roscpp_generate_messages_lisp.dir/build.make rxros_lang/CMakeFiles/roscpp_generate_messages_lisp.dir/build
+	$(MAKE) -f rxros/CMakeFiles/roscpp_generate_messages_lisp.dir/build.make rxros/CMakeFiles/roscpp_generate_messages_lisp.dir/build
 .PHONY : roscpp_generate_messages_lisp/fast
 
 #=============================================================================
-# Target rules for targets named rxros_lang_examples
+# Target rules for targets named rxros_examples
 
 # Build rule for target.
-rxros_lang_examples: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 rxros_lang_examples
-.PHONY : rxros_lang_examples
+rxros_examples: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 rxros_examples
+.PHONY : rxros_examples
 
 # fast build rule for target.
-rxros_lang_examples/fast:
-	$(MAKE) -f rxros_lang/CMakeFiles/rxros_lang_examples.dir/build.make rxros_lang/CMakeFiles/rxros_lang_examples.dir/build
-.PHONY : rxros_lang_examples/fast
+rxros_examples/fast:
+	$(MAKE) -f rxros/CMakeFiles/rxros_examples.dir/build.make rxros/CMakeFiles/rxros_examples.dir/build
+.PHONY : rxros_examples/fast
 
 #=============================================================================
 # Target rules for targets named rosgraph_msgs_generate_messages_eus
@@ -905,7 +905,7 @@ rosgraph_msgs_generate_messages_eus: cmake_check_build_system
 
 # fast build rule for target.
 rosgraph_msgs_generate_messages_eus/fast:
-	$(MAKE) -f rxros_lang/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make rxros_lang/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build
+	$(MAKE) -f rxros/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make rxros/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build
 .PHONY : rosgraph_msgs_generate_messages_eus/fast
 
 #=============================================================================
@@ -1481,6 +1481,19 @@ ros_robot_tf_listener/fast:
 .PHONY : ros_robot_tf_listener/fast
 
 #=============================================================================
+# Target rules for targets named ros_robot
+
+# Build rule for target.
+ros_robot: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ros_robot
+.PHONY : ros_robot
+
+# fast build rule for target.
+ros_robot/fast:
+	$(MAKE) -f ros_robot/CMakeFiles/ros_robot.dir/build.make ros_robot/CMakeFiles/ros_robot.dir/build
+.PHONY : ros_robot/fast
+
+#=============================================================================
 # Target rules for targets named nxt_msgs_generate_messages_py
 
 # Build rule for target.
@@ -1490,7 +1503,7 @@ nxt_msgs_generate_messages_py: cmake_check_build_system
 
 # fast build rule for target.
 nxt_msgs_generate_messages_py/fast:
-	$(MAKE) -f learning_nxt/CMakeFiles/nxt_msgs_generate_messages_py.dir/build.make learning_nxt/CMakeFiles/nxt_msgs_generate_messages_py.dir/build
+	$(MAKE) -f ros_robot/CMakeFiles/nxt_msgs_generate_messages_py.dir/build.make ros_robot/CMakeFiles/nxt_msgs_generate_messages_py.dir/build
 .PHONY : nxt_msgs_generate_messages_py/fast
 
 #=============================================================================
@@ -1503,7 +1516,7 @@ nxt_msgs_generate_messages_nodejs: cmake_check_build_system
 
 # fast build rule for target.
 nxt_msgs_generate_messages_nodejs/fast:
-	$(MAKE) -f learning_nxt/CMakeFiles/nxt_msgs_generate_messages_nodejs.dir/build.make learning_nxt/CMakeFiles/nxt_msgs_generate_messages_nodejs.dir/build
+	$(MAKE) -f ros_robot/CMakeFiles/nxt_msgs_generate_messages_nodejs.dir/build.make ros_robot/CMakeFiles/nxt_msgs_generate_messages_nodejs.dir/build
 .PHONY : nxt_msgs_generate_messages_nodejs/fast
 
 #=============================================================================
@@ -1516,7 +1529,7 @@ dynamic_reconfigure_generate_messages_lisp: cmake_check_build_system
 
 # fast build rule for target.
 dynamic_reconfigure_generate_messages_lisp/fast:
-	$(MAKE) -f learning_nxt/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/build.make learning_nxt/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/build
+	$(MAKE) -f ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/build.make ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/build
 .PHONY : dynamic_reconfigure_generate_messages_lisp/fast
 
 #=============================================================================
@@ -1529,7 +1542,7 @@ nxt_msgs_generate_messages_eus: cmake_check_build_system
 
 # fast build rule for target.
 nxt_msgs_generate_messages_eus/fast:
-	$(MAKE) -f learning_nxt/CMakeFiles/nxt_msgs_generate_messages_eus.dir/build.make learning_nxt/CMakeFiles/nxt_msgs_generate_messages_eus.dir/build
+	$(MAKE) -f ros_robot/CMakeFiles/nxt_msgs_generate_messages_eus.dir/build.make ros_robot/CMakeFiles/nxt_msgs_generate_messages_eus.dir/build
 .PHONY : nxt_msgs_generate_messages_eus/fast
 
 #=============================================================================
@@ -1542,7 +1555,7 @@ dynamic_reconfigure_generate_messages_eus: cmake_check_build_system
 
 # fast build rule for target.
 dynamic_reconfigure_generate_messages_eus/fast:
-	$(MAKE) -f learning_nxt/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/build.make learning_nxt/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/build
+	$(MAKE) -f ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/build.make ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/build
 .PHONY : dynamic_reconfigure_generate_messages_eus/fast
 
 #=============================================================================
@@ -1555,7 +1568,7 @@ move_base_gencfg: cmake_check_build_system
 
 # fast build rule for target.
 move_base_gencfg/fast:
-	$(MAKE) -f learning_nxt/CMakeFiles/move_base_gencfg.dir/build.make learning_nxt/CMakeFiles/move_base_gencfg.dir/build
+	$(MAKE) -f ros_robot/CMakeFiles/move_base_gencfg.dir/build.make ros_robot/CMakeFiles/move_base_gencfg.dir/build
 .PHONY : move_base_gencfg/fast
 
 #=============================================================================
@@ -1568,7 +1581,7 @@ dynamic_reconfigure_gencfg: cmake_check_build_system
 
 # fast build rule for target.
 dynamic_reconfigure_gencfg/fast:
-	$(MAKE) -f learning_nxt/CMakeFiles/dynamic_reconfigure_gencfg.dir/build.make learning_nxt/CMakeFiles/dynamic_reconfigure_gencfg.dir/build
+	$(MAKE) -f ros_robot/CMakeFiles/dynamic_reconfigure_gencfg.dir/build.make ros_robot/CMakeFiles/dynamic_reconfigure_gencfg.dir/build
 .PHONY : dynamic_reconfigure_gencfg/fast
 
 #=============================================================================
@@ -1581,7 +1594,7 @@ dynamic_reconfigure_generate_messages_py: cmake_check_build_system
 
 # fast build rule for target.
 dynamic_reconfigure_generate_messages_py/fast:
-	$(MAKE) -f learning_nxt/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/build.make learning_nxt/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/build
+	$(MAKE) -f ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/build.make ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/build
 .PHONY : dynamic_reconfigure_generate_messages_py/fast
 
 #=============================================================================
@@ -1594,7 +1607,7 @@ move_base_msgs_generate_messages_eus: cmake_check_build_system
 
 # fast build rule for target.
 move_base_msgs_generate_messages_eus/fast:
-	$(MAKE) -f learning_nxt/CMakeFiles/move_base_msgs_generate_messages_eus.dir/build.make learning_nxt/CMakeFiles/move_base_msgs_generate_messages_eus.dir/build
+	$(MAKE) -f ros_robot/CMakeFiles/move_base_msgs_generate_messages_eus.dir/build.make ros_robot/CMakeFiles/move_base_msgs_generate_messages_eus.dir/build
 .PHONY : move_base_msgs_generate_messages_eus/fast
 
 #=============================================================================
@@ -1607,7 +1620,7 @@ nxt_msgs_generate_messages_lisp: cmake_check_build_system
 
 # fast build rule for target.
 nxt_msgs_generate_messages_lisp/fast:
-	$(MAKE) -f learning_nxt/CMakeFiles/nxt_msgs_generate_messages_lisp.dir/build.make learning_nxt/CMakeFiles/nxt_msgs_generate_messages_lisp.dir/build
+	$(MAKE) -f ros_robot/CMakeFiles/nxt_msgs_generate_messages_lisp.dir/build.make ros_robot/CMakeFiles/nxt_msgs_generate_messages_lisp.dir/build
 .PHONY : nxt_msgs_generate_messages_lisp/fast
 
 #=============================================================================
@@ -1620,7 +1633,7 @@ move_base_msgs_generate_messages_lisp: cmake_check_build_system
 
 # fast build rule for target.
 move_base_msgs_generate_messages_lisp/fast:
-	$(MAKE) -f learning_nxt/CMakeFiles/move_base_msgs_generate_messages_lisp.dir/build.make learning_nxt/CMakeFiles/move_base_msgs_generate_messages_lisp.dir/build
+	$(MAKE) -f ros_robot/CMakeFiles/move_base_msgs_generate_messages_lisp.dir/build.make ros_robot/CMakeFiles/move_base_msgs_generate_messages_lisp.dir/build
 .PHONY : move_base_msgs_generate_messages_lisp/fast
 
 #=============================================================================
@@ -1633,7 +1646,7 @@ move_base_msgs_generate_messages_cpp: cmake_check_build_system
 
 # fast build rule for target.
 move_base_msgs_generate_messages_cpp/fast:
-	$(MAKE) -f learning_nxt/CMakeFiles/move_base_msgs_generate_messages_cpp.dir/build.make learning_nxt/CMakeFiles/move_base_msgs_generate_messages_cpp.dir/build
+	$(MAKE) -f ros_robot/CMakeFiles/move_base_msgs_generate_messages_cpp.dir/build.make ros_robot/CMakeFiles/move_base_msgs_generate_messages_cpp.dir/build
 .PHONY : move_base_msgs_generate_messages_cpp/fast
 
 #=============================================================================
@@ -1646,7 +1659,7 @@ move_base_msgs_generate_messages_nodejs: cmake_check_build_system
 
 # fast build rule for target.
 move_base_msgs_generate_messages_nodejs/fast:
-	$(MAKE) -f learning_nxt/CMakeFiles/move_base_msgs_generate_messages_nodejs.dir/build.make learning_nxt/CMakeFiles/move_base_msgs_generate_messages_nodejs.dir/build
+	$(MAKE) -f ros_robot/CMakeFiles/move_base_msgs_generate_messages_nodejs.dir/build.make ros_robot/CMakeFiles/move_base_msgs_generate_messages_nodejs.dir/build
 .PHONY : move_base_msgs_generate_messages_nodejs/fast
 
 #=============================================================================
@@ -1659,7 +1672,7 @@ dynamic_reconfigure_generate_messages_cpp: cmake_check_build_system
 
 # fast build rule for target.
 dynamic_reconfigure_generate_messages_cpp/fast:
-	$(MAKE) -f learning_nxt/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/build.make learning_nxt/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/build
+	$(MAKE) -f ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/build.make ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/build
 .PHONY : dynamic_reconfigure_generate_messages_cpp/fast
 
 #=============================================================================
@@ -1672,7 +1685,7 @@ move_base_msgs_generate_messages_py: cmake_check_build_system
 
 # fast build rule for target.
 move_base_msgs_generate_messages_py/fast:
-	$(MAKE) -f learning_nxt/CMakeFiles/move_base_msgs_generate_messages_py.dir/build.make learning_nxt/CMakeFiles/move_base_msgs_generate_messages_py.dir/build
+	$(MAKE) -f ros_robot/CMakeFiles/move_base_msgs_generate_messages_py.dir/build.make ros_robot/CMakeFiles/move_base_msgs_generate_messages_py.dir/build
 .PHONY : move_base_msgs_generate_messages_py/fast
 
 #=============================================================================
@@ -1685,7 +1698,7 @@ dynamic_reconfigure_generate_messages_nodejs: cmake_check_build_system
 
 # fast build rule for target.
 dynamic_reconfigure_generate_messages_nodejs/fast:
-	$(MAKE) -f learning_nxt/CMakeFiles/dynamic_reconfigure_generate_messages_nodejs.dir/build.make learning_nxt/CMakeFiles/dynamic_reconfigure_generate_messages_nodejs.dir/build
+	$(MAKE) -f ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_nodejs.dir/build.make ros_robot/CMakeFiles/dynamic_reconfigure_generate_messages_nodejs.dir/build
 .PHONY : dynamic_reconfigure_generate_messages_nodejs/fast
 
 #=============================================================================
@@ -1698,7 +1711,7 @@ _catkin_empty_exported_target: cmake_check_build_system
 
 # fast build rule for target.
 _catkin_empty_exported_target/fast:
-	$(MAKE) -f learning_nxt/CMakeFiles/_catkin_empty_exported_target.dir/build.make learning_nxt/CMakeFiles/_catkin_empty_exported_target.dir/build
+	$(MAKE) -f ros_robot/CMakeFiles/_catkin_empty_exported_target.dir/build.make ros_robot/CMakeFiles/_catkin_empty_exported_target.dir/build
 .PHONY : _catkin_empty_exported_target/fast
 
 #=============================================================================
@@ -1711,21 +1724,8 @@ nxt_msgs_generate_messages_cpp: cmake_check_build_system
 
 # fast build rule for target.
 nxt_msgs_generate_messages_cpp/fast:
-	$(MAKE) -f learning_nxt/CMakeFiles/nxt_msgs_generate_messages_cpp.dir/build.make learning_nxt/CMakeFiles/nxt_msgs_generate_messages_cpp.dir/build
+	$(MAKE) -f ros_robot/CMakeFiles/nxt_msgs_generate_messages_cpp.dir/build.make ros_robot/CMakeFiles/nxt_msgs_generate_messages_cpp.dir/build
 .PHONY : nxt_msgs_generate_messages_cpp/fast
-
-#=============================================================================
-# Target rules for targets named ros_robot
-
-# Build rule for target.
-ros_robot: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ros_robot
-.PHONY : ros_robot
-
-# fast build rule for target.
-ros_robot/fast:
-	$(MAKE) -f ros_robot/CMakeFiles/ros_robot.dir/build.make ros_robot/CMakeFiles/ros_robot.dir/build
-.PHONY : ros_robot/fast
 
 # Help Target
 help:
@@ -1795,7 +1795,7 @@ help:
 	@echo "... rosgraph_msgs_generate_messages_nodejs"
 	@echo "... rosgraph_msgs_generate_messages_py"
 	@echo "... roscpp_generate_messages_lisp"
-	@echo "... rxros_lang_examples"
+	@echo "... rxros_examples"
 	@echo "... rosgraph_msgs_generate_messages_eus"
 	@echo "... joystick_publisher_rxros"
 	@echo "... keyboard_publisher_rxros"
@@ -1841,6 +1841,7 @@ help:
 	@echo "... brickpi3_odom_publisher"
 	@echo "... ros_robot_tf_broadcaster"
 	@echo "... ros_robot_tf_listener"
+	@echo "... ros_robot"
 	@echo "... nxt_msgs_generate_messages_py"
 	@echo "... nxt_msgs_generate_messages_nodejs"
 	@echo "... dynamic_reconfigure_generate_messages_lisp"
@@ -1859,7 +1860,6 @@ help:
 	@echo "... dynamic_reconfigure_generate_messages_nodejs"
 	@echo "... _catkin_empty_exported_target"
 	@echo "... nxt_msgs_generate_messages_cpp"
-	@echo "... ros_robot"
 .PHONY : help
 
 

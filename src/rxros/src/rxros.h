@@ -294,7 +294,7 @@ namespace rxros
                 double spreadAngle;
 
             public:
-                DeviceConfig(XmlRpc::XmlRpcValue& value) {
+                explicit DeviceConfig(XmlRpc::XmlRpcValue& value) {
                     type = value.hasMember("type") ? (std::string) value["type"] : std::string("");
                     name = value.hasMember("name") ? (std::string) value["name"] : std::string("");
                     frameId = value.hasMember("frame_id") ? (std::string) value["frame_id"] : std::string("");
@@ -321,10 +321,8 @@ namespace rxros
                     XmlRpc::XmlRpcValue robot_config;
                     node::get_handle().getParam(aNamespace, robot_config);
                     assert (robot_config.getType() == XmlRpc::XmlRpcValue::TypeArray);
-                    for (int i = 0; i < robot_config.size(); i++) {
-                        DeviceConfig device_config(robot_config[i]);
+                    for (auto& device_config: robot_config)
                         subscriber.on_next(device_config);
-                    }
                     subscriber.on_completed();
                 });
         }
@@ -379,14 +377,16 @@ namespace rxros
         template<typename T>
         auto call_service(const std::string& service) {
             return [=](auto&& source) {
-                ros::ServiceClient service_client(rxros::node::get_handle().serviceClient<T>(service));
-                source.subscribe_on(rxcpp::synchronize_new_thread()).subscribe(
-                    [=](const T& msg) {
-                        if (service_client.call(msg))
-                            return msg;
-                        else
-                            logging().error() << "Failed to call service " << service; });
-                return source;};}
+                return rxcpp::observable<>::create<T>(
+                    [=](rxcpp::subscriber<T> subscriber) {
+                        ros::ServiceClient service_client(rxros::node::get_handle().serviceClient<T>(service));
+                        source.subscribe(
+                            [=](const T& msg) {
+                                T res = std::move(msg);
+                                if (service_client.call(res))
+                                    subscriber.on_next(res);},
+                            [=](const std::exception_ptr error){subscriber.on_error(error);},
+                            [=](){subscriber.on_completed();});});};}
 
 
         template <class Observable>

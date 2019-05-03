@@ -12,7 +12,7 @@ try:
     from catkin.environment_cache import generate_environment_script
 except ImportError:
     # search for catkin package in all workspaces and prepend to path
-    for workspace in "/home/hl/Src/CLionProjects/slamtec/devel;/home/hl/Src/CLionProjects/nxt_viz/devel;/home/hl/Src/CLionProjects/RxROS/devel;/home/hl/Src/CLionProjects/nxt_teleop/devel;/home/hl/Src/CLionProjects/nxt/devel;/opt/ros/melodic".split(';'):
+    for workspace in "/home/hl/Src/CLionProjects/nxt_viz/devel;/home/hl/Src/CLionProjects/RxROS/devel;/home/hl/Src/CLionProjects/nxt_teleop/devel;/home/hl/Src/CLionProjects/nxt/devel;/opt/ros/melodic".split(';'):
         python_path = os.path.join(workspace, 'lib/python2.7/dist-packages')
         if os.path.isdir(os.path.join(python_path, 'catkin')):
             sys.path.insert(0, python_path)
