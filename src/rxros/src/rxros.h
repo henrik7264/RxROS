@@ -321,8 +321,10 @@ namespace rxros
                     XmlRpc::XmlRpcValue robot_config;
                     node::get_handle().getParam(aNamespace, robot_config);
                     assert (robot_config.getType() == XmlRpc::XmlRpcValue::TypeArray);
-                    for (auto& device_config: robot_config)
+                    for (int i = 0; i < robot_config.size(); i++) {
+                        DeviceConfig device_config(robot_config[i]);
                         subscriber.on_next(device_config);
+                    }
                     subscriber.on_completed();
                 });
         }
