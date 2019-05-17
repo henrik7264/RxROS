@@ -166,11 +166,11 @@ Finally, we have come to the RxROS project. To install RxROS do the following:
 ```
 git clone https://github.com/henrik7264/RxROS.git
 cd RxROS
+sudo ./src/rxros_lang/src/install.sh
 catkin_make
 # catkin_make may fail to compile if the platform is not amd64. 
 # Remove the build and devel directory to fix this pronblem
 # and run catkin_make again.
-sudo ./src/rxros_lang/src/install.sh
 cd .. 
 ```
 
@@ -209,23 +209,101 @@ int main(int argc, char** argv) {'
     rxros::spin();
 }
 ```
+<br>
 
 ####Parameters
+
+```cpp
+auto rxros::parameter::get<param_type>(const std::string& name, const param_type& defaultValue)
+auto rxros::parameter::get(const std::string& name, const int defaultValue)
+auto rxros::parameter::get(const std::string& name, const double defaultValue)
+auto rxros::parameter::get(const std::string& name, const char* defaultValue)
+auto rxros::parameter::get(const std::string& name, const std::string& defaultValue)
+```
+
+#####Example
+
+```cpp
+#include <rxros.h>
+int main(int argc, char** argv) {
+    rxros::init(argc, argv, "velocity_publisher"); // Name of this node.
+    //...
+    const auto frequency = rxros::parameter::get("/velocity_publisher/frequency", 10.0); // hz
+    const auto minVelLinear = rxros::parameter::get("/velocity_publisher/min_vel_linear", 0.04); // m/s
+    const auto maxVelLinear = rxros::parameter::get("/velocity_publisher/max_vel_linear", 0.10); // m/s
+    //...
+    rxros::spin();
+}
+```
 <br>
 
 ####Logging
+
+```cpp
+rxros::logging& rxros::logging().debug();
+rxros::logging& rxros::logging().info();
+rxros::logging& rxros::logging().warn();
+rxros::logging& rxros::logging().error();
+rxros::logging& rxros::logging().fatal();
+```
+
+#####Example
+
+```cpp
+#include <rxros.h>
+int main(int argc, char** argv) {
+    rxros::init(argc, argv, "velocity_publisher"); // Name of this node.
+    //...
+    rxros::logging().debug() << "frequency: " << frequency;
+    rxros::logging().info() << "min_vel_linear: " << minVelLinear << " m/s";
+    rxros::logging().warn() << "max_vel_linear: " << maxVelLinear << " m/s";
+    rxros::logging().error() << "min_vel_angular: " << minVelAngular << " rad/s";
+    rxros::logging().fatal() << "max_vel_angular: " << maxVelAngular << " rad/s";
+```
 <br>
 
 ####Topics
+```cpp
+auto rxros::observable::from_topic<topic_type>(const std::string& topic, const uint32_t queue_size = 10)
+```
+
+#####Example
+
+```cpp
+int main(int argc, char** argv) {
+    rxros::init(argc, argv, "velocity_publisher"); // Name of this node.
+    //...
+    auto joy_obsrv = rxros::observable::from_topic<teleop_msgs::Joystick>("/joystick")
+        | map([](teleop_msgs::Joystick joy) { return joy.event; });
+    auto key_obsrv = rxros::observable::from_topic<teleop_msgs::Keyboard>("/keyboard")
+        | map([](teleop_msgs::Keyboard key) { return key.event; });
+    auto teleop_obsrv = joyObsrv.merge(keyObsrv);
+    //...
+    rxros::spin();
+}
+```
 <br>
 
 ####Broadcasters
+```cpp
+auto rxros::observable::from_transform(const std::string& parent_frameId, const std::string& child_frameId, const double frequency = 10.0)
+```
+
+#####Example
+
+```cpp
+```
 <br>
 
-####Actions
-<br>
 
 ####Services
+```cpp
+```
+
+#####Example
+
+```cpp
+```
 <br>
 
 #### Example
