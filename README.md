@@ -25,7 +25,7 @@ You can download an image of the Ubuntu Bionic Linux distribution at<br>
 https://www.ubuntu.com/#download<br>
 I found it useful in addition to add the following packages:
 
-```
+```bash
 sudo apt-get install git doxygen graphviz-* meld cmake
 sudo apt-get install emacs qtcreator qt5-*
 sudo apt-get install tree gimp
@@ -39,7 +39,7 @@ Installation instruction of how to install ROS Melodic Morenia can be found at<b
 http://wiki.ros.org/melodic/Installation/Ubuntu<br>
 Execute the following commands to install ROS Melodic Morenia:
 
-```
+```bash
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116
 sudo apt-get update
@@ -60,7 +60,7 @@ https://github.com/NXT-ROS/nxt<br>
 The installation process of NXT-ROS is a bit complicated, but here is the procedure I got working:<br>
 Start to install the nxt-python package. NXT-ROS will not work without it!
 
-```
+```bash
 sudo apt-get install libnxt python-nxt 
 ```
 
@@ -75,7 +75,7 @@ reboot
 
 Finally, execute the following commands in a directory where you keep your ROS workspaces - any directory will work.
 
-```
+```bash
 mkdir –p nxt 
 cd  nxt 
 git clone --recursive https://github.com/NXT-ROS/nxt.git src
@@ -100,7 +100,7 @@ Installation instruction of how to install Slamtec A2 RPLIDAR can be found at<br
 https://github.com/slamtec/rplidar_ros<br>
 Execute the following commands to install Slamtec A2 RPLIDAR:
 
-```
+```bash
 mkdir -p slamtec/src
 cd slamtec
 catkin_make
@@ -115,18 +115,19 @@ After the installation a new package named rplidar_ros is created.<br>
 When you perform a catkin_make the new package will be included in the project.<br>
 Finally, ensure that the udev rules for rplidar is configured correctly:
 
-```
+```bash
 sudo cp slamtec/src/rplidar_ros/scripts/rplidar.rules /etc/udev/rules.d/70-rplidar.rules
 ```
 
 ### Bosma Scheduler
+
 The Bosma scheduler is a blue print of how software should be created.
 It has a very clean interface as is very easy to use and understand.
 It can be found at<br>
 https://github.com/Bosma/Scheduler<br>
 To install the Bosma Scheduler execute the following commands:
 
-```
+```bash
 git clone https://github.com/vit-vit/CTPL.git
 cd CTPL
 sudo cp *.h /usr/local/include
@@ -146,7 +147,7 @@ Reactive C++ is also a github project. It can be found at<br>
 https://github.com/ReactiveX/RxCpp<br>
 To install RxCpp execute the following commands:
 
-```
+```bash
 git clone --recursive  https://github.com/ReactiveX/RxCpp.git 
 cd RxCpp 
 mkdir -p projects/build 
@@ -163,10 +164,11 @@ The needed C++ header files have been installed in /usr/include/rxcpp.
 ### RxROS
 
 Finally, we have come to the RxROS project. To install RxROS do the following:
-```
+
+```bash
 git clone https://github.com/henrik7264/RxROS.git
 cd RxROS
-sudo ./src/rxros_lang/src/install.sh
+sudo ./src/rxros/src/install.sh
 catkin_make
 # catkin_make may fail to compile if the platform is not amd64. 
 # Remove the build and devel directory to fix this pronblem
@@ -188,7 +190,8 @@ The RxROS provides simple access to ROS via a set of classes.
 The classes provides more precisely an extension to RxCpp that
 gives simple access to ROS.<br>
 
-####Initial setup
+#### Initial setup
+
 A RxROS program is in principle a ROS node,
 so the first step is not surprisingly to initialise it and specify the node name.
 This is done by means of the init function<br>
@@ -197,7 +200,7 @@ This is done by means of the init function<br>
 rxros::init(argc, argv, "Name_of_ROS_node");
 ```
 
-#####Example
+##### Example
 
 ```cpp
 #include <rxros.h>
@@ -211,7 +214,7 @@ int main(int argc, char** argv) {'
 ```
 <br>
 
-####Parameters
+#### Parameters
 
 ```cpp
 auto rxros::parameter::get<param_type>(const std::string& name, const param_type& defaultValue)
@@ -221,7 +224,7 @@ auto rxros::parameter::get(const std::string& name, const char* defaultValue)
 auto rxros::parameter::get(const std::string& name, const std::string& defaultValue)
 ```
 
-#####Example
+##### Example
 
 ```cpp
 #include <rxros.h>
@@ -237,7 +240,7 @@ int main(int argc, char** argv) {
 ```
 <br>
 
-####Logging
+#### Logging
 
 ```cpp
 rxros::logging& rxros::logging().debug();
@@ -247,7 +250,7 @@ rxros::logging& rxros::logging().error();
 rxros::logging& rxros::logging().fatal();
 ```
 
-#####Example
+##### Example
 
 ```cpp
 #include <rxros.h>
@@ -262,12 +265,12 @@ int main(int argc, char** argv) {
 ```
 <br>
 
-####Topics
+#### Topics
 ```cpp
 auto rxros::observable::from_topic<topic_type>(const std::string& topic, const uint32_t queue_size = 10)
 ```
 
-#####Example
+##### Example
 
 ```cpp
 int main(int argc, char** argv) {
@@ -284,23 +287,23 @@ int main(int argc, char** argv) {
 ```
 <br>
 
-####Broadcasters
+#### Broadcasters
 ```cpp
 auto rxros::observable::from_transform(const std::string& parent_frameId, const std::string& child_frameId, const double frequency = 10.0)
 ```
 
-#####Example
+##### Example
 
 ```cpp
 ```
 <br>
 
 
-####Services
+#### Services
 ```cpp
 ```
 
-#####Example
+##### Example
 
 ```cpp
 ```
@@ -381,9 +384,7 @@ int main(int argc, char** argv) {
     rxros::spin();
 }
 ```
-
-
-
+<br>
 
 ## Problems and observations
 
