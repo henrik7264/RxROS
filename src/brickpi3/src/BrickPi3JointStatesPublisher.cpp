@@ -35,18 +35,18 @@ BrickPi3JointStatesPublisher::BrickPi3JointStatesPublisher(int argc, char** argv
 
 void BrickPi3JointStatesPublisher::jointStateSubscriberCB(const sensor_msgs::JointState& jointState)
 {
-    if (std::find(jointStates.name.begin(), jointStates.name.end(), jointState.name[0]) != jointStates.name.end()) { // name already exists in the jointStates
+    if (std::find(jointStates.name.begin(), jointStates.name.end(), jointState.name[0]) != jointStates.name.end()) { // name already exists in the makeJointStates
         jointStates.name.clear();
         jointStates.effort.clear();
         jointStates.position.clear();
         jointStates.velocity.clear();
     }
-//    for (int i = 0; i < jointStates.name.size(); i++) {
-//        if (jointStates.name[i] == jointState.name[0]) {
-//            jointStates.name.erase(jointStates.name.begin() + i);
-//            jointStates.effort.erase(jointStates.effort.begin() + i);
-//            jointStates.position.erase(jointStates.position.begin() + i);
-//            jointStates.velocity.erase(jointStates.velocity.begin() + i);
+//    for (int i = 0; i < makeJointStates.name.size(); i++) {
+//        if (makeJointStates.name[i] == jointState.name[0]) {
+//            makeJointStates.name.erase(makeJointStates.name.begin() + i);
+//            makeJointStates.effort.erase(makeJointStates.effort.begin() + i);
+//            makeJointStates.position.erase(makeJointStates.position.begin() + i);
+//            makeJointStates.velocity.erase(makeJointStates.velocity.begin() + i);
 //        }
 //    }
     jointStates.name.push_back(jointState.name[0]);
@@ -56,7 +56,7 @@ void BrickPi3JointStatesPublisher::jointStateSubscriberCB(const sensor_msgs::Joi
 
     if (jointStates.name.size() == 2) // todo: Find way to determine the number of motors.
     {
-        //jointStates.header.frame_id = name;
+        //makeJointStates.header.frame_id = name;
         jointStates.header.stamp = ros::Time::now();
         jointStates.header.seq = seqNo++;
 
@@ -67,6 +67,6 @@ void BrickPi3JointStatesPublisher::jointStateSubscriberCB(const sensor_msgs::Joi
 int main(int argc, char** argv)
 {
     ros::init(argc, argv, "brickpi3_joint_states_publisher"); // Name of this node.
-    BrickPi3JointStatesPublisher jointStatesAggregator(argc, argv);
-    jointStatesAggregator.run();
+    BrickPi3JointStatesPublisher jointStatesPublisher(argc, argv);
+    jointStatesPublisher.run();
 }

@@ -168,9 +168,18 @@ add_executable(brickpi3_odom_publisher
   src/BrickPi3OdomPublisher.cpp
 )
 
+add_executable(brickpi3_odom_publisher_rxros
+  src/BrickPi3OdomPublisher_rx.cpp
+)
+
 add_executable(brickpi3_base_controller
   src/BrickPi3BaseController.cpp
 )
+
+add_executable(brickpi3_base_controller_rxros
+  src/BrickPi3BaseController_rx.cpp
+)
+
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -186,7 +195,9 @@ add_dependencies(brickpi3_rxros ${catkin_EXPORTED_TARGETS})
 add_dependencies(brickpi3_joint_states_publisher ${catkin_EXPORTED_TARGETS})
 add_dependencies(brickpi3_joint_states_publisher_rxros ${catkin_EXPORTED_TARGETS})
 add_dependencies(brickpi3_odom_publisher ${catkin_EXPORTED_TARGETS})
+add_dependencies(brickpi3_odom_publisher_rxros ${catkin_EXPORTED_TARGETS})
 add_dependencies(brickpi3_base_controller ${catkin_EXPORTED_TARGETS})
+add_dependencies(brickpi3_base_controller_rxros ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(${PROJECT_NAME}_node
@@ -197,7 +208,9 @@ target_link_libraries(brickpi3_rxros ${catkin_LIBRARIES})
 target_link_libraries(brickpi3_joint_states_publisher ${catkin_LIBRARIES})
 target_link_libraries(brickpi3_joint_states_publisher_rxros ${catkin_LIBRARIES})
 target_link_libraries(brickpi3_odom_publisher ${catkin_LIBRARIES})
+target_link_libraries(brickpi3_odom_publisher_rxros ${catkin_LIBRARIES})
 target_link_libraries(brickpi3_base_controller ${catkin_LIBRARIES})
+target_link_libraries(brickpi3_base_controller_rxros ${catkin_LIBRARIES})
 
 #############
 ## Install ##

@@ -97,6 +97,8 @@
 /home/hl/Src/CLionProjects/RxROS/build/teleop/CMakeFiles/velocity_publisher_rxros.dir
 /home/hl/Src/CLionProjects/RxROS/build/teleop/CMakeFiles/velocity_publisher.dir
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/list_install_components.dir
+/home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/brickpi3_base_controller_rxros.dir
+/home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/brickpi3_base_controller.dir
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/tf_generate_messages_cpp.dir
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/sensor_msgs_generate_messages_eus.dir
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/sensor_msgs_generate_messages_cpp.dir
@@ -113,8 +115,6 @@
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/tf2_msgs_generate_messages_eus.dir
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/brickpi3_rxros.dir
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/nav_msgs_generate_messages_eus.dir
-/home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/brickpi3.dir
-/home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/brickpi3_base_controller.dir
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/install/local.dir
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/sensor_msgs_generate_messages_lisp.dir
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/actionlib_msgs_generate_messages_py.dir
@@ -139,6 +139,8 @@
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/brickpi3_joint_states_publisher_rxros.dir
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/tf_generate_messages_lisp.dir
 /home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/brickpi3_odom_publisher.dir
+/home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/brickpi3.dir
+/home/hl/Src/CLionProjects/RxROS/build/brickpi3/CMakeFiles/brickpi3_odom_publisher_rxros.dir
 /home/hl/Src/CLionProjects/RxROS/build/ros_robot_tf/CMakeFiles/install/strip.dir
 /home/hl/Src/CLionProjects/RxROS/build/ros_robot_tf/CMakeFiles/install.dir
 /home/hl/Src/CLionProjects/RxROS/build/ros_robot_tf/CMakeFiles/ros_robot_tf_broadcaster.dir

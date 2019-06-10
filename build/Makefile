@@ -987,6 +987,32 @@ velocity_publisher/fast:
 .PHONY : velocity_publisher/fast
 
 #=============================================================================
+# Target rules for targets named brickpi3_base_controller_rxros
+
+# Build rule for target.
+brickpi3_base_controller_rxros: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 brickpi3_base_controller_rxros
+.PHONY : brickpi3_base_controller_rxros
+
+# fast build rule for target.
+brickpi3_base_controller_rxros/fast:
+	$(MAKE) -f brickpi3/CMakeFiles/brickpi3_base_controller_rxros.dir/build.make brickpi3/CMakeFiles/brickpi3_base_controller_rxros.dir/build
+.PHONY : brickpi3_base_controller_rxros/fast
+
+#=============================================================================
+# Target rules for targets named brickpi3_base_controller
+
+# Build rule for target.
+brickpi3_base_controller: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 brickpi3_base_controller
+.PHONY : brickpi3_base_controller
+
+# fast build rule for target.
+brickpi3_base_controller/fast:
+	$(MAKE) -f brickpi3/CMakeFiles/brickpi3_base_controller.dir/build.make brickpi3/CMakeFiles/brickpi3_base_controller.dir/build
+.PHONY : brickpi3_base_controller/fast
+
+#=============================================================================
 # Target rules for targets named tf_generate_messages_cpp
 
 # Build rule for target.
@@ -1167,32 +1193,6 @@ nav_msgs_generate_messages_eus: cmake_check_build_system
 nav_msgs_generate_messages_eus/fast:
 	$(MAKE) -f brickpi3/CMakeFiles/nav_msgs_generate_messages_eus.dir/build.make brickpi3/CMakeFiles/nav_msgs_generate_messages_eus.dir/build
 .PHONY : nav_msgs_generate_messages_eus/fast
-
-#=============================================================================
-# Target rules for targets named brickpi3
-
-# Build rule for target.
-brickpi3: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 brickpi3
-.PHONY : brickpi3
-
-# fast build rule for target.
-brickpi3/fast:
-	$(MAKE) -f brickpi3/CMakeFiles/brickpi3.dir/build.make brickpi3/CMakeFiles/brickpi3.dir/build
-.PHONY : brickpi3/fast
-
-#=============================================================================
-# Target rules for targets named brickpi3_base_controller
-
-# Build rule for target.
-brickpi3_base_controller: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 brickpi3_base_controller
-.PHONY : brickpi3_base_controller
-
-# fast build rule for target.
-brickpi3_base_controller/fast:
-	$(MAKE) -f brickpi3/CMakeFiles/brickpi3_base_controller.dir/build.make brickpi3/CMakeFiles/brickpi3_base_controller.dir/build
-.PHONY : brickpi3_base_controller/fast
 
 #=============================================================================
 # Target rules for targets named sensor_msgs_generate_messages_lisp
@@ -1453,6 +1453,32 @@ brickpi3_odom_publisher: cmake_check_build_system
 brickpi3_odom_publisher/fast:
 	$(MAKE) -f brickpi3/CMakeFiles/brickpi3_odom_publisher.dir/build.make brickpi3/CMakeFiles/brickpi3_odom_publisher.dir/build
 .PHONY : brickpi3_odom_publisher/fast
+
+#=============================================================================
+# Target rules for targets named brickpi3
+
+# Build rule for target.
+brickpi3: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 brickpi3
+.PHONY : brickpi3
+
+# fast build rule for target.
+brickpi3/fast:
+	$(MAKE) -f brickpi3/CMakeFiles/brickpi3.dir/build.make brickpi3/CMakeFiles/brickpi3.dir/build
+.PHONY : brickpi3/fast
+
+#=============================================================================
+# Target rules for targets named brickpi3_odom_publisher_rxros
+
+# Build rule for target.
+brickpi3_odom_publisher_rxros: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 brickpi3_odom_publisher_rxros
+.PHONY : brickpi3_odom_publisher_rxros
+
+# fast build rule for target.
+brickpi3_odom_publisher_rxros/fast:
+	$(MAKE) -f brickpi3/CMakeFiles/brickpi3_odom_publisher_rxros.dir/build.make brickpi3/CMakeFiles/brickpi3_odom_publisher_rxros.dir/build
+.PHONY : brickpi3_odom_publisher_rxros/fast
 
 #=============================================================================
 # Target rules for targets named ros_robot_tf_broadcaster
@@ -1803,6 +1829,8 @@ help:
 	@echo "... joystick_publisher"
 	@echo "... velocity_publisher_rxros"
 	@echo "... velocity_publisher"
+	@echo "... brickpi3_base_controller_rxros"
+	@echo "... brickpi3_base_controller"
 	@echo "... tf_generate_messages_cpp"
 	@echo "... sensor_msgs_generate_messages_eus"
 	@echo "... sensor_msgs_generate_messages_cpp"
@@ -1817,8 +1845,6 @@ help:
 	@echo "... tf2_msgs_generate_messages_eus"
 	@echo "... brickpi3_rxros"
 	@echo "... nav_msgs_generate_messages_eus"
-	@echo "... brickpi3"
-	@echo "... brickpi3_base_controller"
 	@echo "... sensor_msgs_generate_messages_lisp"
 	@echo "... actionlib_msgs_generate_messages_py"
 	@echo "... actionlib_generate_messages_eus"
@@ -1839,6 +1865,8 @@ help:
 	@echo "... brickpi3_joint_states_publisher_rxros"
 	@echo "... tf_generate_messages_lisp"
 	@echo "... brickpi3_odom_publisher"
+	@echo "... brickpi3"
+	@echo "... brickpi3_odom_publisher_rxros"
 	@echo "... ros_robot_tf_broadcaster"
 	@echo "... ros_robot_tf_listener"
 	@echo "... ros_robot"
