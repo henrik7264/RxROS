@@ -178,7 +178,7 @@ cd ..
 
 The RxROS language depends on the following software:<br>
 1. Ubuntu Binoic 18.04
-2. ROS Melodic
+2. ROS Melodic v12
 3. Reactive C++ v2
 
 The software must be installed as described above.<br>
@@ -196,6 +196,8 @@ A RxROS program is in principle a ROS node,
 so the first step is not surprisingly to initialise it and specify the node name.
 This is done by means of the init function<br>
 
+##### Syntax
+
 ```cpp
 rxros::init(argc, argv, "Name_of_ROS_node");
 ```
@@ -212,9 +214,10 @@ int main(int argc, char** argv) {'
     rxros::spin();
 }
 ```
-<br>
 
 #### Parameters
+
+##### Syntax
 
 ```cpp
 auto rxros::parameter::get<param_type>(const std::string& name, const param_type& defaultValue)
@@ -238,9 +241,10 @@ int main(int argc, char** argv) {
     rxros::spin();
 }
 ```
-<br>
 
 #### Logging
+
+##### Syntax
 
 ```cpp
 rxros::logging& rxros::logging().debug();
@@ -263,14 +267,18 @@ int main(int argc, char** argv) {
     rxros::logging().error() << "min_vel_angular: " << minVelAngular << " rad/s";
     rxros::logging().fatal() << "max_vel_angular: " << maxVelAngular << " rad/s";
 ```
-<br>
 
-#### Topics
+#### Observables
+
+##### Topics
+
+###### Syntax
+
 ```cpp
 auto rxros::observable::from_topic<topic_type>(const std::string& topic, const uint32_t queue_size = 10)
 ```
 
-##### Example
+###### Example
 
 ```cpp
 int main(int argc, char** argv) {
@@ -285,29 +293,36 @@ int main(int argc, char** argv) {
     rxros::spin();
 }
 ```
-<br>
 
-#### Broadcasters
+##### Broadcasters
+
+###### Syntax
+
 ```cpp
 auto rxros::observable::from_transform(const std::string& parent_frameId, const std::string& child_frameId, const double frequency = 10.0)
 ```
 
-##### Example
+###### Example
 
 ```cpp
 ```
-<br>
 
 
-#### Services
-```cpp
-```
+##### Services
 
-##### Example
+###### Syntax
 
 ```cpp
 ```
-<br>
+
+###### Example
+
+```cpp
+```
+
+
+#### Operators
+
 
 #### Example
 The following example is a full implementation of a velocity publisher
