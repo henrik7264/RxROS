@@ -1,2 +1,0 @@
-set(brickpi3_ros_MESSAGE_FILES "/home/hl/Src/CLionProjects/RxROS/src/brickpi3_ros/msg/Accelerometer.msg;/home/hl/Src/CLionProjects/RxROS/src/brickpi3_ros/msg/Color.msg;/home/hl/Src/CLionProjects/RxROS/src/brickpi3_ros/msg/Contact.msg;/home/hl/Src/CLionProjects/RxROS/src/brickpi3_ros/msg/Gyro.msg;/home/hl/Src/CLionProjects/RxROS/src/brickpi3_ros/msg/JointCommand.msg;/home/hl/Src/CLionProjects/RxROS/src/brickpi3_ros/msg/Light.msg;/home/hl/Src/CLionProjects/RxROS/src/brickpi3_ros/msg/Range.msg")
-set(brickpi3_ros_SERVICE_FILES "")
