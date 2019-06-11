@@ -10,6 +10,8 @@
 using namespace rxcpp::operators;
 using namespace rxros::operators;
 
+enum WheelId{ LEFT_WHEEL = 0, RIGHT_WHEEL = 1};
+
 
 int main(int argc, char** argv)
 {
@@ -34,37 +36,46 @@ int main(int argc, char** argv)
         else
             return curr_factor;};
 
-    auto desired_lWheel_vel = [=](const auto& cmd_vel) {
-        return cmd_vel.linear.x - cmd_vel.angular.z * wheel_basis;}; // m/s
+    auto desired_wheel_vel = [=](const auto& wheel, const auto& cmd_vel) {
+        if (wheel == LEFT_WHEEL)
+            return cmd_vel.linear.x - cmd_vel.angular.z * wheel_basis; // m/s
+        else if (wheel == RIGHT_WHEEL)
+            return cmd_vel.linear.x + cmd_vel.angular.z * wheel_basis;}; // m/s
 
-    auto desired_rWheel_vel = [=](const auto& cmd_vel) {
-        return cmd_vel.linear.x + cmd_vel.angular.z * wheel_basis;}; // m/s
-
-    auto curr_lWheel_vel = [=](const auto& joint_states) {
-        return joint_states.velocity[0] * wheel_radius;}; // first element is expected to be a left wheel
-
-    auto curr_rWheel_vel = [=](const auto& joint_states) {
-        return joint_states.velocity[1] * wheel_radius}; // second element is expected to be a right wheel
+    auto curr_wheel_vel = [=](const auto& wheel, const auto& joint_states) {
+        return joint_states.velocity[wheel] * wheel_radius;};
 
     auto update_effort = [=](const auto& prevTuple, const auto& tuple) {  // tuple: joint_states, cmd_vel
         const auto last_factor_lWheel = std::get<2>(prevTuple);
         const auto last_factor_rWheel = std::get<3>(prevTuple);
         const auto joint_states = std::get<0>(tuple);
         const auto cmd_vel = std::get<1>(tuple);
-        const auto curr_factor_lWheel = adjust_factor(last_factor_lWheel, curr_lWheel_vel(joint_states), desired_lWheel_vel(cmd_vel));
-        const auto curr_factor_rWheel = adjust_factor(last_factor_rWheel, curr_rWheel_vel(joint_states), desired_rWheel_vel(cmd_vel));
+        const auto curr_factor_lWheel = adjust_factor(last_factor_lWheel, curr_wheel_vel(LEFT_WHEEL, joint_states), desired_wheel_vel(LEFT_WHEEL, cmd_vel));
+        const auto curr_factor_rWheel = adjust_factor(last_factor_rWheel, curr_wheel_vel(RIGHT_WHEEL, joint_states), desired_wheel_vel(RIGHT_WHEEL, cmd_vel));
         return std::make_tuple(
-            desired_lWheel_vel(cmd_vel) * curr_factor_lWheel, // effort for left wheel
-            desired_rWheel_vel(cmd_vel) * curr_factor_rWheel, // effort for right whell
+            desired_wheel_vel(LEFT_WHEEL, cmd_vel) * curr_factor_lWheel, // effort for left wheel
+            desired_wheel_vel(RIGHT_WHEEL, cmd_vel) * curr_factor_rWheel, // effort for right wheel
             curr_factor_lWheel,
             curr_factor_rWheel);};
 
+    auto effort_2_joint_cmd = [=] (const auto& wheel) {
+        return [=](const auto& tuple) {
+            brickpi3_msgs::JointCommand jointCommand;
+            jointCommand.name = (wheel == LEFT_WHEEL) ? l_wheel_joint : r_wheel_joint;
+            jointCommand.effort = (wheel == LEFT_WHEEL) ? std::get<0>(tuple) : std::get<1>(tuple);
+            return jointCommand;};};
+
     auto joint_states_observable = rxros::observable::from_topic<sensor_msgs::JointState>("/joint_states");
     auto cmd_vel_observable = rxros::observable::from_topic<geometry_msgs::Twist>("/cmd_vel");
-    auto effort_observable = joint_states_observable.with_latest_from([](const auto& js, const auto& cv){return std::make_tuple(js, cv);}, cmd_vel_observable)
-        | scan(std::make_tuple(0.0, 0.0, 0.0, 0.0), update_effort) // tuple: effort left wheel, effort right wheel, factor left wheel, factor right wheel.
+    auto effort_observable = joint_states_observable.with_latest_from([](const auto& js, const auto& cv) {return std::make_tuple(js, cv);}, cmd_vel_observable)
+        | scan(std::make_tuple(0.0, 0.0, 0.0, 0.0), update_effort); // tuple: effort left wheel, effort right wheel, factor left wheel, factor right wheel.
 
+    effort_observable
+    | map(effort_2_joint_cmd(LEFT_WHEEL))
+    | publish_to_topic<brickpi3_msgs::JointCommand>("/joint_command");
 
+    effort_observable
+    | map(effort_2_joint_cmd(RIGHT_WHEEL))
     | publish_to_topic<brickpi3_msgs::JointCommand>("/joint_command");
 
     rxros::spin();
