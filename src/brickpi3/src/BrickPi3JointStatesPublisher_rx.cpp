@@ -2,16 +2,18 @@
 // Created by hl on 2/13/19.
 //
 
+#include <iostream>
 #include <algorithm>
 #include <rxros.h>
 #include <sensor_msgs/JointState.h>
 using namespace rxcpp::operators;
 using namespace rxros::operators;
 
-auto makeJointStates = [](const auto& ljs, const auto& rjs) {
+auto tuple_2_joint_states = [](const auto& tuple) { // tuple: left joint state, right joint state
     static std::atomic<unsigned int> seqNo(0);
+    const auto ljs = std::get<0>(tuple);
+    const auto rjs = std::get<1>(tuple);
     sensor_msgs::JointState jointState;
-
     //jointState.header.frame_id = name;
     jointState.header.stamp = ros::Time::now();
     jointState.header.seq = seqNo++;
@@ -37,9 +39,10 @@ int main(int argc, char** argv)
     rxros::logging().info() << "r_wheel_joint: " << r_wheel_joint ;
 
     const auto joint_state_observable = rxros::observable::from_topic<sensor_msgs::JointState>("/joint_state");
-    const auto left_wheel_observable = joint_state_observable.filter([=](auto& jointState){return (jointState.name[0] == l_wheel_joint);});
-    const auto right_wheel_observable = joint_state_observable.filter([=](auto& jointState){return (jointState.name[0] == r_wheel_joint);});
-    left_wheel_observable.zip(makeJointStates, right_wheel_observable)
+    const auto left_wheel_observable = joint_state_observable.filter([=](auto& jointState){return (jointState.name[0] != l_wheel_joint);});
+    const auto right_wheel_observable = joint_state_observable.filter([=](auto& jointState){return (jointState.name[0] != r_wheel_joint);});
+    left_wheel_observable.zip(right_wheel_observable) // creates an observable msg stream of tuples.
+    | map(tuple_2_joint_states)
     | publish_to_topic<sensor_msgs::JointState>("/joint_states");
 
     rxros::spin();
