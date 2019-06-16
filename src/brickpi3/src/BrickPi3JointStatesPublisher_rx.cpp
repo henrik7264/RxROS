@@ -9,10 +9,8 @@
 using namespace rxcpp::operators;
 using namespace rxros::operators;
 
-auto tuple_2_joint_states = [](const auto& tuple) { // tuple: left joint state, right joint state
+auto tuple_2_joint_states = [](const auto& ljs, const auto& rjs) { // tuple: left joint state, right joint state
     static std::atomic<unsigned int> seqNo(0);
-    const auto ljs = std::get<0>(tuple);
-    const auto rjs = std::get<1>(tuple);
     sensor_msgs::JointState jointState;
     //jointState.header.frame_id = name;
     jointState.header.stamp = ros::Time::now();
@@ -41,8 +39,7 @@ int main(int argc, char** argv)
     const auto joint_state_observable = rxros::observable::from_topic<sensor_msgs::JointState>("/joint_state");
     const auto left_wheel_observable = joint_state_observable.filter([=](auto& jointState){return (jointState.name[0] != l_wheel_joint);});
     const auto right_wheel_observable = joint_state_observable.filter([=](auto& jointState){return (jointState.name[0] != r_wheel_joint);});
-    left_wheel_observable.zip(right_wheel_observable) // creates an observable msg stream of tuples.
-    | map(tuple_2_joint_states)
+    left_wheel_observable.zip(tuple_2_joint_states, right_wheel_observable)
     | publish_to_topic<sensor_msgs::JointState>("/joint_states");
 
     rxros::spin();
