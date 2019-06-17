@@ -1,3 +1,4 @@
+
 //
 // Created by hl on 2/13/19.
 //
@@ -29,7 +30,7 @@ int main(int argc, char** argv)
 {
     rxros::init(argc, argv, "brickpi3_joint_states_publisher"); // Name of this node.
 
-    const auto l_wheel_joint = rxros::parameter::get("/brickpi3/r_wheel_joint", "l_wheel_joint");
+    const auto l_wheel_joint = rxros::parameter::get("/brickpi3/l_wheel_joint", "l_wheel_joint");
     const auto r_wheel_joint = rxros::parameter::get("/brickpi3/r_wheel_joint", "r_wheel_joint");
 
     rxros::logging().info() << "brickpi3_joint_states_publisher:";
@@ -37,8 +38,8 @@ int main(int argc, char** argv)
     rxros::logging().info() << "r_wheel_joint: " << r_wheel_joint ;
 
     const auto joint_state_observable = rxros::observable::from_topic<sensor_msgs::JointState>("/joint_state");
-    const auto left_wheel_observable = joint_state_observable.filter([=](auto& jointState){return (jointState.name[0] != l_wheel_joint);});
-    const auto right_wheel_observable = joint_state_observable.filter([=](auto& jointState){return (jointState.name[0] != r_wheel_joint);});
+    const auto left_wheel_observable = joint_state_observable.filter([=](auto& jointState){return (jointState.name[0] == l_wheel_joint);});
+    const auto right_wheel_observable = joint_state_observable.filter([=](auto& jointState){return (jointState.name[0] == r_wheel_joint);});
     left_wheel_observable.zip(tuple_2_joint_states, right_wheel_observable)
     | publish_to_topic<sensor_msgs::JointState>("/joint_states");
 

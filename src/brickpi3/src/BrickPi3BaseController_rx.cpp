@@ -17,7 +17,7 @@ int main(int argc, char** argv)
 {
     rxros::init(argc, argv, "brickpi3_base_controller"); // Name of this node.
 
-    const auto l_wheel_joint = rxros::parameter::get("/brickpi3/r_wheel_joint", "l_wheel_joint");
+    const auto l_wheel_joint = rxros::parameter::get("/brickpi3/l_wheel_joint", "l_wheel_joint");
     const auto r_wheel_joint = rxros::parameter::get("/brickpi3/r_wheel_joint", "r_wheel_joint");
     const auto wheel_radius = rxros::parameter::get("/brickpi3/wheel_radius", 0.028); // m
     const auto wheel_basis = rxros::parameter::get("/brickpi3/wheel_basis", 0.0625); // m
