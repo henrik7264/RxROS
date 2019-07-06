@@ -8,10 +8,19 @@
 #include <brickpi3_msgs/Color.h>
 #include <brickpi3_msgs/Range.h>
 #include <brickpi3_msgs/JointCommand.h>
+#include "BrickPi3Utils.h"
 #include "BrickPi3Observable_rx.h"
 using namespace rxcpp::operators;
 using namespace rxros::operators;
 using namespace brickpi3::operators;
+
+
+template <class Observable>
+auto join_with_latest_from(const Observable& observable) {
+    return [=](auto&& source) {
+        return source.with_latest_from (
+            [=](const auto o1, const auto o2) {
+                return std::make_tuple(o1, o2);}, observable);};}
 
 
 int main(int argc, char** argv) {
@@ -82,7 +91,8 @@ int main(int argc, char** argv) {
     auto jointCmdObserv = rxros::observable::from_topic<brickpi3_msgs::JointCommand>("/joint_command");
 
     rxros::observable::from_yaml("/brickpi3/brickpi3_robot").subscribe(
-        [=](const auto& device) { // on_next event
+        [=](auto config) { // on_next event
+            DeviceConfig device(config);
             if (device.getType() == "motor") {
                 rxros::logging().debug() << device.getType() << ", " << device.getName() << ", " << device.getPort() << ", " << device.getFrequency();
 
