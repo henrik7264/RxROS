@@ -133,9 +133,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-#add_executable(${PROJECT_NAME}_examples src/rxcpp_examples.cpp)
-add_executable(my_publisher src/MyPublisher.cpp)
-add_executable(my_subscriber src/MySubscriber_rx.cpp)
+add_executable(${PROJECT_NAME}_examples src/rxcpp_examples.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -148,9 +146,7 @@ add_executable(my_subscriber src/MySubscriber_rx.cpp)
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-#target_link_libraries(${PROJECT_NAME}_examples ${catkin_LIBRARIES})
-target_link_libraries(my_publisher ${catkin_LIBRARIES})
-target_link_libraries(my_subscriber ${catkin_LIBRARIES})
+target_link_libraries(${PROJECT_NAME}_examples ${catkin_LIBRARIES})
 
 #############
 ## Install ##
