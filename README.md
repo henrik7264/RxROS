@@ -52,95 +52,6 @@ sudo apt-get install ros-melodic-joy ros-melodic-teleop-twist-keyboard
 sudo apt-get install ros-melodic-navigation
 ```
 
-
-### NXT-ROS
-
-NXT-ROS is a github project found at<br> 
-https://github.com/NXT-ROS/nxt<br>
-The installation process of NXT-ROS is a bit complicated, but here is the procedure I got working:<br>
-Start to install the nxt-python package. NXT-ROS will not work without it!
-
-```bash
-sudo apt-get install libnxt python-nxt 
-```
-
-Create then a lego group and add the udev USB definition for the NXT controller:
-
-```
-sudo groupadd lego 
-sudo usermod -a -G lego $(id -un) 
-echo 'SUBSYSTEM=="usb", ATTRS{idVendor}=="0694", GROUP="lego", MODE="0660"' > /tmp/70-lego.rules && sudo mv /tmp/70-lego.rules /etc/udev/rules.d/70-lego.rules 
-reboot
-```
-
-Finally, execute the following commands in a directory where you keep your ROS workspaces - any directory will work.
-
-```bash
-mkdir –p nxt 
-cd  nxt 
-git clone --recursive https://github.com/NXT-ROS/nxt.git src
-catkin_make
-cd ..
-mkdir -p nxt_teleop/src
-cd nxt_teleop/src
-git clone --recursive https://github.com/NXT-ROS/nxt_teleop.git
-cd ..
-catkin_make
-cd ..
-mkdir -p nxt_viz/src
-cd nxt_viz/src
-git clone --recursive https://github.com/NXT-ROS/nxt_viz.git
-cd ..
-catkin_make
-cd ..
-```
-
-### Slamtec A2 RPLIDAR
-Installation instruction of how to install Slamtec A2 RPLIDAR can be found at<br>
-https://github.com/slamtec/rplidar_ros<br>
-Execute the following commands to install Slamtec A2 RPLIDAR:
-
-```bash
-mkdir -p slamtec/src
-cd slamtec
-catkin_make
-cd src
-git clone https://github.com/Slamtec/rplidar_ros.git
-cd ..
-catkin_make
-cd ..
-```
-
-After the installation a new package named rplidar_ros is created.<br>
-When you perform a catkin_make the new package will be included in the project.<br>
-Finally, ensure that the udev rules for rplidar is configured correctly:
-
-```bash
-sudo cp slamtec/src/rplidar_ros/scripts/rplidar.rules /etc/udev/rules.d/70-rplidar.rules
-```
-
-### Bosma Scheduler
-
-The Bosma scheduler is a blue print of how software should be created.
-It has a very clean interface as is very easy to use and understand.
-It can be found at<br>
-https://github.com/Bosma/Scheduler<br>
-To install the Bosma Scheduler execute the following commands:
-
-```bash
-git clone https://github.com/vit-vit/CTPL.git
-cd CTPL
-sudo cp *.h /usr/local/include
-cd ..
-
-git clone https://github.com/Bosma/Scheduler.git
-cd Scheduler
-cmake CMakeLists.txt
-make
-sudo cp *.h /usr/local/include
-cd ..
-```
-
 ### Reactive C++
 
 Reactive C++ is also a github project. It can be found at<br>
@@ -168,11 +79,7 @@ Finally, we have come to the RxROS project. To install RxROS do the following:
 ```bash
 git clone https://github.com/henrik7264/RxROS.git
 cd RxROS
-sudo ./src/rxros/src/install.sh
-catkin_make
-# catkin_make may fail to compile if the platform is not amd64. 
-# Remove the build and devel directory to fix this pronblem
-# and run catkin_make again.
+sudo install.sh
 cd .. 
 ```
 
@@ -399,32 +306,4 @@ int main(int argc, char** argv) {
     rxros::spin();
 }
 ```
-<br>
-
-## Problems and observations
-
-1. Drifting odom when rotating the robot<br>
-The following picture shows the robot and laser scan seen from the odom frame.
-acml and map has been disabled/turned off. The robot has not moved and the laserscan
-shows straight lines. Observe that the laserscan decay time has been set to 30 sec as
-I want to demonstrate some problems with the odom of the robot. Please also observe
-the small red dots in the picture. They are USB wires that runs from my PC to the robot.<br>
-![odom_no_movement](/images/robot_odom_no_movement.png)<br>
-The next picture shows the laserscan after the robot has moved straight forward and backwards
-a couple of times. There is very little drift in the odom of robot. When amcl is activated it
-is actually able to correct the position of the robot. This indicates to me that the drift of
-the odom is acceptable.<br>
-![odom_moving_forward](/images/robot_odom_moving_forward_and_back.png)<br>
-Now we come to the actual problem. When I start to rotate the robot the drift of the odom goes crazy
-as shown in the picture below. I cannot determine the actual cause of this drift, but it has a bad
-impact on amcl. I actually thinks it disable amcl as I see no corrections of the position after I
-have make a couple of turns with the robot<br>
-![odom_moving_left](/images/robot_odom_turning_left_and_right.png)<br>
-2. roswtf reports errors<br>
-When roswtf is executed the following errors are shown<br>
-![roswtf fail](/images/roswtf_error.png)<br>
-The impact if the error is currently unknown.
-3. The rosgraph of the robot<br>
-![rosgraph](/images/ros_robot_rosgraph.svg)<br>
-![rosgraph](/images/ros_robot_rosgraph2.svg)<br>
 <br>
