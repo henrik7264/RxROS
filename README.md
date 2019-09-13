@@ -1,6 +1,6 @@
 # RxROS
 
-RxROS a domain specific language for programming robots.
+RxROS a domain specific language for programming robots...
 
 ## Introduction
 
