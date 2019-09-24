@@ -1,13 +1,13 @@
 # RxROS
 
-RxROS a domain specific language for programming robots...
+RxROS a domain specific language for programming robots.
 
 ## Introduction
 
 This code is part of my Master Thesis at ITU, Copenhagen Denmark.
 As the title indicates is the goal to produce a DSL for programming robots.
 The DSL will be based on Reactive C++ and ROS.
-<p> 
+<p>
 Part of the thesis is to build a Lego Mindstorms NXT robot.
 The robot will be used to gain experiences with programming robots.
 <p>
@@ -59,13 +59,13 @@ https://github.com/ReactiveX/RxCpp<br>
 To install RxCpp execute the following commands:
 
 ```bash
-git clone --recursive  https://github.com/ReactiveX/RxCpp.git 
-cd RxCpp 
-mkdir -p projects/build 
-cd projects/build 
-cmake -G"Unix Makefiles" -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_BUILD_TYPE=RelWithDebInfo -B. ../CMake 
-make 
-sudo make install 
+git clone --recursive  https://github.com/ReactiveX/RxCpp.git
+cd RxCpp
+mkdir -p projects/build
+cd projects/build
+cmake -G"Unix Makefiles" -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_BUILD_TYPE=RelWithDebInfo -B. ../CMake
+make
+sudo make install
 cd ..
 ```
 
@@ -80,7 +80,7 @@ Finally, we have come to the RxROS project. To install RxROS do the following:
 git clone https://github.com/henrik7264/RxROS.git
 cd RxROS
 sudo install.sh
-cd .. 
+cd ..
 ```
 
 The RxROS language depends on the following software:<br>
@@ -116,7 +116,7 @@ rxros::init(argc, argv, "Name_of_ROS_node");
 int main(int argc, char** argv) {'
     rxros::init(argc, argv, "velocity_publisher"); // Name of this node.
 
-    // ... here 
+    // ... here
 
     rxros::spin();
 }
